@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -66,32 +66,7 @@ export default function Contact() {
     submitMutation.mutate(data);
   };
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: "Email Us",
-      value: "hello@siwahtai.com",
-      description: "Send us an email anytime",
-    },
-    {
-      icon: Phone,
-      title: "Call Us",
-      value: "+1 (555) 123-4567",
-      description: "Mon-Fri from 8am to 6pm",
-    },
-    {
-      icon: MapPin,
-      title: "Visit Us",
-      value: "San Francisco, CA",
-      description: "Remote-first with SF hub",
-    },
-    {
-      icon: Clock,
-      title: "Response Time",
-      value: "< 24 hours",
-      description: "We respond quickly",
-    },
-  ];
+
 
   const serviceOptions = [
     "AI Video Ads",
@@ -122,51 +97,9 @@ export default function Contact() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xs:gap-12 xl:gap-16">
-          {/* Contact Information */}
-          <aside className="space-y-6 xs:space-y-8 order-2 lg:order-1">
-            <div>
-              <h3 className="text-xl xs:text-2xl font-semibold text-slate-900 mb-6">Contact Information</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 xs:gap-6">
-                {contactInfo.map((info, index) => {
-                  const Icon = info.icon;
-                  return (
-                    <article 
-                      key={index}
-                      className="flex items-start space-x-3 xs:space-x-4 p-4 xs:p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200"
-                    >
-                      <div className="w-10 h-10 xs:w-12 xs:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Icon className="text-primary h-5 w-5 xs:h-6 xs:w-6" aria-hidden="true" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-slate-900 text-sm xs:text-base">{info.title}</h4>
-                        <p className="text-slate-700 font-medium text-sm xs:text-base">{info.value}</p>
-                        <p className="text-slate-500 text-xs xs:text-sm">{info.description}</p>
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl p-4 xs:p-6">
-              <div className="flex items-start space-x-3 xs:space-x-4">
-                <CheckCircle className="text-primary h-6 w-6 xs:h-8 xs:w-8 flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-slate-900 mb-2 text-sm xs:text-base">Why Choose SiwahtAI?</h4>
-                  <ul className="text-slate-600 space-y-1 text-xs xs:text-sm">
-                    <li>• Expert AI development team</li>
-                    <li>• Custom solutions for your needs</li>
-                    <li>• Fast turnaround times</li>
-                    <li>• Ongoing support and optimization</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </aside>
-
+        <div className="max-w-2xl mx-auto">
           {/* Contact Form */}
-          <div className="order-1 lg:order-2">
+          <div>
             <div className="bg-white rounded-2xl shadow-xl p-6 xs:p-8">
               <h3 className="text-xl xs:text-2xl font-semibold text-slate-900 mb-6">Start Your Project</h3>
               
