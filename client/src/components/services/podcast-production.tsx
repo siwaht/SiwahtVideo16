@@ -5,32 +5,32 @@ export default function PodcastProduction() {
     {
       icon: Mic,
       title: "Script to Audio",
-      description: "Transform your written content into professional-quality podcast episodes with AI narration"
+      description: "We transform your written content into professional-quality podcast episodes using advanced AI narration"
     },
     {
       icon: Headphones,
       title: "Audio Enhancement",
-      description: "Automatic noise reduction, EQ optimization, and mastering for broadcast-ready sound"
+      description: "Our team applies professional noise reduction, EQ optimization, and mastering for broadcast-ready sound"
     },
     {
       icon: Radio,
-      title: "Multi-Voice Support",
-      description: "Create dynamic conversations with multiple AI voices and natural dialogue flow"
+      title: "Multi-Voice Production",
+      description: "We create dynamic conversations with multiple AI voices and natural dialogue flow for your brand"
     },
     {
       icon: Zap,
-      title: "Rapid Production",
-      description: "Go from script to published episode in minutes, not hours or days"
+      title: "Rapid Turnaround",
+      description: "Our streamlined process delivers finished episodes from script to publication in record time"
     },
     {
       icon: Clock,
-      title: "Scheduled Publishing",
-      description: "Automate your release schedule across all major podcast platforms"
+      title: "Content Strategy",
+      description: "We manage your podcast release schedule and distribution across all major platforms"
     },
     {
       icon: Users,
-      title: "Audience Analytics",
-      description: "Track engagement metrics and optimize content for better listener retention"
+      title: "Performance Optimization",
+      description: "Our analytics team tracks engagement metrics and optimizes content for better listener retention"
     }
   ];
 
@@ -44,10 +44,10 @@ export default function PodcastProduction() {
             AI Podcast Production
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Automate Your Podcast Workflow
+            Professional Podcast Production Services
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Automate your podcast workflow from script to distribution. Engage your audience with high-quality audio content, without the studio hassle.
+            We handle your podcast workflow from script to distribution. Our team helps you engage your audience with high-quality audio content, without the studio hassle.
           </p>
         </div>
 
@@ -147,10 +147,10 @@ export default function PodcastProduction() {
         <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              Why Choose AI Podcast Production?
+              Why Partner with SiwahtAI for Podcasts?
             </h3>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Transform your podcasting workflow with intelligent automation and professional-quality output
+              Our experienced team delivers professional podcast production with cutting-edge AI technology and personalized service
             </p>
           </div>
 
@@ -159,9 +159,9 @@ export default function PodcastProduction() {
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Clock className="w-8 h-8 text-purple-600" />
               </div>
-              <h4 className="text-xl font-semibold text-gray-900 mb-3">Save 90% of Time</h4>
+              <h4 className="text-xl font-semibold text-gray-900 mb-3">Fast Turnaround</h4>
               <p className="text-gray-600">
-                Reduce production time from hours to minutes with automated audio processing and publishing
+                Our efficient production process delivers high-quality podcast episodes in a fraction of traditional time
               </p>
             </div>
 
@@ -169,9 +169,9 @@ export default function PodcastProduction() {
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Headphones className="w-8 h-8 text-purple-600" />
               </div>
-              <h4 className="text-xl font-semibold text-gray-900 mb-3">Professional Quality</h4>
+              <h4 className="text-xl font-semibold text-gray-900 mb-3">Studio-Quality Audio</h4>
               <p className="text-gray-600">
-                Broadcast-ready audio with automatic enhancement, EQ, and mastering capabilities
+                Our audio engineers ensure broadcast-ready sound with professional enhancement and mastering
               </p>
             </div>
 
@@ -179,9 +179,9 @@ export default function PodcastProduction() {
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Radio className="w-8 h-8 text-purple-600" />
               </div>
-              <h4 className="text-xl font-semibold text-gray-900 mb-3">Multi-Platform</h4>
+              <h4 className="text-xl font-semibold text-gray-900 mb-3">Full-Service Management</h4>
               <p className="text-gray-600">
-                Distribute to all major podcast platforms simultaneously with automated scheduling
+                We handle distribution to all major podcast platforms and manage your content strategy
               </p>
             </div>
           </div>
