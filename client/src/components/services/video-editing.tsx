@@ -42,22 +42,18 @@ export default function VideoEditing() {
   return (
     <section 
       id="editing" 
-      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-50 via-orange-50 to-red-50 relative overflow-hidden"
+      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-100 to-orange-50"
       aria-labelledby="editing-heading"
     >
-      {/* Background decoration */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-red-500/10 rounded-full blur-2xl" />
-    
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
         <header className="text-center mb-12 xs:mb-16">
           <h2 
             id="editing-heading"
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-4 xs:mb-6"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
           >
             AI Video Editing
           </h2>
-          <p className="text-lg xs:text-xl lg:text-2xl text-slate-700 max-w-4xl mx-auto leading-relaxed px-2 font-light">
+          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
             Transform raw footage into polished videos with AI-powered editing. Cut, enhance, and produce professional content automatically.
           </p>
         </header>

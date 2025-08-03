@@ -46,22 +46,18 @@ export default function VoiceSynthesis() {
   return (
     <section 
       id="voice" 
-      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-white to-emerald-50 relative overflow-hidden"
+      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-white"
       aria-labelledby="voice-heading"
     >
-      {/* Background decoration */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-green-500/5 rounded-full blur-2xl" />
-    
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
         <header className="text-center mb-12 xs:mb-16">
           <h2 
             id="voice-heading"
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-4 xs:mb-6"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
           >
             AI Voice Synthesis
           </h2>
-          <p className="text-lg xs:text-xl lg:text-2xl text-slate-700 max-w-4xl mx-auto leading-relaxed px-2 font-light">
+          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
             Transform text into natural-sounding speech in any voice, language, or style. Perfect for audiobooks, podcasts, and multimedia content.
           </p>
         </header>
@@ -74,14 +70,14 @@ export default function VoiceSynthesis() {
               return (
                 <article 
                   key={index}
-                  className="luxury-card p-6 xs:p-8 group hover:scale-105 transition-all duration-300"
+                  className="flex items-start space-x-3 xs:space-x-4 p-3 xs:p-4 rounded-xl hover:bg-slate-50 transition-colors duration-200"
                 >
-                  <div className={`w-12 h-12 xs:w-16 xs:h-16 ${feature.bgColor} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className={`${feature.iconColor} h-6 w-6 xs:h-8 xs:w-8`} aria-hidden="true" />
+                  <div className={`w-10 h-10 xs:w-12 xs:h-12 ${feature.bgColor} rounded-lg flex items-center justify-center flex-shrink-0 mt-1`}>
+                    <Icon className={`${feature.iconColor} h-5 w-5 xs:h-6 xs:w-6`} aria-hidden="true" />
                   </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900 text-lg xs:text-xl mb-3">{feature.title}</h3>
-                    <p className="text-slate-600 text-base xs:text-lg leading-relaxed">{feature.description}</p>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg xs:text-xl font-semibold text-slate-900 mb-2">{feature.title}</h3>
+                    <p className="text-slate-600 text-sm xs:text-base leading-relaxed">{feature.description}</p>
                   </div>
                 </article>
               );

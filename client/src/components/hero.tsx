@@ -20,11 +20,11 @@ export default function Hero() {
       className="pt-16 md:pt-20 min-h-screen flex items-center relative overflow-hidden"
       style={{
         background: `linear-gradient(135deg, 
-          hsl(220, 85%, 45%) 0%, 
-          hsl(210, 75%, 35%) 25%, 
-          hsl(200, 60%, 50%) 50%,
-          hsl(220, 70%, 40%) 75%,
-          hsl(220, 85%, 45%) 100%)`
+          hsl(265, 85%, 58%) 0%, 
+          hsl(268, 100%, 72%) 25%, 
+          hsl(320, 100%, 84%) 50%,
+          hsl(286, 94%, 65%) 75%,
+          hsl(265, 85%, 58%) 100%)`
       }}
       aria-label="Hero section"
     >
@@ -49,10 +49,10 @@ export default function Hero() {
           <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 xs:mb-6 leading-tight text-shadow-elegant">
             Create with{" "}
             <span className="block xs:inline relative">
-              <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-white to-pink-100 bg-clip-text text-transparent">
                 AI Excellence
               </span>
-              <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-blue-200/20 blur-lg rounded-lg -z-10" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-pink-200/20 blur-lg rounded-lg -z-10" />
             </span>
           </h1>
           <p className="text-lg xs:text-xl md:text-2xl lg:text-3xl text-white/90 mb-6 xs:mb-8 max-w-4xl mx-auto leading-relaxed px-2 font-light">
