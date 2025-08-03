@@ -13,7 +13,8 @@ import {
   Mic, 
   Film,
   Menu,
-  X
+  X,
+  ArrowLeft
 } from "lucide-react";
 
 interface AdminLayoutProps {
@@ -98,12 +99,26 @@ export default function AdminLayout({ user, onLogout, children }: AdminLayoutPro
             </div>
           </div>
           
-          {/* User info and logout */}
-          <div className="flex items-center gap-4">
+          {/* User info and actions */}
+          <div className="flex items-center gap-3">
             <div className="text-sm hidden sm:block">
               <span className="text-muted-foreground">Welcome, </span>
               <span className="font-medium">{user?.username || "Admin"}</span>
             </div>
+            
+            {/* Back to Site button */}
+            <Link href="/">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="gap-2"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                <span className="hidden sm:inline">Back to Site</span>
+              </Button>
+            </Link>
+            
+            {/* Logout button */}
             <Button 
               variant="outline" 
               size="sm" 
@@ -144,6 +159,20 @@ export default function AdminLayout({ user, onLogout, children }: AdminLayoutPro
                     </Link>
                   );
                 })}
+                
+                {/* Separator */}
+                <div className="my-4">
+                  <Separator />
+                </div>
+                
+                {/* Back to Site link */}
+                <Link
+                  href="/"
+                  className="group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                >
+                  <ArrowLeft className="mr-3 h-4 w-4 flex-shrink-0" />
+                  Back to Site
+                </Link>
               </nav>
             </div>
           </div>
@@ -181,6 +210,21 @@ export default function AdminLayout({ user, onLogout, children }: AdminLayoutPro
                       </Link>
                     );
                   })}
+                  
+                  {/* Separator */}
+                  <div className="my-4">
+                    <Separator />
+                  </div>
+                  
+                  {/* Back to Site link */}
+                  <Link
+                    href="/"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                  >
+                    <ArrowLeft className="mr-3 h-4 w-4 flex-shrink-0" />
+                    Back to Site
+                  </Link>
                 </nav>
               </div>
             </div>
