@@ -4,6 +4,7 @@ import VideoAds from "@/components/services/video-ads";
 import Avatars from "@/components/services/avatars";
 import VoiceSynthesis from "@/components/services/voice-synthesis";
 import VideoEditing from "@/components/services/video-editing";
+import PodcastProduction from "@/components/services/podcast-production";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 
@@ -16,6 +17,7 @@ export default function Home() {
       <Avatars />
       <VoiceSynthesis />
       <VideoEditing />
+      <PodcastProduction />
       <Contact />
       <Footer />
     </div>
