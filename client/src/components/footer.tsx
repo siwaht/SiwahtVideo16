@@ -39,33 +39,18 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer 
-      className="relative overflow-hidden" 
-      style={{
-        background: `linear-gradient(135deg, 
-          hsl(226, 32%, 8%) 0%, 
-          hsl(265, 85%, 25%) 50%, 
-          hsl(226, 32%, 8%) 100%)`
-      }}
-      role="contentinfo"
-    >
-      {/* Decorative elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/15 rounded-full blur-3xl" />
-      </div>
-      
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-12 xs:py-16 relative z-10">
+    <footer className="bg-slate-900 text-white" role="contentinfo">
+      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-12 xs:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xs:gap-12">
           {/* Company Info */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center mb-4 xs:mb-6">
-              <h2 className="text-2xl xs:text-3xl font-bold text-white">
+              <h2 className="text-2xl xs:text-3xl font-bold gradient-text">
                 SiwahtAI
               </h2>
             </div>
-            <p className="text-white/80 mb-4 xs:mb-6 text-sm xs:text-base leading-relaxed">
-              Empowering creators with cutting-edge AI technology for video, audio, and content creation. Transform your vision into reality with our advanced AI solutions.
+            <p className="text-slate-300 mb-4 xs:mb-6 text-sm xs:text-base leading-relaxed">
+              Empowering creators with cutting-edge AI technology for video, audio, and content creation. Transform your ideas into reality with our advanced AI solutions.
             </p>
             
             {/* Contact Info */}

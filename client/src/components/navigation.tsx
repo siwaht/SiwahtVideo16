@@ -47,8 +47,8 @@ export default function Navigation() {
   return (
     <nav 
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "glass-effect shadow-2xl" : "glass-effect"
-      } backdrop-blur-xl border-b border-white/20`}
+        isScrolled ? "bg-white/95 shadow-lg" : "bg-white/80"
+      } backdrop-blur-md border-b border-slate-200`}
       role="navigation"
       aria-label="Main navigation"
     >
@@ -56,7 +56,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
-            <h1 className="text-xl xs:text-2xl md:text-3xl font-bold text-white cursor-pointer hover:scale-105 transition-transform duration-200"
+            <h1 className="text-xl xs:text-2xl md:text-3xl font-bold gradient-text cursor-pointer"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 role="button"
                 tabIndex={0}
@@ -73,7 +73,7 @@ export default function Navigation() {
                 <button 
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-white/80 hover:text-white transition-colors duration-200 font-medium text-sm xl:text-base py-2 px-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
+                  className="text-slate-600 hover:text-primary transition-colors duration-200 font-medium text-sm xl:text-base py-2 px-1"
                   data-testid={`nav-${item.id}`}
                 >
                   {item.label}
@@ -81,7 +81,7 @@ export default function Navigation() {
               ))}
               <button 
                 onClick={() => scrollToSection("contact")}
-                className="luxury-button text-white px-4 xl:px-6 py-2 xl:py-3 rounded-xl font-medium text-sm xl:text-base"
+                className="bg-primary text-white px-4 xl:px-6 py-2 xl:py-3 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium text-sm xl:text-base shadow-md hover:shadow-lg"
                 data-testid="nav-contact"
               >
                 Get Started
@@ -93,7 +93,7 @@ export default function Navigation() {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-white/80 hover:text-white glass-effect hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition-colors duration-200"
+              className="inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-primary hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors duration-200"
               aria-expanded={isMenuOpen}
               aria-label="Toggle main menu"
               data-testid="mobile-menu-button"
@@ -112,13 +112,13 @@ export default function Navigation() {
       {isMenuOpen && (
         <div className="lg:hidden">
           <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setIsMenuOpen(false)} />
-          <div className="fixed top-16 md:top-20 left-0 right-0 glass-effect shadow-2xl border-t border-white/20 z-50 max-h-screen overflow-y-auto backdrop-blur-xl">
+          <div className="fixed top-16 md:top-20 left-0 right-0 bg-white shadow-xl border-t border-slate-200 z-50 max-h-screen overflow-y-auto">
             <div className="px-4 pt-4 pb-6 space-y-2">
               {navigationItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="block w-full text-left px-4 py-3 text-base font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors duration-200"
+                  className="block w-full text-left px-4 py-3 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-lg transition-colors duration-200"
                   data-testid={`mobile-nav-${item.id}`}
                 >
                   {item.label}
@@ -127,7 +127,7 @@ export default function Navigation() {
               <div className="pt-4">
                 <button
                   onClick={() => scrollToSection("contact")}
-                  className="block w-full luxury-button text-white px-4 py-3 rounded-lg font-medium text-center"
+                  className="block w-full bg-primary text-white px-4 py-3 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium text-center"
                   data-testid="mobile-nav-contact"
                 >
                   Get Started

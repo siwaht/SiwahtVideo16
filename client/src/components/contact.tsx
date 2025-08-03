@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Send } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -66,7 +66,32 @@ export default function Contact() {
     submitMutation.mutate(data);
   };
 
-
+  const contactInfo = [
+    {
+      icon: Mail,
+      title: "Email Us",
+      value: "hello@siwahtai.com",
+      description: "Send us an email anytime",
+    },
+    {
+      icon: Phone,
+      title: "Call Us",
+      value: "+1 (555) 123-4567",
+      description: "Mon-Fri from 8am to 6pm",
+    },
+    {
+      icon: MapPin,
+      title: "Visit Us",
+      value: "San Francisco, CA",
+      description: "Remote-first with SF hub",
+    },
+    {
+      icon: Clock,
+      title: "Response Time",
+      value: "< 24 hours",
+      description: "We respond quickly",
+    },
+  ];
 
   const serviceOptions = [
     "AI Video Ads",
@@ -81,32 +106,69 @@ export default function Contact() {
   return (
     <section 
       id="contact" 
-      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-50 via-violet-50 to-pink-50 relative overflow-hidden"
+      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-50 to-indigo-50"
       aria-labelledby="contact-heading"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5" />
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-secondary/10 rounded-full blur-2xl" />
-    
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
         <header className="text-center mb-12 xs:mb-16">
           <h2 
             id="contact-heading"
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-4 xs:mb-6"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
           >
             Get Started Today
           </h2>
-          <p className="text-lg xs:text-xl lg:text-2xl text-slate-700 max-w-4xl mx-auto leading-relaxed px-2 font-light">
-            Ready to transform your vision with AI? Let's discuss your project and create something extraordinary together.
+          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
+            Ready to transform your ideas with AI? Let's discuss your project and create something amazing together.
           </p>
         </header>
 
-        <div className="max-w-2xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xs:gap-12 xl:gap-16">
+          {/* Contact Information */}
+          <aside className="space-y-6 xs:space-y-8 order-2 lg:order-1">
+            <div>
+              <h3 className="text-xl xs:text-2xl font-semibold text-slate-900 mb-6">Contact Information</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 xs:gap-6">
+                {contactInfo.map((info, index) => {
+                  const Icon = info.icon;
+                  return (
+                    <article 
+                      key={index}
+                      className="flex items-start space-x-3 xs:space-x-4 p-4 xs:p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200"
+                    >
+                      <div className="w-10 h-10 xs:w-12 xs:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Icon className="text-primary h-5 w-5 xs:h-6 xs:w-6" aria-hidden="true" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-slate-900 text-sm xs:text-base">{info.title}</h4>
+                        <p className="text-slate-700 font-medium text-sm xs:text-base">{info.value}</p>
+                        <p className="text-slate-500 text-xs xs:text-sm">{info.description}</p>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl p-4 xs:p-6">
+              <div className="flex items-start space-x-3 xs:space-x-4">
+                <CheckCircle className="text-primary h-6 w-6 xs:h-8 xs:w-8 flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-semibold text-slate-900 mb-2 text-sm xs:text-base">Why Choose SiwahtAI?</h4>
+                  <ul className="text-slate-600 space-y-1 text-xs xs:text-sm">
+                    <li>• Expert AI development team</li>
+                    <li>• Custom solutions for your needs</li>
+                    <li>• Fast turnaround times</li>
+                    <li>• Ongoing support and optimization</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </aside>
+
           {/* Contact Form */}
-          <div>
-            <div className="luxury-card p-8 xs:p-10">
-              <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-8 text-center">Start Your Project</h3>
+          <div className="order-1 lg:order-2">
+            <div className="bg-white rounded-2xl shadow-xl p-6 xs:p-8">
+              <h3 className="text-xl xs:text-2xl font-semibold text-slate-900 mb-6">Start Your Project</h3>
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 xs:space-y-6">
@@ -121,7 +183,7 @@ export default function Contact() {
                             <Input 
                               placeholder="John" 
                               {...field} 
-                              className="h-12 xs:h-14 bg-slate-50/50 border-slate-200 focus:border-primary focus:ring-primary/20 rounded-xl"
+                              className="h-11 xs:h-12"
                               data-testid="input-first-name"
                             />
                           </FormControl>
@@ -139,7 +201,7 @@ export default function Contact() {
                             <Input 
                               placeholder="Doe" 
                               {...field} 
-                              className="h-12 xs:h-14 bg-slate-50/50 border-slate-200 focus:border-primary focus:ring-primary/20 rounded-xl"
+                              className="h-11 xs:h-12"
                               data-testid="input-last-name"
                             />
                           </FormControl>
@@ -160,7 +222,7 @@ export default function Contact() {
                             placeholder="john@example.com" 
                             type="email" 
                             {...field} 
-                            className="h-12 xs:h-14 bg-slate-50/50 border-slate-200 focus:border-primary focus:ring-primary/20 rounded-xl"
+                            className="h-11 xs:h-12"
                             data-testid="input-email"
                           />
                         </FormControl>
@@ -180,7 +242,7 @@ export default function Contact() {
                             placeholder="Your Company" 
                             {...field} 
                             value={field.value || ""}
-                            className="h-12 xs:h-14 bg-slate-50/50 border-slate-200 focus:border-primary focus:ring-primary/20 rounded-xl"
+                            className="h-11 xs:h-12"
                             data-testid="input-company"
                           />
                         </FormControl>
@@ -197,7 +259,7 @@ export default function Contact() {
                         <FormLabel className="text-slate-700">Service Interest</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger className="h-12 xs:h-14 bg-slate-50/50 border-slate-200 focus:border-primary focus:ring-primary/20 rounded-xl" data-testid="select-service">
+                            <SelectTrigger className="h-11 xs:h-12" data-testid="select-service">
                               <SelectValue placeholder="Select a service" />
                             </SelectTrigger>
                           </FormControl>
@@ -223,7 +285,7 @@ export default function Contact() {
                         <FormControl>
                           <Textarea
                             placeholder="Tell us about your project, goals, and timeline..."
-                            className="min-h-[120px] resize-none bg-slate-50/50 border-slate-200 focus:border-primary focus:ring-primary/20 rounded-xl"
+                            className="min-h-[120px] resize-none"
                             {...field}
                             data-testid="textarea-project-details"
                           />
@@ -236,7 +298,7 @@ export default function Contact() {
                   <Button
                     type="submit"
                     disabled={submitMutation.isPending}
-                    className="w-full luxury-button h-12 xs:h-14 text-base font-semibold rounded-xl"
+                    className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 h-11 xs:h-12 text-base font-semibold"
                     data-testid="button-submit-contact"
                   >
                     {submitMutation.isPending ? (
