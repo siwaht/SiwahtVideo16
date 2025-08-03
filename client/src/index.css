@@ -15,21 +15,21 @@
   --card-foreground: hsl(226, 32%, 8%);
   --border: hsl(225, 25%, 90%);
   --input: hsl(225, 25%, 92%);
-  --primary: hsl(265, 85%, 58%);
+  --primary: hsl(220, 85%, 45%);
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(268, 100%, 72%);
+  --secondary: hsl(210, 75%, 35%);
   --secondary-foreground: hsl(0, 0%, 100%);
-  --accent: hsl(320, 100%, 84%);
-  --accent-foreground: hsl(226, 32%, 8%);
+  --accent: hsl(200, 60%, 50%);
+  --accent-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(0, 0%, 98%);
-  --ring: hsl(265, 85%, 58%);
+  --ring: hsl(220, 85%, 45%);
   --radius: 0.75rem;
   
   /* Luxury gradient colors */
-  --gradient-primary: linear-gradient(135deg, hsl(265, 85%, 58%) 0%, hsl(268, 100%, 72%) 100%);
-  --gradient-secondary: linear-gradient(135deg, hsl(320, 100%, 84%) 0%, hsl(286, 94%, 65%) 100%);
-  --gradient-hero: linear-gradient(135deg, hsl(265, 85%, 58%) 0%, hsl(268, 100%, 72%) 25%, hsl(320, 100%, 84%) 100%);
+  --gradient-primary: linear-gradient(135deg, hsl(220, 85%, 45%) 0%, hsl(210, 75%, 35%) 100%);
+  --gradient-secondary: linear-gradient(135deg, hsl(200, 60%, 50%) 0%, hsl(220, 70%, 40%) 100%);
+  --gradient-hero: linear-gradient(135deg, hsl(220, 85%, 45%) 0%, hsl(210, 75%, 35%) 25%, hsl(200, 60%, 50%) 100%);
   --glass-bg: rgba(255, 255, 255, 0.25);
   --glass-border: rgba(255, 255, 255, 0.18);
   --shadow-luxury: 0 8px 32px rgba(0, 0, 0, 0.12);
@@ -47,15 +47,15 @@
   --card-foreground: hsl(0, 0%, 98%);
   --border: hsl(226, 25%, 18%);
   --input: hsl(226, 25%, 16%);
-  --primary: hsl(265, 85%, 58%);
+  --primary: hsl(220, 85%, 45%);
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(268, 100%, 72%);
+  --secondary: hsl(210, 75%, 35%);
   --secondary-foreground: hsl(0, 0%, 100%);
-  --accent: hsl(320, 100%, 84%);
-  --accent-foreground: hsl(226, 32%, 8%);
+  --accent: hsl(200, 60%, 50%);
+  --accent-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 62%, 31%);
   --destructive-foreground: hsl(0, 0%, 98%);
-  --ring: hsl(265, 85%, 58%);
+  --ring: hsl(220, 85%, 45%);
   
   --glass-bg: rgba(0, 0, 0, 0.25);
   --glass-border: rgba(255, 255, 255, 0.08);

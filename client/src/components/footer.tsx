@@ -44,7 +44,7 @@ export default function Footer() {
       style={{
         background: `linear-gradient(135deg, 
           hsl(226, 32%, 8%) 0%, 
-          hsl(265, 85%, 25%) 50%, 
+          hsl(220, 85%, 25%) 50%, 
           hsl(226, 32%, 8%) 100%)`
       }}
       role="contentinfo"
