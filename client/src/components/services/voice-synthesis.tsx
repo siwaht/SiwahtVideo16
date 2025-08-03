@@ -1,6 +1,16 @@
+import { useQuery } from "@tanstack/react-query";
 import { Mic, Languages, Volume2, Download } from "lucide-react";
+import type { VoiceSample } from "@shared/schema";
 
 export default function VoiceSynthesis() {
+  // Fetch voice samples from API
+  const { data: voiceSamples = [] } = useQuery<VoiceSample[]>({
+    queryKey: ['/api/samples/voice-samples'],
+  });
+
+  // Get the first voice sample for preview
+  const featuredVoice = voiceSamples[0];
+
   const scrollToContact = () => {
     const element = document.getElementById("contact");
     if (element) {
@@ -64,35 +74,77 @@ export default function VoiceSynthesis() {
             <div className="service-preview from-emerald-100 via-teal-100 to-cyan-100">
               <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Voice Studio</h4>
-                <div className="bg-gradient-to-br from-slate-900 to-emerald-900 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/30 to-teal-600/30"></div>
-                  <div className="relative z-10 h-full flex items-center justify-center">
-                    <div className="text-center text-white">
-                      <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
-                        <Volume2 className="h-10 w-10 xs:h-12 xs:w-12 text-white" />
+{featuredVoice ? (
+                  <div className="bg-gradient-to-br from-slate-900 to-emerald-900 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/30 to-teal-600/30"></div>
+                    <div className="relative z-10 h-full flex items-center justify-center">
+                      <div className="text-center text-white">
+                        <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
+                          <Volume2 className="h-10 w-10 xs:h-12 xs:w-12 text-white" />
+                        </div>
+                        <p className="text-sm xs:text-base opacity-90 font-semibold">{featuredVoice.name}</p>
+                        {featuredVoice.description && (
+                          <p className="text-xs opacity-70 mt-2 line-clamp-2 max-w-xs mx-auto">{featuredVoice.description}</p>
+                        )}
+                        {featuredVoice.audioUrl && (
+                          <div className="mt-4">
+                            <audio controls className="w-full max-w-xs mx-auto rounded-lg opacity-80">
+                              <source src={featuredVoice.audioUrl} type="audio/mpeg" />
+                              Your browser does not support the audio element.
+                            </audio>
+                          </div>
+                        )}
                       </div>
-                      <p className="text-sm xs:text-base opacity-90 font-semibold">AI Voice Preview</p>
-                      <p className="text-xs opacity-70 mt-2">Natural Speech Generation</p>
+                    </div>
+                    
+                    {/* Audio Waveform */}
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="flex items-center justify-center space-x-1">
+                        {[...Array(12)].map((_, i) => (
+                          <div 
+                            key={i}
+                            className="bg-emerald-400 rounded-full animate-pulse"
+                            style={{
+                              width: '3px',
+                              height: `${Math.random() * 20 + 10}px`,
+                              animationDelay: `${i * 0.1}s`
+                            }}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  
-                  {/* Audio Waveform */}
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="flex items-center justify-center space-x-1">
-                      {[...Array(12)].map((_, i) => (
-                        <div 
-                          key={i}
-                          className="bg-emerald-400 rounded-full animate-pulse"
-                          style={{
-                            width: '3px',
-                            height: `${Math.random() * 20 + 10}px`,
-                            animationDelay: `${i * 0.1}s`
-                          }}
-                        />
-                      ))}
+                ) : (
+                  <div className="bg-gradient-to-br from-slate-900 to-emerald-900 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/30 to-teal-600/30"></div>
+                    <div className="relative z-10 h-full flex items-center justify-center">
+                      <div className="text-center text-white">
+                        <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
+                          <Volume2 className="h-10 w-10 xs:h-12 xs:w-12 text-white" />
+                        </div>
+                        <p className="text-sm xs:text-base opacity-90 font-semibold">AI Voice Preview</p>
+                        <p className="text-xs opacity-70 mt-2">Upload voice samples in admin panel to showcase here</p>
+                      </div>
+                    </div>
+                    
+                    {/* Audio Waveform */}
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="flex items-center justify-center space-x-1">
+                        {[...Array(12)].map((_, i) => (
+                          <div 
+                            key={i}
+                            className="bg-emerald-400 rounded-full animate-pulse"
+                            style={{
+                              width: '3px',
+                              height: `${Math.random() * 20 + 10}px`,
+                              animationDelay: `${i * 0.1}s`
+                            }}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
               
               <div className="grid grid-cols-3 gap-3 xs:gap-4">

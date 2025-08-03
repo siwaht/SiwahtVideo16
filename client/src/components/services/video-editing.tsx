@@ -1,6 +1,16 @@
+import { useQuery } from "@tanstack/react-query";
 import { Scissors, Layers, Zap, Sparkles } from "lucide-react";
+import type { EditedVideo } from "@shared/schema";
 
 export default function VideoEditing() {
+  // Fetch edited videos from API
+  const { data: editedVideos = [] } = useQuery<EditedVideo[]>({
+    queryKey: ['/api/samples/edited-videos'],
+  });
+
+  // Get the first edited video for preview
+  const featuredEditedVideo = editedVideos[0];
+
   const scrollToContact = () => {
     const element = document.getElementById("contact");
     if (element) {
@@ -64,33 +74,65 @@ export default function VideoEditing() {
             <div className="bg-gradient-to-br from-orange-100 to-red-200 rounded-2xl p-4 xs:p-6 md:p-8 shadow-2xl">
               <div className="bg-white rounded-xl p-4 xs:p-6 mb-4 xs:mb-6 shadow-lg">
                 <h4 className="font-semibold text-slate-900 mb-3 xs:mb-4 text-sm xs:text-base">AI Video Editor</h4>
-                <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20"></div>
-                  <div className="relative z-10 p-4 h-full flex flex-col">
-                    {/* Timeline */}
-                    <div className="flex-1 flex items-end mb-4">
-                      <div className="w-full space-y-2">
-                        <div className="flex space-x-1">
-                          <div className="h-6 bg-blue-500 rounded-sm flex-1"></div>
-                          <div className="h-6 bg-green-500 rounded-sm flex-1"></div>
-                          <div className="h-6 bg-purple-500 rounded-sm flex-1"></div>
-                        </div>
-                        <div className="flex space-x-1">
-                          <div className="h-4 bg-orange-400 rounded-sm w-2/3"></div>
-                          <div className="h-4 bg-teal-400 rounded-sm flex-1"></div>
-                        </div>
+{featuredEditedVideo ? (
+                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden">
+                    {featuredEditedVideo.thumbnailUrl ? (
+                      <img 
+                        src={featuredEditedVideo.thumbnailUrl} 
+                        alt={featuredEditedVideo.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20"></div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div className="relative z-10 p-4 h-full flex flex-col justify-between">
+                      {/* Video Info */}
+                      <div className="text-white">
+                        <h5 className="font-semibold text-sm">{featuredEditedVideo.title}</h5>
+                        {featuredEditedVideo.clientName && (
+                          <p className="text-xs opacity-80">Client: {featuredEditedVideo.clientName}</p>
+                        )}
                       </div>
-                    </div>
-                    
-                    {/* Preview Screen */}
-                    <div className="bg-white/10 rounded p-2 text-center">
-                      <div className="w-8 h-8 xs:w-10 xs:h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1">
-                        <Scissors className="h-4 w-4 xs:h-5 xs:w-5 text-white" />
+                      
+                      {/* Preview Screen */}
+                      <div className="bg-white/10 backdrop-blur-sm rounded p-2 text-center">
+                        <div className="w-8 h-8 xs:w-10 xs:h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1">
+                          <Scissors className="h-4 w-4 xs:h-5 xs:w-5 text-white" />
+                        </div>
+                        <p className="text-xs text-white/80">Professional Edit</p>
                       </div>
-                      <p className="text-xs text-white/80">AI Processing...</p>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20"></div>
+                    <div className="relative z-10 p-4 h-full flex flex-col">
+                      {/* Timeline */}
+                      <div className="flex-1 flex items-end mb-4">
+                        <div className="w-full space-y-2">
+                          <div className="flex space-x-1">
+                            <div className="h-6 bg-blue-500 rounded-sm flex-1"></div>
+                            <div className="h-6 bg-green-500 rounded-sm flex-1"></div>
+                            <div className="h-6 bg-purple-500 rounded-sm flex-1"></div>
+                          </div>
+                          <div className="flex space-x-1">
+                            <div className="h-4 bg-orange-400 rounded-sm w-2/3"></div>
+                            <div className="h-4 bg-teal-400 rounded-sm flex-1"></div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Preview Screen */}
+                      <div className="bg-white/10 rounded p-2 text-center">
+                        <div className="w-8 h-8 xs:w-10 xs:h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1">
+                          <Scissors className="h-4 w-4 xs:h-5 xs:w-5 text-white" />
+                        </div>
+                        <p className="text-xs text-white/80">Upload edited videos in admin panel to showcase here</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
               
               <div className="grid grid-cols-3 gap-2 xs:gap-3">

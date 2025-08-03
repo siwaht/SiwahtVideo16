@@ -1,6 +1,16 @@
+import { useQuery } from "@tanstack/react-query";
 import { User, Sparkles, Settings, Download } from "lucide-react";
+import type { Avatar } from "@shared/schema";
 
 export default function Avatars() {
+  // Fetch avatars from API
+  const { data: avatars = [] } = useQuery<Avatar[]>({
+    queryKey: ['/api/samples/avatars'],
+  });
+
+  // Get the first avatar for preview
+  const featuredAvatar = avatars[0];
+
   const scrollToContact = () => {
     const element = document.getElementById("contact");
     if (element) {
@@ -98,24 +108,50 @@ export default function Avatars() {
             <div className="service-preview from-purple-100 via-indigo-100 to-blue-100">
               <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Avatar Studio</h4>
-                <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
-                  
-                  {/* Avatar Preview */}
-                  <div className="relative z-10 h-full flex items-center justify-center">
-                    <div className="w-32 h-32 xs:w-40 xs:h-40 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-2xl floating-animation">
-                      <User className="h-16 w-16 xs:h-20 xs:w-20 text-white" />
+{featuredAvatar ? (
+                  <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">
+                    {featuredAvatar.imageUrl ? (
+                      <img 
+                        src={featuredAvatar.imageUrl} 
+                        alt={featuredAvatar.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    
+                    {/* Avatar Info */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                      <h5 className="font-semibold text-lg">{featuredAvatar.name}</h5>
+                      {featuredAvatar.description && (
+                        <p className="text-sm opacity-90 mt-1 line-clamp-2">{featuredAvatar.description}</p>
+                      )}
                     </div>
                   </div>
-                  
-                  {/* Floating Elements */}
-                  <div className="absolute top-4 right-4 w-12 h-12 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center floating-animation" style={{animationDelay: '1s'}}>
-                    <Sparkles className="h-6 w-6 text-purple-600" />
+                ) : (
+                  <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
+                    
+                    {/* Avatar Preview */}
+                    <div className="relative z-10 h-full flex items-center justify-center">
+                      <div className="w-32 h-32 xs:w-40 xs:h-40 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-2xl floating-animation">
+                        <User className="h-16 w-16 xs:h-20 xs:w-20 text-white" />
+                      </div>
+                      <div className="absolute bottom-4 left-4 right-4 text-center">
+                        <p className="text-slate-600 text-sm">Upload avatars in admin panel to showcase here</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="absolute bottom-4 left-4 w-10 h-10 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center floating-animation" style={{animationDelay: '2s'}}>
-                    <Settings className="h-5 w-5 text-blue-600" />
-                  </div>
-                </div>
+                )}
+              </div>
+              
+              {/* Floating Elements */}
+              <div className="absolute top-4 right-4 w-12 h-12 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center floating-animation" style={{animationDelay: '1s'}}>
+                <Sparkles className="h-6 w-6 text-purple-600" />
+              </div>
+              <div className="absolute bottom-4 left-4 w-10 h-10 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center floating-animation" style={{animationDelay: '2s'}}>
+                <Settings className="h-5 w-5 text-blue-600" />
               </div>
               
               <div className="grid grid-cols-3 gap-3 xs:gap-4">

@@ -1,6 +1,16 @@
+import { useQuery } from "@tanstack/react-query";
 import { Play, Target, Zap, Sparkles } from "lucide-react";
+import type { DemoVideo } from "@shared/schema";
 
 export default function VideoAds() {
+  // Fetch demo videos from API
+  const { data: demoVideos = [] } = useQuery<DemoVideo[]>({
+    queryKey: ['/api/samples/demo-videos'],
+  });
+
+  // Get the first demo video for preview
+  const featuredVideo = demoVideos[0];
+
   const scrollToContact = () => {
     const element = document.getElementById("contact");
     if (element) {
@@ -64,25 +74,58 @@ export default function VideoAds() {
             <div className="service-preview from-blue-100 via-indigo-100 to-purple-100">
               <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">AI Video Studio</h4>
-                <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
-                  <div className="relative z-10 h-full flex items-center justify-center">
-                    <div className="text-center text-white">
-                      <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
-                        <Play className="h-10 w-10 xs:h-12 xs:w-12 text-white fill-current" />
+{featuredVideo ? (
+                  <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
+                    {featuredVideo.thumbnailUrl ? (
+                      <img 
+                        src={featuredVideo.thumbnailUrl} 
+                        alt={featuredVideo.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div className="relative z-10 h-full flex items-center justify-center">
+                      <div className="text-center text-white">
+                        <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
+                          <Play className="h-10 w-10 xs:h-12 xs:w-12 text-white fill-current" />
+                        </div>
+                        <p className="text-sm xs:text-base opacity-90 font-semibold">{featuredVideo.title}</p>
+                        {featuredVideo.description && (
+                          <p className="text-xs opacity-70 mt-2 line-clamp-2 max-w-xs mx-auto">{featuredVideo.description}</p>
+                        )}
                       </div>
-                      <p className="text-sm xs:text-base opacity-90 font-semibold">AI Video Preview</p>
-                      <p className="text-xs opacity-70 mt-2">High-Converting Ad Content</p>
+                    </div>
+                    
+                    {/* Video Timeline */}
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="bg-white/20 backdrop-blur-sm rounded-full h-2 overflow-hidden">
+                        <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-full w-1/3 rounded-full"></div>
+                      </div>
                     </div>
                   </div>
-                  
-                  {/* Video Timeline */}
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="bg-white/20 backdrop-blur-sm rounded-full h-2 overflow-hidden">
-                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-full w-1/3 rounded-full"></div>
+                ) : (
+                  <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
+                    <div className="relative z-10 h-full flex items-center justify-center">
+                      <div className="text-center text-white">
+                        <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
+                          <Play className="h-10 w-10 xs:h-12 xs:w-12 text-white fill-current" />
+                        </div>
+                        <p className="text-sm xs:text-base opacity-90 font-semibold">AI Video Preview</p>
+                        <p className="text-xs opacity-70 mt-2">Upload videos in admin panel to showcase here</p>
+                      </div>
+                    </div>
+                    
+                    {/* Video Timeline */}
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="bg-white/20 backdrop-blur-sm rounded-full h-2 overflow-hidden">
+                        <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-full w-1/3 rounded-full"></div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
               
               <div className="grid grid-cols-3 gap-3 xs:gap-4">
