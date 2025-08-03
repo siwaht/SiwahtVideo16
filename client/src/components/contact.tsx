@@ -81,27 +81,32 @@ export default function Contact() {
   return (
     <section 
       id="contact" 
-      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-50 to-indigo-50"
+      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-50 via-violet-50 to-pink-50 relative overflow-hidden"
       aria-labelledby="contact-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5" />
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-secondary/10 rounded-full blur-2xl" />
+    
+      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 relative z-10">
         <header className="text-center mb-12 xs:mb-16">
           <h2 
             id="contact-heading"
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-4 xs:mb-6"
           >
             Get Started Today
           </h2>
-          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
-            Ready to transform your ideas with AI? Let's discuss your project and create something amazing together.
+          <p className="text-lg xs:text-xl lg:text-2xl text-slate-700 max-w-4xl mx-auto leading-relaxed px-2 font-light">
+            Ready to transform your vision with AI? Let's discuss your project and create something extraordinary together.
           </p>
         </header>
 
         <div className="max-w-2xl mx-auto">
           {/* Contact Form */}
           <div>
-            <div className="bg-white rounded-2xl shadow-xl p-6 xs:p-8">
-              <h3 className="text-xl xs:text-2xl font-semibold text-slate-900 mb-6">Start Your Project</h3>
+            <div className="luxury-card p-8 xs:p-10">
+              <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-8 text-center">Start Your Project</h3>
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 xs:space-y-6">
@@ -116,7 +121,7 @@ export default function Contact() {
                             <Input 
                               placeholder="John" 
                               {...field} 
-                              className="h-11 xs:h-12"
+                              className="h-12 xs:h-14 bg-slate-50/50 border-slate-200 focus:border-primary focus:ring-primary/20 rounded-xl"
                               data-testid="input-first-name"
                             />
                           </FormControl>
@@ -134,7 +139,7 @@ export default function Contact() {
                             <Input 
                               placeholder="Doe" 
                               {...field} 
-                              className="h-11 xs:h-12"
+                              className="h-12 xs:h-14 bg-slate-50/50 border-slate-200 focus:border-primary focus:ring-primary/20 rounded-xl"
                               data-testid="input-last-name"
                             />
                           </FormControl>
@@ -155,7 +160,7 @@ export default function Contact() {
                             placeholder="john@example.com" 
                             type="email" 
                             {...field} 
-                            className="h-11 xs:h-12"
+                            className="h-12 xs:h-14 bg-slate-50/50 border-slate-200 focus:border-primary focus:ring-primary/20 rounded-xl"
                             data-testid="input-email"
                           />
                         </FormControl>
@@ -175,7 +180,7 @@ export default function Contact() {
                             placeholder="Your Company" 
                             {...field} 
                             value={field.value || ""}
-                            className="h-11 xs:h-12"
+                            className="h-12 xs:h-14 bg-slate-50/50 border-slate-200 focus:border-primary focus:ring-primary/20 rounded-xl"
                             data-testid="input-company"
                           />
                         </FormControl>
@@ -192,7 +197,7 @@ export default function Contact() {
                         <FormLabel className="text-slate-700">Service Interest</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger className="h-11 xs:h-12" data-testid="select-service">
+                            <SelectTrigger className="h-12 xs:h-14 bg-slate-50/50 border-slate-200 focus:border-primary focus:ring-primary/20 rounded-xl" data-testid="select-service">
                               <SelectValue placeholder="Select a service" />
                             </SelectTrigger>
                           </FormControl>
@@ -218,7 +223,7 @@ export default function Contact() {
                         <FormControl>
                           <Textarea
                             placeholder="Tell us about your project, goals, and timeline..."
-                            className="min-h-[120px] resize-none"
+                            className="min-h-[120px] resize-none bg-slate-50/50 border-slate-200 focus:border-primary focus:ring-primary/20 rounded-xl"
                             {...field}
                             data-testid="textarea-project-details"
                           />
@@ -231,7 +236,7 @@ export default function Contact() {
                   <Button
                     type="submit"
                     disabled={submitMutation.isPending}
-                    className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 h-11 xs:h-12 text-base font-semibold"
+                    className="w-full luxury-button h-12 xs:h-14 text-base font-semibold rounded-xl"
                     data-testid="button-submit-contact"
                   >
                     {submitMutation.isPending ? (
