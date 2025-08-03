@@ -35,9 +35,11 @@ export default function AdminContacts() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: contacts, isLoading, error } = useQuery<ContactSubmission[]>({
+  const { data: contactsResponse, isLoading, error } = useQuery<{data: ContactSubmission[]}>({
     queryKey: ["/api/admin/contacts"],
   });
+
+  const contacts = contactsResponse?.data || [];
 
   const updateStatusMutation = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: string }) => {
@@ -172,7 +174,7 @@ export default function AdminContacts() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{contacts?.length || 0}</div>
+            <div className="text-2xl font-bold">{contacts.length}</div>
           </CardContent>
         </Card>
         
@@ -183,7 +185,7 @@ export default function AdminContacts() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {contacts?.filter(c => c.status === 'new').length || 0}
+              {contacts.filter(c => c.status === 'new').length}
             </div>
           </CardContent>
         </Card>
@@ -195,7 +197,7 @@ export default function AdminContacts() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {contacts?.filter(c => c.status === 'qualified').length || 0}
+              {contacts.filter(c => c.status === 'qualified').length}
             </div>
           </CardContent>
         </Card>
@@ -207,7 +209,7 @@ export default function AdminContacts() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {contacts?.filter(c => c.status === 'converted').length || 0}
+              {contacts.filter(c => c.status === 'converted').length}
             </div>
           </CardContent>
         </Card>
