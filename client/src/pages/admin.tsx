@@ -116,7 +116,7 @@ export default function AdminPanel() {
         <Route path="/admin/avatars" component={AdminAvatars} />
         <Route path="/admin/voice-samples" component={AdminVoiceSamples} />
         <Route path="/admin/edited-videos" component={AdminEditedVideos} />
-        <Route>
+        <Route path="/admin/*">
           <div className="text-center py-12">
             <h2 className="text-2xl font-bold mb-4">Page Not Found</h2>
             <p className="text-muted-foreground">The requested admin page does not exist.</p>
