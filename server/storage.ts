@@ -247,7 +247,8 @@ export class DatabaseStorage implements IStorage {
         or(
           ilike(avatars.name, `%${query}%`),
           ilike(avatars.description, `%${query}%`),
-          ilike(avatars.category, `%${query}%`)
+          ilike(avatars.gender, `%${query}%`),
+          ilike(avatars.ethnicity, `%${query}%`)
         )
       )
       .orderBy(desc(avatars.createdAt));
@@ -301,7 +302,8 @@ export class DatabaseStorage implements IStorage {
         or(
           ilike(voiceSamples.name, `%${query}%`),
           ilike(voiceSamples.description, `%${query}%`),
-          ilike(voiceSamples.voiceType, `%${query}%`)
+          ilike(voiceSamples.language, `%${query}%`),
+          ilike(voiceSamples.gender, `%${query}%`)
         )
       )
       .orderBy(desc(voiceSamples.createdAt));
@@ -355,7 +357,7 @@ export class DatabaseStorage implements IStorage {
         or(
           ilike(editedVideos.title, `%${query}%`),
           ilike(editedVideos.description, `%${query}%`),
-          ilike(editedVideos.editingType, `%${query}%`)
+          ilike(editedVideos.category, `%${query}%`)
         )
       )
       .orderBy(desc(editedVideos.createdAt));
