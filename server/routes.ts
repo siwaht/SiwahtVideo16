@@ -30,6 +30,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Public endpoints
   
+  // Public API endpoints for frontend samples/portfolio
+  app.get("/api/samples/demo-videos", async (req, res) => {
+    try {
+      const videos = await storage.getDemoVideos(12);
+      const publishedVideos = videos.filter(video => video.isPublished);
+      res.json(publishedVideos);
+    } catch (error) {
+      console.error("Error fetching demo videos:", error);
+      res.status(500).json({ error: "Failed to fetch demo videos" });
+    }
+  });
+
+  app.get("/api/samples/avatars", async (req, res) => {
+    try {
+      const avatars = await storage.getAvatars(12);
+      const publishedAvatars = avatars.filter(avatar => avatar.isPublished);
+      res.json(publishedAvatars);
+    } catch (error) {
+      console.error("Error fetching avatars:", error);
+      res.status(500).json({ error: "Failed to fetch avatars" });
+    }
+  });
+
+  app.get("/api/samples/voice-samples", async (req, res) => {
+    try {
+      const samples = await storage.getVoiceSamples(12);
+      const publishedSamples = samples.filter(sample => sample.isPublished);
+      res.json(publishedSamples);
+    } catch (error) {
+      console.error("Error fetching voice samples:", error);
+      res.status(500).json({ error: "Failed to fetch voice samples" });
+    }
+  });
+
+  app.get("/api/samples/edited-videos", async (req, res) => {
+    try {
+      const videos = await storage.getEditedVideos(12);
+      const publishedVideos = videos.filter(video => video.isPublished);
+      res.json(publishedVideos);
+    } catch (error) {
+      console.error("Error fetching edited videos:", error);
+      res.status(500).json({ error: "Failed to fetch edited videos" });
+    }
+  });
+  
   // Contact form submission
   app.post("/api/contact", async (req, res) => {
     try {

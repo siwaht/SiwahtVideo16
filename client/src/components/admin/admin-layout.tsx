@@ -50,9 +50,14 @@ const navigationItems = [
     icon: Mic,
   },
   {
-    label: "Portfolio",
+    label: "Edited Videos",
     href: "/admin/edited-videos",
     icon: Film,
+  },
+  {
+    label: "Portfolio",
+    href: "/admin/portfolio",
+    icon: Video,
   },
 ];
 

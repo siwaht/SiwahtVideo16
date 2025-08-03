@@ -9,6 +9,7 @@ import AdminDemoVideos from "@/components/admin/admin-demo-videos";
 import AdminAvatars from "@/components/admin/admin-avatars";
 import AdminVoiceSamples from "@/components/admin/admin-voice-samples";
 import AdminEditedVideos from "@/components/admin/admin-edited-videos";
+import AdminPortfolio from "@/pages/admin/portfolio";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 
@@ -116,6 +117,7 @@ export default function AdminPanel() {
         <Route path="/admin/avatars" component={AdminAvatars} />
         <Route path="/admin/voice-samples" component={AdminVoiceSamples} />
         <Route path="/admin/edited-videos" component={AdminEditedVideos} />
+        <Route path="/admin/portfolio" component={AdminPortfolio} />
         <Route path="/admin/*">
           <div className="text-center py-12">
             <h2 className="text-2xl font-bold mb-4">Page Not Found</h2>
