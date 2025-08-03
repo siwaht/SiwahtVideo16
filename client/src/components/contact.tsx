@@ -1,229 +1,321 @@
-        import { useState } from "react";
-        import { useForm } from "react-hook-form";
-        import { zodResolver } from "@hookform/resolvers/zod";
-        import { useMutation, useQueryClient } from "@tanstack/react-query";
-        import { Mail, Phone, MapPin, Clock, Twitter, Linkedin, Github, Youtube } from "lucide-react";
-        import { Button } from "@/components/ui/button";
-        import {
-          Form,
-          FormControl,
-          FormField,
-          FormItem,
-          FormLabel,
-          FormMessage,
-        } from "@/components/ui/form";
-        import { Input } from "@/components/ui/input";
-        import { Textarea } from "@/components/ui/textarea";
-        import {
-          Select,
-          SelectContent,
-          SelectItem,
-          SelectTrigger,
-          SelectValue,
-        } from "@/components/ui/select";
-        import { useToast } from "@/hooks/use-toast";
-        import { insertContactSubmissionSchema, type InsertContactSubmission } from "@shared/schema";
-        import { apiRequest } from "@/lib/queryClient";
 
-        export default function Contact() {
-          const { toast } = useToast();
-          const queryClient = useQueryClient();
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { insertContactSubmissionSchema, type InsertContactSubmission } from "@shared/schema";
+import { apiRequest } from "@/lib/queryClient";
 
-          const form = useForm<InsertContactSubmission>({
-            resolver: zodResolver(insertContactSubmissionSchema),
-            defaultValues: {
-              firstName: "",
-              lastName: "",
-              email: "",
-              company: "",
-              serviceInterest: "",
-              projectDetails: "",
-            },
-          });
+export default function Contact() {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
 
-          const submitMutation = useMutation({
-            mutationFn: async (data: InsertContactSubmission) => {
-              const response = await apiRequest("POST", "/api/contact", data);
-              return response.json();
-            },
-            onSuccess: () => {
-              toast({
-                title: "Message sent successfully!",
-                description: "We'll get back to you soon.",
-              });
-              form.reset();
-            },
-            onError: () => {
-              toast({
-                title: "Error sending message",
-                description: "Please try again later.",
-                variant: "destructive",
-              });
-            },
-          });
+  const form = useForm<InsertContactSubmission>({
+    resolver: zodResolver(insertContactSubmissionSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      company: "",
+      serviceInterest: "",
+      projectDetails: "",
+    },
+  });
 
-          const onSubmit = (data: InsertContactSubmission) => {
-            submitMutation.mutate(data);
-          };
+  const submitMutation = useMutation({
+    mutationFn: async (data: InsertContactSubmission) => {
+      const response = await apiRequest("POST", "/api/contact", data);
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Message sent successfully!",
+        description: "We'll get back to you within 24 hours.",
+      });
+      form.reset();
+    },
+    onError: () => {
+      toast({
+        title: "Error sending message",
+        description: "Please try again later or contact us directly.",
+        variant: "destructive",
+      });
+    },
+  });
 
-          return (
-            <section id="contact" className="py-20 bg-gray-50">
-              <div className="container mx-auto px-4">
-                <div className="max-w-6xl mx-auto">
-                  <div className="text-center mb-16">
-                    <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                      Get Started Today
-                    </h2>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                      Ready to transform your content with AI? Contact us to discuss your project
-                      and discover how our AI-powered solutions can elevate your brand.
-                    </p>
-                  </div>
+  const onSubmit = (data: InsertContactSubmission) => {
+    submitMutation.mutate(data);
+  };
 
-                  <div className="grid lg:grid-cols-2 gap-12">
-                    {/* Contact Form */}
-                    <div className="bg-white rounded-2xl shadow-xl p-8">
-                      <h3 className="text-2xl font-semibold text-gray-900 mb-6">
-                        Send us a message
-                      </h3>
+  const contactInfo = [
+    {
+      icon: Mail,
+      title: "Email Us",
+      value: "hello@siwahtai.com",
+      description: "Send us an email anytime",
+    },
+    {
+      icon: Phone,
+      title: "Call Us",
+      value: "+1 (555) 123-4567",
+      description: "Mon-Fri from 8am to 6pm",
+    },
+    {
+      icon: MapPin,
+      title: "Visit Us",
+      value: "San Francisco, CA",
+      description: "Remote-first with SF hub",
+    },
+    {
+      icon: Clock,
+      title: "Response Time",
+      value: "< 24 hours",
+      description: "We respond quickly",
+    },
+  ];
 
-                      <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                          <div className="grid grid-cols-2 gap-4">
-                            <FormField
-                              control={form.control}
-                              name="firstName"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>First Name</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="John"
-                                      {...field}
-                                      value={field.value || ""}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
+  const serviceOptions = [
+    "AI Video Ads",
+    "AI Avatar Creation",
+    "Voice Synthesis",
+    "Video Editing",
+    "Podcast Production",
+    "Custom AI Solution",
+    "Consultation"
+  ];
 
-                            <FormField
-                              control={form.control}
-                              name="lastName"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Last Name</FormLabel>
-                                  <FormControl>
-                                    <Input
-                                      placeholder="Doe"
-                                      {...field}
-                                      value={field.value || ""}
-                                    />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          </div>
+  return (
+    <section 
+      id="contact" 
+      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-50 to-indigo-50"
+      aria-labelledby="contact-heading"
+    >
+      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
+        <header className="text-center mb-12 xs:mb-16">
+          <h2 
+            id="contact-heading"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
+          >
+            Get Started Today
+          </h2>
+          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
+            Ready to transform your ideas with AI? Let's discuss your project and create something amazing together.
+          </p>
+        </header>
 
-                          <FormField
-                            control={form.control}
-                            name="email"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    type="email"
-                                    placeholder="john@example.com"
-                                    {...field}
-                                    value={field.value || ""}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xs:gap-12 xl:gap-16">
+          {/* Contact Information */}
+          <aside className="space-y-6 xs:space-y-8 order-2 lg:order-1">
+            <div>
+              <h3 className="text-xl xs:text-2xl font-semibold text-slate-900 mb-6">Contact Information</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 xs:gap-6">
+                {contactInfo.map((info, index) => {
+                  const Icon = info.icon;
+                  return (
+                    <article 
+                      key={index}
+                      className="flex items-start space-x-3 xs:space-x-4 p-4 xs:p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200"
+                    >
+                      <div className="w-10 h-10 xs:w-12 xs:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Icon className="text-primary h-5 w-5 xs:h-6 xs:w-6" aria-hidden="true" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-slate-900 text-sm xs:text-base">{info.title}</h4>
+                        <p className="text-slate-700 font-medium text-sm xs:text-base">{info.value}</p>
+                        <p className="text-slate-500 text-xs xs:text-sm">{info.description}</p>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
 
-                          <FormField
-                            control={form.control}
-                            name="company"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Company (Optional)</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    placeholder="Your company name"
-                                    {...field}
-                                    value={field.value || ""}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          <FormField
-                            control={form.control}
-                            name="serviceInterest"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Service of Interest</FormLabel>
-                                <Select onValueChange={field.onChange} value={field.value}>
-                                  <FormControl>
-                                    <SelectTrigger>
-                                      <SelectValue placeholder="Select a service" />
-                                    </SelectTrigger>
-                                  </FormControl>
-                                  <SelectContent>
-                                    <SelectItem value="video-ads">AI Video Ad Creation</SelectItem>
-                                    <SelectItem value="avatars">AI Avatar Creation</SelectItem>
-                                    <SelectItem value="voice-synthesis">AI Voice Synthesis</SelectItem>
-                                    <SelectItem value="video-editing">AI-Enhanced Video Editing</SelectItem>
-                                    <SelectItem value="consultation">Consultation</SelectItem>
-                                    <SelectItem value="other">Other</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          <FormField
-                            control={form.control}
-                            name="projectDetails"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Project Details</FormLabel>
-                                <FormControl>
-                                  <Textarea
-                                    placeholder="Tell us about your project, goals, and requirements..."
-                                    rows={4}
-                                    {...field}
-                                    value={field.value || ""}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          <Button
-                            type="submit"
-                            className="w-full bg-blue-600 hover:bg-blue-700"
-                            disabled={submitMutation.isPending}
-                          >
-                            {submitMutation.isPending ? "Sending..." : "Send Message"}
-                          </Button>
-                        </form>
-                      </Form>
-                    </div>
-
-
-                  </div>
+            <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl p-4 xs:p-6">
+              <div className="flex items-start space-x-3 xs:space-x-4">
+                <CheckCircle className="text-primary h-6 w-6 xs:h-8 xs:w-8 flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-semibold text-slate-900 mb-2 text-sm xs:text-base">Why Choose SiwahtAI?</h4>
+                  <ul className="text-slate-600 space-y-1 text-xs xs:text-sm">
+                    <li>• Expert AI development team</li>
+                    <li>• Custom solutions for your needs</li>
+                    <li>• Fast turnaround times</li>
+                    <li>• Ongoing support and optimization</li>
+                  </ul>
                 </div>
               </div>
-            </section>
-          );
-        }
+            </div>
+          </aside>
+
+          {/* Contact Form */}
+          <div className="order-1 lg:order-2">
+            <div className="bg-white rounded-2xl shadow-xl p-6 xs:p-8">
+              <h3 className="text-xl xs:text-2xl font-semibold text-slate-900 mb-6">Start Your Project</h3>
+              
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 xs:space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xs:gap-6">
+                    <FormField
+                      control={form.control}
+                      name="firstName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-slate-700">First Name</FormLabel>
+                          <FormControl>
+                            <Input 
+                              placeholder="John" 
+                              {...field} 
+                              className="h-11 xs:h-12"
+                              data-testid="input-first-name"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="lastName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-slate-700">Last Name</FormLabel>
+                          <FormControl>
+                            <Input 
+                              placeholder="Doe" 
+                              {...field} 
+                              className="h-11 xs:h-12"
+                              data-testid="input-last-name"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-slate-700">Email Address</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="john@example.com" 
+                            type="email" 
+                            {...field} 
+                            className="h-11 xs:h-12"
+                            data-testid="input-email"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="company"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-slate-700">Company (Optional)</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="Your Company" 
+                            {...field} 
+                            value={field.value || ""}
+                            className="h-11 xs:h-12"
+                            data-testid="input-company"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="serviceInterest"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-slate-700">Service Interest</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="h-11 xs:h-12" data-testid="select-service">
+                              <SelectValue placeholder="Select a service" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {serviceOptions.map((service) => (
+                              <SelectItem key={service} value={service}>
+                                {service}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="projectDetails"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-slate-700">Project Details</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Tell us about your project, goals, and timeline..."
+                            className="min-h-[120px] resize-none"
+                            {...field}
+                            data-testid="textarea-project-details"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <Button
+                    type="submit"
+                    disabled={submitMutation.isPending}
+                    className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 h-11 xs:h-12 text-base font-semibold"
+                    data-testid="button-submit-contact"
+                  >
+                    {submitMutation.isPending ? (
+                      "Sending..."
+                    ) : (
+                      <>
+                        <Send className="mr-2 h-4 w-4" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </Form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

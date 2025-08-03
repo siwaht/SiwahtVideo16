@@ -1,4 +1,4 @@
-import { Scissors, MousePointer2, Captions, Minimize2, Check } from "lucide-react";
+import { Scissors, Layers, Zap, Sparkles } from "lucide-react";
 
 export default function VideoEditing() {
   const scrollToContact = () => {
@@ -8,160 +8,138 @@ export default function VideoEditing() {
     }
   };
 
-  const capabilities = [
-    { label: "4K Resolution", icon: Check },
-    { label: "Multi-track Audio", icon: Check },
-    { label: "Real-time Preview", icon: Check },
-    { label: "Cloud Rendering", icon: Check },
+  const features = [
+    {
+      icon: Scissors,
+      iconColor: "text-primary",
+      bgColor: "bg-primary/10",
+      title: "Intelligent Editing",
+      description: "AI automatically cuts, trims, and arranges your footage for optimal flow and engagement."
+    },
+    {
+      icon: Layers,
+      iconColor: "text-secondary",
+      bgColor: "bg-secondary/10",
+      title: "Advanced Effects",
+      description: "Apply professional-grade transitions, filters, and effects with AI-powered precision."
+    },
+    {
+      icon: Zap,
+      iconColor: "text-accent",
+      bgColor: "bg-accent/10",
+      title: "Rapid Processing",
+      description: "Process hours of footage in minutes with our high-performance AI editing pipeline."
+    },
+    {
+      icon: Sparkles,
+      iconColor: "text-orange-600",
+      bgColor: "bg-orange-100",
+      title: "Auto Enhancement",
+      description: "AI automatically enhances color, audio, and lighting for professional-quality results."
+    }
   ];
 
   return (
-    <section id="editing" className="py-20 bg-gradient-to-br from-slate-50 to-purple-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">
-            AI-Enhanced Video Editing
+    <section 
+      id="editing" 
+      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-100 to-orange-50"
+      aria-labelledby="editing-heading"
+    >
+      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
+        <header className="text-center mb-12 xs:mb-16">
+          <h2 
+            id="editing-heading"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
+          >
+            AI Video Editing
           </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-            Professional video editing powered by AI. Automatically cut, enhance, and optimize your content for maximum impact and engagement.
+          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
+            Transform raw footage into polished videos with AI-powered editing. Cut, enhance, and produce professional content automatically.
           </p>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="relative order-2 lg:order-1">
-            <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 shadow-2xl">
-              <div className="flex items-center justify-between mb-6">
-                <h4 className="text-white font-semibold">AI Video Editor</h4>
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-              </div>
-
-              {/* Video preview area */}
-              <div className="bg-black rounded-lg aspect-video mb-6 flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20"></div>
-                <div className="relative z-10 text-center">
-                  <div className="w-16 h-16 rounded-full border-4 border-white/30 flex items-center justify-center mb-2 mx-auto">
-                    <div className="w-0 h-0 border-l-[12px] border-l-white border-y-[8px] border-y-transparent ml-1"></div>
-                  </div>
-                  <p className="text-white text-sm opacity-80">Professional Business Presentation</p>
-                </div>
-              </div>
-
-              {/* Timeline mockup */}
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
-                    <div className="w-3 h-3 bg-white rounded-sm"></div>
-                  </div>
-                  <div className="flex-1 bg-blue-600 h-8 rounded relative">
-                    <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-xs font-medium">Main Video Track</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-green-600 rounded flex items-center justify-center">
-                    <div className="w-3 h-2 bg-white rounded-full"></div>
-                  </div>
-                  <div className="flex-1 bg-green-600 h-6 rounded relative">
-                    <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-xs">Audio Track</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-purple-600 rounded flex items-center justify-center">
-                    <div className="w-3 h-1 bg-white rounded"></div>
-                  </div>
-                  <div className="flex-1 bg-purple-600 h-4 rounded relative">
-                    <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-xs">Subtitles</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* AI suggestions panel */}
-              <div className="bg-slate-700 rounded-lg p-4 mt-6">
-                <h5 className="text-white font-medium mb-3">AI Suggestions</h5>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center space-x-2 text-green-400">
-                    <Check className="h-4 w-4" />
-                    <span>Smooth transitions added</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-blue-400">
-                    <MousePointer2 className="h-4 w-4" />
-                    <span>Color grading optimized</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-yellow-400">
-                    <div className="w-4 h-4 flex items-center justify-center">
-                      <div className="w-2 h-2 bg-current rounded-full"></div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xs:gap-12 xl:gap-16 items-center">
+          {/* Video Editor Preview */}
+          <aside className="relative order-1 lg:order-1">
+            <div className="bg-gradient-to-br from-orange-100 to-red-200 rounded-2xl p-4 xs:p-6 md:p-8 shadow-2xl">
+              <div className="bg-white rounded-xl p-4 xs:p-6 mb-4 xs:mb-6 shadow-lg">
+                <h4 className="font-semibold text-slate-900 mb-3 xs:mb-4 text-sm xs:text-base">AI Video Editor</h4>
+                <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20"></div>
+                  <div className="relative z-10 p-4 h-full flex flex-col">
+                    {/* Timeline */}
+                    <div className="flex-1 flex items-end mb-4">
+                      <div className="w-full space-y-2">
+                        <div className="flex space-x-1">
+                          <div className="h-6 bg-blue-500 rounded-sm flex-1"></div>
+                          <div className="h-6 bg-green-500 rounded-sm flex-1"></div>
+                          <div className="h-6 bg-purple-500 rounded-sm flex-1"></div>
+                        </div>
+                        <div className="flex space-x-1">
+                          <div className="h-4 bg-orange-400 rounded-sm w-2/3"></div>
+                          <div className="h-4 bg-teal-400 rounded-sm flex-1"></div>
+                        </div>
+                      </div>
                     </div>
-                    <span>Audio levels balanced</span>
+                    
+                    {/* Preview Screen */}
+                    <div className="bg-white/10 rounded p-2 text-center">
+                      <div className="w-8 h-8 xs:w-10 xs:h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1">
+                        <Scissors className="h-4 w-4 xs:h-5 xs:w-5 text-white" />
+                      </div>
+                      <p className="text-xs text-white/80">AI Processing...</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className="space-y-8 order-1 lg:order-2">
-            <div className="flex items-start space-x-4">
-              <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <Scissors className="text-primary h-4 w-4" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Smart Auto-Editing</h3>
-                <p className="text-slate-600">AI analyzes your footage to automatically create compelling cuts, transitions, and pacing that keeps viewers engaged.</p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4">
-              <div className="w-8 h-8 bg-secondary/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <MousePointer2 className="text-secondary h-4 w-4" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Intelligent Color Grading</h3>
-                <p className="text-slate-600">Professional color correction and grading applied automatically based on scene analysis and mood detection.</p>
+              
+              <div className="grid grid-cols-3 gap-2 xs:gap-3">
+                <div className="bg-white rounded-lg p-2 xs:p-3 shadow-md text-center">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Speed</div>
+                  <div className="text-sm xs:text-base font-bold text-orange-600">10x Faster</div>
+                </div>
+                <div className="bg-white rounded-lg p-2 xs:p-3 shadow-md text-center">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
+                  <div className="text-sm xs:text-base font-bold text-green-600">4K HDR</div>
+                </div>
+                <div className="bg-white rounded-lg p-2 xs:p-3 shadow-md text-center">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Format</div>
+                  <div className="text-sm xs:text-base font-bold text-blue-600">Any</div>
+                </div>
               </div>
             </div>
+          </aside>
 
-            <div className="flex items-start space-x-4">
-              <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <Captions className="text-accent h-4 w-4" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Auto Subtitles & Captions</h3>
-                <p className="text-slate-600">Generate accurate subtitles in multiple languages with speaker identification and perfect timing.</p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4">
-              <div className="w-8 h-8 bg-green-500/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <Minimize2 className="text-green-600 h-4 w-4" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Platform Optimization</h3>
-                <p className="text-slate-600">Automatically format and optimize videos for different platforms with perfect aspect ratios and quality settings.</p>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
-              <h4 className="font-semibold text-slate-900 mb-4">Editing Capabilities</h4>
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                {capabilities.map((capability, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <Check className="text-green-600 h-4 w-4" />
-                    <span>{capability.label}</span>
+          {/* Features */}
+          <div className="space-y-6 xs:space-y-8 order-2 lg:order-2">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <article 
+                  key={index}
+                  className="flex items-start space-x-3 xs:space-x-4 p-3 xs:p-4 rounded-xl hover:bg-white/50 transition-colors duration-200"
+                >
+                  <div className={`w-10 h-10 xs:w-12 xs:h-12 ${feature.bgColor} rounded-lg flex items-center justify-center flex-shrink-0 mt-1`}>
+                    <Icon className={`${feature.iconColor} h-5 w-5 xs:h-6 xs:w-6`} aria-hidden="true" />
                   </div>
-                ))}
-              </div>
-            </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg xs:text-xl font-semibold text-slate-900 mb-2">{feature.title}</h3>
+                    <p className="text-slate-600 text-sm xs:text-base leading-relaxed">{feature.description}</p>
+                  </div>
+                </article>
+              );
+            })}
 
-            <button 
-              onClick={scrollToContact}
-              className="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 transform hover:-translate-y-1"
-            >
-              Start Editing Now
-            </button>
+            <div className="pt-4 xs:pt-6">
+              <button 
+                onClick={scrollToContact}
+                className="w-full xs:w-auto bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-6 xs:px-8 py-3 xs:py-4 rounded-xl font-semibold hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 transform hover:-translate-y-1 text-center"
+                data-testid="editing-cta"
+                aria-label="Start AI video editing"
+              >
+                Start Editing Videos
+              </button>
+            </div>
           </div>
         </div>
       </div>

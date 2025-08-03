@@ -7,12 +7,26 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    // Prevent body scroll when mobile menu is open
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -22,63 +36,73 @@ export default function Navigation() {
     }
   };
 
+  const navigationItems = [
+    { id: "video-ads", label: "Video Ads" },
+    { id: "avatars", label: "AI Avatars" },
+    { id: "voice", label: "Voice Synthesis" },
+    { id: "editing", label: "Video Editing" },
+    { id: "podcast", label: "Podcasts" },
+  ];
+
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled ? "bg-white/90" : "bg-white/80"
-    } backdrop-blur-md border-b border-slate-200`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <span className="text-2xl font-bold gradient-text">
-                SiwahtAI
-              </span>
-            </div>
+    <nav 
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white/95 shadow-lg" : "bg-white/80"
+      } backdrop-blur-md border-b border-slate-200`}
+      role="navigation"
+      aria-label="Main navigation"
+    >
+      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 md:h-20">
+          {/* Logo */}
+          <div className="flex items-center flex-shrink-0">
+            <h1 className="text-xl xs:text-2xl md:text-3xl font-bold gradient-text cursor-pointer"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && window.scrollTo({ top: 0, behavior: 'smooth' })}
+                aria-label="SiwahtAI - Go to top">
+              SiwahtAI
+            </h1>
           </div>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              <button 
-                onClick={() => scrollToSection("video-ads")}
-                className="text-slate-600 hover:text-primary transition-colors duration-200 font-medium"
-              >
-                Video Ads
-              </button>
-              <button 
-                onClick={() => scrollToSection("avatars")}
-                className="text-slate-600 hover:text-primary transition-colors duration-200 font-medium"
-              >
-                AI Avatars
-              </button>
-              <button 
-                onClick={() => scrollToSection("voice")}
-                className="text-slate-600 hover:text-primary transition-colors duration-200 font-medium"
-              >
-                Voice Synthesis
-              </button>
-              <button 
-                onClick={() => scrollToSection("editing")}
-                className="text-slate-600 hover:text-primary transition-colors duration-200 font-medium"
-              >
-                Video Editing
-              </button>
+          <div className="hidden lg:block">
+            <div className="flex items-center space-x-6 xl:space-x-8">
+              {navigationItems.map((item) => (
+                <button 
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="text-slate-600 hover:text-primary transition-colors duration-200 font-medium text-sm xl:text-base py-2 px-1"
+                  data-testid={`nav-${item.id}`}
+                >
+                  {item.label}
+                </button>
+              ))}
               <button 
                 onClick={() => scrollToSection("contact")}
-                className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium"
+                className="bg-primary text-white px-4 xl:px-6 py-2 xl:py-3 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium text-sm xl:text-base shadow-md hover:shadow-lg"
+                data-testid="nav-contact"
               >
-                Contact
+                Get Started
               </button>
             </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button 
+          <div className="lg:hidden">
+            <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-slate-600 hover:text-primary transition-colors duration-200"
+              className="inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-primary hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors duration-200"
+              aria-expanded={isMenuOpen}
+              aria-label="Toggle main menu"
+              data-testid="mobile-menu-button"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? (
+                <X className="block h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="block h-6 w-6" aria-hidden="true" />
+              )}
             </button>
           </div>
         </div>
@@ -86,38 +110,30 @@ export default function Navigation() {
 
       {/* Mobile Navigation Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-slate-200">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            <button 
-              onClick={() => scrollToSection("video-ads")}
-              className="block w-full text-left px-3 py-2 text-slate-600 hover:text-primary transition-colors duration-200 font-medium"
-            >
-              Video Ads
-            </button>
-            <button 
-              onClick={() => scrollToSection("avatars")}
-              className="block w-full text-left px-3 py-2 text-slate-600 hover:text-primary transition-colors duration-200 font-medium"
-            >
-              AI Avatars
-            </button>
-            <button 
-              onClick={() => scrollToSection("voice")}
-              className="block w-full text-left px-3 py-2 text-slate-600 hover:text-primary transition-colors duration-200 font-medium"
-            >
-              Voice Synthesis
-            </button>
-            <button 
-              onClick={() => scrollToSection("editing")}
-              className="block w-full text-left px-3 py-2 text-slate-600 hover:text-primary transition-colors duration-200 font-medium"
-            >
-              Video Editing
-            </button>
-            <button 
-              onClick={() => scrollToSection("contact")}
-              className="block mx-3 my-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium text-center"
-            >
-              Contact
-            </button>
+        <div className="lg:hidden">
+          <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setIsMenuOpen(false)} />
+          <div className="fixed top-16 md:top-20 left-0 right-0 bg-white shadow-xl border-t border-slate-200 z-50 max-h-screen overflow-y-auto">
+            <div className="px-4 pt-4 pb-6 space-y-2">
+              {navigationItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="block w-full text-left px-4 py-3 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-lg transition-colors duration-200"
+                  data-testid={`mobile-nav-${item.id}`}
+                >
+                  {item.label}
+                </button>
+              ))}
+              <div className="pt-4">
+                <button
+                  onClick={() => scrollToSection("contact")}
+                  className="block w-full bg-primary text-white px-4 py-3 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium text-center"
+                  data-testid="mobile-nav-contact"
+                >
+                  Get Started
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

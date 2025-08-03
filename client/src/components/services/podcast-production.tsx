@@ -1,190 +1,165 @@
-import { Mic, Headphones, Radio, Zap, Clock, Users } from "lucide-react";
+import { Headphones, Volume2, Mic2, Radio } from "lucide-react";
 
 export default function PodcastProduction() {
+  const scrollToContact = () => {
+    const element = document.getElementById("contact");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const features = [
     {
-      icon: Mic,
-      title: "Script to Audio",
-      description: "We transform your written content into professional-quality podcast episodes using advanced AI narration"
+      icon: Mic2,
+      iconColor: "text-primary",
+      bgColor: "bg-primary/10",
+      title: "AI Host Generation",
+      description: "Create engaging AI podcast hosts with unique personalities and natural conversation flow."
+    },
+    {
+      icon: Volume2,
+      iconColor: "text-secondary",
+      bgColor: "bg-secondary/10",
+      title: "Audio Enhancement",
+      description: "Automatically remove background noise, balance levels, and optimize audio quality."
     },
     {
       icon: Headphones,
-      title: "Audio Enhancement",
-      description: "Our team applies professional noise reduction, EQ optimization, and mastering for broadcast-ready sound"
+      iconColor: "text-accent",
+      bgColor: "bg-accent/10",
+      title: "Content Optimization",
+      description: "AI analyzes and optimizes content structure for maximum listener engagement and retention."
     },
     {
       icon: Radio,
-      title: "Multi-Voice Production",
-      description: "We create dynamic conversations with multiple AI voices and natural dialogue flow for your brand"
-    },
-    {
-      icon: Zap,
-      title: "Rapid Turnaround",
-      description: "Our streamlined process delivers finished episodes from script to publication in record time"
-    },
-    {
-      icon: Clock,
-      title: "Content Strategy",
-      description: "We manage your podcast release schedule and distribution across all major platforms"
-    },
-    {
-      icon: Users,
-      title: "Performance Optimization",
-      description: "Our analytics team tracks engagement metrics and optimizes content for better listener retention"
+      iconColor: "text-pink-600",
+      bgColor: "bg-pink-100",
+      title: "Multi-Format Export",
+      description: "Export in all podcast formats with automatic metadata, show notes, and transcript generation."
     }
   ];
 
+  const podcastTypes = [
+    "Interview", "Educational", "News", "Storytelling", "Comedy", "Business"
+  ];
+
   return (
-    <section id="podcast-production" className="py-24 bg-gradient-to-br from-purple-50 to-indigo-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center px-4 py-2 bg-purple-100 rounded-full text-purple-800 text-sm font-medium mb-6">
-            <Mic className="w-4 h-4 mr-2" />
+    <section 
+      id="podcast" 
+      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-white"
+      aria-labelledby="podcast-heading"
+    >
+      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
+        <header className="text-center mb-12 xs:mb-16">
+          <h2 
+            id="podcast-heading"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
+          >
             AI Podcast Production
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Professional Podcast Production Services
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            We handle your podcast workflow from script to distribution. Our team helps you engage your audience with high-quality audio content, without the studio hassle.
+          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
+            Create professional podcasts with AI hosts, automated editing, and intelligent content optimization. From concept to publishing.
           </p>
-        </div>
+        </header>
 
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          {/* Left: Features */}
-          <div className="space-y-8">
-            <div className="grid sm:grid-cols-2 gap-6">
-              {features.map((feature, index) => (
-                <div 
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xs:gap-12 xl:gap-16 items-center">
+          {/* Features */}
+          <div className="space-y-6 xs:space-y-8 order-2 lg:order-1">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <article 
                   key={index}
-                  className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-purple-100"
+                  className="flex items-start space-x-3 xs:space-x-4 p-3 xs:p-4 rounded-xl hover:bg-slate-50 transition-colors duration-200"
                 >
-                  <div className="flex items-center mb-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <feature.icon className="w-6 h-6 text-purple-600" />
-                    </div>
-                    <h3 className="ml-4 text-lg font-semibold text-gray-900">
-                      {feature.title}
-                    </h3>
+                  <div className={`w-10 h-10 xs:w-12 xs:h-12 ${feature.bgColor} rounded-lg flex items-center justify-center flex-shrink-0 mt-1`}>
+                    <Icon className={`${feature.iconColor} h-5 w-5 xs:h-6 xs:w-6`} aria-hidden="true" />
                   </div>
-                  <p className="text-gray-600 leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              ))}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg xs:text-xl font-semibold text-slate-900 mb-2">{feature.title}</h3>
+                    <p className="text-slate-600 text-sm xs:text-base leading-relaxed">{feature.description}</p>
+                  </div>
+                </article>
+              );
+            })}
+
+            <div className="pt-4 xs:pt-6">
+              <button 
+                onClick={scrollToContact}
+                className="w-full xs:w-auto bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white px-6 xs:px-8 py-3 xs:py-4 rounded-xl font-semibold hover:shadow-lg hover:shadow-pink-500/25 transition-all duration-300 transform hover:-translate-y-1 text-center"
+                data-testid="podcast-cta"
+                aria-label="Start podcast production"
+              >
+                Start Your Podcast
+              </button>
             </div>
           </div>
 
-          {/* Right: Demo/Visual */}
-          <div className="relative">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 border border-purple-200">
-              <div className="space-y-6">
-                {/* Podcast Interface Mockup */}
-                <div className="flex items-center space-x-4 p-4 bg-purple-50 rounded-xl">
-                  <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">
-                    <Radio className="w-6 h-6 text-white" />
+          {/* Podcast Studio Preview */}
+          <aside className="relative order-1 lg:order-2">
+            <div className="bg-gradient-to-br from-pink-100 to-rose-200 rounded-2xl p-4 xs:p-6 md:p-8 shadow-2xl">
+              <div className="bg-white rounded-xl p-4 xs:p-6 mb-4 xs:mb-6 shadow-lg">
+                <h4 className="font-semibold text-slate-900 mb-3 xs:mb-4 text-sm xs:text-base">Podcast Studio</h4>
+                <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg p-4 xs:p-6">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-16 h-16 xs:w-20 xs:h-20 rounded-full bg-gradient-to-br from-pink-400 to-rose-600 flex items-center justify-center shadow-lg">
+                      <Radio className="h-8 w-8 xs:h-10 xs:w-10 text-white" />
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900">Episode 42: AI in Business</h4>
-                    <p className="text-sm text-gray-600">Ready for upload • 24:30 duration</p>
+                  
+                  {/* Audio Waveform Visualization */}
+                  <div className="mb-4">
+                    <div className="flex items-end justify-center space-x-1 h-12">
+                      {[...Array(12)].map((_, i) => (
+                        <div 
+                          key={i} 
+                          className="bg-pink-400 rounded-sm w-1 animate-pulse" 
+                          style={{
+                            height: `${Math.random() * 80 + 20}%`,
+                            animationDelay: `${i * 0.1}s`
+                          }}
+                        ></div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  
+                  <div className="text-center text-white">
+                    <p className="text-xs xs:text-sm opacity-90 mb-2">Recording:</p>
+                    <p className="text-sm xs:text-base font-medium">"Welcome to AI Insights..."</p>
+                    <div className="flex items-center justify-center mt-3 space-x-4">
+                      <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                      <span className="text-xs opacity-80">LIVE</span>
+                    </div>
+                  </div>
                 </div>
-
-                {/* Audio Waveform Visualization */}
-                <div className="p-6 bg-gray-50 rounded-xl">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm font-medium text-gray-700">Audio Processing</span>
-                    <span className="text-sm text-purple-600 font-medium">95% Complete</span>
-                  </div>
-                  <div className="flex items-end space-x-1 h-16">
-                    {Array.from({ length: 40 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className={`w-1 bg-gradient-to-t from-purple-400 to-purple-600 rounded-full transition-all duration-300 ${
-                          i < 38 ? 'opacity-100' : 'opacity-30'
-                        }`}
-                        style={{
-                          height: `${Math.random() * 60 + 20}%`,
-                          animationDelay: `${i * 50}ms`
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Publishing Status */}
-                <div className="space-y-3">
-                  {[
-                    { platform: "Spotify", status: "Published", color: "green" },
-                    { platform: "Apple Podcasts", status: "Publishing...", color: "yellow" },
-                    { platform: "Google Podcasts", status: "Queued", color: "gray" }
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <span className="font-medium text-gray-900">{item.platform}</span>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        item.color === 'green' ? 'bg-green-100 text-green-800' :
-                        item.color === 'yellow' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-gray-100 text-gray-800'
-                      }`}>
-                        {item.status}
+              </div>
+              
+              <div className="space-y-3">
+                <div className="bg-white rounded-lg p-3 xs:p-4 shadow-md">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-2">Podcast Formats</div>
+                  <div className="flex flex-wrap gap-1 xs:gap-2">
+                    {podcastTypes.slice(0, 4).map((type, index) => (
+                      <span key={index} className="text-xs bg-pink-100 text-pink-700 px-2 py-1 rounded">
+                        {type}
                       </span>
-                    </div>
-                  ))}
+                    ))}
+                    <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">+2 more</span>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-white rounded-lg p-3 shadow-md text-center">
+                    <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Duration</div>
+                    <div className="text-sm xs:text-base font-bold text-pink-600">Any Length</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-3 shadow-md text-center">
+                    <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
+                    <div className="text-sm xs:text-base font-bold text-rose-600">Studio</div>
+                  </div>
                 </div>
               </div>
             </div>
-
-            {/* Floating Elements */}
-            <div className="absolute -top-4 -right-4 w-20 h-20 bg-purple-200 rounded-full blur-xl opacity-60"></div>
-            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-indigo-200 rounded-full blur-xl opacity-40"></div>
-          </div>
-        </div>
-
-        {/* Benefits Section */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              Why Partner with SiwahtAI for Podcasts?
-            </h3>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Our experienced team delivers professional podcast production with cutting-edge AI technology and personalized service
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="w-8 h-8 text-purple-600" />
-              </div>
-              <h4 className="text-xl font-semibold text-gray-900 mb-3">Fast Turnaround</h4>
-              <p className="text-gray-600">
-                Our efficient production process delivers high-quality podcast episodes in a fraction of traditional time
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Headphones className="w-8 h-8 text-purple-600" />
-              </div>
-              <h4 className="text-xl font-semibold text-gray-900 mb-3">Studio-Quality Audio</h4>
-              <p className="text-gray-600">
-                Our audio engineers ensure broadcast-ready sound with professional enhancement and mastering
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Radio className="w-8 h-8 text-purple-600" />
-              </div>
-              <h4 className="text-xl font-semibold text-gray-900 mb-3">Full-Service Management</h4>
-              <p className="text-gray-600">
-                We handle distribution to all major podcast platforms and manage your content strategy
-              </p>
-            </div>
-          </div>
+          </aside>
         </div>
       </div>
     </section>
