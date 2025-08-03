@@ -1,4 +1,4 @@
-import { Wand2, Palette, TrendingUp } from "lucide-react";
+import { Play, Target, Zap, Sparkles } from "lucide-react";
 
 export default function VideoAds() {
   const scrollToContact = () => {
@@ -10,116 +10,131 @@ export default function VideoAds() {
 
   const features = [
     {
-      icon: Wand2,
-      iconColor: "text-primary",
-      bgColor: "bg-primary/10",
-      title: "Smart Script Generation",
-      description: "AI analyzes your product and target audience to create compelling scripts that drive conversions."
+      icon: Play,
+      iconColor: "text-blue-600",
+      bgColor: "bg-blue-100",
+      title: "AI-Powered Creation",
+      description: "Generate compelling video ads in minutes using advanced AI that understands your brand and audience."
     },
     {
-      icon: Palette,
-      iconColor: "text-secondary",
-      bgColor: "bg-secondary/10",
-      title: "Brand-Aligned Visuals",
-      description: "Automatically generate visuals that match your brand guidelines and aesthetic preferences."
+      icon: Target,
+      iconColor: "text-green-600",
+      bgColor: "bg-green-100",
+      title: "Targeted Messaging",
+      description: "Create personalized ad content that resonates with specific demographics and customer segments."
     },
     {
-      icon: TrendingUp,
-      iconColor: "text-accent",
-      bgColor: "bg-accent/10",
-      title: "Performance Optimization",
-      description: "Built-in A/B testing and performance analytics to maximize your ad effectiveness."
+      icon: Zap,
+      iconColor: "text-yellow-600",
+      bgColor: "bg-yellow-100",
+      title: "Rapid Production",
+      description: "From concept to finished ad in under 10 minutes. Perfect for fast-paced marketing campaigns."
+    },
+    {
+      icon: Sparkles,
+      iconColor: "text-purple-600",
+      bgColor: "bg-purple-100",
+      title: "Professional Quality",
+      description: "Studio-quality output with professional editing, transitions, and effects automatically applied."
     }
   ];
 
   return (
     <section 
       id="video-ads" 
-      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-white"
+      className="section-padding bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/50"
       aria-labelledby="video-ads-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
-        <header className="text-center mb-12 xs:mb-16">
+      <div className="container-custom">
+        <header className="text-center mb-16 xs:mb-20">
           <h2 
             id="video-ads-heading"
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
+            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 xs:mb-8 text-shadow"
           >
-            AI Video Ad Creation
+            <span className="gradient-text">AI Video Ads</span>
           </h2>
-          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
-            Create compelling video advertisements that convert. Our AI analyzes your brand and generates high-performing ad content automatically.
+          <p className="text-xl xs:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed px-2">
+            Create high-converting video advertisements with AI-powered automation. From script to screen in minutes.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xs:gap-12 xl:gap-16 items-center">
-          <div className="space-y-6 xs:space-y-8 order-2 lg:order-1">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xs:gap-16 xl:gap-20 items-center">
+          {/* Video Ad Preview */}
+          <aside className="relative order-1 lg:order-1 hover-lift">
+            <div className="service-preview from-blue-100 via-indigo-100 to-purple-100">
+              <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
+                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">AI Video Studio</h4>
+                <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
+                  <div className="relative z-10 h-full flex items-center justify-center">
+                    <div className="text-center text-white">
+                      <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
+                        <Play className="h-10 w-10 xs:h-12 xs:w-12 text-white fill-current" />
+                      </div>
+                      <p className="text-sm xs:text-base opacity-90 font-semibold">AI Video Preview</p>
+                      <p className="text-xs opacity-70 mt-2">High-Converting Ad Content</p>
+                    </div>
+                  </div>
+                  
+                  {/* Video Timeline */}
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="bg-white/20 backdrop-blur-sm rounded-full h-2 overflow-hidden">
+                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-full w-1/3 rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-3 xs:gap-4">
+                <div className="glass-card p-3 xs:p-4 text-center hover-lift">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Duration</div>
+                  <div className="text-sm xs:text-base font-bold text-blue-600">30-60s</div>
+                </div>
+                <div className="glass-card p-3 xs:p-4 text-center hover-lift">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
+                  <div className="text-sm xs:text-base font-bold text-green-600">4K</div>
+                </div>
+                <div className="glass-card p-3 xs:p-4 text-center hover-lift">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Speed</div>
+                  <div className="text-sm xs:text-base font-bold text-purple-600">10 min</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          {/* Features */}
+          <div className="space-y-8 xs:space-y-10 order-2 lg:order-2">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <article 
                   key={index}
-                  className="flex items-start space-x-3 xs:space-x-4 p-3 xs:p-4 rounded-xl hover:bg-slate-50 transition-colors duration-200"
+                  className="feature-card hover-lift"
                 >
-                  <div className={`w-10 h-10 xs:w-12 xs:h-12 ${feature.bgColor} rounded-lg flex items-center justify-center flex-shrink-0 mt-1`}>
-                    <Icon className={`${feature.iconColor} h-5 w-5 xs:h-6 xs:w-6`} aria-hidden="true" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg xs:text-xl font-semibold text-slate-900 mb-2">{feature.title}</h3>
-                    <p className="text-slate-600 text-sm xs:text-base leading-relaxed">{feature.description}</p>
+                  <div className="flex items-start space-x-4 xs:space-x-6">
+                    <div className={`feature-icon ${feature.bgColor} icon-gradient`}>
+                      <Icon className={`${feature.iconColor} h-6 w-6 xs:h-7 xs:w-7`} aria-hidden="true" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow">{feature.title}</h3>
+                      <p className="text-slate-600 text-base xs:text-lg leading-relaxed">{feature.description}</p>
+                    </div>
                   </div>
                 </article>
               );
             })}
 
-            <div className="pt-4 xs:pt-6">
+            <div className="pt-6 xs:pt-8">
               <button 
                 onClick={scrollToContact}
-                className="w-full xs:w-auto bg-gradient-to-r from-primary to-secondary text-white px-6 xs:px-8 py-3 xs:py-4 rounded-xl font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 transform hover:-translate-y-1 text-center"
+                className="btn-primary w-full xs:w-auto text-lg xs:text-xl px-10 py-5"
                 data-testid="video-ads-cta"
-                aria-label="Start creating your first video ad"
+                aria-label="Start creating AI video ads"
               >
-                Create Your First Ad
+                Create Video Ads
               </button>
             </div>
           </div>
-
-          <aside className="relative order-1 lg:order-2">
-            <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl p-4 xs:p-6 md:p-8 shadow-2xl">
-              <div className="bg-white rounded-xl p-4 xs:p-6 mb-4 xs:mb-6 shadow-lg">
-                <h4 className="font-semibold text-slate-900 mb-3 xs:mb-4 text-sm xs:text-base">Video Ad Preview</h4>
-                <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <div className="w-12 h-12 xs:w-16 xs:h-16 rounded-full border-4 border-white/20 flex items-center justify-center mb-2 mx-auto">
-                      <div className="w-0 h-0 border-l-[6px] xs:border-l-[8px] border-l-white border-y-[4px] xs:border-y-[6px] border-y-transparent ml-1"></div>
-                    </div>
-                    <p className="text-xs xs:text-sm opacity-80">AI-Generated Video Preview</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-3 xs:gap-4">
-                <div className="bg-white rounded-lg p-3 xs:p-4 shadow-md">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs xs:text-sm font-medium text-slate-600">Engagement</span>
-                    <span className="text-sm xs:text-lg font-bold text-green-600">94%</span>
-                  </div>
-                  <div className="w-full bg-slate-200 rounded-full h-1.5 xs:h-2">
-                    <div className="bg-green-500 h-1.5 xs:h-2 rounded-full" style={{width: '94%'}}></div>
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-lg p-3 xs:p-4 shadow-md">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs xs:text-sm font-medium text-slate-600">Conversion</span>
-                    <span className="text-sm xs:text-lg font-bold text-blue-600">87%</span>
-                  </div>
-                  <div className="w-full bg-slate-200 rounded-full h-1.5 xs:h-2">
-                    <div className="bg-blue-500 h-1.5 xs:h-2 rounded-full" style={{width: '87%'}}></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </aside>
         </div>
       </div>
     </section>

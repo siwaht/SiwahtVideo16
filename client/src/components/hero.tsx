@@ -35,10 +35,10 @@ export default function Hero() {
             Transform your ideas into stunning videos, realistic avatars, and premium audio content with our cutting-edge AI technology.
           </p>
           
-          <div className="flex flex-col xs:flex-row gap-3 xs:gap-4 justify-center items-center mb-8 xs:mb-12">
+          <div className="flex flex-col xs:flex-row gap-4 xs:gap-6 justify-center items-center mb-8 xs:mb-12">
             <button 
               onClick={scrollToContact}
-              className="w-full xs:w-auto bg-gradient-to-r from-primary to-secondary text-white px-6 xs:px-8 py-3 xs:py-4 rounded-xl text-base xs:text-lg font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 transform hover:-translate-y-1 min-w-[200px]"
+              className="btn-primary w-full xs:w-auto text-lg xs:text-xl px-10 py-5 min-w-[220px]"
               data-testid="hero-start-creating"
               aria-label="Start creating with SiwahtAI"
             >
@@ -46,39 +46,39 @@ export default function Hero() {
             </button>
             <button 
               onClick={scrollToServices}
-              className="w-full xs:w-auto border-2 border-slate-300 text-slate-700 px-6 xs:px-8 py-3 xs:py-4 rounded-xl text-base xs:text-lg font-semibold hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-300 flex items-center justify-center gap-2 min-w-[200px]"
+              className="w-full xs:w-auto glass-card border-2 border-white/40 text-slate-700 px-8 py-4 rounded-xl text-lg xs:text-xl font-semibold hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50/50 transition-all duration-300 flex items-center justify-center gap-3 min-w-[220px] hover-lift"
               data-testid="hero-watch-demo"
               aria-label="Learn about our services"
             >
-              <Play className="h-4 w-4" />
+              <Play className="h-5 w-5" />
               Explore Services
             </button>
           </div>
         </div>
 
-        <div className="mt-12 xs:mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 xs:gap-8 animate-slide-up">
-          <article className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 xs:p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-            <div className="w-10 h-10 xs:w-12 xs:h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-3 xs:mb-4">
-              <Video className="text-primary h-5 w-5 xs:h-6 xs:w-6" aria-hidden="true" />
+        <div className="mt-16 xs:mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 xs:gap-10 animate-slide-up">
+          <article className="feature-card hover-lift">
+            <div className="feature-icon bg-blue-100 icon-gradient mb-4 xs:mb-6">
+              <Video className="text-blue-600 h-6 w-6 xs:h-7 xs:w-7" aria-hidden="true" />
             </div>
-            <h3 className="text-lg xs:text-xl font-semibold text-slate-900 mb-2">AI Video Creation</h3>
-            <p className="text-slate-600 text-sm xs:text-base">Generate professional videos from text prompts in minutes</p>
+            <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow">AI Video Creation</h3>
+            <p className="text-slate-600 text-base xs:text-lg leading-relaxed">Generate professional videos from text prompts in minutes</p>
           </article>
 
-          <article className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 xs:p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-            <div className="w-10 h-10 xs:w-12 xs:h-12 bg-secondary/10 rounded-xl flex items-center justify-center mb-3 xs:mb-4">
-              <UserCircle className="text-secondary h-5 w-5 xs:h-6 xs:w-6" aria-hidden="true" />
+          <article className="feature-card hover-lift">
+            <div className="feature-icon bg-purple-100 icon-gradient mb-4 xs:mb-6">
+              <UserCircle className="text-purple-600 h-6 w-6 xs:h-7 xs:w-7" aria-hidden="true" />
             </div>
-            <h3 className="text-lg xs:text-xl font-semibold text-slate-900 mb-2">Realistic Avatars</h3>
-            <p className="text-slate-600 text-sm xs:text-base">Create lifelike digital personas for any application</p>
+            <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow">Realistic Avatars</h3>
+            <p className="text-slate-600 text-base xs:text-lg leading-relaxed">Create lifelike digital personas for any application</p>
           </article>
 
-          <article className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 xs:p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 md:col-span-1">
-            <div className="w-10 h-10 xs:w-12 xs:h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-3 xs:mb-4">
-              <Mic className="text-accent h-5 w-5 xs:h-6 xs:w-6" aria-hidden="true" />
+          <article className="feature-card hover-lift">
+            <div className="feature-icon bg-emerald-100 icon-gradient mb-4 xs:mb-6">
+              <Mic className="text-emerald-600 h-6 w-6 xs:h-7 xs:w-7" aria-hidden="true" />
             </div>
-            <h3 className="text-lg xs:text-xl font-semibold text-slate-900 mb-2">Voice Synthesis</h3>
-            <p className="text-slate-600 text-sm xs:text-base">Generate natural-sounding speech in multiple languages</p>
+            <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow">Voice Synthesis</h3>
+            <p className="text-slate-600 text-base xs:text-lg leading-relaxed">Generate natural-sounding speech in multiple languages</p>
           </article>
         </div>
       </div>

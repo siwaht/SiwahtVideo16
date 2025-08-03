@@ -1,4 +1,4 @@
-import { User, Zap, Settings, Sparkles } from "lucide-react";
+import { User, Sparkles, Settings, Download } from "lucide-react";
 
 export default function Avatars() {
   const scrollToContact = () => {
@@ -11,119 +11,129 @@ export default function Avatars() {
   const features = [
     {
       icon: User,
-      iconColor: "text-primary",
-      bgColor: "bg-primary/10",
-      title: "Realistic Appearances",
-      description: "Create lifelike digital personas with natural expressions and movements that captivate your audience."
-    },
-    {
-      icon: Zap,
-      iconColor: "text-secondary",
-      bgColor: "bg-secondary/10",
-      title: "Quick Generation",
-      description: "Generate high-quality avatars in minutes, not hours. Perfect for rapid content creation needs."
-    },
-    {
-      icon: Settings,
-      iconColor: "text-accent",
-      bgColor: "bg-accent/10",
-      title: "Full Customization",
-      description: "Customize appearance, personality, voice, and behaviors to match your brand perfectly."
+      iconColor: "text-blue-600",
+      bgColor: "bg-blue-100",
+      title: "Photorealistic Generation",
+      description: "Create incredibly lifelike avatars with advanced AI that captures human expressions and characteristics."
     },
     {
       icon: Sparkles,
       iconColor: "text-purple-600",
       bgColor: "bg-purple-100",
-      title: "AI-Powered Animation",
-      description: "Advanced AI ensures natural lip-sync, gestures, and emotional expressions for authentic interactions."
+      title: "Custom Personalities",
+      description: "Design unique character traits, emotions, and speaking styles that perfectly match your brand or vision."
+    },
+    {
+      icon: Settings,
+      iconColor: "text-emerald-600",
+      bgColor: "bg-emerald-100",
+      title: "Advanced Customization",
+      description: "Fine-tune every detail from facial features to clothing, ensuring your avatar meets exact specifications."
+    },
+    {
+      icon: Download,
+      iconColor: "text-orange-600",
+      bgColor: "bg-orange-100",
+      title: "Multiple Formats",
+      description: "Export your avatars in various formats for use across different platforms and applications."
     }
   ];
 
   return (
     <section 
       id="avatars" 
-      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-100 to-blue-50"
+      className="section-padding bg-gradient-to-br from-indigo-50/50 via-white to-purple-50/30"
       aria-labelledby="avatars-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
-        <header className="text-center mb-12 xs:mb-16">
+      <div className="container-custom">
+        <header className="text-center mb-16 xs:mb-20">
           <h2 
             id="avatars-heading"
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
+            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 xs:mb-8 text-shadow"
           >
-            Realistic AI Avatars
+            <span className="gradient-text">Realistic Avatars</span>
           </h2>
-          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
-            Bring your digital presence to life with photorealistic AI avatars. Perfect for presentations, social media, and customer interactions.
+          <p className="text-xl xs:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed px-2">
+            Create photorealistic digital humans with AI-powered avatar generation. Perfect for any virtual environment.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xs:gap-12 xl:gap-16 items-center">
-          {/* Avatar Preview */}
-          <aside className="relative order-1 lg:order-1">
-            <div className="bg-gradient-to-br from-blue-100 to-indigo-200 rounded-2xl p-4 xs:p-6 md:p-8 shadow-2xl">
-              <div className="bg-white rounded-xl p-4 xs:p-6 mb-4 xs:mb-6 shadow-lg">
-                <h4 className="font-semibold text-slate-900 mb-3 xs:mb-4 text-sm xs:text-base">AI Avatar Studio</h4>
-                <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-[4/3] flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20"></div>
-                  <div className="text-center text-white relative z-10">
-                    <div className="w-16 h-16 xs:w-20 xs:h-20 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center mb-3 mx-auto shadow-lg">
-                      <User className="h-8 w-8 xs:h-10 xs:w-10 text-white" />
-                    </div>
-                    <p className="text-xs xs:text-sm opacity-90 font-medium">AI Avatar Preview</p>
-                    <p className="text-xs opacity-70 mt-1">Customizable & Realistic</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-3 gap-2 xs:gap-3">
-                <div className="bg-white rounded-lg p-2 xs:p-3 shadow-md text-center">
-                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Style</div>
-                  <div className="text-sm xs:text-base font-bold text-blue-600">Professional</div>
-                </div>
-                <div className="bg-white rounded-lg p-2 xs:p-3 shadow-md text-center">
-                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
-                  <div className="text-sm xs:text-base font-bold text-green-600">4K</div>
-                </div>
-                <div className="bg-white rounded-lg p-2 xs:p-3 shadow-md text-center">
-                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Time</div>
-                  <div className="text-sm xs:text-base font-bold text-purple-600">5 min</div>
-                </div>
-              </div>
-            </div>
-          </aside>
-
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xs:gap-16 xl:gap-20 items-center">
           {/* Features */}
-          <div className="space-y-6 xs:space-y-8 order-2 lg:order-2">
+          <div className="space-y-8 xs:space-y-10 order-2 lg:order-1">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <article 
                   key={index}
-                  className="flex items-start space-x-3 xs:space-x-4 p-3 xs:p-4 rounded-xl hover:bg-white/50 transition-colors duration-200"
+                  className="feature-card hover-lift"
                 >
-                  <div className={`w-10 h-10 xs:w-12 xs:h-12 ${feature.bgColor} rounded-lg flex items-center justify-center flex-shrink-0 mt-1`}>
-                    <Icon className={`${feature.iconColor} h-5 w-5 xs:h-6 xs:w-6`} aria-hidden="true" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg xs:text-xl font-semibold text-slate-900 mb-2">{feature.title}</h3>
-                    <p className="text-slate-600 text-sm xs:text-base leading-relaxed">{feature.description}</p>
+                  <div className="flex items-start space-x-4 xs:space-x-6">
+                    <div className={`feature-icon ${feature.bgColor} icon-gradient`}>
+                      <Icon className={`${feature.iconColor} h-6 w-6 xs:h-7 xs:w-7`} aria-hidden="true" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow">{feature.title}</h3>
+                      <p className="text-slate-600 text-base xs:text-lg leading-relaxed">{feature.description}</p>
+                    </div>
                   </div>
                 </article>
               );
             })}
 
-            <div className="pt-4 xs:pt-6">
+            <div className="pt-6 xs:pt-8">
               <button 
                 onClick={scrollToContact}
-                className="w-full xs:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 xs:px-8 py-3 xs:py-4 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1 text-center"
+                className="btn-secondary w-full xs:w-auto text-lg xs:text-xl px-10 py-5"
                 data-testid="avatars-cta"
-                aria-label="Start creating your AI avatar"
+                aria-label="Start creating realistic avatars"
               >
-                Create Your Avatar
+                Create Avatars
               </button>
             </div>
           </div>
+
+          {/* Avatar Preview */}
+          <aside className="relative order-1 lg:order-2 hover-lift">
+            <div className="service-preview from-purple-100 via-indigo-100 to-blue-100">
+              <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
+                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Avatar Studio</h4>
+                <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
+                  
+                  {/* Avatar Preview */}
+                  <div className="relative z-10 h-full flex items-center justify-center">
+                    <div className="w-32 h-32 xs:w-40 xs:h-40 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-2xl floating-animation">
+                      <User className="h-16 w-16 xs:h-20 xs:w-20 text-white" />
+                    </div>
+                  </div>
+                  
+                  {/* Floating Elements */}
+                  <div className="absolute top-4 right-4 w-12 h-12 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center floating-animation" style={{animationDelay: '1s'}}>
+                    <Sparkles className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <div className="absolute bottom-4 left-4 w-10 h-10 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center floating-animation" style={{animationDelay: '2s'}}>
+                    <Settings className="h-5 w-5 text-blue-600" />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-3 xs:gap-4">
+                <div className="glass-card p-3 xs:p-4 text-center hover-lift">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
+                  <div className="text-sm xs:text-base font-bold text-blue-600">8K</div>
+                </div>
+                <div className="glass-card p-3 xs:p-4 text-center hover-lift">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Expressions</div>
+                  <div className="text-sm xs:text-base font-bold text-purple-600">50+</div>
+                </div>
+                <div className="glass-card p-3 xs:p-4 text-center hover-lift">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Styles</div>
+                  <div className="text-sm xs:text-base font-bold text-emerald-600">∞</div>
+                </div>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </section>

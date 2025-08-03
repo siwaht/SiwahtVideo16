@@ -1,4 +1,4 @@
-import { Mic, Globe, Headphones, Volume2 } from "lucide-react";
+import { Mic, Languages, Volume2, Download } from "lucide-react";
 
 export default function VoiceSynthesis() {
   const scrollToContact = () => {
@@ -10,142 +10,141 @@ export default function VoiceSynthesis() {
 
   const features = [
     {
-      icon: Volume2,
-      iconColor: "text-primary",
-      bgColor: "bg-primary/10",
-      title: "Natural Speech",
-      description: "Generate human-like speech with natural intonation, pacing, and emotional expression."
-    },
-    {
-      icon: Globe,
-      iconColor: "text-secondary",
-      bgColor: "bg-secondary/10",
-      title: "Multi-Language Support",
-      description: "Support for 40+ languages and dialects with native accent and pronunciation."
-    },
-    {
       icon: Mic,
-      iconColor: "text-accent",
-      bgColor: "bg-accent/10",
-      title: "Voice Cloning",
-      description: "Clone any voice with just a few minutes of audio samples for personalized content."
+      iconColor: "text-blue-600",
+      bgColor: "bg-blue-100",
+      title: "Natural AI Voices",
+      description: "Generate incredibly realistic speech that's indistinguishable from human voice recordings."
     },
     {
-      icon: Headphones,
+      icon: Languages,
       iconColor: "text-emerald-600",
       bgColor: "bg-emerald-100",
-      title: "Studio Quality",
-      description: "Professional-grade audio output ready for podcasts, videos, and commercial use."
+      title: "Multi-Language Support",
+      description: "Create voice content in over 50 languages with native pronunciation and cultural nuances."
+    },
+    {
+      icon: Volume2,
+      iconColor: "text-purple-600",
+      bgColor: "bg-purple-100",
+      title: "Voice Customization",
+      description: "Fine-tune pitch, speed, tone, and emotion to match your exact requirements."
+    },
+    {
+      icon: Download,
+      iconColor: "text-orange-600",
+      bgColor: "bg-orange-100",
+      title: "Professional Output",
+      description: "Export high-quality audio files ready for podcasts, videos, and commercial use."
     }
-  ];
-
-  const languages = [
-    "English", "Spanish", "French", "German", "Italian", "Portuguese", "Japanese", "Korean", "Chinese"
   ];
 
   return (
     <section 
-      id="voice" 
-      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-white"
-      aria-labelledby="voice-heading"
+      id="voice-synthesis" 
+      className="section-padding bg-gradient-to-br from-emerald-50/30 via-white to-teal-50/40"
+      aria-labelledby="voice-synthesis-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
-        <header className="text-center mb-12 xs:mb-16">
+      <div className="container-custom">
+        <header className="text-center mb-16 xs:mb-20">
           <h2 
-            id="voice-heading"
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
+            id="voice-synthesis-heading"
+            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 xs:mb-8 text-shadow"
           >
-            AI Voice Synthesis
+            <span className="gradient-text">Voice Synthesis</span>
           </h2>
-          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
-            Transform text into natural-sounding speech in any voice, language, or style. Perfect for audiobooks, podcasts, and multimedia content.
+          <p className="text-xl xs:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed px-2">
+            Transform text into lifelike speech with AI-powered voice generation. Perfect for any audio content needs.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xs:gap-12 xl:gap-16 items-center">
-          {/* Features */}
-          <div className="space-y-6 xs:space-y-8 order-2 lg:order-1">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <article 
-                  key={index}
-                  className="flex items-start space-x-3 xs:space-x-4 p-3 xs:p-4 rounded-xl hover:bg-slate-50 transition-colors duration-200"
-                >
-                  <div className={`w-10 h-10 xs:w-12 xs:h-12 ${feature.bgColor} rounded-lg flex items-center justify-center flex-shrink-0 mt-1`}>
-                    <Icon className={`${feature.iconColor} h-5 w-5 xs:h-6 xs:w-6`} aria-hidden="true" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg xs:text-xl font-semibold text-slate-900 mb-2">{feature.title}</h3>
-                    <p className="text-slate-600 text-sm xs:text-base leading-relaxed">{feature.description}</p>
-                  </div>
-                </article>
-              );
-            })}
-
-            <div className="pt-4 xs:pt-6">
-              <button 
-                onClick={scrollToContact}
-                className="w-full xs:w-auto bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-6 xs:px-8 py-3 xs:py-4 rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-1 text-center"
-                data-testid="voice-cta"
-                aria-label="Start creating AI voices"
-              >
-                Generate Voice Content
-              </button>
-            </div>
-          </div>
-
-          {/* Voice Studio Preview */}
-          <aside className="relative order-1 lg:order-2">
-            <div className="bg-gradient-to-br from-emerald-100 to-teal-200 rounded-2xl p-4 xs:p-6 md:p-8 shadow-2xl">
-              <div className="bg-white rounded-xl p-4 xs:p-6 mb-4 xs:mb-6 shadow-lg">
-                <h4 className="font-semibold text-slate-900 mb-3 xs:mb-4 text-sm xs:text-base">Voice Synthesis Studio</h4>
-                <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg p-4 xs:p-6">
-                  <div className="flex items-center justify-center mb-4">
-                    <div className="w-16 h-16 xs:w-20 xs:h-20 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-lg">
-                      <Mic className="h-8 w-8 xs:h-10 xs:w-10 text-white" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xs:gap-16 xl:gap-20 items-center">
+          {/* Voice Preview */}
+          <aside className="relative order-1 lg:order-1 hover-lift">
+            <div className="service-preview from-emerald-100 via-teal-100 to-cyan-100">
+              <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
+                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Voice Studio</h4>
+                <div className="bg-gradient-to-br from-slate-900 to-emerald-900 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/30 to-teal-600/30"></div>
+                  <div className="relative z-10 h-full flex items-center justify-center">
+                    <div className="text-center text-white">
+                      <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
+                        <Volume2 className="h-10 w-10 xs:h-12 xs:w-12 text-white" />
+                      </div>
+                      <p className="text-sm xs:text-base opacity-90 font-semibold">AI Voice Preview</p>
+                      <p className="text-xs opacity-70 mt-2">Natural Speech Generation</p>
                     </div>
                   </div>
-                  <div className="text-center text-white">
-                    <p className="text-xs xs:text-sm opacity-90 mb-2">Text Input:</p>
-                    <p className="text-sm xs:text-base italic mb-4">"Welcome to SiwahtAI..."</p>
-                    <div className="flex items-center justify-center space-x-2">
-                      <div className="w-1 h-4 bg-emerald-400 rounded animate-pulse"></div>
-                      <div className="w-1 h-6 bg-emerald-400 rounded animate-pulse" style={{animationDelay: '0.2s'}}></div>
-                      <div className="w-1 h-8 bg-emerald-400 rounded animate-pulse" style={{animationDelay: '0.4s'}}></div>
-                      <div className="w-1 h-6 bg-emerald-400 rounded animate-pulse" style={{animationDelay: '0.6s'}}></div>
-                      <div className="w-1 h-4 bg-emerald-400 rounded animate-pulse" style={{animationDelay: '0.8s'}}></div>
+                  
+                  {/* Audio Waveform */}
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="flex items-center justify-center space-x-1">
+                      {[...Array(12)].map((_, i) => (
+                        <div 
+                          key={i}
+                          className="bg-emerald-400 rounded-full animate-pulse"
+                          style={{
+                            width: '3px',
+                            height: `${Math.random() * 20 + 10}px`,
+                            animationDelay: `${i * 0.1}s`
+                          }}
+                        />
+                      ))}
                     </div>
                   </div>
                 </div>
               </div>
               
-              <div className="space-y-3">
-                <div className="bg-white rounded-lg p-3 xs:p-4 shadow-md">
-                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-2">Supported Languages</div>
-                  <div className="flex flex-wrap gap-1 xs:gap-2">
-                    {languages.slice(0, 6).map((lang, index) => (
-                      <span key={index} className="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded">
-                        {lang}
-                      </span>
-                    ))}
-                    <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">+35 more</span>
-                  </div>
+              <div className="grid grid-cols-3 gap-3 xs:gap-4">
+                <div className="glass-card p-3 xs:p-4 text-center hover-lift">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Languages</div>
+                  <div className="text-sm xs:text-base font-bold text-emerald-600">50+</div>
                 </div>
-                
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="bg-white rounded-lg p-3 shadow-md text-center">
-                    <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
-                    <div className="text-sm xs:text-base font-bold text-emerald-600">Studio</div>
-                  </div>
-                  <div className="bg-white rounded-lg p-3 shadow-md text-center">
-                    <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Speed</div>
-                    <div className="text-sm xs:text-base font-bold text-teal-600">Real-time</div>
-                  </div>
+                <div className="glass-card p-3 xs:p-4 text-center hover-lift">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Voices</div>
+                  <div className="text-sm xs:text-base font-bold text-teal-600">100+</div>
+                </div>
+                <div className="glass-card p-3 xs:p-4 text-center hover-lift">
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
+                  <div className="text-sm xs:text-base font-bold text-blue-600">Studio</div>
                 </div>
               </div>
             </div>
           </aside>
+
+          {/* Features */}
+          <div className="space-y-8 xs:space-y-10 order-2 lg:order-2">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <article 
+                  key={index}
+                  className="feature-card hover-lift"
+                >
+                  <div className="flex items-start space-x-4 xs:space-x-6">
+                    <div className={`feature-icon ${feature.bgColor} icon-gradient`}>
+                      <Icon className={`${feature.iconColor} h-6 w-6 xs:h-7 xs:w-7`} aria-hidden="true" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow">{feature.title}</h3>
+                      <p className="text-slate-600 text-base xs:text-lg leading-relaxed">{feature.description}</p>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+
+            <div className="pt-6 xs:pt-8">
+              <button 
+                onClick={scrollToContact}
+                className="btn-secondary w-full xs:w-auto text-lg xs:text-xl px-10 py-5"
+                data-testid="voice-synthesis-cta"
+                aria-label="Start creating voice synthesis"
+              >
+                Generate Voices
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

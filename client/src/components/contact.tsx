@@ -106,18 +106,23 @@ export default function Contact() {
   return (
     <section 
       id="contact" 
-      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-50 to-indigo-50"
+      className="section-padding bg-gradient-to-br from-slate-50/80 via-blue-50/60 to-indigo-100/70 relative overflow-hidden"
       aria-labelledby="contact-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5"></div>
+      <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-2xl floating-animation"></div>
+      <div className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-emerald-400/10 to-teal-400/10 rounded-full blur-2xl floating-animation" style={{animationDelay: '2s'}}></div>
+      
+      <div className="container-custom relative z-10">
         <header className="text-center mb-12 xs:mb-16">
           <h2 
             id="contact-heading"
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
+            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 xs:mb-8 text-shadow"
           >
-            Get Started Today
+            <span className="gradient-text">Get Started Today</span>
           </h2>
-          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
+          <p className="text-xl xs:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed px-2">
             Ready to transform your ideas with AI? Let's discuss your project and create something amazing together.
           </p>
         </header>
