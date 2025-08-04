@@ -12,6 +12,7 @@ import {
   UserCircle, 
   Mic, 
   Film,
+  Radio,
   Menu,
   X,
   ArrowLeft
@@ -53,6 +54,11 @@ const navigationItems = [
     label: "Edited Videos",
     href: "/admin/edited-videos",
     icon: Film,
+  },
+  {
+    label: "Podcast Samples",
+    href: "/admin/podcast-samples",
+    icon: Radio,
   },
   {
     label: "Portfolio",

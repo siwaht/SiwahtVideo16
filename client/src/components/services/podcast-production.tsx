@@ -1,6 +1,33 @@
-import { Headphones, Volume2, Mic2, Radio } from "lucide-react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Headphones, Volume2, Mic2, Radio, Play, Pause, Calendar, User, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+
+interface PodcastSample {
+  id: string;
+  title: string;
+  description: string;
+  audioUrl: string;
+  category: string;
+  duration?: string;
+  hostName?: string;
+  guestName?: string;
+  isPublished: boolean;
+  orderIndex: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default function PodcastProduction() {
+  const [playingAudio, setPlayingAudio] = useState<string | null>(null);
+
+  const { data: podcastSamples, isLoading, error } = useQuery({
+    queryKey: ["/api/samples/podcast-samples"],
+  });
+
   const scrollToContact = () => {
     const element = document.getElementById("contact");
     if (element) {
@@ -95,69 +122,160 @@ export default function PodcastProduction() {
             </div>
           </div>
 
-          {/* Podcast Studio Preview */}
+          {/* Podcast Samples */}
           <aside className="relative order-1 lg:order-2">
             <div className="bg-gradient-to-br from-pink-100 to-rose-200 rounded-2xl p-4 xs:p-6 md:p-8 shadow-2xl">
-              <div className="bg-white rounded-xl p-4 xs:p-6 mb-4 xs:mb-6 shadow-lg">
-                <h4 className="font-semibold text-slate-900 mb-3 xs:mb-4 text-sm xs:text-base">Podcast Studio</h4>
-                <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg p-4 xs:p-6">
-                  <div className="flex items-center justify-center mb-4">
-                    <div className="w-16 h-16 xs:w-20 xs:h-20 rounded-full bg-gradient-to-br from-pink-400 to-rose-600 flex items-center justify-center shadow-lg">
-                      <Radio className="h-8 w-8 xs:h-10 xs:w-10 text-white" />
-                    </div>
-                  </div>
-                  
-                  {/* Audio Waveform Visualization */}
-                  <div className="mb-4">
-                    <div className="flex items-end justify-center space-x-1 h-12">
-                      {[...Array(12)].map((_, i) => (
-                        <div 
-                          key={i} 
-                          className="bg-pink-400 rounded-sm w-1 animate-pulse" 
-                          style={{
-                            height: `${Math.random() * 80 + 20}%`,
-                            animationDelay: `${i * 0.1}s`
-                          }}
-                        ></div>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div className="text-center text-white">
-                    <p className="text-xs xs:text-sm opacity-90 mb-2">Recording:</p>
-                    <p className="text-sm xs:text-base font-medium">"Welcome to AI Insights..."</p>
-                    <div className="flex items-center justify-center mt-3 space-x-4">
-                      <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                      <span className="text-xs opacity-80">LIVE</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <h4 className="font-semibold text-slate-900 mb-4 xs:mb-6 text-sm xs:text-base flex items-center gap-2">
+                <Radio className="h-5 w-5 text-pink-600" />
+                Our Podcast Samples
+              </h4>
               
-              <div className="space-y-3">
-                <div className="bg-white rounded-lg p-3 xs:p-4 shadow-md">
-                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-2">Podcast Formats</div>
-                  <div className="flex flex-wrap gap-1 xs:gap-2">
-                    {podcastTypes.slice(0, 4).map((type, index) => (
-                      <span key={index} className="text-xs bg-pink-100 text-pink-700 px-2 py-1 rounded">
-                        {type}
-                      </span>
-                    ))}
-                    <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">+2 more</span>
-                  </div>
+              {isLoading ? (
+                <div className="space-y-4">
+                  {[...Array(3)].map((_, i) => (
+                    <Card key={i} className="p-4">
+                      <div className="space-y-3">
+                        <Skeleton className="h-4 w-3/4" />
+                        <Skeleton className="h-3 w-1/2" />
+                        <Skeleton className="h-20 w-full" />
+                      </div>
+                    </Card>
+                  ))}
                 </div>
-                
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="bg-white rounded-lg p-3 shadow-md text-center">
-                    <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Duration</div>
-                    <div className="text-sm xs:text-base font-bold text-pink-600">Any Length</div>
-                  </div>
-                  <div className="bg-white rounded-lg p-3 shadow-md text-center">
-                    <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
-                    <div className="text-sm xs:text-base font-bold text-rose-600">Studio</div>
-                  </div>
+              ) : error ? (
+                <div className="bg-white rounded-xl p-4 xs:p-6 shadow-lg text-center">
+                  <Radio className="h-12 w-12 text-slate-400 mx-auto mb-3" />
+                  <p className="text-slate-600">Unable to load podcast samples</p>
+                  <Button 
+                    onClick={scrollToContact}
+                    className="mt-3"
+                    size="sm"
+                  >
+                    Contact Us
+                  </Button>
                 </div>
-              </div>
+              ) : podcastSamples && podcastSamples.length > 0 ? (
+                <div className="space-y-4 max-h-96 overflow-y-auto">
+                  {podcastSamples.slice(0, 3).map((sample: PodcastSample) => (
+                    <Card key={sample.id} className="p-4 hover:shadow-md transition-shadow">
+                      <CardHeader className="p-0 pb-3">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1 min-w-0">
+                            <CardTitle className="text-sm font-semibold truncate">
+                              {sample.title}
+                            </CardTitle>
+                            <CardDescription className="text-xs line-clamp-2 mt-1">
+                              {sample.description}
+                            </CardDescription>
+                          </div>
+                          <Badge variant="secondary" className="text-xs">
+                            {sample.category}
+                          </Badge>
+                        </div>
+                      </CardHeader>
+                      
+                      <CardContent className="p-0">
+                        <div className="space-y-2">
+                          {(sample.hostName || sample.guestName) && (
+                            <div className="flex items-center gap-2 text-xs text-slate-600">
+                              {sample.hostName && (
+                                <div className="flex items-center gap-1">
+                                  <User className="h-3 w-3" />
+                                  <span>Host: {sample.hostName}</span>
+                                </div>
+                              )}
+                              {sample.hostName && sample.guestName && <span>•</span>}
+                              {sample.guestName && (
+                                <div className="flex items-center gap-1">
+                                  <Users className="h-3 w-3" />
+                                  <span>Guest: {sample.guestName}</span>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                          
+                          {sample.duration && (
+                            <div className="flex items-center gap-1 text-xs text-slate-600">
+                              <Calendar className="h-3 w-3" />
+                              <span>{sample.duration}</span>
+                            </div>
+                          )}
+                          
+                          <div className="mt-3">
+                            <div className="bg-slate-50 p-2 rounded-lg">
+                              {sample.audioUrl ? (
+                                <div>
+                                  {sample.audioUrl.includes('soundcloud.com') ? (
+                                    <iframe
+                                      width="100%"
+                                      height="166"
+                                      scrolling="no"
+                                      frameBorder="no"
+                                      allow="autoplay"
+                                      src={`${sample.audioUrl.replace('soundcloud.com', 'w.soundcloud.com/player/?url=https://soundcloud.com')}&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`}
+                                      className="rounded"
+                                    />
+                                  ) : sample.audioUrl.includes('spotify.com') ? (
+                                    <iframe
+                                      src={`https://open.spotify.com/embed/track/${sample.audioUrl.split('/').pop()?.split('?')[0]}?utm_source=generator&theme=0`}
+                                      width="100%"
+                                      height="152"
+                                      frameBorder="0"
+                                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                      loading="lazy"
+                                      className="rounded"
+                                    />
+                                  ) : (
+                                    <audio
+                                      controls
+                                      className="w-full"
+                                      preload="metadata"
+                                    >
+                                      <source src={sample.audioUrl} type="audio/mpeg" />
+                                      <source src={sample.audioUrl} type="audio/wav" />
+                                      <source src={sample.audioUrl} type="audio/ogg" />
+                                      Your browser does not support the audio element.
+                                    </audio>
+                                  )}
+                                </div>
+                              ) : (
+                                <div className="text-center py-4 text-slate-500">
+                                  <Radio className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                                  <p className="text-xs">Audio preview coming soon</p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                  
+                  {podcastSamples.length > 3 && (
+                    <div className="text-center pt-2">
+                      <Button 
+                        onClick={scrollToContact}
+                        variant="outline"
+                        size="sm"
+                        className="text-xs"
+                      >
+                        View More Samples
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="bg-white rounded-xl p-4 xs:p-6 shadow-lg text-center">
+                  <Radio className="h-12 w-12 text-slate-400 mx-auto mb-3" />
+                  <p className="text-slate-600 mb-3">No podcast samples available yet</p>
+                  <Button 
+                    onClick={scrollToContact}
+                    size="sm"
+                  >
+                    Request Demo
+                  </Button>
+                </div>
+              )}
             </div>
           </aside>
         </div>

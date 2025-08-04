@@ -8,6 +8,7 @@ import {
   insertAvatarSchema,
   insertVoiceSampleSchema,
   insertEditedVideoSchema,
+  insertPodcastSampleSchema,
 } from "@shared/schema";
 import { z } from "zod";
 import { 
@@ -72,6 +73,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching edited videos:", error);
       res.status(500).json({ error: "Failed to fetch edited videos" });
+    }
+  });
+
+  app.get("/api/samples/podcast-samples", async (req, res) => {
+    try {
+      const samples = await storage.getPodcastSamples(12);
+      const publishedSamples = samples.filter(sample => sample.isPublished);
+      res.json(publishedSamples);
+    } catch (error) {
+      console.error("Error fetching podcast samples:", error);
+      res.status(500).json({ error: "Failed to fetch podcast samples" });
     }
   });
   
@@ -507,6 +519,96 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       console.error("Delete voice sample error:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Internal server error" 
+      });
+    }
+  });
+
+  // Podcast samples management
+  app.get("/api/admin/podcast-samples", requireAuth, async (req, res) => {
+    try {
+      const { search } = req.query;
+      let samples;
+      
+      if (search && typeof search === 'string') {
+        samples = await storage.searchPodcastSamples(search);
+      } else {
+        samples = await storage.getPodcastSamples();
+      }
+      
+      res.json({
+        success: true,
+        data: samples
+      });
+    } catch (error) {
+      console.error("Get podcast samples error:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Internal server error" 
+      });
+    }
+  });
+
+  app.post("/api/admin/podcast-samples", requireAuth, async (req: AuthRequest, res) => {
+    try {
+      const validatedData = insertPodcastSampleSchema.parse({
+        ...req.body,
+        createdBy: req.adminUser?.id
+      });
+      
+      const sample = await storage.createPodcastSample(validatedData);
+      res.json({
+        success: true,
+        data: sample
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ 
+          success: false, 
+          message: "Invalid data", 
+          errors: error.errors 
+        });
+      } else {
+        console.error("Create podcast sample error:", error);
+        res.status(500).json({ 
+          success: false, 
+          message: "Internal server error" 
+        });
+      }
+    }
+  });
+
+  app.put("/api/admin/podcast-samples/:id", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updates = req.body;
+      
+      const sample = await storage.updatePodcastSample(id, updates);
+      res.json({
+        success: true,
+        data: sample
+      });
+    } catch (error) {
+      console.error("Update podcast sample error:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Internal server error" 
+      });
+    }
+  });
+
+  app.delete("/api/admin/podcast-samples/:id", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deletePodcastSample(id);
+      res.json({
+        success: true,
+        message: "Podcast sample deleted successfully"
+      });
+    } catch (error) {
+      console.error("Delete podcast sample error:", error);
       res.status(500).json({ 
         success: false, 
         message: "Internal server error" 

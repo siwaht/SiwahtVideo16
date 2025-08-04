@@ -11,12 +11,15 @@ import {
   type InsertVoiceSample,
   type EditedVideo,
   type InsertEditedVideo,
+  type PodcastSample,
+  type InsertPodcastSample,
   contactSubmissions,
   adminUsers,
   demoVideos,
   avatars,
   voiceSamples,
   editedVideos,
+  podcastSamples,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, sql, and, or, ilike } from "drizzle-orm";
@@ -65,6 +68,14 @@ export interface IStorage {
   updateEditedVideo(id: string, updates: Partial<EditedVideo>): Promise<EditedVideo>;
   deleteEditedVideo(id: string): Promise<void>;
   searchEditedVideos(query: string): Promise<EditedVideo[]>;
+  
+  // Podcast samples
+  getPodcastSamples(limit?: number): Promise<PodcastSample[]>;
+  getPodcastSample(id: string): Promise<PodcastSample | undefined>;
+  createPodcastSample(sample: InsertPodcastSample): Promise<PodcastSample>;
+  updatePodcastSample(id: string, updates: Partial<PodcastSample>): Promise<PodcastSample>;
+  deletePodcastSample(id: string): Promise<void>;
+  searchPodcastSamples(query: string): Promise<PodcastSample[]>;
   
   // Analytics
   getDashboardStats(): Promise<{
@@ -363,6 +374,67 @@ export class DatabaseStorage implements IStorage {
       .orderBy(desc(editedVideos.createdAt));
   }
 
+  // Podcast samples
+  async getPodcastSamples(limit?: number): Promise<PodcastSample[]> {
+    const query = db
+      .select()
+      .from(podcastSamples)
+      .orderBy(podcastSamples.orderIndex, desc(podcastSamples.createdAt));
+    
+    if (limit) {
+      return await query.limit(limit);
+    }
+    
+    return await query;
+  }
+
+  async getPodcastSample(id: string): Promise<PodcastSample | undefined> {
+    const [sample] = await db
+      .select()
+      .from(podcastSamples)
+      .where(eq(podcastSamples.id, id));
+    return sample;
+  }
+
+  async createPodcastSample(insertSample: InsertPodcastSample): Promise<PodcastSample> {
+    const [sample] = await db
+      .insert(podcastSamples)
+      .values(insertSample)
+      .returning();
+    return sample;
+  }
+
+  async updatePodcastSample(id: string, updates: Partial<PodcastSample>): Promise<PodcastSample> {
+    const [sample] = await db
+      .update(podcastSamples)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(podcastSamples.id, id))
+      .returning();
+    return sample;
+  }
+
+  async deletePodcastSample(id: string): Promise<void> {
+    await db
+      .delete(podcastSamples)
+      .where(eq(podcastSamples.id, id));
+  }
+
+  async searchPodcastSamples(query: string): Promise<PodcastSample[]> {
+    return await db
+      .select()
+      .from(podcastSamples)
+      .where(
+        or(
+          ilike(podcastSamples.title, `%${query}%`),
+          ilike(podcastSamples.description, `%${query}%`),
+          ilike(podcastSamples.category, `%${query}%`),
+          ilike(podcastSamples.hostName, `%${query}%`),
+          ilike(podcastSamples.guestName, `%${query}%`)
+        )
+      )
+      .orderBy(podcastSamples.orderIndex, desc(podcastSamples.createdAt));
+  }
+
   // Analytics
   async getDashboardStats() {
     const [totalContacts] = await db
@@ -385,6 +457,10 @@ export class DatabaseStorage implements IStorage {
       .select({ count: sql<number>`count(*)` })
       .from(editedVideos);
 
+    const [totalPodcastSamples] = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(podcastSamples);
+
     // Get recent activity from contact submissions
     const recentActivity = await db
       .select({
@@ -403,6 +479,7 @@ export class DatabaseStorage implements IStorage {
       totalAvatars: totalAvatars.count,
       totalVoiceSamples: totalVoiceSamples.count,
       totalEditedVideos: totalEditedVideos.count,
+      totalPodcastSamples: totalPodcastSamples.count,
       recentActivity,
     };
   }

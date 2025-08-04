@@ -1,6 +1,6 @@
 import { sql } from "drizzle-orm";
 import { pgTable, text, varchar, timestamp, boolean, integer, jsonb } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 
 // Contact submissions table
@@ -95,6 +95,22 @@ export const editedVideos = pgTable("edited_videos", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+// Podcast samples table
+export const podcastSamples = pgTable("podcast_samples", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  audioUrl: text("audio_url").notNull(),
+  category: text("category").notNull().default("interview"),
+  duration: text("duration"),
+  hostName: text("host_name"),
+  guestName: text("guest_name"),
+  isPublished: boolean("is_published").default(true),
+  orderIndex: integer("order_index").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Session storage table for admin authentication
 export const sessions = pgTable("sessions", {
   sid: varchar("sid").primaryKey(),
@@ -144,6 +160,13 @@ export const insertEditedVideoSchema = createInsertSchema(editedVideos).omit({
   orderIndex: true,
 });
 
+export const insertPodcastSampleSchema = createInsertSchema(podcastSamples).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  orderIndex: true,
+});
+
 // Type exports
 export type InsertContactSubmission = z.infer<typeof insertContactSubmissionSchema>;
 export type ContactSubmission = typeof contactSubmissions.$inferSelect;
@@ -162,3 +185,6 @@ export type VoiceSample = typeof voiceSamples.$inferSelect;
 
 export type InsertEditedVideo = z.infer<typeof insertEditedVideoSchema>;
 export type EditedVideo = typeof editedVideos.$inferSelect;
+
+export type InsertPodcastSample = z.infer<typeof insertPodcastSampleSchema>;
+export type PodcastSample = typeof podcastSamples.$inferSelect;
