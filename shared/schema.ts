@@ -40,6 +40,7 @@ export const demoVideos = pgTable("demo_videos", {
   category: text("category").notNull(), // product-demo, testimonial, explainer, etc.
   videoUrl: text("video_url").notNull(),
   thumbnailUrl: text("thumbnail_url"),
+  isHostedVideo: boolean("is_hosted_video").default(true), // true for object storage, false for YouTube/external
   isPublished: boolean("is_published").default(false).notNull(),
   orderIndex: integer("order_index").default(0).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -86,6 +87,7 @@ export const editedVideos = pgTable("edited_videos", {
   description: text("description"),
   videoUrl: text("video_url").notNull(),
   thumbnailUrl: text("thumbnail_url"),
+  isHostedVideo: boolean("is_hosted_video").default(true), // true for object storage, false for YouTube/external
   clientName: text("client_name"),
   category: text("category").notNull(), // advertisement, educational, entertainment, corporate, social, other
   tags: text("tags"),

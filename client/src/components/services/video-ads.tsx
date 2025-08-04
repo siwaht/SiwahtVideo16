@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Play, Target, Zap, Sparkles } from "lucide-react";
+import { VideoPlayer } from "@/components/ui/video-player";
 import type { DemoVideo } from "@shared/schema";
 
 export default function VideoAds() {
@@ -102,36 +103,48 @@ export default function VideoAds() {
                   </div>
                 )}
 {featuredVideo ? (
-                  <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
-                    {/* Embed actual video if it's a YouTube URL */}
-                    {featuredVideo.videoUrl && featuredVideo.videoUrl.includes('youtu') ? (
-                      <iframe
-                        src={featuredVideo.videoUrl
-                          .replace('youtu.be/', 'youtube.com/embed/')
-                          .replace('youtube.com/watch?v=', 'youtube.com/embed/')
-                        }
-                        className="w-full h-full border-0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
+                  <div className="relative">
+                    {/* Use custom video player for hosted videos */}
+                    {featuredVideo.isHostedVideo && featuredVideo.videoUrl ? (
+                      <VideoPlayer
+                        src={featuredVideo.videoUrl}
+                        poster={featuredVideo.thumbnailUrl}
                         title={featuredVideo.title}
+                        className="rounded-xl shadow-2xl aspect-video"
+                        width="100%"
+                        height="auto"
+                        data-testid="featured-video-player"
                       />
-                    ) : featuredVideo.thumbnailUrl ? (
-                      <img 
-                        src={featuredVideo.thumbnailUrl} 
-                        alt={featuredVideo.title}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          console.log('Thumbnail failed to load:', featuredVideo.thumbnailUrl);
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
+                    ) : featuredVideo.videoUrl && featuredVideo.videoUrl.includes('youtu') ? (
+                      // YouTube embed for backward compatibility
+                      <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
+                        <iframe
+                          src={featuredVideo.videoUrl
+                            .replace('youtu.be/', 'youtube.com/embed/')
+                            .replace('youtube.com/watch?v=', 'youtube.com/embed/')
+                          }
+                          className="w-full h-full border-0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          title={featuredVideo.title}
+                        />
+                      </div>
                     ) : (
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
-                    )}
-                    
-                    {/* Only show overlay if no video embed */}
-                    {!(featuredVideo.videoUrl && featuredVideo.videoUrl.includes('youtu')) && (
-                      <>
+                      // Preview mode for videos without URLs or external videos
+                      <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
+                        {featuredVideo.thumbnailUrl ? (
+                          <img 
+                            src={featuredVideo.thumbnailUrl} 
+                            alt={featuredVideo.title}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                        ) : (
+                          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
+                        )}
+                        
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                         <div className="relative z-10 h-full flex items-center justify-center">
                           <div className="text-center text-white">
@@ -143,16 +156,6 @@ export default function VideoAds() {
                               <p className="text-xs opacity-70 mt-2 line-clamp-2 max-w-xs mx-auto">{featuredVideo.description}</p>
                             )}
                             <div className="text-xs opacity-60 mt-1">Category: {featuredVideo.category}</div>
-                            {featuredVideo.videoUrl && (
-                              <a 
-                                href={featuredVideo.videoUrl} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="text-xs text-blue-300 hover:text-blue-200 mt-2 inline-block underline"
-                              >
-                                View Video
-                              </a>
-                            )}
                           </div>
                         </div>
                         
@@ -162,7 +165,7 @@ export default function VideoAds() {
                             <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-full w-1/3 rounded-full"></div>
                           </div>
                         </div>
-                      </>
+                      </div>
                     )}
                   </div>
                 ) : (
