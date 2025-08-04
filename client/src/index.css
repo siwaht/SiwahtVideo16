@@ -76,6 +76,29 @@
       -ms-text-size-adjust: 100%;
     }
   }
+  
+  /* Mobile-first responsive improvements */
+  @media (max-width: 640px) {
+    .btn-primary, .btn-secondary {
+      @apply px-6 py-3 text-base;
+    }
+    
+    .feature-card {
+      @apply p-4;
+    }
+    
+    .service-preview {
+      @apply p-4;
+    }
+  }
+  
+  /* Improved mobile touch targets */
+  @media (max-width: 768px) {
+    button, a, [role="button"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
 }
 
 @layer utilities {
@@ -168,11 +191,22 @@
   }
 
   .section-padding {
-    @apply py-16 xs:py-20 md:py-24 lg:py-32;
+    @apply py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32;
   }
   
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 xs:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Mobile-optimized spacing */
+  @media (max-width: 640px) {
+    .section-padding {
+      @apply py-8;
+    }
+    
+    .container-custom {
+      @apply px-3;
+    }
   }
 
   .feature-icon {
@@ -186,5 +220,41 @@
 
   .btn-secondary:hover {
     box-shadow: 0 20px 40px rgba(16, 185, 129, 0.3);
+  }
+  
+  /* Custom scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(110 231 183) rgb(236 253 245);
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: rgb(236 253 245);
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgb(110 231 183);
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgb(52 211 153);
+  }
+  
+  /* Mobile optimization for voice portfolio */
+  @media (max-width: 640px) {
+    .voice-portfolio-container {
+      max-height: 300px;
+    }
+    
+    iframe {
+      min-height: 100px !important;
+      height: 100px !important;
+    }
   }
 }

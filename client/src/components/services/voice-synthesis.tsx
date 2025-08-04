@@ -84,7 +84,7 @@ export default function VoiceSynthesis() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xs:gap-16 xl:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 xl:gap-20 items-start">
           {/* Voice Samples Portfolio */}
           <aside className="relative order-1 lg:order-1">
             <div className="service-preview from-emerald-100 via-teal-100 to-cyan-100">
@@ -97,9 +97,9 @@ export default function VoiceSynthesis() {
                 )}
 
                 {publishedVoices && publishedVoices.length > 0 ? (
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4 max-h-96 sm:max-h-80 lg:max-h-96 overflow-y-auto scrollbar-thin voice-portfolio-container">
                     {publishedVoices.map((voice, index) => (
-                      <div key={voice.id} className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-4 border border-emerald-200 hover:shadow-md transition-all duration-200">
+                      <div key={voice.id} className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-3 sm:p-4 border border-emerald-200 hover:shadow-md transition-all duration-200">
                         <div className="flex items-start justify-between mb-3">
                           <div className="flex-1">
                             <h5 className="font-semibold text-slate-900 text-sm">{voice.name}</h5>
@@ -144,7 +144,7 @@ export default function VoiceSynthesis() {
                                   ? voice.audioUrl 
                                   : `https://w.soundcloud.com/player/?url=${encodeURIComponent(voice.audioUrl)}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`
                                 }
-                                className="rounded-lg"
+                                className="rounded-lg w-full min-h-[120px]"
                                 title={voice.name}
                               />
                             ) : voice.audioUrl.includes('spotify.com') ? (
@@ -158,7 +158,7 @@ export default function VoiceSynthesis() {
                                 frameBorder="0"
                                 allowTransparency={true}
                                 allow="encrypted-media"
-                                className="rounded-lg"
+                                className="rounded-lg w-full min-h-[120px]"
                                 title={voice.name}
                               />
                             ) : voice.audioUrl.includes('youtube.com') || voice.audioUrl.includes('youtu.be') ? (
@@ -172,11 +172,11 @@ export default function VoiceSynthesis() {
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
-                                className="rounded-lg"
+                                className="rounded-lg w-full min-h-[120px]"
                                 title={voice.name}
                               />
                             ) : voice.audioUrl.includes('.mp3') || voice.audioUrl.includes('.wav') || voice.audioUrl.includes('.m4a') || voice.audioUrl.includes('.ogg') ? (
-                              <audio controls className="w-full h-8 rounded">
+                              <audio controls className="w-full h-10 rounded-lg bg-slate-50 border border-slate-200">
                                 <source src={voice.audioUrl} type="audio/mpeg" />
                                 <source src={voice.audioUrl} type="audio/wav" />
                                 <source src={voice.audioUrl} type="audio/mp4" />
