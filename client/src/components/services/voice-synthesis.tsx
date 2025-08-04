@@ -4,7 +4,7 @@ import type { VoiceSample } from "@shared/schema";
 
 export default function VoiceSynthesis() {
   // Fetch voice samples from API
-  const { data: voiceSamples = [] } = useQuery<VoiceSample[]>({
+  const { data: voiceSamples = [], isLoading, error } = useQuery<VoiceSample[]>({
     queryKey: ['/api/samples/voice-samples'],
     refetchOnWindowFocus: true,
     staleTime: 0, // Always fetch fresh data
@@ -15,6 +15,17 @@ export default function VoiceSynthesis() {
     .filter(voice => voice.isPublished)
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredVoice = publishedVoices[0];
+
+  // Debug logging (remove in production)
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Voice Synthesis Debug:', { 
+      voiceSamples: voiceSamples.length, 
+      publishedVoices: publishedVoices.length, 
+      featuredVoice: featuredVoice?.name || 'none',
+      isLoading,
+      error 
+    });
+  }
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");

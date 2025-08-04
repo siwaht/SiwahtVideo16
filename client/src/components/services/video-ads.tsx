@@ -4,7 +4,7 @@ import type { DemoVideo } from "@shared/schema";
 
 export default function VideoAds() {
   // Fetch demo videos from API
-  const { data: demoVideos = [] } = useQuery<DemoVideo[]>({
+  const { data: demoVideos = [], isLoading, error } = useQuery<DemoVideo[]>({
     queryKey: ['/api/samples/demo-videos'],
     refetchOnWindowFocus: true,
     staleTime: 0, // Always fetch fresh data
@@ -15,6 +15,17 @@ export default function VideoAds() {
     .filter(video => video.isPublished)
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredVideo = publishedVideos[0];
+
+  // Debug logging (remove in production)
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Video Ads Debug:', { 
+      demoVideos: demoVideos.length, 
+      publishedVideos: publishedVideos.length, 
+      featuredVideo: featuredVideo?.title || 'none',
+      isLoading,
+      error 
+    });
+  }
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
@@ -79,6 +90,12 @@ export default function VideoAds() {
             <div className="service-preview from-blue-100 via-indigo-100 to-purple-100">
               <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">AI Video Studio</h4>
+                {process.env.NODE_ENV === 'development' && (
+                  <div className="text-xs text-gray-500 mb-2 p-2 bg-green-100 rounded border border-green-200">
+                    ✅ Active: {demoVideos.length} videos loaded | {publishedVideos.length} published 
+                    {featuredVideo && <span className="font-semibold"> | Now Showing: "{featuredVideo.title}"</span>}
+                  </div>
+                )}
 {featuredVideo ? (
                   <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
                     {featuredVideo.thumbnailUrl ? (
@@ -86,6 +103,10 @@ export default function VideoAds() {
                         src={featuredVideo.thumbnailUrl} 
                         alt={featuredVideo.title}
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          console.log('Thumbnail failed to load:', featuredVideo.thumbnailUrl);
+                          e.currentTarget.style.display = 'none';
+                        }}
                       />
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
@@ -100,6 +121,7 @@ export default function VideoAds() {
                         {featuredVideo.description && (
                           <p className="text-xs opacity-70 mt-2 line-clamp-2 max-w-xs mx-auto">{featuredVideo.description}</p>
                         )}
+                        <div className="text-xs opacity-60 mt-1">Category: {featuredVideo.category}</div>
                       </div>
                     </div>
                     

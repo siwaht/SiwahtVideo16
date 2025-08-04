@@ -4,7 +4,7 @@ import type { Avatar } from "@shared/schema";
 
 export default function Avatars() {
   // Fetch avatars from API
-  const { data: avatars = [] } = useQuery<Avatar[]>({
+  const { data: avatars = [], isLoading, error } = useQuery<Avatar[]>({
     queryKey: ['/api/samples/avatars'],
     refetchOnWindowFocus: true,
     staleTime: 0, // Always fetch fresh data
@@ -15,6 +15,17 @@ export default function Avatars() {
     .filter(avatar => avatar.isPublished)
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredAvatar = publishedAvatars[0];
+
+  // Debug logging (remove in production)
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Avatars Debug:', { 
+      avatars: avatars.length, 
+      publishedAvatars: publishedAvatars.length, 
+      featuredAvatar: featuredAvatar?.name || 'none',
+      isLoading,
+      error 
+    });
+  }
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");

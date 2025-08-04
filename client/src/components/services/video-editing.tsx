@@ -4,7 +4,7 @@ import type { EditedVideo } from "@shared/schema";
 
 export default function VideoEditing() {
   // Fetch edited videos from API
-  const { data: editedVideos = [] } = useQuery<EditedVideo[]>({
+  const { data: editedVideos = [], isLoading, error } = useQuery<EditedVideo[]>({
     queryKey: ['/api/samples/edited-videos'],
     refetchOnWindowFocus: true,
     staleTime: 0, // Always fetch fresh data
@@ -15,6 +15,17 @@ export default function VideoEditing() {
     .filter(video => video.isPublished)
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredEditedVideo = publishedEditedVideos[0];
+
+  // Debug logging (remove in production)
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Video Editing Debug:', { 
+      editedVideos: editedVideos.length, 
+      publishedEditedVideos: publishedEditedVideos.length, 
+      featuredEditedVideo: featuredEditedVideo?.title || 'none',
+      isLoading,
+      error 
+    });
+  }
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
