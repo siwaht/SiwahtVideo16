@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -55,10 +55,7 @@ export default function WebhooksManagement() {
 
   const createMutation = useMutation({
     mutationFn: async (data: WebhookFormData) => {
-      return apiRequest("/api/admin/webhooks", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      return apiRequest("/api/admin/webhooks", "POST", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/webhooks"] });
@@ -79,10 +76,7 @@ export default function WebhooksManagement() {
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<Webhook> }) => {
-      return apiRequest(`/api/admin/webhooks/${id}`, {
-        method: "PATCH",
-        body: JSON.stringify(data),
-      });
+      return apiRequest(`/api/admin/webhooks/${id}`, "PATCH", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/webhooks"] });
@@ -102,9 +96,7 @@ export default function WebhooksManagement() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/admin/webhooks/${id}`, {
-        method: "DELETE",
-      });
+      return apiRequest(`/api/admin/webhooks/${id}`, "DELETE");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/webhooks"] });
@@ -124,9 +116,7 @@ export default function WebhooksManagement() {
 
   const testMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/admin/webhooks/${id}/test`, {
-        method: "POST",
-      });
+      return apiRequest(`/api/admin/webhooks/${id}/test`, "POST");
     },
     onSuccess: () => {
       toast({
@@ -208,6 +198,9 @@ export default function WebhooksManagement() {
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>Create New Webhook</DialogTitle>
+              <DialogDescription>
+                Configure a new webhook endpoint to receive real-time notifications from Siwaht events.
+              </DialogDescription>
             </DialogHeader>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -354,7 +347,7 @@ export default function WebhooksManagement() {
       </div>
 
       <div className="grid gap-4">
-        {webhooks?.length === 0 ? (
+        {(!webhooks || webhooks.length === 0) ? (
           <Card>
             <CardContent className="flex flex-col items-center justify-center py-16">
               <Settings className="w-12 h-12 text-muted-foreground mb-4" />
@@ -369,7 +362,7 @@ export default function WebhooksManagement() {
             </CardContent>
           </Card>
         ) : (
-          webhooks?.map((webhook: Webhook) => (
+          webhooks && webhooks.map((webhook: Webhook) => (
             <Card key={webhook.id} data-testid={`webhook-card-${webhook.id}`}>
               <CardHeader>
                 <div className="flex justify-between items-start">
