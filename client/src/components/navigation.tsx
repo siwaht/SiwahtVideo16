@@ -100,7 +100,7 @@ export default function Navigation() {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-primary hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors duration-200"
+              className="inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-primary hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors duration-200 touch-action-optimization"
               aria-expanded={isMenuOpen}
               aria-label="Toggle main menu"
               data-testid="mobile-menu-button"
@@ -124,7 +124,7 @@ export default function Navigation() {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="block w-full text-left px-4 py-3 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-lg transition-colors duration-200"
+                  className="mobile-nav-item block w-full text-left px-4 py-3 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-lg transition-colors duration-200 touch-action-optimization"
                   data-testid={`mobile-nav-${item.id}`}
                 >
                   {item.label}
@@ -133,7 +133,7 @@ export default function Navigation() {
               <div className="pt-4">
                 <button
                   onClick={() => scrollToSection("contact")}
-                  className="block w-full bg-primary text-white px-4 py-3 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium text-center"
+                  className="block w-full bg-primary text-white px-4 py-3 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium text-center touch-action-optimization min-h-[44px]"
                   data-testid="mobile-nav-contact"
                 >
                   Get Started

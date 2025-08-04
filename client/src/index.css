@@ -90,6 +90,22 @@
     .service-preview {
       @apply p-4;
     }
+    
+    /* Ensure full width on mobile forms */
+    .contact-form input, .contact-form textarea, .contact-form select {
+      width: 100% !important;
+    }
+    
+    /* Better mobile typography */
+    h1 { @apply leading-tight; }
+    h2 { @apply leading-tight; }
+    h3 { @apply leading-tight; }
+    
+    /* Optimize mobile spacing */
+    .grid-mobile-optimize {
+      grid-template-columns: 1fr !important;
+      gap: 1rem !important;
+    }
   }
   
   /* Improved mobile touch targets */
@@ -255,6 +271,46 @@
     iframe {
       min-height: 100px !important;
       height: 100px !important;
+    }
+    
+    /* Optimize mobile video players */
+    .video-player-mobile {
+      aspect-ratio: 16/9;
+      width: 100%;
+      max-width: 100%;
+    }
+    
+    /* Better mobile card spacing */
+    .mobile-card-spacing {
+      margin-bottom: 1rem !important;
+      padding: 1rem !important;
+    }
+    
+    /* Mobile navigation improvements */
+    .mobile-nav-item {
+      padding: 0.75rem 1rem;
+      font-size: 1.125rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Mobile form improvements */
+    .mobile-form-spacing {
+      margin-bottom: 1.5rem;
+    }
+  }
+  
+  /* Additional mobile touch improvements */
+  @media (hover: none) and (pointer: coarse) {
+    .hover-lift:hover {
+      transform: none;
+    }
+    
+    button:active {
+      transform: scale(0.98);
+    }
+    
+    .touch-action-optimization {
+      touch-action: manipulation;
     }
   }
 }

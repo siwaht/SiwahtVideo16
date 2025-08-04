@@ -43,7 +43,7 @@ export default function Contact() {
 
   const submitMutation = useMutation({
     mutationFn: async (data: InsertContactSubmission) => {
-      const response = await apiRequest("POST", "/api/contact", data);
+      const response = await apiRequest("/api/contact", "POST", data);
       return response.json();
     },
     onSuccess: () => {
@@ -134,7 +134,7 @@ export default function Contact() {
               <h3 className="text-xl xs:text-2xl font-semibold text-slate-900 mb-6">Start Your Project</h3>
               
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 xs:space-y-6">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 xs:space-y-6 contact-form">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xs:gap-6">
                     <FormField
                       control={form.control}
