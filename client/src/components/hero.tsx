@@ -38,20 +38,22 @@ export default function Hero() {
           <div className="flex flex-col xs:flex-row gap-3 xs:gap-4 sm:gap-6 justify-center items-center mb-6 xs:mb-8 sm:mb-12">
             <button 
               onClick={scrollToContact}
-              className="btn-primary w-full xs:w-auto text-base xs:text-lg sm:text-xl px-6 xs:px-8 sm:px-10 py-3 xs:py-4 sm:py-5 min-w-[200px] xs:min-w-[220px]"
+              className="btn-primary w-full xs:w-auto text-sm xs:text-base sm:text-lg px-4 xs:px-6 sm:px-8 py-2 xs:py-3 sm:py-4 min-w-[180px] xs:min-w-[200px] sm:min-w-[220px]"
               data-testid="hero-start-creating"
               aria-label="Start creating with Siwaht"
             >
-              Start Creating Now
+              <span className="hidden xs:inline">Start Creating Now</span>
+              <span className="xs:hidden">Start Now</span>
             </button>
             <button 
               onClick={scrollToServices}
-              className="w-full xs:w-auto glass-card border-2 border-white/40 text-slate-700 px-6 xs:px-8 py-3 xs:py-4 rounded-xl text-base xs:text-lg sm:text-xl font-semibold hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50/50 transition-all duration-300 flex items-center justify-center gap-2 xs:gap-3 min-w-[200px] xs:min-w-[220px] hover-lift"
+              className="w-full xs:w-auto glass-card border-2 border-white/40 text-slate-700 px-4 xs:px-6 sm:px-8 py-2 xs:py-3 sm:py-4 rounded-xl text-sm xs:text-base sm:text-lg font-semibold hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50/50 transition-all duration-300 flex items-center justify-center gap-2 xs:gap-3 min-w-[180px] xs:min-w-[200px] sm:min-w-[220px] hover-lift"
               data-testid="hero-watch-demo"
               aria-label="Learn about our services"
             >
-              <Play className="h-5 w-5" />
-              Explore Services
+              <Play className="h-4 w-4 xs:h-5 xs:w-5" />
+              <span className="hidden xs:inline">Explore Services</span>
+              <span className="xs:hidden">Services</span>
             </button>
           </div>
         </div>

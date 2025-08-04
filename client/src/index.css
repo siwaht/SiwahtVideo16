@@ -243,6 +243,13 @@
     .hero-section p {
       font-size: 0.875rem !important;
     }
+    
+    /* Ultra compact buttons for tiny screens */
+    .btn-primary, .btn-secondary, .glass-card {
+      padding: 0.5rem 0.75rem !important;
+      font-size: 0.75rem !important;
+      min-width: 140px !important;
+    }
   }
 
   .feature-icon {
@@ -341,10 +348,23 @@
     }
     
     /* Smaller button sizes on mobile */
-    .btn-primary, .btn-secondary {
-      padding: 0.75rem 1.5rem !important;
+    .btn-primary, .btn-secondary, .glass-card {
+      padding: 0.5rem 1rem !important;
       font-size: 0.875rem !important;
-      min-width: 180px !important;
+      min-width: 160px !important;
+    }
+    
+    /* Fix button overflow on mobile */
+    .hero-content button {
+      max-width: calc(100vw - 3rem) !important;
+      word-wrap: break-word !important;
+      overflow: hidden !important;
+    }
+    
+    /* Mobile button container spacing */
+    .hero-content .flex {
+      gap: 0.75rem !important;
+      margin-bottom: 1rem !important;
     }
   }
   
