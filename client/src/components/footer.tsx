@@ -39,68 +39,32 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900 text-white" role="contentinfo">
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-12 xs:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xs:gap-12">
-          {/* Company Info */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center mb-4 xs:mb-6">
-              <h2 className="text-2xl xs:text-3xl font-bold gradient-text">
-                SiwahtAI
-              </h2>
-            </div>
-            <p className="text-slate-300 mb-4 xs:mb-6 text-sm xs:text-base leading-relaxed">
-              Empowering creators with cutting-edge AI technology for video, audio, and content creation. Transform your ideas into reality with our advanced AI solutions.
+    <footer className="bg-slate-900 text-white border-t border-slate-800" role="contentinfo">
+      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-8 xs:py-12">
+        {/* Main Content - Single Row Layout */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 lg:gap-16">
+          
+          {/* Brand Section */}
+          <div className="flex-shrink-0">
+            <h2 className="text-2xl xs:text-3xl font-bold gradient-text mb-2">
+              SiwahtAI
+            </h2>
+            <p className="text-slate-400 text-sm max-w-xs">
+              AI-powered video and audio creation solutions
             </p>
-            
-            {/* Contact Info */}
-            <div className="space-y-2 xs:space-y-3 mb-6">
-              {contactInfo.map((info, index) => {
-                const Icon = info.icon;
-                return (
-                  <a 
-                    key={index}
-                    href={info.href}
-                    className="flex items-center text-slate-300 hover:text-white transition-colors duration-200 text-sm xs:text-base"
-                    aria-label={`Contact us: ${info.text}`}
-                  >
-                    <Icon className="h-4 w-4 xs:h-5 xs:w-5 mr-2 xs:mr-3 flex-shrink-0" aria-hidden="true" />
-                    {info.text}
-                  </a>
-                );
-              })}
-            </div>
-
-            {/* Social Links */}
-            <div className="flex space-x-4 xs:space-x-6">
-              {socialLinks.map((social, index) => {
-                const Icon = social.icon;
-                return (
-                  <a 
-                    key={index}
-                    href={social.href} 
-                    className="text-slate-400 hover:text-white transition-colors duration-200 p-2 rounded-lg hover:bg-slate-800"
-                    aria-label={social.label}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Icon className="h-5 w-5 xs:h-6 xs:w-6" aria-hidden="true" />
-                  </a>
-                );
-              })}
-            </div>
           </div>
 
-          {/* Services */}
-          <div>
-            <h3 className="text-lg xs:text-xl font-semibold mb-4 xs:mb-6 text-white">Our Services</h3>
+          {/* Navigation Links - Horizontal Layout */}
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-12">
+            {/* Services */}
             <nav aria-label="Services navigation">
-              <ul className="space-y-2 xs:space-y-3">
+              <h3 className="text-sm font-medium text-slate-300 mb-3">Services</h3>
+              <ul className="space-y-2">
                 {services.map((service, index) => (
                   <li key={index}>
                     <button 
                       onClick={() => scrollToSection(service.id)}
-                      className="text-slate-300 hover:text-white transition-colors duration-200 text-left text-sm xs:text-base hover:underline focus:underline focus:outline-none"
+                      className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
                       data-testid={`footer-service-${service.id}`}
                     >
                       {service.name}
@@ -109,19 +73,17 @@ export default function Footer() {
                 ))}
               </ul>
             </nav>
-          </div>
 
-          {/* Company Links */}
-          <div>
-            <h3 className="text-lg xs:text-xl font-semibold mb-4 xs:mb-6 text-white">Company</h3>
+            {/* Company */}
             <nav aria-label="Company navigation">
-              <ul className="space-y-2 xs:space-y-3">
-                {companyLinks.map((link, index) => (
+              <h3 className="text-sm font-medium text-slate-300 mb-3">Company</h3>
+              <ul className="space-y-2">
+                {companyLinks.slice(0, 3).map((link, index) => (
                   <li key={index}>
                     {link.id ? (
                       <button 
                         onClick={() => scrollToSection(link.id)}
-                        className="text-slate-300 hover:text-white transition-colors duration-200 text-left text-sm xs:text-base hover:underline focus:underline focus:outline-none"
+                        className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
                         data-testid={`footer-company-${link.id}`}
                       >
                         {link.name}
@@ -129,7 +91,7 @@ export default function Footer() {
                     ) : (
                       <a 
                         href={link.href}
-                        className="text-slate-300 hover:text-white transition-colors duration-200 text-sm xs:text-base hover:underline focus:underline"
+                        className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
                         data-testid={`footer-company-${link.name.toLowerCase().replace(/\s+/g, '-')}`}
                       >
                         {link.name}
@@ -141,37 +103,50 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Newsletter/CTA */}
-          <div>
-            <h3 className="text-lg xs:text-xl font-semibold mb-4 xs:mb-6 text-white">Stay Updated</h3>
-            <p className="text-slate-300 mb-4 xs:mb-6 text-sm xs:text-base">
-              Get the latest AI innovations and updates delivered to your inbox.
-            </p>
+          {/* Contact & Social */}
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start sm:items-center">
+            {/* Contact Button */}
             <button 
               onClick={() => scrollToSection('contact')}
-              className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white px-4 xs:px-6 py-2 xs:py-3 rounded-lg font-semibold transition-all duration-200 text-sm xs:text-base"
-              data-testid="footer-newsletter-cta"
+              className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 text-sm"
+              data-testid="footer-contact-cta"
             >
               Get In Touch
             </button>
+
+            {/* Social Links */}
+            <div className="flex space-x-4">
+              {socialLinks.map((social, index) => {
+                const Icon = social.icon;
+                return (
+                  <a 
+                    key={index}
+                    href={social.href} 
+                    className="text-slate-400 hover:text-white transition-colors duration-200"
+                    aria-label={social.label}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </a>
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-slate-800 mt-8 xs:mt-12 pt-6 xs:pt-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-            <p className="text-slate-400 text-xs xs:text-sm text-center sm:text-left">
-              © {currentYear} SiwahtAI. All rights reserved. Powered by cutting-edge artificial intelligence.
+        {/* Bottom Section - Minimal */}
+        <div className="border-t border-slate-800 mt-8 pt-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-slate-500 text-xs text-center sm:text-left">
+              © {currentYear} SiwahtAI. All rights reserved.
             </p>
-            <div className="flex flex-wrap justify-center sm:justify-end gap-4 xs:gap-6 text-xs xs:text-sm">
-              <a href="#privacy" className="text-slate-400 hover:text-white transition-colors duration-200">
-                Privacy Policy
+            <div className="flex gap-6 text-xs">
+              <a href="#privacy" className="text-slate-500 hover:text-slate-300 transition-colors duration-200">
+                Privacy
               </a>
-              <a href="#terms" className="text-slate-400 hover:text-white transition-colors duration-200">
-                Terms of Service
-              </a>
-              <a href="#cookies" className="text-slate-400 hover:text-white transition-colors duration-200">
-                Cookie Policy
+              <a href="#terms" className="text-slate-500 hover:text-slate-300 transition-colors duration-200">
+                Terms
               </a>
             </div>
           </div>
