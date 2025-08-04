@@ -110,9 +110,19 @@ export default function Avatars() {
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Avatar Studio</h4>
 {featuredAvatar ? (
                   <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">
-                    {featuredAvatar.imageUrl ? (
+                    {featuredAvatar.videoUrl ? (
+                      <video 
+                        src={featuredAvatar.videoUrl} 
+                        poster={featuredAvatar.thumbnailUrl || undefined}
+                        className="w-full h-full object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                      />
+                    ) : featuredAvatar.thumbnailUrl ? (
                       <img 
-                        src={featuredAvatar.imageUrl} 
+                        src={featuredAvatar.thumbnailUrl} 
                         alt={featuredAvatar.name}
                         className="w-full h-full object-cover"
                       />

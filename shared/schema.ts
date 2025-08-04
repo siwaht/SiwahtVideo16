@@ -51,7 +51,8 @@ export const avatars = pgTable("avatars", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   name: text("name").notNull(),
   description: text("description"),
-  imageUrl: text("image_url"),
+  videoUrl: text("video_url"),
+  thumbnailUrl: text("thumbnail_url"),
   gender: text("gender").notNull(), // male, female, other
   ethnicity: text("ethnicity"),
   ageRange: text("age_range"),
