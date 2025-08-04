@@ -49,7 +49,8 @@ const demoVideoSchema = z.object({
 const avatarSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().optional(),
-  imageUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  videoUrl: z.string().url("Must be a valid URL"),
+  thumbnailUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   gender: z.string().min(1, "Gender is required"),
   ethnicity: z.string().optional(),
   ageRange: z.string().optional(),
@@ -98,21 +99,62 @@ export default function AdminPortfolio() {
     }
   };
 
-  const form = useForm({
+  const form = useForm<any>({
     resolver: zodResolver(getSchema()),
-    defaultValues: {},
+    defaultValues: {
+      title: '',
+      name: '',
+      description: '',
+      category: '',
+      videoUrl: '',
+      thumbnailUrl: '',
+      audioUrl: '',
+      imageUrl: '',
+      gender: '',
+      language: '',
+      ethnicity: '',
+      ageRange: '',
+      accent: '',
+      clientName: '',
+      tags: '',
+      voicePreview: '',
+      isPublished: false,
+    },
   });
 
   // Reset form when category changes
   useEffect(() => {
-    form.reset({});
+    const defaultValues = {
+      title: '',
+      name: '',
+      description: '',
+      category: '',
+      videoUrl: '',
+      thumbnailUrl: '',
+      audioUrl: '',
+      imageUrl: '',
+      gender: '',
+      language: '',
+      ethnicity: '',
+      ageRange: '',
+      accent: '',
+      clientName: '',
+      tags: '',
+      voicePreview: '',
+      isPublished: false,
+    };
+    form.reset(defaultValues);
     setEditingItem(null);
   }, [selectedCategory, form]);
 
   // Fetch samples based on category
-  const { data: samples = [], isLoading } = useQuery<SampleItem[]>({
+  const { data: samples = [], isLoading } = useQuery({
     queryKey: [`/api/admin/${selectedCategory}`, searchQuery],
-    queryFn: () => apiRequest(`/api/admin/${selectedCategory}${searchQuery ? `?search=${searchQuery}` : ''}`),
+    queryFn: async () => {
+      const response = await apiRequest('GET', `/api/admin/${selectedCategory}${searchQuery ? `?search=${searchQuery}` : ''}`);
+      const data = await response.json();
+      return data.data || [];
+    },
   });
 
   // Create/Update mutation
@@ -122,7 +164,8 @@ export default function AdminPortfolio() {
         ? `/api/admin/${selectedCategory}/${editingItem.id}`
         : `/api/admin/${selectedCategory}`;
       const method = editingItem ? 'PUT' : 'POST';
-      return apiRequest(url, { method, body: data });
+      const response = await apiRequest(method, url, data);
+      return await response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`/api/admin/${selectedCategory}`] });
@@ -146,7 +189,10 @@ export default function AdminPortfolio() {
 
   // Delete mutation
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => apiRequest(`/api/admin/${selectedCategory}/${id}`, { method: 'DELETE' }),
+    mutationFn: async (id: string) => {
+      const response = await apiRequest('DELETE', `/api/admin/${selectedCategory}/${id}`);
+      return await response.json();
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`/api/admin/${selectedCategory}`] });
       queryClient.invalidateQueries({ queryKey: [`/api/samples/${selectedCategory}`] });
@@ -166,11 +212,10 @@ export default function AdminPortfolio() {
 
   // Toggle published status
   const togglePublishedMutation = useMutation({
-    mutationFn: ({ id, isPublished }: { id: string; isPublished: boolean }) => 
-      apiRequest(`/api/admin/${selectedCategory}/${id}`, { 
-        method: 'PUT', 
-        body: { isPublished } 
-      }),
+    mutationFn: async ({ id, isPublished }: { id: string; isPublished: boolean }) => {
+      const response = await apiRequest('PUT', `/api/admin/${selectedCategory}/${id}`, { isPublished });
+      return await response.json();
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`/api/admin/${selectedCategory}`] });
       queryClient.invalidateQueries({ queryKey: [`/api/samples/${selectedCategory}`] });
@@ -190,7 +235,7 @@ export default function AdminPortfolio() {
 
   const handleEdit = (item: SampleItem) => {
     setEditingItem(item);
-    form.reset(item);
+    form.reset(item as any);
     setIsDialogOpen(true);
   };
 
@@ -514,7 +559,29 @@ export default function AdminPortfolio() {
         <h1 className="text-3xl font-bold">Portfolio Management</h1>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => { setEditingItem(null); form.reset({}); }}>
+            <Button onClick={() => { 
+              setEditingItem(null); 
+              const defaultValues = {
+                title: '',
+                name: '',
+                description: '',
+                category: '',
+                videoUrl: '',
+                thumbnailUrl: '',
+                audioUrl: '',
+                imageUrl: '',
+                gender: '',
+                language: '',
+                ethnicity: '',
+                ageRange: '',
+                accent: '',
+                clientName: '',
+                tags: '',
+                voicePreview: '',
+                isPublished: false,
+              };
+              form.reset(defaultValues); 
+            }}>
               <Plus className="h-4 w-4 mr-2" />
               Add Sample
             </Button>
@@ -602,7 +669,7 @@ export default function AdminPortfolio() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {samples.map((sample) => (
+          {samples.map((sample: any) => (
             <div key={sample.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
               <div className="flex justify-between items-start mb-3">
                 <h3 className="font-semibold line-clamp-2">
