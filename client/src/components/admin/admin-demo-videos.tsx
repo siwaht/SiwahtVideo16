@@ -31,6 +31,7 @@ interface DemoVideo {
   id: string;
   title: string;
   description: string;
+  category: string;
   videoUrl: string;
   thumbnailUrl?: string;
   isPublished: boolean;
@@ -50,10 +51,10 @@ export default function AdminDemoVideos() {
     defaultValues: {
       title: "",
       description: "",
+      category: "",
       videoUrl: "",
       thumbnailUrl: "",
       isPublished: false,
-      orderIndex: 0,
     },
   });
 
@@ -65,7 +66,8 @@ export default function AdminDemoVideos() {
     mutationFn: async (data: DemoVideoFormData) => {
       const response = await apiRequest("POST", "/api/admin/demo-videos", data);
       if (!response.ok) {
-        throw new Error("Failed to create demo video");
+        const errorText = await response.text();
+        throw new Error(`Failed to create demo video: ${errorText}`);
       }
       return response.json();
     },
@@ -150,10 +152,10 @@ export default function AdminDemoVideos() {
     form.reset({
       title: video.title,
       description: video.description,
+      category: video.category || "",
       videoUrl: video.videoUrl,
       thumbnailUrl: video.thumbnailUrl || "",
       isPublished: video.isPublished,
-      orderIndex: video.orderIndex,
     });
     setIsCreating(true);
   };
@@ -264,17 +266,12 @@ export default function AdminDemoVideos() {
                   
                   <FormField
                     control={form.control}
-                    name="orderIndex"
+                    name="category"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Order Index</FormLabel>
+                        <FormLabel>Category</FormLabel>
                         <FormControl>
-                          <Input 
-                            type="number" 
-                            placeholder="0" 
-                            {...field} 
-                            onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
-                          />
+                          <Input placeholder="e.g., product-demo, testimonial" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -362,7 +359,10 @@ export default function AdminDemoVideos() {
                     type="submit" 
                     disabled={createVideoMutation.isPending || updateVideoMutation.isPending}
                   >
-                    {editingVideo ? "Update Video" : "Create Video"}
+                    {createVideoMutation.isPending || updateVideoMutation.isPending 
+                      ? "Saving..." 
+                      : editingVideo ? "Update Video" : "Create Video"
+                    }
                   </Button>
                   <Button type="button" variant="outline" onClick={cancelEditing}>
                     Cancel
