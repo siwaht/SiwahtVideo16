@@ -1,5 +1,7 @@
 import { Twitter, Linkedin, Github, Mail, Phone, MapPin } from "lucide-react";
 
+import siwath_logo_withoutbackground from "@assets/siwath_logo_withoutbackground.png";
+
 export default function Footer() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -47,7 +49,7 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="flex items-center gap-3">
             <img 
-              src="/attached_assets/siwath_logo_withoutbackground_1754297217184.png" 
+              src={siwath_logo_withoutbackground} 
               alt="Siwaht Logo" 
               className="w-8 h-8"
             />
