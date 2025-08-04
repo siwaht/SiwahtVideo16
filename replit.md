@@ -9,6 +9,9 @@ Siwaht is a comprehensive web application for AI-powered video and audio content
 - **Enhanced UX**: Interactive service previews, smooth scrolling navigation, and touch-friendly mobile interface
 - **SEO Optimization**: Semantic HTML structure, meta tags, Open Graph integration, and performance optimizations
 - **Design System**: Consistent color schemes, typography, and spacing using Tailwind CSS with shadcn/ui components
+- **Admin Panel Fixes**: Fixed Create Video button functionality by adding required category field validation
+- **Navigation Fix**: Resolved "Back to Site" button in admin layout with proper window.location navigation
+- **Content Display**: Fixed frontend service components to display newly added admin content with fresh data fetching
 
 # User Preferences
 
