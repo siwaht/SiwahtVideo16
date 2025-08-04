@@ -55,13 +55,18 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
-          <div className="flex items-center flex-shrink-0">
-            <h1 className="text-xl xs:text-2xl md:text-3xl font-bold gradient-text cursor-pointer"
+          <div className="flex items-center flex-shrink-0 gap-3 cursor-pointer"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && window.scrollTo({ top: 0, behavior: 'smooth' })}
                 aria-label="Siwaht - Go to top">
+            <img 
+              src="/attached_assets/siwath_logo_withoutbackground_1754297217184.png" 
+              alt="Siwaht Logo" 
+              className="w-8 h-8 md:w-10 md:h-10"
+            />
+            <h1 className="text-xl xs:text-2xl md:text-3xl font-bold gradient-text">
               Siwaht
             </h1>
           </div>

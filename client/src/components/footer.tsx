@@ -46,9 +46,11 @@ export default function Footer() {
           
           {/* Brand Section */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">S</span>
-            </div>
+            <img 
+              src="/attached_assets/siwath_logo_withoutbackground_1754297217184.png" 
+              alt="Siwaht Logo" 
+              className="w-8 h-8"
+            />
             <div>
               <h2 className="text-xl font-bold text-white mb-1">
                 Siwaht
