@@ -6,10 +6,15 @@ export default function VoiceSynthesis() {
   // Fetch voice samples from API
   const { data: voiceSamples = [] } = useQuery<VoiceSample[]>({
     queryKey: ['/api/samples/voice-samples'],
+    refetchOnWindowFocus: true,
+    staleTime: 0, // Always fetch fresh data
   });
 
-  // Get the first voice sample for preview
-  const featuredVoice = voiceSamples[0];
+  // Get the first published voice sample for preview, sorted by order index
+  const publishedVoices = voiceSamples
+    .filter(voice => voice.isPublished)
+    .sort((a, b) => a.orderIndex - b.orderIndex);
+  const featuredVoice = publishedVoices[0];
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");

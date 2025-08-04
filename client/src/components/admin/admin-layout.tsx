@@ -117,6 +117,9 @@ export default function AdminLayout({ user, onLogout, children }: AdminLayoutPro
                 variant="ghost" 
                 size="sm" 
                 className="gap-2"
+                onClick={() => {
+                  window.location.href = '/';
+                }}
               >
                 <ArrowLeft className="h-4 w-4" />
                 <span className="hidden sm:inline">Back to Site</span>

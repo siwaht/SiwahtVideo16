@@ -6,10 +6,15 @@ export default function VideoEditing() {
   // Fetch edited videos from API
   const { data: editedVideos = [] } = useQuery<EditedVideo[]>({
     queryKey: ['/api/samples/edited-videos'],
+    refetchOnWindowFocus: true,
+    staleTime: 0, // Always fetch fresh data
   });
 
-  // Get the first edited video for preview
-  const featuredEditedVideo = editedVideos[0];
+  // Get the first published edited video for preview, sorted by order index
+  const publishedEditedVideos = editedVideos
+    .filter(video => video.isPublished)
+    .sort((a, b) => a.orderIndex - b.orderIndex);
+  const featuredEditedVideo = publishedEditedVideos[0];
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");

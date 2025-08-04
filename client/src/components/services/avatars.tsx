@@ -6,10 +6,15 @@ export default function Avatars() {
   // Fetch avatars from API
   const { data: avatars = [] } = useQuery<Avatar[]>({
     queryKey: ['/api/samples/avatars'],
+    refetchOnWindowFocus: true,
+    staleTime: 0, // Always fetch fresh data
   });
 
-  // Get the first avatar for preview
-  const featuredAvatar = avatars[0];
+  // Get the first published avatar for preview, sorted by order index
+  const publishedAvatars = avatars
+    .filter(avatar => avatar.isPublished)
+    .sort((a, b) => a.orderIndex - b.orderIndex);
+  const featuredAvatar = publishedAvatars[0];
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");

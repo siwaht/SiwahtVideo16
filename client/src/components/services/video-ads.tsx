@@ -6,10 +6,15 @@ export default function VideoAds() {
   // Fetch demo videos from API
   const { data: demoVideos = [] } = useQuery<DemoVideo[]>({
     queryKey: ['/api/samples/demo-videos'],
+    refetchOnWindowFocus: true,
+    staleTime: 0, // Always fetch fresh data
   });
 
-  // Get the first demo video for preview
-  const featuredVideo = demoVideos[0];
+  // Get the first published demo video for preview, sorted by order index
+  const publishedVideos = demoVideos
+    .filter(video => video.isPublished)
+    .sort((a, b) => a.orderIndex - b.orderIndex);
+  const featuredVideo = publishedVideos[0];
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
