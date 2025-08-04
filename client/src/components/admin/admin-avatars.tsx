@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { insertAvatarSchema } from "@shared/schema";
@@ -31,7 +31,8 @@ interface Avatar {
   id: string;
   name: string;
   description: string;
-  imageUrl?: string;
+  videoUrl?: string;
+  thumbnailUrl?: string;
   gender: 'male' | 'female' | 'other';
   ethnicity?: string;
   ageRange?: string;
@@ -53,13 +54,13 @@ export default function AdminAvatars() {
     defaultValues: {
       name: "",
       description: "",
-      imageUrl: "",
+      videoUrl: "",
+      thumbnailUrl: "",
       gender: "other",
       ethnicity: "",
       ageRange: "",
       voicePreview: "",
       isPublished: false,
-      orderIndex: 0,
     },
   });
 
@@ -156,13 +157,13 @@ export default function AdminAvatars() {
     form.reset({
       name: avatar.name,
       description: avatar.description,
-      imageUrl: avatar.imageUrl || "",
+      videoUrl: avatar.videoUrl || "",
+      thumbnailUrl: avatar.thumbnailUrl || "",
       gender: avatar.gender,
       ethnicity: avatar.ethnicity || "",
       ageRange: avatar.ageRange || "",
       voicePreview: avatar.voicePreview || "",
       isPublished: avatar.isPublished,
-      orderIndex: avatar.orderIndex,
     });
     setIsCreating(true);
   };
@@ -371,16 +372,19 @@ export default function AdminAvatars() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <FormField
                     control={form.control}
-                    name="imageUrl"
+                    name="videoUrl"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Image URL</FormLabel>
+                        <FormLabel>Video URL</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="https://example.com/avatar.jpg" 
+                            placeholder="https://youtu.be/example or https://example.com/avatar-demo.mp4" 
                             {...field} 
                           />
                         </FormControl>
+                        <FormDescription>
+                          YouTube video or direct video file URL for avatar demo
+                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -388,16 +392,19 @@ export default function AdminAvatars() {
                   
                   <FormField
                     control={form.control}
-                    name="voicePreview"
+                    name="thumbnailUrl"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Voice Preview URL</FormLabel>
+                        <FormLabel>Thumbnail URL (Optional)</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="https://example.com/voice-sample.mp3" 
+                            placeholder="https://example.com/avatar-thumbnail.jpg" 
                             {...field} 
                           />
                         </FormControl>
+                        <FormDescription>
+                          Optional thumbnail image to show before video loads
+                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -473,17 +480,42 @@ export default function AdminAvatars() {
                 </div>
               </CardHeader>
               <CardContent>
-                {/* Avatar Image */}
+                {/* Avatar Video Preview */}
                 <div className="relative mb-4">
-                  {avatar.imageUrl ? (
+                  {avatar.videoUrl && avatar.videoUrl.includes('youtu') ? (
+                    <iframe
+                      src={avatar.videoUrl
+                        .replace('youtu.be/', 'youtube.com/embed/')
+                        .replace('youtube.com/watch?v=', 'youtube.com/embed/')
+                      }
+                      className="w-full h-48 rounded border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      title={avatar.name}
+                    />
+                  ) : avatar.videoUrl ? (
+                    <video 
+                      src={avatar.videoUrl} 
+                      poster={avatar.thumbnailUrl || undefined}
+                      className="w-full h-48 object-cover rounded"
+                      controls
+                      muted
+                      preload="metadata"
+                    />
+                  ) : avatar.thumbnailUrl ? (
                     <img 
-                      src={avatar.imageUrl} 
+                      src={avatar.thumbnailUrl} 
                       alt={avatar.name}
                       className="w-full h-48 object-cover rounded"
                     />
                   ) : (
                     <div className="w-full h-48 bg-muted rounded flex items-center justify-center">
                       <UserCircle className="h-12 w-12 text-muted-foreground" />
+                    </div>
+                  )}
+                  {avatar.videoUrl && (
+                    <div className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                      🎬 Video Demo
                     </div>
                   )}
                 </div>
@@ -506,12 +538,19 @@ export default function AdminAvatars() {
                     )}
                   </div>
                   
-                  {avatar.voicePreview && (
+                  {avatar.videoUrl && (
                     <div className="text-xs text-muted-foreground">
-                      <audio controls className="w-full h-8">
-                        <source src={avatar.voicePreview} type="audio/mpeg" />
-                        Your browser does not support audio playback.
-                      </audio>
+                      <span className="inline-flex items-center gap-1">
+                        🎬 Video URL: 
+                        <a 
+                          href={avatar.videoUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800 underline max-w-32 truncate"
+                        >
+                          {avatar.videoUrl}
+                        </a>
+                      </span>
                     </div>
                   )}
                 </div>
