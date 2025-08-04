@@ -41,21 +41,21 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 text-white border-t border-slate-800" role="contentinfo">
       <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-8 xs:py-12">
-        {/* Main Content - Single Row Layout */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 lg:gap-16">
+        {/* Main Content - Properly Aligned Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* Brand Section */}
-          <div className="flex-shrink-0">
+          <div className="lg:col-span-4">
             <h2 className="text-2xl xs:text-3xl font-bold gradient-text mb-2">
               SiwahtAI
             </h2>
-            <p className="text-slate-400 text-sm max-w-xs">
+            <p className="text-slate-400 text-sm">
               AI-powered video and audio creation solutions
             </p>
           </div>
 
-          {/* Navigation Links - Horizontal Layout */}
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-12">
+          {/* Navigation Links */}
+          <div className="lg:col-span-5 grid grid-cols-2 gap-8">
             {/* Services */}
             <nav aria-label="Services navigation">
               <h3 className="text-sm font-medium text-slate-300 mb-3">Services</h3>
@@ -64,7 +64,7 @@ export default function Footer() {
                   <li key={index}>
                     <button 
                       onClick={() => scrollToSection(service.id)}
-                      className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
+                      className="text-slate-400 hover:text-white transition-colors duration-200 text-sm text-left"
                       data-testid={`footer-service-${service.id}`}
                     >
                       {service.name}
@@ -83,7 +83,7 @@ export default function Footer() {
                     {link.id ? (
                       <button 
                         onClick={() => scrollToSection(link.id)}
-                        className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
+                        className="text-slate-400 hover:text-white transition-colors duration-200 text-sm text-left"
                         data-testid={`footer-company-${link.id}`}
                       >
                         {link.name}
@@ -103,12 +103,12 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Contact & Social */}
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start sm:items-center">
+          {/* Contact & Social - Right Aligned */}
+          <div className="lg:col-span-3 flex flex-col gap-4 lg:items-end">
             {/* Contact Button */}
             <button 
               onClick={() => scrollToSection('contact')}
-              className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 text-sm"
+              className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 text-sm w-fit"
               data-testid="footer-contact-cta"
             >
               Get In Touch
