@@ -124,9 +124,32 @@ export default function Avatars() {
             <div className="service-preview from-purple-100 via-indigo-100 to-blue-100">
               <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Avatar Studio</h4>
+                {process.env.NODE_ENV === 'development' && (
+                  <div className="text-xs text-gray-500 mb-2 p-2 bg-green-100 rounded border border-green-200">
+                    ✅ Active: {avatars.length} avatars loaded | {publishedAvatars.length} published 
+                    {featuredAvatar && (
+                      <div className="font-semibold mt-1">
+                        Now Showing: "{featuredAvatar.name}"<br/>
+                        Video URL: {featuredAvatar.videoUrl || 'No Video'} | Image: {featuredAvatar.thumbnailUrl || 'No Image'}
+                      </div>
+                    )}
+                  </div>
+                )}
 {featuredAvatar ? (
                   <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">
-                    {featuredAvatar.videoUrl ? (
+                    {/* Embed YouTube video if available */}
+                    {featuredAvatar.videoUrl && featuredAvatar.videoUrl.includes('youtu') ? (
+                      <iframe
+                        src={featuredAvatar.videoUrl
+                          .replace('youtu.be/', 'youtube.com/embed/')
+                          .replace('youtube.com/watch?v=', 'youtube.com/embed/')
+                        }
+                        className="w-full h-full border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        title={featuredAvatar.name}
+                      />
+                    ) : featuredAvatar.videoUrl ? (
                       <video 
                         src={featuredAvatar.videoUrl} 
                         poster={featuredAvatar.thumbnailUrl || undefined}

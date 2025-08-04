@@ -90,9 +90,32 @@ export default function VideoEditing() {
             <div className="bg-gradient-to-br from-orange-100 to-red-200 rounded-2xl p-4 xs:p-6 md:p-8 shadow-2xl">
               <div className="bg-white rounded-xl p-4 xs:p-6 mb-4 xs:mb-6 shadow-lg">
                 <h4 className="font-semibold text-slate-900 mb-3 xs:mb-4 text-sm xs:text-base">AI Video Editor</h4>
+                {process.env.NODE_ENV === 'development' && (
+                  <div className="text-xs text-gray-500 mb-2 p-2 bg-green-100 rounded border border-green-200">
+                    ✅ Active: {editedVideos.length} edited videos loaded | {publishedEditedVideos.length} published 
+                    {featuredEditedVideo && (
+                      <div className="font-semibold mt-1">
+                        Now Showing: "{featuredEditedVideo.title}"<br/>
+                        Video URL: {featuredEditedVideo.videoUrl || 'No Video'}
+                      </div>
+                    )}
+                  </div>
+                )}
 {featuredEditedVideo ? (
                   <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden">
-                    {featuredEditedVideo.thumbnailUrl ? (
+                    {/* Embed YouTube video if available */}
+                    {featuredEditedVideo.videoUrl && featuredEditedVideo.videoUrl.includes('youtu') ? (
+                      <iframe
+                        src={featuredEditedVideo.videoUrl
+                          .replace('youtu.be/', 'youtube.com/embed/')
+                          .replace('youtube.com/watch?v=', 'youtube.com/embed/')
+                        }
+                        className="w-full h-full border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        title={featuredEditedVideo.title}
+                      />
+                    ) : featuredEditedVideo.thumbnailUrl ? (
                       <img 
                         src={featuredEditedVideo.thumbnailUrl} 
                         alt={featuredEditedVideo.title}
@@ -101,24 +124,40 @@ export default function VideoEditing() {
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20"></div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                    <div className="relative z-10 p-4 h-full flex flex-col justify-between">
-                      {/* Video Info */}
-                      <div className="text-white">
-                        <h5 className="font-semibold text-sm">{featuredEditedVideo.title}</h5>
-                        {featuredEditedVideo.clientName && (
-                          <p className="text-xs opacity-80">Client: {featuredEditedVideo.clientName}</p>
-                        )}
-                      </div>
-                      
-                      {/* Preview Screen */}
-                      <div className="bg-white/10 backdrop-blur-sm rounded p-2 text-center">
-                        <div className="w-8 h-8 xs:w-10 xs:h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1">
-                          <Scissors className="h-4 w-4 xs:h-5 xs:w-5 text-white" />
+                    
+                    {/* Only show overlay if no video embed */}
+                    {!(featuredEditedVideo.videoUrl && featuredEditedVideo.videoUrl.includes('youtu')) && (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div className="relative z-10 p-4 h-full flex flex-col justify-between">
+                          {/* Video Info */}
+                          <div className="text-white">
+                            <h5 className="font-semibold text-sm">{featuredEditedVideo.title}</h5>
+                            {featuredEditedVideo.clientName && (
+                              <p className="text-xs opacity-80">Client: {featuredEditedVideo.clientName}</p>
+                            )}
+                            {featuredEditedVideo.videoUrl && (
+                              <a 
+                                href={featuredEditedVideo.videoUrl} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-xs text-orange-300 hover:text-orange-200 underline"
+                              >
+                                View Video
+                              </a>
+                            )}
+                          </div>
+                          
+                          {/* Preview Screen */}
+                          <div className="bg-white/10 backdrop-blur-sm rounded p-2 text-center">
+                            <div className="w-8 h-8 xs:w-10 xs:h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1">
+                              <Scissors className="h-4 w-4 xs:h-5 xs:w-5 text-white" />
+                            </div>
+                            <p className="text-xs text-white/80">Professional Edit</p>
+                          </div>
                         </div>
-                        <p className="text-xs text-white/80">Professional Edit</p>
-                      </div>
-                    </div>
+                      </>
+                    )}
                   </div>
                 ) : (
                   <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden">

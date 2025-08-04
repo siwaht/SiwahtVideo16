@@ -90,6 +90,17 @@ export default function VoiceSynthesis() {
             <div className="service-preview from-emerald-100 via-teal-100 to-cyan-100">
               <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Voice Studio</h4>
+                {process.env.NODE_ENV === 'development' && (
+                  <div className="text-xs text-gray-500 mb-2 p-2 bg-green-100 rounded border border-green-200">
+                    ✅ Active: {voiceSamples.length} voice samples loaded | {publishedVoices.length} published 
+                    {featuredVoice && (
+                      <div className="font-semibold mt-1">
+                        Now Showing: "{featuredVoice.name}"<br/>
+                        Audio URL: {featuredVoice.audioUrl || 'No Audio'}
+                      </div>
+                    )}
+                  </div>
+                )}
 {featuredVoice ? (
                   <div className="bg-gradient-to-br from-slate-900 to-emerald-900 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
                     <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/30 to-teal-600/30"></div>
