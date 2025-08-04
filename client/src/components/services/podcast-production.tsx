@@ -154,7 +154,7 @@ export default function PodcastProduction() {
                     Contact Us
                   </Button>
                 </div>
-              ) : podcastSamples && podcastSamples.length > 0 ? (
+              ) : podcastSamples && Array.isArray(podcastSamples) && podcastSamples.length > 0 ? (
                 <div className="space-y-4 max-h-96 overflow-y-auto">
                   {podcastSamples.slice(0, 3).map((sample: PodcastSample) => (
                     <Card key={sample.id} className="p-4 hover:shadow-md transition-shadow">
@@ -251,7 +251,7 @@ export default function PodcastProduction() {
                     </Card>
                   ))}
                   
-                  {podcastSamples.length > 3 && (
+                  {Array.isArray(podcastSamples) && podcastSamples.length > 3 && (
                     <div className="text-center pt-2">
                       <Button 
                         onClick={scrollToContact}
