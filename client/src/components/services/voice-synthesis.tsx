@@ -84,62 +84,63 @@ export default function VoiceSynthesis() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xs:gap-16 xl:gap-20 items-center">
-          {/* Voice Preview */}
-          <aside className="relative order-1 lg:order-1 hover-lift">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xs:gap-16 xl:gap-20 items-start">
+          {/* Voice Samples Portfolio */}
+          <aside className="relative order-1 lg:order-1">
             <div className="service-preview from-emerald-100 via-teal-100 to-cyan-100">
               <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
-                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Voice Studio</h4>
+                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Voice Portfolio</h4>
                 {process.env.NODE_ENV === 'development' && (
-                  <div className="text-xs text-gray-500 mb-2 p-2 bg-green-100 rounded border border-green-200">
-                    ✅ Active: {voiceSamples.length} voice samples loaded | {publishedVoices.length} published 
-                    {featuredVoice && (
-                      <div className="font-semibold mt-1">
-                        Now Showing: "{featuredVoice.name}"<br/>
-                        Audio URL: {featuredVoice.audioUrl || 'No Audio'}
-                      </div>
-                    )}
+                  <div className="text-xs text-gray-500 mb-4 p-2 bg-green-100 rounded border border-green-200">
+                    ✅ Active: {voiceSamples.length} voice samples loaded | {publishedVoices.length} published
                   </div>
                 )}
-{featuredVoice ? (
-                  <div className="bg-gradient-to-br from-slate-900 to-emerald-900 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/30 to-teal-600/30"></div>
-                    <div className="relative z-10 h-full flex items-center justify-center">
-                      <div className="text-center text-white">
-                        <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
-                          <Volume2 className="h-10 w-10 xs:h-12 xs:w-12 text-white" />
+
+                {publishedVoices && publishedVoices.length > 0 ? (
+                  <div className="space-y-4">
+                    {publishedVoices.map((voice, index) => (
+                      <div key={voice.id} className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-4 border border-emerald-200 hover:shadow-md transition-all duration-200">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <h5 className="font-semibold text-slate-900 text-sm">{voice.name}</h5>
+                            <div className="flex flex-wrap gap-2 mt-1">
+                              <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full">
+                                {voice.language}
+                              </span>
+                              <span className="text-xs bg-teal-100 text-teal-700 px-2 py-1 rounded-full">
+                                {voice.gender}
+                              </span>
+                              {voice.accent && (
+                                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+                                  {voice.accent}
+                                </span>
+                              )}
+                              {voice.ageRange && (
+                                <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
+                                  {voice.ageRange}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center ml-3">
+                            <Volume2 className="h-4 w-4 text-white" />
+                          </div>
                         </div>
-                        <p className="text-sm xs:text-base opacity-90 font-semibold">{featuredVoice.name}</p>
-                        {featuredVoice.description && (
-                          <p className="text-xs opacity-70 mt-2 line-clamp-2 max-w-xs mx-auto">{featuredVoice.description}</p>
+                        
+                        {voice.description && (
+                          <p className="text-xs text-slate-600 mb-3 line-clamp-2">{voice.description}</p>
                         )}
-                        {featuredVoice.audioUrl && (
-                          <div className="mt-4">
-                            <audio controls className="w-full max-w-xs mx-auto rounded-lg opacity-80">
-                              <source src={featuredVoice.audioUrl} type="audio/mpeg" />
+                        
+                        {voice.audioUrl && (
+                          <div className="mt-3">
+                            <audio controls className="w-full h-8 rounded">
+                              <source src={voice.audioUrl} type="audio/mpeg" />
                               Your browser does not support the audio element.
                             </audio>
                           </div>
                         )}
                       </div>
-                    </div>
-                    
-                    {/* Audio Waveform */}
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <div className="flex items-center justify-center space-x-1">
-                        {[...Array(12)].map((_, i) => (
-                          <div 
-                            key={i}
-                            className="bg-emerald-400 rounded-full animate-pulse"
-                            style={{
-                              width: '3px',
-                              height: `${Math.random() * 20 + 10}px`,
-                              animationDelay: `${i * 0.1}s`
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 ) : (
                   <div className="bg-gradient-to-br from-slate-900 to-emerald-900 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
@@ -149,7 +150,7 @@ export default function VoiceSynthesis() {
                         <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
                           <Volume2 className="h-10 w-10 xs:h-12 xs:w-12 text-white" />
                         </div>
-                        <p className="text-sm xs:text-base opacity-90 font-semibold">AI Voice Preview</p>
+                        <p className="text-sm xs:text-base opacity-90 font-semibold">AI Voice Portfolio</p>
                         <p className="text-xs opacity-70 mt-2">Upload voice samples in admin panel to showcase here</p>
                       </div>
                     </div>
@@ -177,11 +178,15 @@ export default function VoiceSynthesis() {
               <div className="grid grid-cols-3 gap-3 xs:gap-4">
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Languages</div>
-                  <div className="text-sm xs:text-base font-bold text-emerald-600">50+</div>
+                  <div className="text-sm xs:text-base font-bold text-emerald-600">
+                    {publishedVoices ? new Set(publishedVoices.map(v => v.language)).size : '50+'}
+                  </div>
                 </div>
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Voices</div>
-                  <div className="text-sm xs:text-base font-bold text-teal-600">100+</div>
+                  <div className="text-sm xs:text-base font-bold text-teal-600">
+                    {publishedVoices ? publishedVoices.length : '100+'}
+                  </div>
                 </div>
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
