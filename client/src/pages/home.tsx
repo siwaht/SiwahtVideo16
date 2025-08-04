@@ -14,21 +14,21 @@ import Footer from "@/components/footer";
 export default function Home() {
   useEffect(() => {
     // Set page metadata for SEO
-    document.title = "SiwahtAI - AI-Powered Video & Audio Content Creation Services";
+    document.title = "Siwaht - AI-Powered Video & Audio Content Creation Services";
     
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Transform your ideas into professional videos, realistic AI avatars, and premium audio content with SiwahtAI\'s cutting-edge artificial intelligence technology. Get started today.');
+      metaDescription.setAttribute('content', 'Transform your ideas into professional videos, realistic AI avatars, and premium audio content with Siwaht\'s cutting-edge artificial intelligence technology. Get started today.');
     } else {
       const meta = document.createElement('meta');
       meta.name = 'description';
-      meta.content = 'Transform your ideas into professional videos, realistic AI avatars, and premium audio content with SiwahtAI\'s cutting-edge artificial intelligence technology. Get started today.';
+      meta.content = 'Transform your ideas into professional videos, realistic AI avatars, and premium audio content with Siwaht\'s cutting-edge artificial intelligence technology. Get started today.';
       document.head.appendChild(meta);
     }
 
     // Add Open Graph meta tags
     const ogTags = [
-      { property: 'og:title', content: 'SiwahtAI - AI-Powered Video & Audio Content Creation' },
+      { property: 'og:title', content: 'Siwaht - AI-Powered Video & Audio Content Creation' },
       { property: 'og:description', content: 'Professional AI video creation, realistic avatars, and voice synthesis services.' },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: window.location.href }

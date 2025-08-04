@@ -98,7 +98,7 @@ export default function AdminLayout({ user, onLogout, children }: AdminLayoutPro
                 <Shield className="h-4 w-4 text-primary" />
               </div>
               <div>
-                <h1 className="text-lg font-semibold">SiwahtAI Admin</h1>
+                <h1 className="text-lg font-semibold">Siwaht Admin</h1>
                 <p className="text-xs text-muted-foreground hidden sm:block">Content Management System</p>
               </div>
             </div>

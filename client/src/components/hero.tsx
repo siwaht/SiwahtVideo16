@@ -40,7 +40,7 @@ export default function Hero() {
               onClick={scrollToContact}
               className="btn-primary w-full xs:w-auto text-lg xs:text-xl px-10 py-5 min-w-[220px]"
               data-testid="hero-start-creating"
-              aria-label="Start creating with SiwahtAI"
+              aria-label="Start creating with Siwaht"
             >
               Start Creating Now
             </button>

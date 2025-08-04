@@ -133,7 +133,7 @@ export async function createDefaultAdminUser() {
       
       await storage.createAdminUser({
         username: "admin",
-        email: "admin@siwahtai.com",
+        email: "admin@siwaht.com",
         passwordHash: hashedPassword,
         fullName: "System Administrator",
         role: "super_admin",

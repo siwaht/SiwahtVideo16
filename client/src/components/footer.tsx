@@ -47,7 +47,7 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-4">
             <h2 className="text-2xl xs:text-3xl font-bold gradient-text mb-2">
-              SiwahtAI
+              Siwaht
             </h2>
             <p className="text-slate-400 text-sm">
               AI-powered video and audio creation solutions
@@ -139,7 +139,7 @@ export default function Footer() {
         <div className="border-t border-slate-800 mt-8 pt-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-slate-500 text-xs text-center sm:text-left">
-              © {currentYear} SiwahtAI. All rights reserved.
+              © {currentYear} Siwaht. All rights reserved.
             </p>
             <div className="flex gap-6 text-xs">
               <a href="#privacy" className="text-slate-500 hover:text-slate-300 transition-colors duration-200">

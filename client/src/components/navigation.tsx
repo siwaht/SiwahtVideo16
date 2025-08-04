@@ -61,8 +61,8 @@ export default function Navigation() {
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && window.scrollTo({ top: 0, behavior: 'smooth' })}
-                aria-label="SiwahtAI - Go to top">
-              SiwahtAI
+                aria-label="Siwaht - Go to top">
+              Siwaht
             </h1>
           </div>
           
