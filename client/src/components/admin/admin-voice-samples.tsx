@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { insertVoiceSampleSchema } from "@shared/schema";
@@ -339,10 +339,13 @@ export default function AdminVoiceSamples() {
                       <FormLabel>Audio URL</FormLabel>
                       <FormControl>
                         <Input 
-                          placeholder="https://example.com/voice-sample.mp3" 
+                          placeholder="https://soundcloud.com/user/track or https://example.com/audio.mp3" 
                           {...field} 
                         />
                       </FormControl>
+                      <FormDescription>
+                        Supports SoundCloud, Spotify, YouTube, or direct audio file URLs (.mp3, .wav, .m4a, .ogg)
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
