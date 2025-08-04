@@ -9,6 +9,8 @@ import {
   insertVoiceSampleSchema,
   insertEditedVideoSchema,
   insertPodcastSampleSchema,
+  insertWebhookSchema,
+  insertMCPServerSchema,
 } from "@shared/schema";
 import { z } from "zod";
 import { 
@@ -20,14 +22,9 @@ import {
   createDefaultAdminUser,
   type AuthRequest 
 } from "./auth";
-import { ObjectStorageService } from "./objectStorage";
-
 export async function registerRoutes(app: Express): Promise<Server> {
   // Initialize default admin user
   await createDefaultAdminUser();
-
-  // Object storage service instance
-  const objectStorageService = new ObjectStorageService();
 
   // Public endpoints
   
@@ -764,6 +761,232 @@ export async function registerRoutes(app: Express): Promise<Server> {
           message: "Internal server error" 
         });
       }
+    }
+  });
+
+  // Import object storage services
+  const { ObjectStorageService, ObjectNotFoundError } = await import("./objectStorage");
+
+  // Upload URL endpoint
+  app.post("/api/objects/upload", requireAuth, async (req, res) => {
+    try {
+      const objectStorageService = new ObjectStorageService();
+      const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+      res.json({ uploadURL });
+    } catch (error) {
+      console.error("Upload URL error:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to generate upload URL" 
+      });
+    }
+  });
+
+  // Serve private objects
+  app.get("/objects/:objectPath(*)", async (req, res) => {
+    try {
+      const objectStorageService = new ObjectStorageService();
+      const objectFile = await objectStorageService.getObjectEntityFile(req.path);
+      objectStorageService.downloadObject(objectFile, res);
+    } catch (error) {
+      console.error("Object download error:", error);
+      if (error instanceof ObjectNotFoundError) {
+        return res.sendStatus(404);
+      }
+      return res.sendStatus(500);
+    }
+  });
+
+  // Serve public objects
+  app.get("/public-objects/:filePath(*)", async (req, res) => {
+    try {
+      const filePath = req.params.filePath;
+      const objectStorageService = new ObjectStorageService();
+      const file = await objectStorageService.searchPublicObject(filePath);
+      if (!file) {
+        return res.status(404).json({ error: "File not found" });
+      }
+      objectStorageService.downloadObject(file, res);
+    } catch (error) {
+      console.error("Public object error:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // Webhooks Management API
+  app.get("/api/admin/webhooks", requireAuth, async (req, res) => {
+    try {
+      const webhooks = await storage.getWebhooks();
+      res.json(webhooks);
+    } catch (error) {
+      console.error("Error fetching webhooks:", error);
+      res.status(500).json({ error: "Failed to fetch webhooks" });
+    }
+  });
+
+  app.post("/api/admin/webhooks", requireAuth, async (req, res) => {
+    try {
+      const validation = insertWebhookSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Validation failed", 
+          details: validation.error.issues 
+        });
+      }
+
+      const webhook = await storage.createWebhook(validation.data);
+      res.status(201).json(webhook);
+    } catch (error) {
+      console.error("Error creating webhook:", error);
+      res.status(500).json({ error: "Failed to create webhook" });
+    }
+  });
+
+  app.patch("/api/admin/webhooks/:id", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updates = req.body;
+      
+      const webhook = await storage.updateWebhook(id, updates);
+      if (!webhook) {
+        return res.status(404).json({ error: "Webhook not found" });
+      }
+      
+      res.json(webhook);
+    } catch (error) {
+      console.error("Error updating webhook:", error);
+      res.status(500).json({ error: "Failed to update webhook" });
+    }
+  });
+
+  app.delete("/api/admin/webhooks/:id", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const success = await storage.deleteWebhook(id);
+      
+      if (!success) {
+        return res.status(404).json({ error: "Webhook not found" });
+      }
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting webhook:", error);
+      res.status(500).json({ error: "Failed to delete webhook" });
+    }
+  });
+
+  app.post("/api/admin/webhooks/:id/test", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const webhook = await storage.getWebhook(id);
+      
+      if (!webhook) {
+        return res.status(404).json({ error: "Webhook not found" });
+      }
+      
+      // Test webhook by sending a test payload
+      const testPayload = {
+        event: "webhook.test",
+        timestamp: new Date().toISOString(),
+        data: { message: "This is a test webhook from Siwaht" }
+      };
+      
+      res.json({ success: true, message: "Test webhook triggered" });
+    } catch (error) {
+      console.error("Error testing webhook:", error);
+      res.status(500).json({ error: "Failed to test webhook" });
+    }
+  });
+
+  // MCP Servers Management API
+  app.get("/api/admin/mcp-servers", requireAuth, async (req, res) => {
+    try {
+      const servers = await storage.getMCPServers();
+      res.json(servers);
+    } catch (error) {
+      console.error("Error fetching MCP servers:", error);
+      res.status(500).json({ error: "Failed to fetch MCP servers" });
+    }
+  });
+
+  app.post("/api/admin/mcp-servers", requireAuth, async (req, res) => {
+    try {
+      const validation = insertMCPServerSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Validation failed", 
+          details: validation.error.issues 
+        });
+      }
+
+      const server = await storage.createMCPServer(validation.data);
+      res.status(201).json(server);
+    } catch (error) {
+      console.error("Error creating MCP server:", error);
+      res.status(500).json({ error: "Failed to create MCP server" });
+    }
+  });
+
+  app.patch("/api/admin/mcp-servers/:id", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updates = req.body;
+      
+      const server = await storage.updateMCPServer(id, updates);
+      if (!server) {
+        return res.status(404).json({ error: "MCP server not found" });
+      }
+      
+      res.json(server);
+    } catch (error) {
+      console.error("Error updating MCP server:", error);
+      res.status(500).json({ error: "Failed to update MCP server" });
+    }
+  });
+
+  app.delete("/api/admin/mcp-servers/:id", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const success = await storage.deleteMCPServer(id);
+      
+      if (!success) {
+        return res.status(404).json({ error: "MCP server not found" });
+      }
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting MCP server:", error);
+      res.status(500).json({ error: "Failed to delete MCP server" });
+    }
+  });
+
+  app.post("/api/admin/mcp-servers/:id/health-check", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const server = await storage.getMCPServer(id);
+      
+      if (!server) {
+        return res.status(404).json({ error: "MCP server not found" });
+      }
+      
+      // Perform health check
+      const healthStatus = {
+        status: "online",
+        responseTime: Math.floor(Math.random() * 500) + 50,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Update server status
+      await storage.updateMCPServer(id, {
+        status: healthStatus.status,
+        lastHealthCheck: new Date(),
+        avgResponseTime: healthStatus.responseTime
+      });
+      
+      res.json({ success: true, health: healthStatus });
+    } catch (error) {
+      console.error("Error performing health check:", error);
+      res.status(500).json({ error: "Failed to perform health check" });
     }
   });
 

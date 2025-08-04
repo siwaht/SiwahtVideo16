@@ -22,8 +22,12 @@ import {
   Eye, 
   EyeOff,
   Play,
-  Calendar
+  Calendar,
+  Upload,
+  Save,
+  X
 } from "lucide-react";
+import { ObjectUploader } from "@/components/ObjectUploader";
 
 type DemoVideoFormData = z.infer<typeof insertDemoVideoSchema>;
 
@@ -34,6 +38,7 @@ interface DemoVideo {
   category: string;
   videoUrl: string;
   thumbnailUrl?: string;
+  isHostedVideo?: boolean;
   isPublished: boolean;
   orderIndex: number;
   createdAt: string;
@@ -43,6 +48,7 @@ interface DemoVideo {
 export default function AdminDemoVideos() {
   const [isCreating, setIsCreating] = useState(false);
   const [editingVideo, setEditingVideo] = useState<DemoVideo | null>(null);
+  const [uploadingVideo, setUploadingVideo] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -164,6 +170,41 @@ export default function AdminDemoVideos() {
     setEditingVideo(null);
     setIsCreating(false);
     form.reset();
+  };
+
+  // Video upload handlers
+  const handleVideoUpload = async () => {
+    try {
+      const response = await apiRequest("POST", "/api/objects/upload");
+      if (!response.ok) throw new Error("Failed to get upload URL");
+      const { uploadURL } = await response.json();
+      return { method: "PUT", url: uploadURL };
+    } catch (error) {
+      toast({
+        title: "Upload Error",
+        description: "Failed to initialize video upload",
+        variant: "destructive",
+      });
+      throw error;
+    }
+  };
+
+  const handleVideoUploadComplete = async (result: any) => {
+    if (result.successful && result.successful.length > 0) {
+      const uploadedFile = result.successful[0];
+      const videoUrl = uploadedFile.uploadURL;
+      
+      // Update form with uploaded video URL and mark as hosted
+      form.setValue("videoUrl", videoUrl);
+      form.setValue("isHostedVideo", true);
+      
+      toast({
+        title: "Video Uploaded",
+        description: "Video uploaded successfully. Complete the form to save.",
+      });
+      
+      setUploadingVideo(false);
+    }
   };
 
   if (isLoading) {
@@ -304,12 +345,27 @@ export default function AdminDemoVideos() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Video URL</FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder="https://youtube.com/watch?v=..." 
-                            {...field} 
-                          />
-                        </FormControl>
+                        <div className="space-y-2">
+                          <FormControl>
+                            <Input 
+                              placeholder="https://youtube.com/watch?v=... or upload video below" 
+                              {...field} 
+                            />
+                          </FormControl>
+                          <div className="flex gap-2">
+                            <ObjectUploader
+                              maxNumberOfFiles={1}
+                              maxFileSize={104857600} // 100MB
+                              allowedFileTypes={['video/*']}
+                              onGetUploadParameters={handleVideoUpload}
+                              onComplete={handleVideoUploadComplete}
+                              buttonClassName="w-full"
+                            >
+                              <Upload className="h-4 w-4 mr-2" />
+                              Upload Video
+                            </ObjectUploader>
+                          </div>
+                        </div>
                         <FormMessage />
                       </FormItem>
                     )}

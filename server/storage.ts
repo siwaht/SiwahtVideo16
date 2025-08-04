@@ -13,6 +13,10 @@ import {
   type InsertEditedVideo,
   type PodcastSample,
   type InsertPodcastSample,
+  type Webhook,
+  type InsertWebhook,
+  type MCPServer,
+  type InsertMCPServer,
   contactSubmissions,
   adminUsers,
   demoVideos,
@@ -20,6 +24,8 @@ import {
   voiceSamples,
   editedVideos,
   podcastSamples,
+  webhooks,
+  mcpServers,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, sql, and, or, ilike } from "drizzle-orm";
@@ -76,6 +82,20 @@ export interface IStorage {
   updatePodcastSample(id: string, updates: Partial<PodcastSample>): Promise<PodcastSample>;
   deletePodcastSample(id: string): Promise<void>;
   searchPodcastSamples(query: string): Promise<PodcastSample[]>;
+
+  // Webhooks
+  getWebhooks(): Promise<Webhook[]>;
+  getWebhook(id: string): Promise<Webhook | undefined>;
+  createWebhook(webhook: InsertWebhook): Promise<Webhook>;
+  updateWebhook(id: string, updates: Partial<Webhook>): Promise<Webhook>;
+  deleteWebhook(id: string): Promise<boolean>;
+
+  // MCP Servers
+  getMCPServers(): Promise<MCPServer[]>;
+  getMCPServer(id: string): Promise<MCPServer | undefined>;
+  createMCPServer(server: InsertMCPServer): Promise<MCPServer>;
+  updateMCPServer(id: string, updates: Partial<MCPServer>): Promise<MCPServer>;
+  deleteMCPServer(id: string): Promise<boolean>;
   
   // Analytics
   getDashboardStats(): Promise<{
@@ -482,6 +502,86 @@ export class DatabaseStorage implements IStorage {
       totalPodcastSamples: totalPodcastSamples.count,
       recentActivity,
     };
+  }
+
+  // Webhooks
+  async getWebhooks(): Promise<Webhook[]> {
+    return await db
+      .select()
+      .from(webhooks)
+      .orderBy(desc(webhooks.createdAt));
+  }
+
+  async getWebhook(id: string): Promise<Webhook | undefined> {
+    const [webhook] = await db
+      .select()
+      .from(webhooks)
+      .where(eq(webhooks.id, id));
+    return webhook;
+  }
+
+  async createWebhook(insertWebhook: InsertWebhook): Promise<Webhook> {
+    const [webhook] = await db
+      .insert(webhooks)
+      .values(insertWebhook)
+      .returning();
+    return webhook;
+  }
+
+  async updateWebhook(id: string, updates: Partial<Webhook>): Promise<Webhook> {
+    const [webhook] = await db
+      .update(webhooks)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(webhooks.id, id))
+      .returning();
+    return webhook;
+  }
+
+  async deleteWebhook(id: string): Promise<boolean> {
+    const result = await db
+      .delete(webhooks)
+      .where(eq(webhooks.id, id));
+    return result.rowCount > 0;
+  }
+
+  // MCP Servers
+  async getMCPServers(): Promise<MCPServer[]> {
+    return await db
+      .select()
+      .from(mcpServers)
+      .orderBy(desc(mcpServers.createdAt));
+  }
+
+  async getMCPServer(id: string): Promise<MCPServer | undefined> {
+    const [server] = await db
+      .select()
+      .from(mcpServers)
+      .where(eq(mcpServers.id, id));
+    return server;
+  }
+
+  async createMCPServer(insertServer: InsertMCPServer): Promise<MCPServer> {
+    const [server] = await db
+      .insert(mcpServers)
+      .values(insertServer)
+      .returning();
+    return server;
+  }
+
+  async updateMCPServer(id: string, updates: Partial<MCPServer>): Promise<MCPServer> {
+    const [server] = await db
+      .update(mcpServers)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(mcpServers.id, id))
+      .returning();
+    return server;
+  }
+
+  async deleteMCPServer(id: string): Promise<boolean> {
+    const result = await db
+      .delete(mcpServers)
+      .where(eq(mcpServers.id, id));
+    return result.rowCount > 0;
   }
 }
 

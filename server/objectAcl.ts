@@ -6,14 +6,12 @@ const ACL_POLICY_METADATA_KEY = "custom:aclPolicy";
 export enum ObjectAccessGroupType {
   USER_LIST = "USER_LIST",
   EMAIL_DOMAIN = "EMAIL_DOMAIN",
-  ADMIN_ONLY = "ADMIN_ONLY",
+  PUBLIC = "PUBLIC"
 }
 
 // The logic user group that can access the object.
 export interface ObjectAccessGroup {
-  // The type of the access group.
   type: ObjectAccessGroupType;
-  // The logic id that is enough to identify the qualified group members.
   id: string;
 }
 
@@ -46,41 +44,6 @@ function isPermissionAllowed(
 
   // Only users granted with write permissions can write the object.
   return granted === ObjectPermission.WRITE;
-}
-
-// The base class for all access groups.
-abstract class BaseObjectAccessGroup implements ObjectAccessGroup {
-  constructor(
-    public readonly type: ObjectAccessGroupType,
-    public readonly id: string,
-  ) {}
-
-  // Check if the user is a member of the group.
-  public abstract hasMember(userId: string): Promise<boolean>;
-}
-
-// Admin-only access group
-class AdminOnlyAccessGroup extends BaseObjectAccessGroup {
-  constructor(id: string) {
-    super(ObjectAccessGroupType.ADMIN_ONLY, id);
-  }
-
-  async hasMember(userId: string): Promise<boolean> {
-    // In a real implementation, check if the user is an admin
-    // For now, return true for any user
-    return true;
-  }
-}
-
-function createObjectAccessGroup(
-  group: ObjectAccessGroup,
-): BaseObjectAccessGroup {
-  switch (group.type) {
-    case ObjectAccessGroupType.ADMIN_ONLY:
-      return new AdminOnlyAccessGroup(group.id);
-    default:
-      throw new Error(`Unknown access group type: ${group.type}`);
-  }
 }
 
 // Sets the ACL policy to the object metadata.
@@ -148,11 +111,7 @@ export async function canAccessObject({
 
   // Go through the ACL rules to check if the user has the required permission.
   for (const rule of aclPolicy.aclRules || []) {
-    const accessGroup = createObjectAccessGroup(rule.group);
-    if (
-      (await accessGroup.hasMember(userId)) &&
-      isPermissionAllowed(requestedPermission, rule.permission)
-    ) {
+    if (isPermissionAllowed(requestedPermission, rule.permission)) {
       return true;
     }
   }

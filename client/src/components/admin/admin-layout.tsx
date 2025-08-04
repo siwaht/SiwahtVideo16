@@ -15,7 +15,9 @@ import {
   Radio,
   Menu,
   X,
-  ArrowLeft
+  ArrowLeft,
+  Webhook,
+  Server
 } from "lucide-react";
 
 interface AdminLayoutProps {
@@ -64,6 +66,16 @@ const navigationItems = [
     label: "Portfolio",
     href: "/admin/portfolio",
     icon: Video,
+  },
+  {
+    label: "Webhooks",
+    href: "/admin/webhooks",
+    icon: Webhook,
+  },
+  {
+    label: "MCP Servers",
+    href: "/admin/mcp-servers",
+    icon: Server,
   },
 ];
 

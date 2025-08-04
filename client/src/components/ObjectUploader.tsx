@@ -41,8 +41,8 @@ interface ObjectUploaderProps {
  * @param props - Component props
  * @param props.maxNumberOfFiles - Maximum number of files allowed to be uploaded
  *   (default: 1)
- * @param props.maxFileSize - Maximum file size in bytes (default: 100MB for videos)
- * @param props.allowedFileTypes - Array of allowed MIME types (default: videos and images)
+ * @param props.maxFileSize - Maximum file size in bytes (default: 10MB)
+ * @param props.allowedFileTypes - Array of allowed MIME types (default: all)
  * @param props.onGetUploadParameters - Function to get upload parameters (method and URL).
  *   Typically used to fetch a presigned URL from the backend server for direct-to-S3
  *   uploads.
@@ -54,16 +54,16 @@ interface ObjectUploaderProps {
  */
 export function ObjectUploader({
   maxNumberOfFiles = 1,
-  maxFileSize = 104857600, // 100MB default for videos
-  allowedFileTypes = ['video/*', 'image/*'],
+  maxFileSize = 10485760, // 10MB default
+  allowedFileTypes,
   onGetUploadParameters,
   onComplete,
   buttonClassName,
   children,
 }: ObjectUploaderProps) {
   const [showModal, setShowModal] = useState(false);
-  const [uppy] = useState(() =>
-    new Uppy({
+  const [uppy] = useState(() => {
+    const uppyInstance = new Uppy({
       restrictions: {
         maxNumberOfFiles,
         maxFileSize,
@@ -77,17 +77,14 @@ export function ObjectUploader({
       })
       .on("complete", (result) => {
         onComplete?.(result);
-        setShowModal(false);
-      })
-  );
+      });
+
+    return uppyInstance;
+  });
 
   return (
     <div>
-      <Button 
-        onClick={() => setShowModal(true)} 
-        className={buttonClassName}
-        data-testid="upload-button"
-      >
+      <Button onClick={() => setShowModal(true)} className={buttonClassName}>
         {children}
       </Button>
 
@@ -96,8 +93,6 @@ export function ObjectUploader({
         open={showModal}
         onRequestClose={() => setShowModal(false)}
         proudlyDisplayPoweredByUppy={false}
-        plugins={['Webcam']}
-        note="Upload videos up to 100MB or images up to 10MB"
       />
     </div>
   );
