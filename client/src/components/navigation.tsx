@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
+import siwath_logo_withoutbackground from "@assets/siwath_logo_withoutbackground.png";
+
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -62,7 +64,7 @@ export default function Navigation() {
                 onKeyDown={(e) => e.key === 'Enter' && window.scrollTo({ top: 0, behavior: 'smooth' })}
                 aria-label="Siwaht - Go to top">
             <img 
-              src="/attached_assets/siwath_logo_withoutbackground_1754297217184.png" 
+              src={siwath_logo_withoutbackground} 
               alt="Siwaht Logo" 
               className="w-8 h-8 md:w-10 md:h-10"
             />
@@ -112,7 +114,6 @@ export default function Navigation() {
           </div>
         </div>
       </div>
-
       {/* Mobile Navigation Menu */}
       {isMenuOpen && (
         <div className="lg:hidden">
