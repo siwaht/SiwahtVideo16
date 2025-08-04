@@ -158,25 +158,40 @@ export default function Avatars() {
                         muted
                         loop
                         playsInline
+                        onError={(e) => {
+                          console.log('Avatar video failed to load:', featuredAvatar.videoUrl);
+                        }}
                       />
                     ) : featuredAvatar.thumbnailUrl ? (
                       <img 
                         src={featuredAvatar.thumbnailUrl} 
                         alt={featuredAvatar.name}
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          console.log('Avatar thumbnail failed to load:', featuredAvatar.thumbnailUrl);
+                        }}
                       />
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                     
-                    {/* Avatar Info */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                      <h5 className="font-semibold text-lg">{featuredAvatar.name}</h5>
-                      {featuredAvatar.description && (
-                        <p className="text-sm opacity-90 mt-1 line-clamp-2">{featuredAvatar.description}</p>
-                      )}
-                    </div>
+                    {/* Only show overlay if not a YouTube video */}
+                    {!(featuredAvatar.videoUrl && featuredAvatar.videoUrl.includes('youtu')) && (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        
+                        {/* Avatar Info */}
+                        <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                          <h5 className="font-semibold text-lg">{featuredAvatar.name}</h5>
+                          {featuredAvatar.description && (
+                            <p className="text-sm opacity-90 mt-1 line-clamp-2">{featuredAvatar.description}</p>
+                          )}
+                          {featuredAvatar.videoUrl && !featuredAvatar.videoUrl.includes('youtu') && (
+                            <p className="text-xs opacity-75 mt-1">🎬 Video Demo</p>
+                          )}
+                        </div>
+                      </>
+                    )}
                   </div>
                 ) : (
                   <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">
