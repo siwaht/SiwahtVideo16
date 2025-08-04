@@ -93,12 +93,29 @@ export default function VideoAds() {
                 {process.env.NODE_ENV === 'development' && (
                   <div className="text-xs text-gray-500 mb-2 p-2 bg-green-100 rounded border border-green-200">
                     ✅ Active: {demoVideos.length} videos loaded | {publishedVideos.length} published 
-                    {featuredVideo && <span className="font-semibold"> | Now Showing: "{featuredVideo.title}"</span>}
+                    {featuredVideo && (
+                      <div className="font-semibold mt-1">
+                        Now Showing: "{featuredVideo.title}"<br/>
+                        Video URL: {featuredVideo.videoUrl || 'No URL'}
+                      </div>
+                    )}
                   </div>
                 )}
 {featuredVideo ? (
                   <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
-                    {featuredVideo.thumbnailUrl ? (
+                    {/* Embed actual video if it's a YouTube URL */}
+                    {featuredVideo.videoUrl && featuredVideo.videoUrl.includes('youtu') ? (
+                      <iframe
+                        src={featuredVideo.videoUrl
+                          .replace('youtu.be/', 'youtube.com/embed/')
+                          .replace('youtube.com/watch?v=', 'youtube.com/embed/')
+                        }
+                        className="w-full h-full border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        title={featuredVideo.title}
+                      />
+                    ) : featuredVideo.thumbnailUrl ? (
                       <img 
                         src={featuredVideo.thumbnailUrl} 
                         alt={featuredVideo.title}
@@ -111,26 +128,42 @@ export default function VideoAds() {
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                    <div className="relative z-10 h-full flex items-center justify-center">
-                      <div className="text-center text-white">
-                        <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
-                          <Play className="h-10 w-10 xs:h-12 xs:w-12 text-white fill-current" />
-                        </div>
-                        <p className="text-sm xs:text-base opacity-90 font-semibold">{featuredVideo.title}</p>
-                        {featuredVideo.description && (
-                          <p className="text-xs opacity-70 mt-2 line-clamp-2 max-w-xs mx-auto">{featuredVideo.description}</p>
-                        )}
-                        <div className="text-xs opacity-60 mt-1">Category: {featuredVideo.category}</div>
-                      </div>
-                    </div>
                     
-                    {/* Video Timeline */}
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <div className="bg-white/20 backdrop-blur-sm rounded-full h-2 overflow-hidden">
-                        <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-full w-1/3 rounded-full"></div>
-                      </div>
-                    </div>
+                    {/* Only show overlay if no video embed */}
+                    {!(featuredVideo.videoUrl && featuredVideo.videoUrl.includes('youtu')) && (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div className="relative z-10 h-full flex items-center justify-center">
+                          <div className="text-center text-white">
+                            <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
+                              <Play className="h-10 w-10 xs:h-12 xs:w-12 text-white fill-current" />
+                            </div>
+                            <p className="text-sm xs:text-base opacity-90 font-semibold">{featuredVideo.title}</p>
+                            {featuredVideo.description && (
+                              <p className="text-xs opacity-70 mt-2 line-clamp-2 max-w-xs mx-auto">{featuredVideo.description}</p>
+                            )}
+                            <div className="text-xs opacity-60 mt-1">Category: {featuredVideo.category}</div>
+                            {featuredVideo.videoUrl && (
+                              <a 
+                                href={featuredVideo.videoUrl} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-xs text-blue-300 hover:text-blue-200 mt-2 inline-block underline"
+                              >
+                                View Video
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                        
+                        {/* Video Timeline */}
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <div className="bg-white/20 backdrop-blur-sm rounded-full h-2 overflow-hidden">
+                            <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-full w-1/3 rounded-full"></div>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 ) : (
                   <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
