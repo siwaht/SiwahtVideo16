@@ -70,7 +70,7 @@ export default function AdminAvatars() {
 
   const createAvatarMutation = useMutation({
     mutationFn: async (data: AvatarFormData) => {
-      const response = await apiRequest("POST", "/api/admin/avatars", data);
+      const response = await apiRequest("/api/admin/avatars", "POST", data);
       if (!response.ok) {
         throw new Error("Failed to create avatar");
       }
@@ -96,7 +96,7 @@ export default function AdminAvatars() {
 
   const updateAvatarMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<AvatarFormData> }) => {
-      const response = await apiRequest("PATCH", `/api/admin/avatars/${id}`, data);
+      const response = await apiRequest(`/api/admin/avatars/${id}`, "PATCH", data);
       if (!response.ok) {
         throw new Error("Failed to update avatar");
       }
@@ -122,7 +122,7 @@ export default function AdminAvatars() {
 
   const deleteAvatarMutation = useMutation({
     mutationFn: async (id: string) => {
-      const response = await apiRequest("DELETE", `/api/admin/avatars/${id}`);
+      const response = await apiRequest(`/api/admin/avatars/${id}`, "DELETE");
       if (!response.ok) {
         throw new Error("Failed to delete avatar");
       }

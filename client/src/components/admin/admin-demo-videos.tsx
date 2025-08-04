@@ -70,7 +70,7 @@ export default function AdminDemoVideos() {
 
   const createVideoMutation = useMutation({
     mutationFn: async (data: DemoVideoFormData) => {
-      const response = await apiRequest("POST", "/api/admin/demo-videos", data);
+      const response = await apiRequest("/api/admin/demo-videos", "POST", data);
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Failed to create demo video: ${errorText}`);
@@ -97,7 +97,7 @@ export default function AdminDemoVideos() {
 
   const updateVideoMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<DemoVideoFormData> }) => {
-      const response = await apiRequest("PATCH", `/api/admin/demo-videos/${id}`, data);
+      const response = await apiRequest(`/api/admin/demo-videos/${id}`, "PATCH", data);
       if (!response.ok) {
         throw new Error("Failed to update demo video");
       }
@@ -123,7 +123,7 @@ export default function AdminDemoVideos() {
 
   const deleteVideoMutation = useMutation({
     mutationFn: async (id: string) => {
-      const response = await apiRequest("DELETE", `/api/admin/demo-videos/${id}`);
+      const response = await apiRequest(`/api/admin/demo-videos/${id}`, "DELETE");
       if (!response.ok) {
         throw new Error("Failed to delete demo video");
       }
@@ -175,10 +175,10 @@ export default function AdminDemoVideos() {
   // Video upload handlers
   const handleVideoUpload = async () => {
     try {
-      const response = await apiRequest("POST", "/api/objects/upload");
+      const response = await apiRequest("/api/objects/upload", "POST");
       if (!response.ok) throw new Error("Failed to get upload URL");
       const { uploadURL } = await response.json();
-      return { method: "PUT", url: uploadURL };
+      return { method: "PUT" as const, url: uploadURL };
     } catch (error) {
       toast({
         title: "Upload Error",
@@ -330,7 +330,8 @@ export default function AdminDemoVideos() {
                         <Textarea 
                           placeholder="Video description" 
                           className="min-h-[100px]"
-                          {...field} 
+                          {...field}
+                          value={field.value || ""}
                         />
                       </FormControl>
                       <FormMessage />
@@ -380,7 +381,8 @@ export default function AdminDemoVideos() {
                         <FormControl>
                           <Input 
                             placeholder="https://example.com/thumbnail.jpg" 
-                            {...field} 
+                            {...field}
+                            value={field.value || ""}
                           />
                         </FormControl>
                         <FormMessage />

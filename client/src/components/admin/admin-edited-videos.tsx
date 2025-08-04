@@ -71,7 +71,7 @@ export default function AdminEditedVideos() {
 
   const createVideoMutation = useMutation({
     mutationFn: async (data: EditedVideoFormData) => {
-      const response = await apiRequest("POST", "/api/admin/edited-videos", data);
+      const response = await apiRequest("/api/admin/edited-videos", "POST", data);
       if (!response.ok) {
         throw new Error("Failed to create edited video");
       }
@@ -97,7 +97,7 @@ export default function AdminEditedVideos() {
 
   const updateVideoMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<EditedVideoFormData> }) => {
-      const response = await apiRequest("PATCH", `/api/admin/edited-videos/${id}`, data);
+      const response = await apiRequest(`/api/admin/edited-videos/${id}`, "PATCH", data);
       if (!response.ok) {
         throw new Error("Failed to update edited video");
       }
@@ -123,7 +123,7 @@ export default function AdminEditedVideos() {
 
   const deleteVideoMutation = useMutation({
     mutationFn: async (id: string) => {
-      const response = await apiRequest("DELETE", `/api/admin/edited-videos/${id}`);
+      const response = await apiRequest(`/api/admin/edited-videos/${id}`, "DELETE");
       if (!response.ok) {
         throw new Error("Failed to delete edited video");
       }
