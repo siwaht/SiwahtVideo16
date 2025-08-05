@@ -74,23 +74,7 @@ export default function Footer() {
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
               Transform your vision into reality with our AI-powered content creation platform. Professional video ads, realistic avatars, and voice synthesis technology.
             </p>
-            <div className="flex gap-3">
-              {socialLinks.map((social, index) => {
-                const Icon = social.icon;
-                return (
-                  <a 
-                    key={index}
-                    href={social.href} 
-                    className="w-10 h-10 bg-gradient-to-br from-slate-800 to-slate-700 hover:from-primary/20 hover:to-accent/20 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110 border border-slate-600/30 hover:border-primary/50"
-                    aria-label={social.label}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </a>
-                );
-              })}
-            </div>
+            
           </div>
 
           {/* Services Section */}
