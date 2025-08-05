@@ -308,10 +308,16 @@ export default function AdminPortfolio() {
                           maxFileSize={104857600} // 100MB
                           accept={['video/*', '.mp4', '.mov', '.avi', '.webm']}
                           onGetUploadParameters={async () => {
-                            const response = await apiRequest('/api/admin/upload', 'POST') as { uploadURL: string };
+                            const response = await apiRequest('/api/admin/upload', 'POST');
+                            console.log('Upload response:', response);
+                            // The server returns { success: true, uploadURL: "..." }
+                            const uploadURL = (response as any).uploadURL;
+                            if (!uploadURL) {
+                              throw new Error('Upload URL not received from server');
+                            }
                             return {
                               method: 'PUT' as const,
-                              url: response.uploadURL,
+                              url: uploadURL,
                             };
                           }}
                           onComplete={(result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
