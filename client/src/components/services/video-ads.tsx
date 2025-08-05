@@ -23,6 +23,9 @@ export default function VideoAds() {
       demoVideos: demoVideos.length, 
       publishedVideos: publishedVideos.length, 
       featuredVideo: featuredVideo?.title || 'none',
+      featuredVideoUrl: featuredVideo?.videoUrl || 'none',
+      isHostedVideo: featuredVideo?.isHostedVideo || false,
+      thumbnailUrl: featuredVideo?.thumbnailUrl || 'none',
       isLoading,
       error 
     });
@@ -94,8 +97,10 @@ export default function VideoAds() {
 
 {featuredVideo ? (
                   <div className="relative">
-                    {/* Use custom video player for hosted videos */}
-                    {featuredVideo.isHostedVideo && featuredVideo.videoUrl ? (
+                    {/* Use custom video player for hosted videos with real URLs */}
+                    {featuredVideo.isHostedVideo && featuredVideo.videoUrl && 
+                     !featuredVideo.videoUrl.includes('example.com') && 
+                     !featuredVideo.videoUrl.includes('placeholder') ? (
                       <VideoPlayer
                         src={featuredVideo.videoUrl}
                         poster={featuredVideo.thumbnailUrl || undefined}
