@@ -22,6 +22,7 @@ import {
   createDefaultAdminUser,
   type AuthRequest 
 } from "./auth";
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // Initialize default admin user
   await createDefaultAdminUser();
@@ -116,6 +117,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/public-objects/:filePath(*)", async (req, res) => {
     const filePath = req.params.filePath;
     try {
+      const { ObjectStorageService } = await import("./objectStorage");
+      const objectStorageService = new ObjectStorageService();
       const file = await objectStorageService.searchPublicObject(filePath);
       if (!file) {
         return res.status(404).json({ error: "File not found" });
@@ -706,6 +709,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // File upload endpoints
   app.post("/api/admin/upload", requireAuth, async (req, res) => {
     try {
+      const { ObjectStorageService } = await import("./objectStorage");
+      const objectStorageService = new ObjectStorageService();
       const uploadURL = await objectStorageService.getObjectEntityUploadURL();
       res.json({
         success: true,
@@ -987,6 +992,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error performing health check:", error);
       res.status(500).json({ error: "Failed to perform health check" });
+    }
+  });
+
+  // Video upload completion endpoint  
+  app.put("/api/videos/upload-complete", async (req, res) => {
+    try {
+      const { videoURL } = req.body;
+      
+      if (!videoURL) {
+        return res.status(400).json({ error: "videoURL is required" });
+      }
+
+      const { ObjectStorageService } = await import("./objectStorage");
+      const objectStorageService = new ObjectStorageService();
+      const objectPath = objectStorageService.normalizeObjectEntityPath(videoURL);
+
+      res.status(200).json({
+        success: true,
+        objectPath: objectPath,
+        message: "Video upload completed successfully"
+      });
+    } catch (error) {
+      console.error("Error completing video upload:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
   });
 

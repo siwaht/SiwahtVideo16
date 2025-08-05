@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Plus, Edit, Trash2, Search, Eye, EyeOff } from "lucide-react";
+import { Plus, Edit, Trash2, Search, Eye, EyeOff, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -33,6 +33,8 @@ import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import type { DemoVideo, Avatar, VoiceSample, EditedVideo } from "@shared/schema";
+import { ObjectUploader } from "@/components/ObjectUploader";
+import type { UploadResult } from "@uppy/core";
 
 type SampleCategory = 'demo-videos' | 'avatars' | 'voice-samples' | 'edited-videos';
 type SampleItem = DemoVideo | Avatar | VoiceSample | EditedVideo;
@@ -297,7 +299,39 @@ export default function AdminPortfolio() {
                 <FormItem>
                   <FormLabel>Video URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://..." {...field} />
+                    <div className="flex gap-2">
+                      <Input placeholder="https://... or upload video" {...field} />
+                      {selectedCategory === 'demo-videos' && (
+                        <ObjectUploader
+                          maxNumberOfFiles={1}
+                          maxFileSize={104857600} // 100MB
+                          accept={['video/*', '.mp4', '.mov', '.avi', '.webm']}
+                          onGetUploadParameters={async () => {
+                            const response = await apiRequest('/api/objects/upload', 'POST');
+                            return {
+                              method: 'PUT' as const,
+                              url: response.uploadURL,
+                            };
+                          }}
+                          onComplete={(result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+                            if (result.successful && result.successful[0]) {
+                              const uploadURL = result.successful[0].uploadURL;
+                              if (uploadURL && typeof uploadURL === 'string') {
+                                field.onChange(uploadURL);
+                                toast({
+                                  title: "Success",
+                                  description: "Video uploaded successfully!",
+                                });
+                              }
+                            }
+                          }}
+                          buttonClassName="whitespace-nowrap flex-shrink-0"
+                        >
+                          <Upload className="h-4 w-4 mr-2" />
+                          Upload
+                        </ObjectUploader>
+                      )}
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
