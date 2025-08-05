@@ -50,78 +50,38 @@ export default function Footer() {
       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500" />
       
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-8 xs:py-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-12 xs:py-16 relative z-10">
         {/* Main Content */}
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8 lg:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 items-start">
           
-          {/* Brand Section - Left */}
-          <div className="flex items-start gap-3">
-            <img 
-              src={siwath_logo_withoutbackground} 
-              alt="Siwaht Logo" 
-              className="w-8 h-8 flex-shrink-0"
-            />
-            <div>
-              <h2 className="text-xl font-bold text-white mb-1">
-                Siwaht
-              </h2>
-              <p className="text-slate-400 text-sm">
-                Your Presence, Perfected
-              </p>
+          {/* Brand Section */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-3 mb-4">
+              <img 
+                src={siwath_logo_withoutbackground} 
+                alt="Siwaht Logo" 
+                className="w-10 h-10"
+              />
+              <div>
+                <h2 className="text-2xl font-bold text-white">
+                  Siwaht
+                </h2>
+                <p className="text-slate-400 text-sm">
+                  Your Presence, Perfected
+                </p>
+              </div>
             </div>
-          </div>
-
-          {/* Quick Links - Center */}
-          <div className="text-center lg:text-center">
-            <h3 className="text-white font-medium mb-4">Quick Links</h3>
-            <nav aria-label="Quick navigation links">
-              <ul className="space-y-2">
-                <li>
-                  <button 
-                    onClick={() => scrollToSection('services')}
-                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm block"
-                    data-testid="footer-services"
-                  >
-                    Services
-                  </button>
-                </li>
-                <li>
-                  <button 
-                    onClick={() => scrollToSection('contact')}
-                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm block"
-                    data-testid="footer-contact"
-                  >
-                    Contact Us
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setShowPrivacyPolicy(true);
-                    }}
-                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm block"
-                    data-testid="footer-privacy"
-                    type="button"
-                  >
-                    Privacy Policy
-                  </button>
-                </li>
-              </ul>
-            </nav>
-          </div>
-
-          {/* Connect With Us - Right */}
-          <div className="text-center lg:text-right">
-            <h3 className="text-white font-medium mb-4">Connect With Us</h3>
-            <div className="flex gap-3 justify-center lg:justify-end">
-              {socialLinks.slice(0, 2).map((social, index) => {
+            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+              Transform your vision into reality with our AI-powered content creation platform. Professional video ads, realistic avatars, and voice synthesis technology.
+            </p>
+            <div className="flex gap-3">
+              {socialLinks.map((social, index) => {
                 const Icon = social.icon;
                 return (
                   <a 
                     key={index}
                     href={social.href} 
-                    className="w-10 h-10 bg-slate-800/50 hover:bg-slate-700/70 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-200 border border-slate-600/30"
+                    className="w-10 h-10 bg-gradient-to-br from-slate-800 to-slate-700 hover:from-primary/20 hover:to-accent/20 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110 border border-slate-600/30 hover:border-primary/50"
                     aria-label={social.label}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -132,14 +92,154 @@ export default function Footer() {
               })}
             </div>
           </div>
+
+          {/* Services Section */}
+          <div>
+            <h3 className="text-white font-semibold mb-6 text-lg">Our Services</h3>
+            <nav aria-label="Services navigation">
+              <ul className="space-y-3">
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('services')}
+                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
+                    data-testid="footer-video-ads"
+                  >
+                    <span className="w-1 h-1 bg-primary rounded-full group-hover:bg-white transition-colors"></span>
+                    AI Video Ads
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('services')}
+                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
+                    data-testid="footer-avatars"
+                  >
+                    <span className="w-1 h-1 bg-accent rounded-full group-hover:bg-white transition-colors"></span>
+                    Realistic Avatars
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('services')}
+                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
+                    data-testid="footer-voice"
+                  >
+                    <span className="w-1 h-1 bg-primary rounded-full group-hover:bg-white transition-colors"></span>
+                    Voice Synthesis
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('services')}
+                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
+                    data-testid="footer-editing"
+                  >
+                    <span className="w-1 h-1 bg-accent rounded-full group-hover:bg-white transition-colors"></span>
+                    Video Editing
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('services')}
+                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
+                    data-testid="footer-podcasts"
+                  >
+                    <span className="w-1 h-1 bg-primary rounded-full group-hover:bg-white transition-colors"></span>
+                    Podcast Production
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-white font-semibold mb-6 text-lg">Quick Links</h3>
+            <nav aria-label="Quick navigation links">
+              <ul className="space-y-3">
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('services')}
+                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
+                    data-testid="footer-services"
+                  >
+                    <span className="w-1 h-1 bg-primary rounded-full group-hover:bg-white transition-colors"></span>
+                    Our Work
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('contact')}
+                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
+                    data-testid="footer-contact"
+                  >
+                    <span className="w-1 h-1 bg-accent rounded-full group-hover:bg-white transition-colors"></span>
+                    Get Quote
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowPrivacyPolicy(true);
+                    }}
+                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
+                    data-testid="footer-privacy"
+                    type="button"
+                  >
+                    <span className="w-1 h-1 bg-primary rounded-full group-hover:bg-white transition-colors"></span>
+                    Privacy Policy
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('contact')}
+                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
+                    data-testid="footer-support"
+                  >
+                    <span className="w-1 h-1 bg-accent rounded-full group-hover:bg-white transition-colors"></span>
+                    Support
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-white font-semibold mb-6 text-lg">Get In Touch</h3>
+            <div className="space-y-4">
+              <div className="text-slate-400 text-sm">
+                <p className="mb-2">Ready to transform your content?</p>
+                <button 
+                  onClick={() => scrollToSection('contact')}
+                  className="text-primary hover:text-white transition-colors duration-200 font-medium"
+                  data-testid="footer-start-project"
+                >
+                  Start Your Project →
+                </button>
+              </div>
+              <div className="text-slate-500 text-xs leading-relaxed">
+                <p className="mb-2">Professional AI-powered content creation for businesses of all sizes.</p>
+                <p>Fast turnaround • Premium quality • Competitive pricing</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-slate-800 mt-12 pt-6">
-          <div className="text-center">
-            <p className="text-slate-500 text-sm">
+        <div className="border-t border-slate-800 mt-16 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-slate-500 text-sm">
               © {currentYear} Siwaht. All rights reserved.
-            </p>
+            </div>
+            <div className="flex flex-wrap gap-6 text-xs text-slate-600">
+              <span>AI-Powered Content Creation</span>
+              <span>•</span>
+              <span>Professional Video Production</span>
+              <span>•</span>
+              <span>Premium Quality Assured</span>
+            </div>
           </div>
         </div>
       </div>
