@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Linkedin, Github, Mail, Phone, MapPin } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
 
 import siwath_logo_withoutbackground from "@assets/siwath_logo_withoutbackground.png";
+import PrivacyPolicy from "./privacy-policy";
 
 export default function Footer() {
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -92,13 +95,13 @@ export default function Footer() {
                   </button>
                 </li>
                 <li>
-                  <a 
-                    href="#privacy"
+                  <button
+                    onClick={() => setShowPrivacyPolicy(true)}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
                     data-testid="footer-privacy"
                   >
                     Privacy Policy
-                  </a>
+                  </button>
                 </li>
               </ul>
             </nav>
@@ -136,6 +139,12 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      
+      {/* Privacy Policy Modal */}
+      <PrivacyPolicy 
+        isOpen={showPrivacyPolicy} 
+        onClose={() => setShowPrivacyPolicy(false)} 
+      />
     </footer>
   );
 }
