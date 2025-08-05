@@ -90,11 +90,7 @@ export default function VoiceSynthesis() {
             <div className="service-preview from-emerald-100 via-teal-100 to-cyan-100">
               <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Voice Portfolio</h4>
-                {process.env.NODE_ENV === 'development' && (
-                  <div className="text-xs text-gray-500 mb-4 p-2 bg-green-100 rounded border border-green-200">
-                    ✅ Active: {voiceSamples.length} voice samples loaded | {publishedVoices.length} published
-                  </div>
-                )}
+
 
                 {publishedVoices && publishedVoices.length > 0 ? (
                   <div className="space-y-3 sm:space-y-4 max-h-96 sm:max-h-80 lg:max-h-96 overflow-y-auto scrollbar-thin voice-portfolio-container">

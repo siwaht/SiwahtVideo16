@@ -90,17 +90,7 @@ export default function VideoEditing() {
             <div className="bg-gradient-to-br from-orange-100 to-red-200 rounded-2xl p-4 xs:p-6 md:p-8 shadow-2xl">
               <div className="bg-white rounded-xl p-4 xs:p-6 mb-4 xs:mb-6 shadow-lg">
                 <h4 className="font-semibold text-slate-900 mb-3 xs:mb-4 text-sm xs:text-base">AI Video Editor</h4>
-                {process.env.NODE_ENV === 'development' && (
-                  <div className="text-xs text-gray-500 mb-2 p-2 bg-green-100 rounded border border-green-200">
-                    ✅ Active: {editedVideos.length} edited videos loaded | {publishedEditedVideos.length} published 
-                    {featuredEditedVideo && (
-                      <div className="font-semibold mt-1">
-                        Now Showing: "{featuredEditedVideo.title}"<br/>
-                        Video URL: {featuredEditedVideo.videoUrl || 'No Video'}
-                      </div>
-                    )}
-                  </div>
-                )}
+
 {featuredEditedVideo ? (
                   <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden">
                     {/* Embed YouTube video if available */}

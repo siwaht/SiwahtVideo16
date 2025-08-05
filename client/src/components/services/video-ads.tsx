@@ -91,24 +91,14 @@ export default function VideoAds() {
             <div className="service-preview from-blue-100 via-indigo-100 to-purple-100">
               <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">AI Video Studio</h4>
-                {process.env.NODE_ENV === 'development' && (
-                  <div className="text-xs text-gray-500 mb-2 p-2 bg-green-100 rounded border border-green-200">
-                    ✅ Active: {demoVideos.length} videos loaded | {publishedVideos.length} published 
-                    {featuredVideo && (
-                      <div className="font-semibold mt-1">
-                        Now Showing: "{featuredVideo.title}"<br/>
-                        Video URL: {featuredVideo.videoUrl || 'No URL'}
-                      </div>
-                    )}
-                  </div>
-                )}
+
 {featuredVideo ? (
                   <div className="relative">
                     {/* Use custom video player for hosted videos */}
                     {featuredVideo.isHostedVideo && featuredVideo.videoUrl ? (
                       <VideoPlayer
                         src={featuredVideo.videoUrl}
-                        poster={featuredVideo.thumbnailUrl}
+                        poster={featuredVideo.thumbnailUrl || undefined}
                         title={featuredVideo.title}
                         className="rounded-xl shadow-2xl aspect-video"
                         width="100%"
