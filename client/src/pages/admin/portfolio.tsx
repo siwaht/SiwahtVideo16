@@ -91,6 +91,35 @@ export default function AdminPortfolio() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
+  // Helper function to convert upload URL to object path
+  const convertUploadUrlToObjectPath = (uploadURL: string): string => {
+    try {
+      // Extract the object path from the signed URL
+      const url = new URL(uploadURL);
+      const pathname = url.pathname;
+      
+      // Parse bucket and object name from path like: /bucket-name/object-path
+      const pathParts = pathname.split('/').filter(Boolean);
+      if (pathParts.length >= 2) {
+        const bucketName = pathParts[0];
+        const objectPath = pathParts.slice(1).join('/');
+        
+        // Check if this is in the private directory and convert to object serving path
+        if (objectPath.includes('/uploads/')) {
+          // Extract the file ID from the uploads path
+          const fileId = objectPath.split('/uploads/')[1];
+          return `/objects/uploads/${fileId}`;
+        }
+      }
+      
+      // Fallback: return the original URL
+      return uploadURL;
+    } catch (error) {
+      console.error('Error converting upload URL:', error);
+      return uploadURL;
+    }
+  };
+
   // Get the appropriate schema based on category
   const getSchema = () => {
     switch (selectedCategory) {
@@ -345,15 +374,37 @@ export default function AdminPortfolio() {
                             }
                           }}
                           onComplete={(result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+                            console.log('Upload complete result:', result);
                             if (result.successful && result.successful[0]) {
-                              const uploadURL = result.successful[0].uploadURL;
+                              const uploadedFile = result.successful[0];
+                              console.log('Uploaded file data:', uploadedFile);
+                              
+                              // The uploaded file URL should be the same as the signed URL we used for upload
+                              const uploadURL = uploadedFile.uploadURL;
                               if (uploadURL && typeof uploadURL === 'string') {
-                                field.onChange(uploadURL);
+                                // Convert the GCS URL to our object storage path format
+                                const objectPath = convertUploadUrlToObjectPath(uploadURL);
+                                console.log('Setting video URL to:', objectPath);
+                                field.onChange(objectPath);
                                 toast({
                                   title: "Success",
                                   description: "Video uploaded successfully!",
                                 });
+                              } else {
+                                console.error('No upload URL in result:', uploadedFile);
+                                toast({
+                                  title: "Error",
+                                  description: "Upload completed but URL not found",
+                                  variant: "destructive",
+                                });
                               }
+                            } else {
+                              console.error('Upload failed:', result);
+                              toast({
+                                title: "Upload Failed",
+                                description: result.failed?.[0]?.error || "Unknown error occurred",
+                                variant: "destructive",
+                              });
                             }
                           }}
                           buttonClassName="whitespace-nowrap flex-shrink-0"
