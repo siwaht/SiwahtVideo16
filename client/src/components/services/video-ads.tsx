@@ -27,7 +27,12 @@ export default function VideoAds() {
       isHostedVideo: featuredVideo?.isHostedVideo || false,
       thumbnailUrl: featuredVideo?.thumbnailUrl || 'none',
       isLoading,
-      error 
+      error,
+      isYouTube: featuredVideo?.videoUrl?.includes('youtu') || false,
+      embedUrl: featuredVideo?.videoUrl ? featuredVideo.videoUrl
+        .replace('youtu.be/', 'youtube.com/embed/')
+        .replace('youtube.com/watch?v=', 'youtube.com/embed/')
+        .replace('https://youtube.com/embed/', 'https://www.youtube.com/embed/') : 'none'
     });
   }
 
@@ -97,10 +102,12 @@ export default function VideoAds() {
 
 {featuredVideo ? (
                   <div className="relative">
-                    {/* Use custom video player for hosted videos with real URLs */}
+                    {/* Use custom video player for hosted videos with real URLs (but not YouTube) */}
                     {featuredVideo.isHostedVideo && featuredVideo.videoUrl && 
                      !featuredVideo.videoUrl.includes('example.com') && 
-                     !featuredVideo.videoUrl.includes('placeholder') ? (
+                     !featuredVideo.videoUrl.includes('placeholder') &&
+                     !featuredVideo.videoUrl.includes('youtu') &&
+                     !featuredVideo.videoUrl.includes('youtube') ? (
                       <VideoPlayer
                         src={featuredVideo.videoUrl}
                         poster={featuredVideo.thumbnailUrl || undefined}
@@ -110,18 +117,20 @@ export default function VideoAds() {
                         height="auto"
                         data-testid="featured-video-player"
                       />
-                    ) : featuredVideo.videoUrl && featuredVideo.videoUrl.includes('youtu') ? (
+                    ) : featuredVideo.videoUrl && (featuredVideo.videoUrl.includes('youtu') || featuredVideo.videoUrl.includes('youtube')) ? (
                       // YouTube embed for backward compatibility
                       <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
                         <iframe
                           src={featuredVideo.videoUrl
                             .replace('youtu.be/', 'youtube.com/embed/')
                             .replace('youtube.com/watch?v=', 'youtube.com/embed/')
+                            .replace('https://youtube.com/embed/', 'https://www.youtube.com/embed/')
                           }
                           className="w-full h-full border-0"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
                           title={featuredVideo.title}
+                          data-testid="youtube-iframe"
                         />
                       </div>
                     ) : (
