@@ -35,6 +35,7 @@ import { apiRequest } from "@/lib/queryClient";
 import type { DemoVideo, Avatar, VoiceSample, EditedVideo } from "@shared/schema";
 import { ObjectUploader } from "@/components/ObjectUploader";
 import type { UploadResult } from "@uppy/core";
+import { Upload as UploadIcon } from "lucide-react";
 
 type SampleCategory = 'demo-videos' | 'avatars' | 'voice-samples' | 'edited-videos';
 type SampleItem = DemoVideo | Avatar | VoiceSample | EditedVideo;
@@ -307,7 +308,7 @@ export default function AdminPortfolio() {
                           maxFileSize={104857600} // 100MB
                           accept={['video/*', '.mp4', '.mov', '.avi', '.webm']}
                           onGetUploadParameters={async () => {
-                            const response = await apiRequest('/api/objects/upload', 'POST');
+                            const response = await apiRequest('/api/admin/upload', 'POST') as { uploadURL: string };
                             return {
                               method: 'PUT' as const,
                               url: response.uploadURL,
@@ -327,7 +328,7 @@ export default function AdminPortfolio() {
                           }}
                           buttonClassName="whitespace-nowrap flex-shrink-0"
                         >
-                          <Upload className="h-4 w-4 mr-2" />
+                          <UploadIcon className="h-4 w-4 mr-2" />
                           Upload
                         </ObjectUploader>
                       )}
