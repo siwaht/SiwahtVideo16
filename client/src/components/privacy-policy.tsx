@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, Shield, Eye, Database, Share2, Lock, AlertCircle } from "lucide-react";
 
 interface PrivacyPolicyProps {
@@ -8,6 +8,26 @@ interface PrivacyPolicyProps {
 
 export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
   const [activeSection, setActiveSection] = useState<string>("overview");
+
+  // Handle escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -259,7 +279,16 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div 
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-pointer" 
+        onClick={(e) => {
+          e.preventDefault();
+          onClose();
+        }}
+        role="button"
+        tabIndex={-1}
+        aria-label="Close privacy policy"
+      />
       
       {/* Modal */}
       <div className="absolute inset-4 md:inset-8 lg:inset-16 bg-white rounded-2xl shadow-2xl flex flex-col max-h-full">
@@ -275,10 +304,14 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
             </div>
           </div>
           <button
-            onClick={onClose}
+            onClick={(e) => {
+              e.preventDefault();
+              onClose();
+            }}
             className="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center transition-colors duration-200"
             aria-label="Close privacy policy"
             data-testid="privacy-close"
+            type="button"
           >
             <X className="h-5 w-5 text-slate-500" />
           </button>
@@ -293,13 +326,17 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
                 return (
                   <button
                     key={section.id}
-                    onClick={() => setActiveSection(section.id)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveSection(section.id);
+                    }}
                     className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors duration-200 ${
                       activeSection === section.id
                         ? "bg-blue-50 text-blue-700 border border-blue-200"
                         : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                     }`}
                     data-testid={`privacy-nav-${section.id}`}
+                    type="button"
                   >
                     <Icon className="h-4 w-4 flex-shrink-0" />
                     <span className="text-sm font-medium">{section.title}</span>
@@ -334,9 +371,13 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
               </a>
             </p>
             <button
-              onClick={onClose}
+              onClick={(e) => {
+                e.preventDefault();
+                onClose();
+              }}
               className="btn-primary px-6 py-2 text-sm"
               data-testid="privacy-understood"
+              type="button"
             >
               I Understand
             </button>

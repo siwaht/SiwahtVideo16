@@ -96,9 +96,13 @@ export default function Footer() {
                 </li>
                 <li>
                   <button
-                    onClick={() => setShowPrivacyPolicy(true)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowPrivacyPolicy(true);
+                    }}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
                     data-testid="footer-privacy"
+                    type="button"
                   >
                     Privacy Policy
                   </button>
