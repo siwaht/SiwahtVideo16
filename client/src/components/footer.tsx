@@ -207,11 +207,10 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="border-t border-slate-800 mt-16 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex justify-center items-center">
             <div className="text-slate-500 text-sm">
               © {currentYear} Siwaht. All rights reserved.
             </div>
-
           </div>
         </div>
       </div>
