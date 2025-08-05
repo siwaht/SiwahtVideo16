@@ -189,24 +189,30 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Contact Info */}
+          {/* Social Media */}
           <div>
-            <h3 className="text-white font-semibold mb-6 text-lg">Get In Touch</h3>
-            <div className="space-y-4">
-              <div className="text-slate-400 text-sm">
-                <p className="mb-2">Ready to transform your content?</p>
-                <button 
-                  onClick={() => scrollToSection('contact')}
-                  className="text-primary hover:text-white transition-colors duration-200 font-medium"
-                  data-testid="footer-start-project"
-                >
-                  Start Your Project →
-                </button>
-              </div>
-              <div className="text-slate-500 text-xs leading-relaxed">
-                <p className="mb-2">Professional AI-powered content creation for businesses of all sizes.</p>
-                <p>Fast turnaround • Premium quality • Competitive pricing</p>
-              </div>
+            <h3 className="text-white font-semibold mb-6 text-lg">Follow Us</h3>
+            <div className="flex gap-4">
+              <a 
+                href="https://www.instagram.com/siwahtofficial/"
+                className="w-12 h-12 bg-gradient-to-br from-slate-800 to-slate-700 hover:from-pink-500/20 hover:to-purple-500/20 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110 border border-slate-600/30 hover:border-pink-500/50"
+                aria-label="Follow us on Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="footer-instagram"
+              >
+                <FaInstagram className="h-6 w-6" aria-hidden="true" />
+              </a>
+              <a 
+                href="https://www.linkedin.com/company/siwaht/"
+                className="w-12 h-12 bg-gradient-to-br from-slate-800 to-slate-700 hover:from-blue-500/20 hover:to-cyan-500/20 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110 border border-slate-600/30 hover:border-blue-500/50"
+                aria-label="Connect on LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="footer-linkedin"
+              >
+                <Linkedin className="h-6 w-6" aria-hidden="true" />
+              </a>
             </div>
           </div>
         </div>
