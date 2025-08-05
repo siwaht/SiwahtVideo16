@@ -52,10 +52,10 @@ export default function Footer() {
       
       <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-8 xs:py-12 relative z-10">
         {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8 lg:gap-16">
           
-          {/* Brand Section */}
-          <div className="flex items-center gap-3 lg:justify-start">
+          {/* Brand Section - Left */}
+          <div className="flex items-start gap-3">
             <img 
               src={siwath_logo_withoutbackground} 
               alt="Siwaht Logo" 
@@ -71,15 +71,15 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="text-center">
+          {/* Quick Links - Center */}
+          <div className="text-center lg:text-center">
             <h3 className="text-white font-medium mb-4">Quick Links</h3>
             <nav aria-label="Quick navigation links">
-              <ul className="space-y-3 flex flex-col items-center">
+              <ul className="space-y-2">
                 <li>
                   <button 
                     onClick={() => scrollToSection('services')}
-                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
+                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm block"
                     data-testid="footer-services"
                   >
                     Services
@@ -88,7 +88,7 @@ export default function Footer() {
                 <li>
                   <button 
                     onClick={() => scrollToSection('contact')}
-                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
+                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm block"
                     data-testid="footer-contact"
                   >
                     Contact Us
@@ -100,7 +100,7 @@ export default function Footer() {
                       e.preventDefault();
                       setShowPrivacyPolicy(true);
                     }}
-                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
+                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm block"
                     data-testid="footer-privacy"
                     type="button"
                   >
@@ -111,9 +111,9 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Connect With Us */}
-          <div className="text-right lg:text-right">
-            <h3 className="text-white font-medium mb-4 text-center lg:text-right">Connect With Us</h3>
+          {/* Connect With Us - Right */}
+          <div className="text-center lg:text-right">
+            <h3 className="text-white font-medium mb-4">Connect With Us</h3>
             <div className="flex gap-3 justify-center lg:justify-end">
               {socialLinks.slice(0, 2).map((social, index) => {
                 const Icon = social.icon;
@@ -121,7 +121,7 @@ export default function Footer() {
                   <a 
                     key={index}
                     href={social.href} 
-                    className="w-10 h-10 bg-gradient-to-br from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110 border border-slate-600/30"
+                    className="w-10 h-10 bg-slate-800/50 hover:bg-slate-700/70 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-200 border border-slate-600/30"
                     aria-label={social.label}
                     target="_blank"
                     rel="noopener noreferrer"
