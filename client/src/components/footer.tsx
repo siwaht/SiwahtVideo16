@@ -52,14 +52,14 @@ export default function Footer() {
       
       <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-8 xs:py-12 relative z-10">
         {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
           
           {/* Brand Section */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 lg:justify-start">
             <img 
               src={siwath_logo_withoutbackground} 
               alt="Siwaht Logo" 
-              className="w-8 h-8"
+              className="w-8 h-8 flex-shrink-0"
             />
             <div>
               <h2 className="text-xl font-bold text-white mb-1">
@@ -72,10 +72,10 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div className="lg:text-center">
+          <div className="text-center">
             <h3 className="text-white font-medium mb-4">Quick Links</h3>
             <nav aria-label="Quick navigation links">
-              <ul className="space-y-3">
+              <ul className="space-y-3 flex flex-col items-center">
                 <li>
                   <button 
                     onClick={() => scrollToSection('services')}
@@ -112,9 +112,9 @@ export default function Footer() {
           </div>
 
           {/* Connect With Us */}
-          <div className="lg:text-right">
-            <h3 className="text-white font-medium mb-4">Connect With Us</h3>
-            <div className="flex gap-3 lg:justify-end">
+          <div className="text-right lg:text-right">
+            <h3 className="text-white font-medium mb-4 text-center lg:text-right">Connect With Us</h3>
+            <div className="flex gap-3 justify-center lg:justify-end">
               {socialLinks.slice(0, 2).map((social, index) => {
                 const Icon = social.icon;
                 return (
