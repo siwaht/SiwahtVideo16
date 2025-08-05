@@ -308,17 +308,34 @@ export default function AdminPortfolio() {
                           maxFileSize={104857600} // 100MB
                           accept={['video/*', '.mp4', '.mov', '.avi', '.webm']}
                           onGetUploadParameters={async () => {
-                            const response = await apiRequest('/api/admin/upload', 'POST');
-                            console.log('Upload response:', response);
-                            // The server returns { success: true, uploadURL: "..." }
-                            const uploadURL = (response as any).uploadURL;
-                            if (!uploadURL) {
-                              throw new Error('Upload URL not received from server');
+                            try {
+                              const response = await fetch('/api/admin/upload', {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                credentials: 'include',
+                              });
+                              
+                              if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                              }
+                              
+                              const data = await response.json();
+                              console.log('Upload response:', data);
+                              
+                              if (!data.uploadURL) {
+                                throw new Error('Upload URL not received from server');
+                              }
+                              
+                              return {
+                                method: 'PUT' as const,
+                                url: data.uploadURL,
+                              };
+                            } catch (error) {
+                              console.error('Upload URL fetch error:', error);
+                              throw error;
                             }
-                            return {
-                              method: 'PUT' as const,
-                              url: uploadURL,
-                            };
                           }}
                           onComplete={(result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
                             if (result.successful && result.successful[0]) {
