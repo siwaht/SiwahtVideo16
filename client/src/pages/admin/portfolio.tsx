@@ -309,11 +309,18 @@ export default function AdminPortfolio() {
                           accept={['video/*', '.mp4', '.mov', '.avi', '.webm']}
                           onGetUploadParameters={async () => {
                             try {
+                              const token = localStorage.getItem("adminToken");
+                              const headers: Record<string, string> = {
+                                'Content-Type': 'application/json',
+                              };
+                              
+                              if (token) {
+                                headers['Authorization'] = `Bearer ${token}`;
+                              }
+                              
                               const response = await fetch('/api/admin/upload', {
                                 method: 'POST',
-                                headers: {
-                                  'Content-Type': 'application/json',
-                                },
+                                headers,
                                 credentials: 'include',
                               });
                               
