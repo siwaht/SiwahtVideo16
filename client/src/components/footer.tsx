@@ -49,7 +49,6 @@ export default function Footer() {
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500" />
-      
       <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-12 xs:py-16 relative z-10">
         {/* Main Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 items-start">
@@ -71,9 +70,7 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-            <p className="text-slate-400 text-sm leading-relaxed mb-6">
-              Transform your vision into reality with our AI-powered content creation platform. Professional video ads, realistic avatars, and voice synthesis technology.
-            </p>
+            <p className="text-slate-400 text-sm leading-relaxed mb-6">Your Presence, Perfected</p>
             
           </div>
 
@@ -218,7 +215,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      
       {/* Privacy Policy Modal */}
       <PrivacyPolicy 
         isOpen={showPrivacyPolicy} 
