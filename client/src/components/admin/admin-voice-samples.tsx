@@ -72,7 +72,7 @@ export default function AdminVoiceSamples() {
 
   const createSampleMutation = useMutation({
     mutationFn: async (data: VoiceSampleFormData) => {
-      const response = await apiRequest("POST", "/api/admin/voice-samples", data);
+      const response = await apiRequest("/api/admin/voice-samples", "POST", data);
       if (!response.ok) {
         throw new Error("Failed to create voice sample");
       }
@@ -98,7 +98,7 @@ export default function AdminVoiceSamples() {
 
   const updateSampleMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<VoiceSampleFormData> }) => {
-      const response = await apiRequest("PATCH", `/api/admin/voice-samples/${id}`, data);
+      const response = await apiRequest(`/api/admin/voice-samples/${id}`, "PATCH", data);
       if (!response.ok) {
         throw new Error("Failed to update voice sample");
       }
@@ -124,7 +124,7 @@ export default function AdminVoiceSamples() {
 
   const deleteSampleMutation = useMutation({
     mutationFn: async (id: string) => {
-      const response = await apiRequest("DELETE", `/api/admin/voice-samples/${id}`);
+      const response = await apiRequest(`/api/admin/voice-samples/${id}`, "DELETE");
       if (!response.ok) {
         throw new Error("Failed to delete voice sample");
       }

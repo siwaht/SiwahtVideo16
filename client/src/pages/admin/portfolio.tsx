@@ -151,7 +151,7 @@ export default function AdminPortfolio() {
   const { data: samples = [], isLoading } = useQuery({
     queryKey: [`/api/admin/${selectedCategory}`, searchQuery],
     queryFn: async () => {
-      const response = await apiRequest('GET', `/api/admin/${selectedCategory}${searchQuery ? `?search=${searchQuery}` : ''}`);
+      const response = await apiRequest(`/api/admin/${selectedCategory}${searchQuery ? `?search=${searchQuery}` : ''}`, 'GET');
       const data = await response.json();
       return data.data || [];
     },
@@ -164,7 +164,7 @@ export default function AdminPortfolio() {
         ? `/api/admin/${selectedCategory}/${editingItem.id}`
         : `/api/admin/${selectedCategory}`;
       const method = editingItem ? 'PUT' : 'POST';
-      const response = await apiRequest(method, url, data);
+      const response = await apiRequest(url, method, data);
       return await response.json();
     },
     onSuccess: () => {
@@ -190,7 +190,7 @@ export default function AdminPortfolio() {
   // Delete mutation
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      const response = await apiRequest('DELETE', `/api/admin/${selectedCategory}/${id}`);
+      const response = await apiRequest(`/api/admin/${selectedCategory}/${id}`, 'DELETE');
       return await response.json();
     },
     onSuccess: () => {
@@ -213,7 +213,7 @@ export default function AdminPortfolio() {
   // Toggle published status
   const togglePublishedMutation = useMutation({
     mutationFn: async ({ id, isPublished }: { id: string; isPublished: boolean }) => {
-      const response = await apiRequest('PUT', `/api/admin/${selectedCategory}/${id}`, { isPublished });
+      const response = await apiRequest(`/api/admin/${selectedCategory}/${id}`, 'PUT', { isPublished });
       return await response.json();
     },
     onSuccess: () => {

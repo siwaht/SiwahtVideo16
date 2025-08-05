@@ -43,7 +43,7 @@ export default function AdminContacts() {
 
   const updateStatusMutation = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: string }) => {
-      const response = await apiRequest("PATCH", `/api/admin/contacts/${id}`, { status });
+      const response = await apiRequest(`/api/admin/contacts/${id}`, "PATCH", { status });
       if (!response.ok) {
         throw new Error("Failed to update contact status");
       }
@@ -67,7 +67,7 @@ export default function AdminContacts() {
 
   const deleteContactMutation = useMutation({
     mutationFn: async (id: string) => {
-      const response = await apiRequest("DELETE", `/api/admin/contacts/${id}`);
+      const response = await apiRequest(`/api/admin/contacts/${id}`, "DELETE");
       if (!response.ok) {
         throw new Error("Failed to delete contact");
       }
