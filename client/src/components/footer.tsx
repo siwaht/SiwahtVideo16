@@ -1,4 +1,5 @@
-import { Twitter, Linkedin, Github, Mail, Phone, MapPin } from "lucide-react";
+import { Linkedin, Github, Mail, Phone, MapPin } from "lucide-react";
+import { FaInstagram } from "react-icons/fa";
 
 import siwath_logo_withoutbackground from "@assets/siwath_logo_withoutbackground.png";
 
@@ -27,7 +28,7 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { icon: Twitter, href: "https://twitter.com/siwahtai", label: "Follow us on Twitter" },
+    { icon: FaInstagram, href: "https://www.instagram.com/siwahtofficial/", label: "Follow us on Instagram" },
     { icon: Linkedin, href: "https://www.linkedin.com/company/13273833", label: "Connect on LinkedIn" },
     { icon: Github, href: "https://github.com/siwahtai", label: "Check our GitHub" },
   ];
