@@ -28,7 +28,7 @@ export default function Footer() {
 
   const socialLinks = [
     { icon: Twitter, href: "https://twitter.com/siwahtai", label: "Follow us on Twitter" },
-    { icon: Linkedin, href: "https://linkedin.com/company/siwahtai", label: "Connect on LinkedIn" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/13273833", label: "Connect on LinkedIn" },
     { icon: Github, href: "https://github.com/siwahtai", label: "Check our GitHub" },
   ];
 
