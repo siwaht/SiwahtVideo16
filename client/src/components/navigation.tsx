@@ -49,8 +49,8 @@ export default function Navigation() {
   return (
     <nav 
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/95 shadow-lg" : "bg-white/80"
-      } backdrop-blur-md border-b border-slate-200`}
+        isScrolled ? "bg-white/95 shadow-2xl shadow-slate-200/50" : "bg-white/80"
+      } backdrop-blur-xl border-b border-slate-200/50`}
       role="navigation"
       aria-label="Main navigation"
     >

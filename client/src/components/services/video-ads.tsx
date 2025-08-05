@@ -88,9 +88,9 @@ export default function VideoAds() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xs:gap-16 xl:gap-20 items-center">
           {/* Video Ad Preview */}
           <aside className="relative order-1 lg:order-1 hover-lift">
-            <div className="service-preview from-blue-100 via-indigo-100 to-purple-100">
-              <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
-                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">AI Video Studio</h4>
+            <div className="service-preview from-blue-100 via-indigo-100 to-purple-100 bg-gradient-to-br shadow-2xl">
+              <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8 border-2 border-white/20">
+                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">AI Video Studio</h4>
 
 {featuredVideo ? (
                   <div className="relative">

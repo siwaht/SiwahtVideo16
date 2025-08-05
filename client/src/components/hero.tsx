@@ -20,8 +20,14 @@ export default function Hero() {
       className="pt-16 md:pt-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen flex items-center relative overflow-hidden hero-section"
       aria-label="Hero section"
     >
-      {/* Background decoration */}
+      {/* Enhanced Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+      
+      {/* Floating background elements */}
+      <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-float" />
+      <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}} />
+      <div className="absolute bottom-40 left-20 w-20 h-20 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-full blur-xl animate-float" style={{animationDelay: '4s'}} />
       
       <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 py-8 xs:py-12 sm:py-16 md:py-20 relative z-10 hero-content">
         <div className="text-center animate-fade-in">
@@ -59,27 +65,27 @@ export default function Hero() {
         </div>
 
         <div className="mt-8 xs:mt-12 sm:mt-16 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 xs:gap-8 sm:gap-10 animate-slide-up">
-          <article className="feature-card hover-lift">
-            <div className="feature-icon bg-blue-100 icon-gradient mb-4 xs:mb-6">
-              <Video className="text-blue-600 h-6 w-6 xs:h-7 xs:w-7" aria-hidden="true" />
+          <article className="feature-card hover-lift group">
+            <div className="feature-icon bg-gradient-to-br from-blue-100 to-blue-200 icon-gradient mb-4 xs:mb-6 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">
+              <Video className="text-blue-600 h-7 w-7 xs:h-8 xs:w-8" aria-hidden="true" />
             </div>
-            <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow">AI Video Creation</h3>
+            <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow group-hover:text-blue-600 transition-colors duration-300">AI Video Creation</h3>
             <p className="text-slate-600 text-base xs:text-lg leading-relaxed">Generate professional videos from text prompts in minutes</p>
           </article>
 
-          <article className="feature-card hover-lift">
-            <div className="feature-icon bg-purple-100 icon-gradient mb-4 xs:mb-6">
-              <UserCircle className="text-purple-600 h-6 w-6 xs:h-7 xs:w-7" aria-hidden="true" />
+          <article className="feature-card hover-lift group">
+            <div className="feature-icon bg-gradient-to-br from-purple-100 to-purple-200 icon-gradient mb-4 xs:mb-6 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">
+              <UserCircle className="text-purple-600 h-7 w-7 xs:h-8 xs:w-8" aria-hidden="true" />
             </div>
-            <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow">Realistic Avatars</h3>
+            <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow group-hover:text-purple-600 transition-colors duration-300">Realistic Avatars</h3>
             <p className="text-slate-600 text-base xs:text-lg leading-relaxed">Create lifelike digital personas for any application</p>
           </article>
 
-          <article className="feature-card hover-lift">
-            <div className="feature-icon bg-emerald-100 icon-gradient mb-4 xs:mb-6">
-              <Mic className="text-emerald-600 h-6 w-6 xs:h-7 xs:w-7" aria-hidden="true" />
+          <article className="feature-card hover-lift group">
+            <div className="feature-icon bg-gradient-to-br from-emerald-100 to-emerald-200 icon-gradient mb-4 xs:mb-6 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">
+              <Mic className="text-emerald-600 h-7 w-7 xs:h-8 xs:w-8" aria-hidden="true" />
             </div>
-            <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow">Voice Synthesis</h3>
+            <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow group-hover:text-emerald-600 transition-colors duration-300">Voice Synthesis</h3>
             <p className="text-slate-600 text-base xs:text-lg leading-relaxed">Generate natural-sounding speech in multiple languages</p>
           </article>
         </div>

@@ -121,9 +121,9 @@ export default function Avatars() {
 
           {/* Avatar Preview */}
           <aside className="relative order-1 lg:order-2 hover-lift">
-            <div className="service-preview from-purple-100 via-indigo-100 to-blue-100">
-              <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
-                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Avatar Studio</h4>
+            <div className="service-preview from-purple-100 via-indigo-100 to-blue-100 bg-gradient-to-br shadow-2xl">
+              <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8 border-2 border-white/20">
+                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Avatar Studio</h4>
 
 {featuredAvatar ? (
                   <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">

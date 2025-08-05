@@ -42,8 +42,12 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900 text-white border-t border-slate-800" role="contentinfo">
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-8 xs:py-12">
+    <footer className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white border-t border-slate-700/50 relative overflow-hidden" role="contentinfo">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500" />
+      
+      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-8 xs:py-12 relative z-10">
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16 items-start">
           
@@ -110,7 +114,7 @@ export default function Footer() {
                   <a 
                     key={index}
                     href={social.href} 
-                    className="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-200"
+                    className="w-10 h-10 bg-gradient-to-br from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110 border border-slate-600/30"
                     aria-label={social.label}
                     target="_blank"
                     rel="noopener noreferrer"
