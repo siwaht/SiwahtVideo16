@@ -70,7 +70,7 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-            <p className="text-slate-400 text-sm leading-relaxed mb-6">Your Presence, Perfected</p>
+
             
           </div>
 
