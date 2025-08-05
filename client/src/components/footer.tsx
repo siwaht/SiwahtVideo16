@@ -175,16 +175,7 @@ export default function Footer() {
                     Privacy Policy
                   </button>
                 </li>
-                <li>
-                  <button 
-                    onClick={() => scrollToSection('contact')}
-                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
-                    data-testid="footer-support"
-                  >
-                    <span className="w-1 h-1 bg-accent rounded-full group-hover:bg-white transition-colors"></span>
-                    Support
-                  </button>
-                </li>
+
               </ul>
             </nav>
           </div>
