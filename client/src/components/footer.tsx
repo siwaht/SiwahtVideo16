@@ -217,13 +217,7 @@ export default function Footer() {
             <div className="text-slate-500 text-sm">
               © {currentYear} Siwaht. All rights reserved.
             </div>
-            <div className="flex flex-wrap gap-6 text-xs text-slate-600">
-              <span>AI-Powered Content Creation</span>
-              <span>•</span>
-              <span>Professional Video Production</span>
-              <span>•</span>
-              <span>Premium Quality Assured</span>
-            </div>
+
           </div>
         </div>
       </div>
