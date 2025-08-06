@@ -289,7 +289,6 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
         tabIndex={-1}
         aria-label="Close privacy policy"
       />
-      
       {/* Modal */}
       <div className="absolute inset-4 md:inset-8 lg:inset-16 bg-white rounded-2xl shadow-2xl flex flex-col max-h-full">
         {/* Header */}
@@ -366,9 +365,7 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-slate-600 text-sm">
               Questions about our privacy practices? Contact us at{" "}
-              <a href="mailto:privacy@siwahtai.com" className="text-blue-600 hover:text-blue-700 font-medium">
-                privacy@siwahtai.com
-              </a>
+              <a href="mailto:privacy@siwahtai.com" className="text-blue-600 hover:text-blue-700 font-medium">cc@siwaht.com</a>
             </p>
             <button
               onClick={(e) => {
