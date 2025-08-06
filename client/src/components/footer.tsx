@@ -81,7 +81,7 @@ export default function Footer() {
               <ul className="space-y-3">
                 <li>
                   <button 
-                    onClick={() => scrollToSection('services')}
+                    onClick={() => scrollToSection('video-ads')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-video-ads"
                   >
@@ -91,7 +91,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <button 
-                    onClick={() => scrollToSection('services')}
+                    onClick={() => scrollToSection('avatars')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-avatars"
                   >
@@ -101,7 +101,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <button 
-                    onClick={() => scrollToSection('services')}
+                    onClick={() => scrollToSection('voice-synthesis')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-voice"
                   >
@@ -111,7 +111,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <button 
-                    onClick={() => scrollToSection('services')}
+                    onClick={() => scrollToSection('editing')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-editing"
                   >
@@ -121,7 +121,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <button 
-                    onClick={() => scrollToSection('services')}
+                    onClick={() => scrollToSection('podcast')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-podcasts"
                   >
