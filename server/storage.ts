@@ -541,7 +541,7 @@ export class DatabaseStorage implements IStorage {
     const result = await db
       .delete(webhooks)
       .where(eq(webhooks.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount ?? 0) > 0;
   }
 
   // MCP Servers
@@ -581,7 +581,7 @@ export class DatabaseStorage implements IStorage {
     const result = await db
       .delete(mcpServers)
       .where(eq(mcpServers.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount ?? 0) > 0;
   }
 }
 

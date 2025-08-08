@@ -101,19 +101,19 @@ export default function AdminPortfolio() {
       // Parse bucket and object name from path like: /bucket-name/object-path
       const pathParts = pathname.split('/').filter(Boolean);
       if (pathParts.length >= 2) {
-        const bucketName = pathParts[0];
         const objectPath = pathParts.slice(1).join('/');
         
         // Check if this is in the private directory and convert to object serving path
-        if (objectPath.includes('/uploads/')) {
+        if (objectPath.includes('/.private/uploads/')) {
           // Extract the file ID from the uploads path
-          const fileId = objectPath.split('/uploads/')[1];
-          return `/objects/uploads/${fileId}`;
+          const fileId = objectPath.split('/.private/uploads/')[1];
+          return `/objects/.private/uploads/${fileId}`;
         }
       }
       
-      // Fallback: return the original URL
-      return uploadURL;
+      // Fallback: return a simple path based on filename
+      const filename = pathname.split('/').pop();
+      return filename ? `/objects/uploads/${filename}` : uploadURL;
     } catch (error) {
       console.error('Error converting upload URL:', error);
       return uploadURL;
@@ -354,7 +354,8 @@ export default function AdminPortfolio() {
                               });
                               
                               if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
+                                const errorText = await response.text().catch(() => 'Unknown error');
+                                throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
                               }
                               
                               const data = await response.json();
@@ -370,6 +371,11 @@ export default function AdminPortfolio() {
                               };
                             } catch (error) {
                               console.error('Upload URL fetch error:', error);
+                              toast({
+                                title: "Upload Error",
+                                description: error instanceof Error ? error.message : "Failed to get upload URL",
+                                variant: "destructive",
+                              });
                               throw error;
                             }
                           }}
