@@ -203,47 +203,6 @@ export default function PortfolioSection({ category, title, description, icon: I
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">{description}</p>
         </header>
 
-        <div className="relative">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {currentSamples.map(renderSample)}
-          </div>
-
-          {totalSlides > 1 && (
-            <div className="flex justify-center items-center mt-12 gap-4">
-              <button
-                onClick={prevSlide}
-                className="w-12 h-12 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:bg-blue-50"
-                data-testid={`${category}-prev`}
-                aria-label="Previous samples"
-              >
-                <ChevronLeft className="h-6 w-6 text-slate-600" />
-              </button>
-              
-              <div className="flex space-x-2">
-                {[...Array(totalSlides)].map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentIndex(i)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      i === currentIndex ? 'bg-blue-600' : 'bg-slate-300 hover:bg-slate-400'
-                    }`}
-                    data-testid={`${category}-dot-${i}`}
-                    aria-label={`Go to slide ${i + 1}`}
-                  />
-                ))}
-              </div>
-              
-              <button
-                onClick={nextSlide}
-                className="w-12 h-12 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:bg-blue-50"
-                data-testid={`${category}-next`}
-                aria-label="Next samples"
-              >
-                <ChevronRight className="h-6 w-6 text-slate-600" />
-              </button>
-            </div>
-          )}
-        </div>
       </div>
     </section>
   );
