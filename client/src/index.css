@@ -119,11 +119,11 @@
 
 @layer utilities {
   .animate-fade-in {
-    animation: fadeIn 0.8s ease-out;
+    animation: fadeIn 1.2s ease-out;
   }
 
   .animate-slide-up {
-    animation: slideUp 0.6s ease-out;
+    animation: slideUp 1s ease-out;
   }
 
   .animate-float {
@@ -141,17 +141,17 @@
   }
 
   @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(1deg); }
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, hsl(248, 83%, 65%), hsl(268, 77%, 69%), hsl(188, 94%, 43%));
-    background-size: 200% 200%;
+    background: linear-gradient(135deg, hsl(248, 83%, 65%), hsl(268, 77%, 69%), hsl(188, 94%, 43%), hsl(220, 85%, 60%));
+    background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradientFlow 4s ease-in-out infinite;
+    animation: gradientFlow 6s ease-in-out infinite;
   }
   
   @keyframes gradientFlow {
@@ -160,7 +160,7 @@
   }
 
   .glass-card {
-    @apply backdrop-blur-lg bg-white/80 border border-white/30 shadow-2xl relative;
+    @apply backdrop-blur-lg bg-white/90 border border-white/30 shadow-xl hover:shadow-2xl relative transition-all duration-300;
   }
   
   .glass-card::after {
@@ -174,11 +174,11 @@
   }
   
   .hover-lift {
-    @apply transition-all duration-500 ease-out hover:-translate-y-3 hover:shadow-2xl hover:scale-105;
+    @apply transition-all duration-700 ease-out hover:-translate-y-4 hover:shadow-2xl hover:scale-[1.02];
   }
   
   .btn-primary {
-    @apply bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-800 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 border border-white/20 relative overflow-hidden;
+    @apply bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-800 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-white/20 relative overflow-hidden;
   }
   
   .btn-primary::before {
@@ -197,7 +197,7 @@
   }
   
   .btn-secondary {
-    @apply bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 border border-white/20 relative overflow-hidden;
+    @apply bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-white/20 relative overflow-hidden;
   }
   
   .btn-secondary::before {
@@ -216,7 +216,7 @@
   }
   
   .feature-card {
-    @apply bg-gradient-to-br from-white via-white to-gray-50/50 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-200/50 hover:border-white/60 relative overflow-hidden;
+    @apply bg-gradient-to-br from-white via-white to-gray-50/50 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-200/50 hover:border-white/60 relative overflow-hidden;
   }
   
   .feature-card::before {
@@ -258,11 +258,11 @@
   }
   
   .icon-gradient {
-    @apply bg-gradient-to-br shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110;
+    @apply bg-gradient-to-br shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-110 hover:rotate-3;
   }
 
   .text-shadow {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
   }
 
   .bg-mesh-gradient {
@@ -288,11 +288,11 @@
   }
 
   .section-padding {
-    @apply py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32;
+    @apply py-16 sm:py-20 md:py-24 lg:py-28 xl:py-36;
   }
   
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
   }
   
   /* Mobile-optimized spacing */
@@ -334,7 +334,7 @@
   }
 
   .feature-icon {
-    @apply w-12 h-12 rounded-xl flex items-center justify-center;
+    @apply w-16 h-16 rounded-2xl flex items-center justify-center;
   }
 
   /* Enhanced button animations */

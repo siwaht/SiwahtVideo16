@@ -48,16 +48,16 @@ export default function Navigation() {
 
   return (
     <nav 
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/95 shadow-2xl shadow-slate-200/50" : "bg-white/80"
-      } backdrop-blur-xl border-b border-slate-200/50`}
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        isScrolled ? "bg-white/95 shadow-2xl shadow-slate-200/50 border-slate-200/70" : "bg-white/80 border-slate-200/30"
+      } backdrop-blur-xl border-b`}
       role="navigation"
       aria-label="Main navigation"
     >
       <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
-          <div className="flex items-center flex-shrink-0 gap-3 cursor-pointer"
+          <div className="flex items-center flex-shrink-0 gap-3 cursor-pointer group transition-all duration-300 hover:scale-105"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 role="button"
                 tabIndex={0}
@@ -66,7 +66,7 @@ export default function Navigation() {
             <img 
               src={siwath_logo_withoutbackground} 
               alt="Siwaht Logo" 
-              className="w-8 h-8 md:w-10 md:h-10"
+              className="w-8 h-8 md:w-10 md:h-10 transition-transform duration-300 group-hover:rotate-6"
             />
             <h1 className="text-xl xs:text-2xl md:text-3xl font-bold gradient-text">
               Siwaht
@@ -80,15 +80,16 @@ export default function Navigation() {
                 <button 
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-slate-600 hover:text-primary transition-colors duration-200 font-medium text-sm xl:text-base py-2 px-1"
+                  className="text-slate-600 hover:text-primary transition-all duration-300 font-medium text-sm xl:text-base py-2 px-3 rounded-lg hover:bg-slate-100/50 relative group"
                   data-testid={`nav-${item.id}`}
                 >
                   {item.label}
+                  <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-3/4 group-hover:-translate-x-1/2"></div>
                 </button>
               ))}
               <button 
                 onClick={() => scrollToSection("contact")}
-                className="bg-primary text-white px-4 xl:px-6 py-2 xl:py-3 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium text-sm xl:text-base shadow-md hover:shadow-lg"
+                className="bg-gradient-to-r from-primary to-secondary text-white px-4 xl:px-6 py-2 xl:py-3 rounded-lg hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 font-medium text-sm xl:text-base shadow-md hover:shadow-xl hover:-translate-y-0.5 hover:scale-105"
                 data-testid="nav-contact"
               >
                 Get Started
@@ -124,7 +125,7 @@ export default function Navigation() {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="mobile-nav-item block w-full text-left px-4 py-3 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-lg transition-colors duration-200 touch-action-optimization"
+                  className="mobile-nav-item block w-full text-left px-4 py-3 text-base font-medium text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50/50 rounded-lg transition-all duration-300 touch-action-optimization border border-transparent hover:border-blue-200/50"
                   data-testid={`mobile-nav-${item.id}`}
                 >
                   {item.label}
@@ -133,7 +134,7 @@ export default function Navigation() {
               <div className="pt-4">
                 <button
                   onClick={() => scrollToSection("contact")}
-                  className="block w-full bg-primary text-white px-4 py-3 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium text-center touch-action-optimization min-h-[44px]"
+                  className="block w-full bg-gradient-to-r from-primary to-secondary text-white px-4 py-3 rounded-lg hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 font-medium text-center touch-action-optimization min-h-[44px] shadow-lg hover:shadow-xl"
                   data-testid="mobile-nav-contact"
                 >
                   Get Started

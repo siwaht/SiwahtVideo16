@@ -64,29 +64,41 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="mt-8 xs:mt-12 sm:mt-16 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 xs:gap-8 sm:gap-10 animate-slide-up">
-          <article className="feature-card hover-lift group">
-            <div className="feature-icon bg-gradient-to-br from-blue-100 to-blue-200 icon-gradient mb-4 xs:mb-6 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">
-              <Video className="text-blue-600 h-7 w-7 xs:h-8 xs:w-8" aria-hidden="true" />
+        <div className="mt-12 xs:mt-16 sm:mt-20 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 xs:gap-10 sm:gap-12 animate-slide-up">
+          <article className="feature-card hover-lift group relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+            <div className="relative z-10">
+              <div className="feature-icon bg-gradient-to-br from-blue-100 to-blue-200 icon-gradient mb-6 w-18 h-18 rounded-2xl flex items-center justify-center group-hover:rotate-6 group-hover:scale-110 transition-all duration-500 shadow-lg group-hover:shadow-xl">
+                <Video className="text-blue-600 h-8 w-8 xs:h-9 xs:w-9" aria-hidden="true" />
+              </div>
+              <h3 className="text-xl xs:text-2xl lg:text-2xl font-bold text-slate-900 mb-4 text-shadow group-hover:text-blue-600 transition-colors duration-300 leading-tight">AI Video Creation</h3>
+              <p className="text-slate-600 text-base xs:text-lg leading-relaxed">Generate professional videos from text prompts in minutes with cutting-edge AI technology</p>
+              <div className="mt-4 h-1 w-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 group-hover:w-20 transition-all duration-500"></div>
             </div>
-            <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow group-hover:text-blue-600 transition-colors duration-300">AI Video Creation</h3>
-            <p className="text-slate-600 text-base xs:text-lg leading-relaxed">Generate professional videos from text prompts in minutes</p>
           </article>
 
-          <article className="feature-card hover-lift group">
-            <div className="feature-icon bg-gradient-to-br from-purple-100 to-purple-200 icon-gradient mb-4 xs:mb-6 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">
-              <UserCircle className="text-purple-600 h-7 w-7 xs:h-8 xs:w-8" aria-hidden="true" />
+          <article className="feature-card hover-lift group relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-pink-500/5 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+            <div className="relative z-10">
+              <div className="feature-icon bg-gradient-to-br from-purple-100 to-purple-200 icon-gradient mb-6 w-18 h-18 rounded-2xl flex items-center justify-center group-hover:rotate-6 group-hover:scale-110 transition-all duration-500 shadow-lg group-hover:shadow-xl">
+                <UserCircle className="text-purple-600 h-8 w-8 xs:h-9 xs:w-9" aria-hidden="true" />
+              </div>
+              <h3 className="text-xl xs:text-2xl lg:text-2xl font-bold text-slate-900 mb-4 text-shadow group-hover:text-purple-600 transition-colors duration-300 leading-tight">Realistic Avatars</h3>
+              <p className="text-slate-600 text-base xs:text-lg leading-relaxed">Create lifelike digital personas for any application or industry need</p>
+              <div className="mt-4 h-1 w-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full opacity-0 group-hover:opacity-100 group-hover:w-20 transition-all duration-500"></div>
             </div>
-            <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow group-hover:text-purple-600 transition-colors duration-300">Realistic Avatars</h3>
-            <p className="text-slate-600 text-base xs:text-lg leading-relaxed">Create lifelike digital personas for any application</p>
           </article>
 
-          <article className="feature-card hover-lift group">
-            <div className="feature-icon bg-gradient-to-br from-emerald-100 to-emerald-200 icon-gradient mb-4 xs:mb-6 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">
-              <Mic className="text-emerald-600 h-7 w-7 xs:h-8 xs:w-8" aria-hidden="true" />
+          <article className="feature-card hover-lift group relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-teal-500/5 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+            <div className="relative z-10">
+              <div className="feature-icon bg-gradient-to-br from-emerald-100 to-emerald-200 icon-gradient mb-6 w-18 h-18 rounded-2xl flex items-center justify-center group-hover:rotate-6 group-hover:scale-110 transition-all duration-500 shadow-lg group-hover:shadow-xl">
+                <Mic className="text-emerald-600 h-8 w-8 xs:h-9 xs:w-9" aria-hidden="true" />
+              </div>
+              <h3 className="text-xl xs:text-2xl lg:text-2xl font-bold text-slate-900 mb-4 text-shadow group-hover:text-emerald-600 transition-colors duration-300 leading-tight">Voice Synthesis</h3>
+              <p className="text-slate-600 text-base xs:text-lg leading-relaxed">Generate natural-sounding speech in multiple languages and accents</p>
+              <div className="mt-4 h-1 w-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full opacity-0 group-hover:opacity-100 group-hover:w-20 transition-all duration-500"></div>
             </div>
-            <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow group-hover:text-emerald-600 transition-colors duration-300">Voice Synthesis</h3>
-            <p className="text-slate-600 text-base xs:text-lg leading-relaxed">Generate natural-sounding speech in multiple languages</p>
           </article>
         </div>
       </div>
