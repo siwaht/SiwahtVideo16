@@ -5,6 +5,8 @@ import {
   Users, 
   Video, 
   UserCircle, 
+  Mic, 
+  Film,
   TrendingUp,
   Calendar,
   Activity
@@ -14,6 +16,8 @@ interface DashboardStats {
   totalContacts: number;
   totalDemoVideos: number;
   totalAvatars: number;
+  totalVoiceSamples: number;
+  totalEditedVideos: number;
   recentActivity: Array<{
     id: string;
     type: string;
@@ -35,7 +39,7 @@ export default function AdminDashboard() {
           <Skeleton className="h-4 w-96" />
         </div>
         
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
           {Array.from({ length: 5 }).map((_, i) => (
             <Card key={i}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -108,6 +112,18 @@ export default function AdminDashboard() {
       icon: UserCircle,
       description: "Avatar profiles",
     },
+    {
+      title: "Voice Samples",
+      value: stats?.totalVoiceSamples || 0,
+      icon: Mic,
+      description: "Audio samples",
+    },
+    {
+      title: "Edited Videos",
+      value: stats?.totalEditedVideos || 0,
+      icon: Film,
+      description: "Video portfolio",
+    },
   ];
 
   return (
@@ -116,7 +132,7 @@ export default function AdminDashboard() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-muted-foreground">
-          Welcome to the Siwaht admin panel. Monitor your content and user engagement.
+          Welcome to the SiwahtAI admin panel. Monitor your content and user engagement.
         </p>
       </div>
 
@@ -164,6 +180,8 @@ export default function AdminDashboard() {
                       {activity.type === 'contact' && <Users className="h-4 w-4 text-primary" />}
                       {activity.type === 'demo_video' && <Video className="h-4 w-4 text-primary" />}
                       {activity.type === 'avatar' && <UserCircle className="h-4 w-4 text-primary" />}
+                      {activity.type === 'voice_sample' && <Mic className="h-4 w-4 text-primary" />}
+                      {activity.type === 'edited_video' && <Film className="h-4 w-4 text-primary" />}
                     </div>
                     <div className="flex-1">
                       <p className="text-sm font-medium">{activity.title}</p>
@@ -216,7 +234,7 @@ export default function AdminDashboard() {
                   <span className="text-sm font-medium">Manage Videos</span>
                 </div>
                 <span className="text-xs text-muted-foreground">
-                  {stats?.totalDemoVideos || 0} total
+                  {(stats?.totalDemoVideos || 0) + (stats?.totalEditedVideos || 0)} total
                 </span>
               </div>
               
@@ -230,6 +248,15 @@ export default function AdminDashboard() {
                 </span>
               </div>
               
+              <div className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                <div className="flex items-center space-x-2">
+                  <Mic className="h-4 w-4" />
+                  <span className="text-sm font-medium">Voice Library</span>
+                </div>
+                <span className="text-xs text-muted-foreground">
+                  {stats?.totalVoiceSamples || 0} total
+                </span>
+              </div>
             </div>
           </CardContent>
         </Card>
