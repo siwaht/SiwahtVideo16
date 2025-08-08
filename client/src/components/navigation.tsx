@@ -49,8 +49,8 @@ export default function Navigation() {
   return (
     <nav 
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/95 shadow-lg" : "bg-background/80"
-      } backdrop-blur-sm border-b border-border`}
+        isScrolled ? "bg-white/95 shadow-2xl shadow-slate-200/50" : "bg-white/80"
+      } backdrop-blur-xl border-b border-slate-200/50`}
       role="navigation"
       aria-label="Main navigation"
     >
@@ -80,7 +80,7 @@ export default function Navigation() {
                 <button 
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-muted-foreground hover:text-primary transition-colors duration-200 font-medium text-sm xl:text-base py-2 px-1"
+                  className="text-slate-600 hover:text-primary transition-colors duration-200 font-medium text-sm xl:text-base py-2 px-1"
                   data-testid={`nav-${item.id}`}
                 >
                   {item.label}
@@ -88,7 +88,7 @@ export default function Navigation() {
               ))}
               <button 
                 onClick={() => scrollToSection("contact")}
-                className="bg-primary text-white px-4 xl:px-6 py-2 xl:py-3 rounded-lg hover:opacity-90 transition-all duration-200 font-medium text-sm xl:text-base shadow-sm hover:shadow-md"
+                className="bg-primary text-white px-4 xl:px-6 py-2 xl:py-3 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium text-sm xl:text-base shadow-md hover:shadow-lg"
                 data-testid="nav-contact"
               >
                 Get Started
@@ -100,7 +100,7 @@ export default function Navigation() {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-muted-foreground hover:text-primary hover:bg-muted focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors duration-200 touch-action-optimization"
+              className="inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-primary hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors duration-200 touch-action-optimization"
               aria-expanded={isMenuOpen}
               aria-label="Toggle main menu"
               data-testid="mobile-menu-button"
@@ -118,13 +118,13 @@ export default function Navigation() {
       {isMenuOpen && (
         <div className="lg:hidden">
           <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setIsMenuOpen(false)} />
-          <div className="fixed top-16 md:top-20 left-0 right-0 bg-background shadow-lg border-t border-border z-50 max-h-screen overflow-y-auto">
+          <div className="fixed top-16 md:top-20 left-0 right-0 bg-white shadow-xl border-t border-slate-200 z-50 max-h-screen overflow-y-auto">
             <div className="px-4 pt-4 pb-6 space-y-2">
               {navigationItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="mobile-nav-item block w-full text-left px-4 py-3 text-base font-medium text-muted-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors duration-200 touch-action-optimization"
+                  className="mobile-nav-item block w-full text-left px-4 py-3 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-lg transition-colors duration-200 touch-action-optimization"
                   data-testid={`mobile-nav-${item.id}`}
                 >
                   {item.label}
@@ -133,7 +133,7 @@ export default function Navigation() {
               <div className="pt-4">
                 <button
                   onClick={() => scrollToSection("contact")}
-                  className="block w-full bg-primary text-white px-4 py-3 rounded-lg hover:opacity-90 transition-all duration-200 font-medium text-center touch-action-optimization min-h-[44px]"
+                  className="block w-full bg-primary text-white px-4 py-3 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium text-center touch-action-optimization min-h-[44px]"
                   data-testid="mobile-nav-contact"
                 >
                   Get Started
