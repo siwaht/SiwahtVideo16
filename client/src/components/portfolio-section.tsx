@@ -74,9 +74,9 @@ export default function PortfolioSection({ category, title, description, icon: I
       return (
         <article key={sample.id} className="feature-card hover-lift">
           <div className="relative aspect-square bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl overflow-hidden mb-4">
-            {avatar.imageUrl ? (
+            {avatar.thumbnailUrl ? (
               <img 
-                src={avatar.imageUrl} 
+                src={avatar.thumbnailUrl} 
                 alt={avatar.name}
                 className="w-full h-full object-cover"
               />
@@ -187,23 +187,5 @@ export default function PortfolioSection({ category, title, description, icon: I
     );
   }
 
-  const totalSlides = Math.ceil(samples.length / 3);
-  const currentSamples = getCurrentSamples();
-
-  return (
-    <section className="section-padding bg-gradient-to-br from-slate-50/50 via-white to-blue-50/30">
-      <div className="container-custom">
-        <header className="text-center mb-16">
-          <div className="feature-icon bg-blue-100 icon-gradient mx-auto mb-6">
-            <Icon className="text-blue-600 h-8 w-8" />
-          </div>
-          <h2 className="text-3xl xs:text-4xl font-bold text-slate-900 mb-4 text-shadow">
-            <span className="gradient-text">{title}</span>
-          </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto">{description}</p>
-        </header>
-
-      </div>
-    </section>
-  );
+  return null;
 }
