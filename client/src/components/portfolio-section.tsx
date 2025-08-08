@@ -187,5 +187,50 @@ export default function PortfolioSection({ category, title, description, icon: I
     );
   }
 
-  return null;
+  const currentSamples = getCurrentSamples();
+  const totalSlides = Math.ceil(samples.length / 3);
+
+  return (
+    <section className="section-padding bg-gradient-to-br from-slate-50/50 via-white to-blue-50/30">
+      <div className="container-custom">
+        <header className="text-center mb-16">
+          <div className="feature-icon bg-blue-100 icon-gradient mx-auto mb-6">
+            <Icon className="text-blue-600 h-8 w-8" />
+          </div>
+          <h2 className="text-3xl xs:text-4xl font-bold text-slate-900 mb-4 text-shadow">
+            <span className="gradient-text">{title}</span>
+          </h2>
+          <p className="text-xl text-slate-600">{description}</p>
+        </header>
+        
+        <div className="relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {currentSamples.map(renderSample)}
+          </div>
+          
+          {totalSlides > 1 && (
+            <div className="flex justify-center items-center mt-8 gap-4">
+              <button 
+                onClick={prevSlide}
+                className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
+                disabled={currentIndex === 0}
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <span className="text-sm text-slate-600">
+                {currentIndex + 1} of {totalSlides}
+              </span>
+              <button 
+                onClick={nextSlide}
+                className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
+                disabled={currentIndex === totalSlides - 1}
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
 }
