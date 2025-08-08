@@ -40,7 +40,7 @@ export default function PortfolioSection({ category, title, description, icon: I
       const video = sample as DemoVideo | EditedVideo;
       return (
         <article key={sample.id} className="feature-card hover-lift">
-          <div className="relative aspect-video bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl overflow-hidden mb-4">
+          <div className="relative aspect-video bg-muted rounded-xl overflow-hidden mb-4">
             {video.thumbnailUrl ? (
               <img 
                 src={video.thumbnailUrl} 
@@ -61,9 +61,9 @@ export default function PortfolioSection({ category, title, description, icon: I
               </div>
             </button>
           </div>
-          <h3 className="text-lg font-bold text-slate-900 mb-2">{video.title}</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-2">{video.title}</h3>
           {video.description && (
-            <p className="text-slate-600 text-sm line-clamp-2">{video.description}</p>
+            <p className="text-muted-foreground text-sm line-clamp-2">{video.description}</p>
           )}
         </article>
       );
@@ -73,7 +73,7 @@ export default function PortfolioSection({ category, title, description, icon: I
       const avatar = sample as Avatar;
       return (
         <article key={sample.id} className="feature-card hover-lift">
-          <div className="relative aspect-square bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl overflow-hidden mb-4">
+          <div className="relative aspect-square bg-muted rounded-xl overflow-hidden mb-4">
             {avatar.thumbnailUrl ? (
               <img 
                 src={avatar.thumbnailUrl} 
@@ -88,9 +88,9 @@ export default function PortfolioSection({ category, title, description, icon: I
               </div>
             )}
           </div>
-          <h3 className="text-lg font-bold text-slate-900 mb-2">{avatar.name}</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-2">{avatar.name}</h3>
           {avatar.description && (
-            <p className="text-slate-600 text-sm line-clamp-2">{avatar.description}</p>
+            <p className="text-muted-foreground text-sm line-clamp-2">{avatar.description}</p>
           )}
           <div className="flex flex-wrap gap-2 mt-2">
             <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">
@@ -110,7 +110,7 @@ export default function PortfolioSection({ category, title, description, icon: I
       const voice = sample as VoiceSample;
       return (
         <article key={sample.id} className="feature-card hover-lift">
-          <div className="relative aspect-video bg-gradient-to-br from-emerald-100 to-teal-200 rounded-xl overflow-hidden mb-4 flex items-center justify-center">
+          <div className="relative aspect-video bg-secondary/10 rounded-xl overflow-hidden mb-4 flex items-center justify-center">
             <div className="text-center">
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 mx-auto">
                 <Volume2 className="h-8 w-8 text-white" />
@@ -125,9 +125,9 @@ export default function PortfolioSection({ category, title, description, icon: I
               </button>
             )}
           </div>
-          <h3 className="text-lg font-bold text-slate-900 mb-2">{voice.name}</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-2">{voice.name}</h3>
           {voice.description && (
-            <p className="text-slate-600 text-sm line-clamp-2">{voice.description}</p>
+            <p className="text-muted-foreground text-sm line-clamp-2">{voice.description}</p>
           )}
           <div className="flex flex-wrap gap-2 mt-2">
             <span className="px-2 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full">
@@ -146,11 +146,11 @@ export default function PortfolioSection({ category, title, description, icon: I
 
   if (isLoading) {
     return (
-      <section className="section-padding bg-gradient-to-br from-slate-50/50 via-white to-blue-50/30">
+      <section className="section-padding bg-muted/30">
         <div className="container-custom">
           <header className="text-center mb-16">
-            <h2 className="text-3xl xs:text-4xl font-bold text-slate-900 mb-4">{title}</h2>
-            <p className="text-xl text-slate-600">{description}</p>
+            <h2 className="text-3xl xs:text-4xl font-semibold text-foreground mb-4">{title}</h2>
+            <p className="text-xl text-muted-foreground">{description}</p>
           </header>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[...Array(3)].map((_, i) => (
@@ -168,16 +168,16 @@ export default function PortfolioSection({ category, title, description, icon: I
 
   if (!samples || !Array.isArray(samples) || samples.length === 0) {
     return (
-      <section className="section-padding bg-gradient-to-br from-slate-50/50 via-white to-blue-50/30">
+      <section className="section-padding bg-muted/30">
         <div className="container-custom">
           <header className="text-center mb-16">
             <div className="feature-icon bg-blue-100 icon-gradient mx-auto mb-6">
               <Icon className="text-blue-600 h-8 w-8" />
             </div>
-            <h2 className="text-3xl xs:text-4xl font-bold text-slate-900 mb-4 text-shadow">
+            <h2 className="text-3xl xs:text-4xl font-semibold text-foreground mb-4 text-shadow">
               <span className="gradient-text">{title}</span>
             </h2>
-            <p className="text-xl text-slate-600">{description}</p>
+            <p className="text-xl text-muted-foreground">{description}</p>
           </header>
           <div className="text-center py-12">
             <p className="text-slate-500 text-lg">Coming soon! We're working on amazing samples to showcase.</p>
@@ -191,16 +191,16 @@ export default function PortfolioSection({ category, title, description, icon: I
   const totalSlides = Math.ceil(samples.length / 3);
 
   return (
-    <section className="section-padding bg-gradient-to-br from-slate-50/50 via-white to-blue-50/30">
+    <section className="section-padding bg-muted/30">
       <div className="container-custom">
         <header className="text-center mb-16">
-          <div className="feature-icon bg-blue-100 icon-gradient mx-auto mb-6">
-            <Icon className="text-blue-600 h-8 w-8" />
+          <div className="feature-icon bg-primary/10 mx-auto mb-6">
+            <Icon className="text-primary h-8 w-8" />
           </div>
-          <h2 className="text-3xl xs:text-4xl font-bold text-slate-900 mb-4 text-shadow">
+          <h2 className="text-3xl xs:text-4xl font-semibold text-foreground mb-4">
             <span className="gradient-text">{title}</span>
           </h2>
-          <p className="text-xl text-slate-600">{description}</p>
+          <p className="text-xl text-muted-foreground">{description}</p>
         </header>
         
         <div className="relative">
@@ -217,7 +217,7 @@ export default function PortfolioSection({ category, title, description, icon: I
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
-              <span className="text-sm text-slate-600">
+              <span className="text-sm text-muted-foreground">
                 {currentIndex + 1} of {totalSlides}
               </span>
               <button 

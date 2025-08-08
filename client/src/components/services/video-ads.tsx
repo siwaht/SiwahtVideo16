@@ -46,29 +46,29 @@ export default function VideoAds() {
   const features = [
     {
       icon: Play,
-      iconColor: "text-blue-600",
-      bgColor: "bg-blue-100",
+      iconColor: "text-primary",
+      bgColor: "bg-primary/10",
       title: "AI-Powered Creation",
       description: "Generate compelling video ads in minutes using advanced AI that understands your brand and audience."
     },
     {
       icon: Target,
-      iconColor: "text-green-600",
-      bgColor: "bg-green-100",
+      iconColor: "text-secondary",
+      bgColor: "bg-secondary/10",
       title: "Targeted Messaging",
       description: "Create personalized ad content that resonates with specific demographics and customer segments."
     },
     {
       icon: Zap,
-      iconColor: "text-yellow-600",
-      bgColor: "bg-yellow-100",
+      iconColor: "text-primary",
+      bgColor: "bg-primary/10",
       title: "Rapid Production",
       description: "From concept to finished ad in under 10 minutes. Perfect for fast-paced marketing campaigns."
     },
     {
       icon: Sparkles,
-      iconColor: "text-purple-600",
-      bgColor: "bg-purple-100",
+      iconColor: "text-secondary",
+      bgColor: "bg-secondary/10",
       title: "Professional Quality",
       description: "Studio-quality output with professional editing, transitions, and effects automatically applied."
     }
@@ -77,18 +77,18 @@ export default function VideoAds() {
   return (
     <section 
       id="video-ads" 
-      className="section-padding bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/50"
+      className="section-padding bg-background"
       aria-labelledby="video-ads-heading"
     >
       <div className="container-custom">
         <header className="text-center mb-16 xs:mb-20">
           <h2 
             id="video-ads-heading"
-            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 xs:mb-8 text-shadow"
+            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-foreground mb-6 xs:mb-8"
           >
             <span className="gradient-text">AI Video Ads</span>
           </h2>
-          <p className="text-xl xs:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed px-2">
+          <p className="text-xl xs:text-2xl lg:text-3xl text-muted-foreground max-w-5xl mx-auto leading-relaxed px-2">
             Create high-converting video advertisements with AI-powered automation. From script to screen in minutes.
           </p>
         </header>
@@ -96,8 +96,8 @@ export default function VideoAds() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xs:gap-16 xl:gap-20 items-center">
           {/* Video Ad Preview */}
           <aside className="relative order-1 lg:order-1 hover-lift">
-            <div className="service-preview from-blue-100 via-indigo-100 to-purple-100 bg-gradient-to-br shadow-2xl">
-              <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8 border-2 border-white/20">
+            <div className="service-preview">
+              <div className="bg-card p-6 xs:p-8 mb-6 xs:mb-8 rounded-xl border">
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">AI Video Studio</h4>
 
 {featuredVideo ? (
