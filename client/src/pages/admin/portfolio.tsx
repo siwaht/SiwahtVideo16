@@ -32,13 +32,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import type { DemoVideo, Avatar } from "@shared/schema";
+import type { DemoVideo, Avatar, VoiceSample, EditedVideo } from "@shared/schema";
 import { ObjectUploader } from "@/components/ObjectUploader";
 import type { UploadResult } from "@uppy/core";
 import { Upload as UploadIcon } from "lucide-react";
 
-type SampleCategory = 'demo-videos' | 'avatars';
-type SampleItem = DemoVideo | Avatar;
+type SampleCategory = 'demo-videos' | 'avatars' | 'voice-samples' | 'edited-videos';
+type SampleItem = DemoVideo | Avatar | VoiceSample | EditedVideo;
 
 const demoVideoSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -61,6 +61,27 @@ const avatarSchema = z.object({
   isPublished: z.boolean(),
 });
 
+const voiceSampleSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  description: z.string().optional(),
+  audioUrl: z.string().url("Must be a valid URL"),
+  language: z.string().min(1, "Language is required"),
+  gender: z.string().min(1, "Gender is required"),
+  accent: z.string().optional(),
+  ageRange: z.string().optional(),
+  isPublished: z.boolean(),
+});
+
+const editedVideoSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  description: z.string().optional(),
+  videoUrl: z.string().url("Must be a valid URL"),
+  thumbnailUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  clientName: z.string().optional(),
+  category: z.string().min(1, "Category is required"),
+  tags: z.string().optional(),
+  isPublished: z.boolean(),
+});
 
 export default function AdminPortfolio() {
   const [selectedCategory, setSelectedCategory] = useState<SampleCategory>('demo-videos');
@@ -104,6 +125,8 @@ export default function AdminPortfolio() {
     switch (selectedCategory) {
       case 'demo-videos': return demoVideoSchema;
       case 'avatars': return avatarSchema;
+      case 'voice-samples': return voiceSampleSchema;
+      case 'edited-videos': return editedVideoSchema;
       default: return demoVideoSchema;
     }
   };
@@ -117,9 +140,16 @@ export default function AdminPortfolio() {
       category: '',
       videoUrl: '',
       thumbnailUrl: '',
+      audioUrl: '',
+      imageUrl: '',
       gender: '',
+      language: '',
       ethnicity: '',
       ageRange: '',
+      accent: '',
+      clientName: '',
+      tags: '',
+      voicePreview: '',
       isPublished: false,
     },
   });
@@ -133,9 +163,16 @@ export default function AdminPortfolio() {
       category: '',
       videoUrl: '',
       thumbnailUrl: '',
+      audioUrl: '',
+      imageUrl: '',
       gender: '',
+      language: '',
       ethnicity: '',
       ageRange: '',
+      accent: '',
+      clientName: '',
+      tags: '',
+      voicePreview: '',
       isPublished: false,
     };
     form.reset(defaultValues);
@@ -243,6 +280,7 @@ export default function AdminPortfolio() {
   const renderFormFields = () => {
     switch (selectedCategory) {
       case 'demo-videos':
+      case 'edited-videos':
         return (
           <>
             <FormField
@@ -293,7 +331,8 @@ export default function AdminPortfolio() {
                   <FormControl>
                     <div className="flex gap-2">
                       <Input placeholder="https://... or upload video" {...field} />
-                      <ObjectUploader
+                      {selectedCategory === 'demo-videos' && (
+                        <ObjectUploader
                           maxNumberOfFiles={1}
                           maxFileSize={104857600} // 100MB
                           accept={['video/*', '.mp4', '.mov', '.avi', '.webm']}
@@ -373,6 +412,7 @@ export default function AdminPortfolio() {
                           <UploadIcon className="h-4 w-4 mr-2" />
                           Upload
                         </ObjectUploader>
+                      )}
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -392,6 +432,36 @@ export default function AdminPortfolio() {
                 </FormItem>
               )}
             />
+            {selectedCategory === 'edited-videos' && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="clientName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Client Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter client name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="tags"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Tags</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter tags (comma separated)" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
           </>
         );
       
@@ -501,6 +571,98 @@ export default function AdminPortfolio() {
           </>
         );
         
+      case 'voice-samples':
+        return (
+          <>
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter voice sample name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Enter voice description" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="audioUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Audio URL</FormLabel>
+                  <FormControl>
+                    <Input placeholder="https://..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="language"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Language</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g., English" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="gender"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Gender</FormLabel>
+                  <FormControl>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select gender" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="male">Male</SelectItem>
+                        <SelectItem value="female">Female</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="accent"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Accent</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g., American" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </>
+        );
       
       default:
         return null;
@@ -595,6 +757,8 @@ export default function AdminPortfolio() {
           <SelectContent>
             <SelectItem value="demo-videos">Demo Videos</SelectItem>
             <SelectItem value="avatars">Avatars</SelectItem>
+            <SelectItem value="voice-samples">Voice Samples</SelectItem>
+            <SelectItem value="edited-videos">Edited Videos</SelectItem>
           </SelectContent>
         </Select>
         
@@ -684,6 +848,16 @@ export default function AdminPortfolio() {
                   </span>
                 )}
                 
+                {selectedCategory === 'voice-samples' && (
+                  <>
+                    <span className="px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-800">
+                      {(sample as VoiceSample).language}
+                    </span>
+                    <span className="px-2 py-1 text-xs rounded-full bg-pink-100 text-pink-800">
+                      {(sample as VoiceSample).gender}
+                    </span>
+                  </>
+                )}
               </div>
               
               <div className="text-xs text-gray-500">
