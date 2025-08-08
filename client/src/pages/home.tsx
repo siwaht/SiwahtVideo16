@@ -5,8 +5,6 @@ import VideoAds from "@/components/services/video-ads";
 import Avatars from "@/components/services/avatars";
 import VoiceSynthesis from "@/components/services/voice-synthesis";
 import VideoEditing from "@/components/services/video-editing";
-import PortfolioSection from "@/components/portfolio-section";
-import { Video, User, Volume2, Edit } from "lucide-react";
 import PodcastProduction from "@/components/services/podcast-production";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
@@ -62,32 +60,6 @@ export default function Home() {
           <PodcastProduction />
         </section>
 
-        <section id="portfolio" className="w-full" aria-label="Our portfolio and samples">
-          <PortfolioSection 
-            category="demo-videos"
-            title="Demo Videos"
-            description="Watch our latest AI-generated video advertisements and promotional content"
-            icon={Video}
-          />
-          <PortfolioSection 
-            category="avatars"
-            title="AI Avatar Gallery"
-            description="Explore our collection of photorealistic AI avatars for any purpose"
-            icon={User}
-          />
-          <PortfolioSection 
-            category="voice-samples"
-            title="Voice Samples"
-            description="Listen to our natural-sounding AI voices in multiple languages"
-            icon={Volume2}
-          />
-          <PortfolioSection 
-            category="edited-videos"
-            title="Video Portfolio"
-            description="See our professional video editing and production work"
-            icon={Edit}
-          />
-        </section>
         
         <Contact />
       </main>
