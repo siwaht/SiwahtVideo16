@@ -76,12 +76,6 @@ export default function Home() {
             icon={User}
           />
           <PortfolioSection 
-            category="voice-samples"
-            title="Voice Samples"
-            description="Listen to our natural-sounding AI voices in multiple languages"
-            icon={Volume2}
-          />
-          <PortfolioSection 
             category="edited-videos"
             title="Video Portfolio"
             description="See our professional video editing and production work"
