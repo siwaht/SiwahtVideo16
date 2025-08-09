@@ -12,6 +12,8 @@ Siwaht is a comprehensive web application for AI-powered video and audio content
 - **Admin Panel Fixes**: Fixed Create Video button functionality by adding required category field validation
 - **Navigation Fix**: Resolved "Back to Site" button in admin layout with proper window.location navigation
 - **Content Display**: Fixed frontend service components to display newly added admin content with fresh data fetching
+- **Database Issues Fixed (August 2025)**: Resolved Neon database authentication failures by creating new PostgreSQL database and running migrations
+- **Admin Credentials Setup**: Created admin user with username "admin" and password "admin123" for system access
 
 # User Preferences
 
