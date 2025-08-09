@@ -357,7 +357,6 @@ export default function AdminDemoVideos() {
                             <ObjectUploader
                               maxNumberOfFiles={1}
                               maxFileSize={104857600} // 100MB
-                              allowedFileTypes={['video/*']}
                               onGetUploadParameters={handleVideoUpload}
                               onComplete={handleVideoUploadComplete}
                               buttonClassName="w-full"
