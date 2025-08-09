@@ -305,8 +305,8 @@ export default function AdminLayout({ user, onLogout, children }: AdminLayoutPro
 
         {/* Main Content */}
         <main className="flex-1 md:ml-64">
-          <div className="py-6">
-            <div className="mx-auto px-4 sm:px-6 md:px-8">
+          <div className="py-4 sm:py-6">
+            <div className="mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
               {children}
             </div>
           </div>

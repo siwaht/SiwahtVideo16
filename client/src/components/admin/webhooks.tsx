@@ -184,20 +184,20 @@ export default function WebhooksManagement() {
   }
 
   return (
-    <div className="space-y-6" data-testid="webhooks-management">
-      <div className="flex justify-between items-center">
+    <div className="space-y-4 sm:space-y-6" data-testid="webhooks-management">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Webhook Management</h1>
-          <p className="text-slate-600">Configure webhooks to receive contact form submissions and content updates in real-time</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Webhook Management</h1>
+          <p className="text-sm sm:text-base text-slate-600">Configure webhooks to receive contact form submissions and content updates in real-time</p>
         </div>
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogTrigger asChild>
-            <Button data-testid="button-create-webhook">
+            <Button data-testid="button-create-webhook" className="w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Create Webhook
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl">
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Create New Webhook</DialogTitle>
               <DialogDescription>

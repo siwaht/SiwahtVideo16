@@ -157,17 +157,17 @@ export default function AdminContacts() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Contact Submissions</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">Contact Submissions</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">
           Manage and respond to customer inquiries and contact form submissions.
         </p>
       </div>
 
       {/* Stats */}
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Contacts</CardTitle>
@@ -220,54 +220,55 @@ export default function AdminContacts() {
         <div className="grid gap-4">
           {contacts.map((contact) => (
             <Card key={contact.id} className="cursor-pointer hover:shadow-md transition-shadow">
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="flex items-center gap-2">
-                      <Users className="h-5 w-5" />
-                      {contact.name}
+              <CardHeader className="pb-3">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3">
+                  <div className="flex-1 min-w-0">
+                    <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                      <Users className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                      <span className="truncate">{contact.name}</span>
                     </CardTitle>
-                    <CardDescription className="flex items-center gap-4 mt-2">
-                      <span className="flex items-center gap-1">
-                        <Mail className="h-4 w-4" />
-                        {contact.email}
+                    <CardDescription className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mt-2">
+                      <span className="flex items-center gap-1 text-xs sm:text-sm">
+                        <Mail className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                        <span className="truncate">{contact.email}</span>
                       </span>
                       {contact.phone && (
-                        <span className="flex items-center gap-1">
-                          <Phone className="h-4 w-4" />
-                          {contact.phone}
+                        <span className="flex items-center gap-1 text-xs sm:text-sm">
+                          <Phone className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                          <span className="truncate">{contact.phone}</span>
                         </span>
                       )}
                       {contact.company && (
-                        <span className="flex items-center gap-1">
-                          <Building className="h-4 w-4" />
-                          {contact.company}
+                        <span className="flex items-center gap-1 text-xs sm:text-sm">
+                          <Building className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                          <span className="truncate">{contact.company}</span>
                         </span>
                       )}
                     </CardDescription>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Badge className={getStatusColor(contact.status)}>
+                  <div className="flex items-center gap-2 self-start">
+                    <Badge className={`${getStatusColor(contact.status)} text-xs`}>
                       {contact.status}
                     </Badge>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => setSelectedContact(contact)}
+                      className="h-8 w-8 p-0"
                     >
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+              <CardContent className="pt-0">
+                <p className="text-xs sm:text-sm text-muted-foreground mb-3 line-clamp-2">
                   {contact.message}
                 </p>
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                   <span className="text-xs text-muted-foreground flex items-center gap-1">
-                    <Clock className="h-3 w-3" />
-                    {formatDate(contact.submittedAt)}
+                    <Clock className="h-3 w-3 flex-shrink-0" />
+                    <span className="truncate">{formatDate(contact.submittedAt)}</span>
                   </span>
                   <div className="flex gap-2">
                     <select
@@ -278,7 +279,7 @@ export default function AdminContacts() {
                           status: e.target.value
                         });
                       }}
-                      className="text-xs border rounded px-2 py-1"
+                      className="text-xs border rounded px-2 py-1 bg-white min-w-0 flex-shrink-0"
                       disabled={updateStatusMutation.isPending}
                     >
                       <option value="new">New</option>

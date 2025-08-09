@@ -139,46 +139,54 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Overview</h1>
-          <p className="text-slate-600">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Overview</h1>
+          <p className="text-sm sm:text-base text-slate-600">
             Monitor your content and track engagement metrics
           </p>
         </div>
-        <div className="flex items-center gap-2 text-sm text-slate-500">
-          <Calendar className="h-4 w-4" />
-          {new Date().toLocaleDateString('en-US', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          })}
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-500">
+          <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
+          <span className="hidden sm:inline">
+            {new Date().toLocaleDateString('en-US', { 
+              weekday: 'long', 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </span>
+          <span className="sm:hidden">
+            {new Date().toLocaleDateString('en-US', { 
+              month: 'short', 
+              day: 'numeric' 
+            })}
+          </span>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
         {statCards.map((stat) => {
           const Icon = stat.icon;
           return (
             <Card key={stat.title} className="relative overflow-hidden border-0 shadow-sm hover:shadow-md transition-all duration-200">
               <div className={`absolute inset-0 ${stat.bgColor} opacity-50`} />
-              <CardContent className="relative p-6">
+              <CardContent className="relative p-4 sm:p-6">
                 <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-slate-600 mb-1">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium text-slate-600 mb-1 truncate">
                       {stat.title}
                     </p>
-                    <div className="text-3xl font-bold text-slate-900 mb-1">
+                    <div className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
                       {stat.value}
                     </div>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-500 truncate">
                       {stat.description}
                     </p>
                   </div>
-                  <div className={`${stat.bgColor} p-3 rounded-xl`}>
-                    <Icon className={`h-6 w-6 ${stat.color}`} />
+                  <div className={`${stat.bgColor} p-2 sm:p-3 rounded-xl flex-shrink-0 ml-2`}>
+                    <Icon className={`h-5 w-5 sm:h-6 sm:w-6 ${stat.color}`} />
                   </div>
                 </div>
               </CardContent>
@@ -188,7 +196,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Recent Activity */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
