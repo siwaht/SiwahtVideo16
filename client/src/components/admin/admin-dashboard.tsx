@@ -95,45 +95,66 @@ export default function AdminDashboard() {
 
   const statCards = [
     {
-      title: "Total Contacts",
+      title: "Contact Requests",
       value: stats?.totalContacts || 0,
       icon: Users,
-      description: "Contact submissions",
+      description: "New inquiries",
+      color: "text-blue-600",
+      bgColor: "bg-blue-50",
     },
     {
-      title: "Demo Videos",
+      title: "Video Ads",
       value: stats?.totalDemoVideos || 0,
       icon: Video,
-      description: "Showcase videos",
+      description: "Published videos",
+      color: "text-green-600",
+      bgColor: "bg-green-50",
     },
     {
       title: "AI Avatars",
       value: stats?.totalAvatars || 0,
       icon: UserCircle,
-      description: "Avatar profiles",
+      description: "Active avatars",
+      color: "text-purple-600",
+      bgColor: "bg-purple-50",
     },
     {
       title: "Voice Samples",
       value: stats?.totalVoiceSamples || 0,
       icon: Mic,
       description: "Audio samples",
+      color: "text-orange-600",
+      bgColor: "bg-orange-50",
     },
     {
-      title: "Edited Videos",
+      title: "Video Portfolio",
       value: stats?.totalEditedVideos || 0,
       icon: Film,
-      description: "Video portfolio",
+      description: "Edited videos",
+      color: "text-red-600",
+      bgColor: "bg-red-50",
     },
   ];
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">
-          Welcome to the SiwahtAI admin panel. Monitor your content and user engagement.
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">Overview</h1>
+          <p className="text-slate-600">
+            Monitor your content and track engagement metrics
+          </p>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-slate-500">
+          <Calendar className="h-4 w-4" />
+          {new Date().toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          })}
+        </div>
       </div>
 
       {/* Stats Cards */}
@@ -141,18 +162,25 @@ export default function AdminDashboard() {
         {statCards.map((stat) => {
           const Icon = stat.icon;
           return (
-            <Card key={stat.title}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {stat.title}
-                </CardTitle>
-                <Icon className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stat.value}</div>
-                <p className="text-xs text-muted-foreground">
-                  {stat.description}
-                </p>
+            <Card key={stat.title} className="relative overflow-hidden border-0 shadow-sm hover:shadow-md transition-all duration-200">
+              <div className={`absolute inset-0 ${stat.bgColor} opacity-50`} />
+              <CardContent className="relative p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-slate-600 mb-1">
+                      {stat.title}
+                    </p>
+                    <div className="text-3xl font-bold text-slate-900 mb-1">
+                      {stat.value}
+                    </div>
+                    <p className="text-xs text-slate-500">
+                      {stat.description}
+                    </p>
+                  </div>
+                  <div className={`${stat.bgColor} p-3 rounded-xl`}>
+                    <Icon className={`h-6 w-6 ${stat.color}`} />
+                  </div>
+                </div>
               </CardContent>
             </Card>
           );
