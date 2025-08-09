@@ -49,9 +49,11 @@ export default function WebhooksManagement() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: webhooks, isLoading } = useQuery({
+  const { data: webhooksResponse, isLoading } = useQuery({
     queryKey: ["/api/admin/webhooks"],
   });
+
+  const webhooks = webhooksResponse?.data || [];
 
   const createMutation = useMutation({
     mutationFn: async (data: WebhookFormData) => {
@@ -185,8 +187,8 @@ export default function WebhooksManagement() {
     <div className="space-y-6" data-testid="webhooks-management">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Webhooks Management</h1>
-          <p className="text-muted-foreground">Configure and manage webhook endpoints for real-time notifications</p>
+          <h1 className="text-2xl font-bold text-slate-900">Webhook Management</h1>
+          <p className="text-slate-600">Configure webhooks to receive contact form submissions and content updates in real-time</p>
         </div>
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogTrigger asChild>
@@ -347,7 +349,7 @@ export default function WebhooksManagement() {
       </div>
 
       <div className="grid gap-4">
-        {(!webhooks || webhooks.length === 0) ? (
+        {webhooks.length === 0 ? (
           <Card>
             <CardContent className="flex flex-col items-center justify-center py-16">
               <Settings className="w-12 h-12 text-muted-foreground mb-4" />
@@ -362,7 +364,7 @@ export default function WebhooksManagement() {
             </CardContent>
           </Card>
         ) : (
-          webhooks && webhooks.map((webhook: Webhook) => (
+          webhooks.map((webhook: Webhook) => (
             <Card key={webhook.id} data-testid={`webhook-card-${webhook.id}`}>
               <CardHeader>
                 <div className="flex justify-between items-start">

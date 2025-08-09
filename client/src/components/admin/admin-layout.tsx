@@ -69,6 +69,12 @@ const navigationItems = [
     icon: Radio,
     category: "content"
   },
+  {
+    label: "Webhooks",
+    href: "/admin/webhooks",
+    icon: Webhook,
+    category: "content"
+  },
 ];
 
 export default function AdminLayout({ user, onLogout, children }: AdminLayoutProps) {
