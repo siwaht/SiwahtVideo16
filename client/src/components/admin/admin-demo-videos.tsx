@@ -487,21 +487,25 @@ export default function AdminDemoVideos() {
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center">
+                <div className="space-y-3">
                   <div className="text-xs text-muted-foreground flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
-                    Order: {video.orderIndex}
+                    Order: {video.orderIndex} | Category: {video.category}
                   </div>
-                  <div className="flex gap-2">
+                  
+                  {/* Action Buttons - Large and Clear */}
+                  <div className="flex gap-2 w-full">
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
                       onClick={() => startEditing(video)}
+                      className="flex-1 gap-2 bg-blue-50 hover:bg-blue-100 border-blue-200"
                     >
                       <Edit className="h-4 w-4" />
+                      Edit Video
                     </Button>
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
                       onClick={() => {
                         if (confirm("Are you sure you want to delete this video?")) {
@@ -509,8 +513,10 @@ export default function AdminDemoVideos() {
                         }
                       }}
                       disabled={deleteVideoMutation.isPending}
+                      className="flex-1 gap-2 bg-red-50 hover:bg-red-100 border-red-200 text-red-700"
                     >
                       <Trash2 className="h-4 w-4" />
+                      Delete
                     </Button>
                   </div>
                 </div>
