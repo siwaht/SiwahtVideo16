@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Link } from "wouter";
 import { 
   Users, 
   Video, 
@@ -9,7 +11,10 @@ import {
   Film,
   TrendingUp,
   Calendar,
-  Activity
+  Activity,
+  Plus,
+  Radio,
+  Webhook
 } from "lucide-react";
 
 interface DashboardStats {
@@ -164,6 +169,75 @@ export default function AdminDashboard() {
           </span>
         </div>
       </div>
+
+      {/* Quick Actions */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Content Management</CardTitle>
+          <CardDescription>
+            Create and manage your AI content directly from here
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            <Link href="/admin/demo-videos">
+              <Button variant="outline" className="w-full justify-start h-auto p-4 hover:bg-blue-50">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-blue-100 rounded-lg">
+                    <Video className="h-4 w-4 text-blue-600" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium">Video Ads</div>
+                    <div className="text-xs text-muted-foreground">Add showcase videos</div>
+                  </div>
+                </div>
+              </Button>
+            </Link>
+            
+            <Link href="/admin/avatars">
+              <Button variant="outline" className="w-full justify-start h-auto p-4 hover:bg-purple-50">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-purple-100 rounded-lg">
+                    <UserCircle className="h-4 w-4 text-purple-600" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium">AI Avatars</div>
+                    <div className="text-xs text-muted-foreground">Manage avatars</div>
+                  </div>
+                </div>
+              </Button>
+            </Link>
+            
+            <Link href="/admin/voice-samples">
+              <Button variant="outline" className="w-full justify-start h-auto p-4 hover:bg-orange-50">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-orange-100 rounded-lg">
+                    <Mic className="h-4 w-4 text-orange-600" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium">Voice Samples</div>
+                    <div className="text-xs text-muted-foreground">Add voice content</div>
+                  </div>
+                </div>
+              </Button>
+            </Link>
+            
+            <Link href="/admin/edited-videos">
+              <Button variant="outline" className="w-full justify-start h-auto p-4 hover:bg-red-50">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-red-100 rounded-lg">
+                    <Film className="h-4 w-4 text-red-600" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium">Video Portfolio</div>
+                    <div className="text-xs text-muted-foreground">Show your work</div>
+                  </div>
+                </div>
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Stats Cards */}
       <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
