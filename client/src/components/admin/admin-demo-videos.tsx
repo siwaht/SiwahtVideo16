@@ -433,11 +433,17 @@ export default function AdminDemoVideos() {
 
       {/* Videos Grid */}
       {videos && videos.length > 0 ? (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {videos
-            .sort((a, b) => a.orderIndex - b.orderIndex)
-            .map((video) => (
-            <Card key={video.id}>
+        <div className="space-y-4">
+          <div className="bg-green-50 border border-green-200 rounded-md p-3 mb-4">
+            <p className="text-sm text-green-800">
+              <strong>{videos.length} videos found</strong> - Click the blue "Edit Video" or red "Delete" buttons below each video to manage them.
+            </p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {videos
+              .sort((a, b) => a.orderIndex - b.orderIndex)
+              .map((video) => (
+              <Card key={video.id} className="border-2 hover:border-blue-200 transition-colors">
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div>
@@ -497,32 +503,37 @@ export default function AdminDemoVideos() {
                   <div className="flex gap-2 w-full">
                     <Button
                       variant="outline"
-                      size="sm"
-                      onClick={() => startEditing(video)}
-                      className="flex-1 gap-2 bg-blue-50 hover:bg-blue-100 border-blue-200"
+                      size="default"
+                      onClick={() => {
+                        console.log("Edit button clicked for video:", video.id, video.title);
+                        startEditing(video);
+                      }}
+                      className="flex-1 gap-2 bg-blue-50 hover:bg-blue-100 border-blue-300 text-blue-700 font-medium py-3"
                     >
-                      <Edit className="h-4 w-4" />
+                      <Edit className="h-5 w-5" />
                       Edit Video
                     </Button>
                     <Button
                       variant="outline"
-                      size="sm"
+                      size="default"
                       onClick={() => {
-                        if (confirm("Are you sure you want to delete this video?")) {
+                        console.log("Delete button clicked for video:", video.id, video.title);
+                        if (confirm(`Are you sure you want to delete "${video.title}"? This action cannot be undone.`)) {
                           deleteVideoMutation.mutate(video.id);
                         }
                       }}
                       disabled={deleteVideoMutation.isPending}
-                      className="flex-1 gap-2 bg-red-50 hover:bg-red-100 border-red-200 text-red-700"
+                      className="flex-1 gap-2 bg-red-50 hover:bg-red-100 border-red-300 text-red-700 font-medium py-3"
                     >
-                      <Trash2 className="h-4 w-4" />
-                      Delete
+                      <Trash2 className="h-5 w-5" />
+                      {deleteVideoMutation.isPending ? "Deleting..." : "Delete"}
                     </Button>
                   </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
+            ))}
+          </div>
         </div>
       ) : (
         <Card>
