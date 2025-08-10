@@ -154,8 +154,8 @@ export default function VideoAds() {
                           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
                         )}
                         
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        <div className="relative z-10 h-full flex items-center justify-center">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div className="absolute inset-0 flex items-center justify-center z-10">
                           <div className="text-center text-white">
                             <div className="w-20 h-20 xs:w-24 xs:h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
                               <Play className="h-10 w-10 xs:h-12 xs:w-12 text-white fill-current" />
