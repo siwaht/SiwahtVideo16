@@ -119,7 +119,9 @@ export default function AdminDemoVideos() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/demo-videos"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/samples/demo-videos"] });
       setEditingVideo(null);
+      setIsCreating(false);
       form.reset();
       toast({
         title: "Video updated",

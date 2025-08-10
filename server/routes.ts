@@ -329,6 +329,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.patch("/api/admin/demo-videos/:id", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updates = req.body;
+      
+      const video = await storage.updateDemoVideo(id, updates);
+      res.json({
+        success: true,
+        data: video
+      });
+    } catch (error) {
+      console.error("Update demo video error:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Internal server error" 
+      });
+    }
+  });
+
   app.delete("/api/admin/demo-videos/:id", requireAuth, async (req, res) => {
     try {
       const { id } = req.params;
