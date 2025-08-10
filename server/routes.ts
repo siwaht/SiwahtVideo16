@@ -1039,6 +1039,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Serve static video files from public directory
+  const path = await import('path');
+  const express = await import('express');
+  app.use('/videos', express.static(path.join(process.cwd(), 'public/videos')));
+
   const httpServer = createServer(app);
   return httpServer;
 }
