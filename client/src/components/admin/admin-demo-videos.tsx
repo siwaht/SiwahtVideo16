@@ -199,16 +199,18 @@ export default function AdminDemoVideos() {
   };
 
   const startEditing = (video: DemoVideo) => {
+    console.log("Starting edit for video:", video);
     setEditingVideo(video);
+    setIsCreating(true);
     form.reset({
       title: video.title,
-      description: video.description,
+      description: video.description || "",
       category: video.category || "",
-      videoUrl: video.videoUrl,
+      videoUrl: video.videoUrl || "",
       thumbnailUrl: video.thumbnailUrl || "",
       isPublished: video.isPublished,
     });
-    setIsCreating(true);
+    console.log("Edit form should now be visible. isCreating:", true, "editingVideo:", video.id);
   };
 
   const cancelEditing = () => {
@@ -321,15 +323,15 @@ export default function AdminDemoVideos() {
 
       {/* Create/Edit Form */}
       {isCreating && (
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {editingVideo ? "Edit Demo Video" : "Add New Demo Video"}
+        <Card className="mb-6 border-2 border-blue-200 bg-blue-50/30">
+          <CardHeader className="bg-blue-50">
+            <CardTitle className="text-blue-900">
+              {editingVideo ? `Edit Video: ${editingVideo.title}` : "Add New Demo Video"}
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-blue-700">
               {editingVideo 
                 ? "Update the demo video details below."
-                : "Create a new demo video to showcase SiwahtAI capabilities."
+                : "Create a new demo video to showcase Siwaht capabilities."
               }
             </CardDescription>
           </CardHeader>
