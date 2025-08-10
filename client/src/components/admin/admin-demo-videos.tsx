@@ -27,7 +27,7 @@ import {
   Save,
   X
 } from "lucide-react";
-import { ObjectUploader } from "@/components/ObjectUploader";
+// import { ObjectUploader } from "@/components/ObjectUploader"; // Disabled for now
 
 type DemoVideoFormData = z.infer<typeof insertDemoVideoSchema>;
 
@@ -64,18 +64,22 @@ export default function AdminDemoVideos() {
     },
   });
 
-  const { data: videos, isLoading, error } = useQuery<DemoVideo[]>({
+  const { data: videoResponse, isLoading, error } = useQuery({
     queryKey: ["/api/admin/demo-videos"],
     staleTime: 0, // Always fetch fresh data
     refetchOnMount: true,
   });
+
+  // Extract videos from response
+  const videos = videoResponse?.data || [];
 
   // Debug logging
   console.log("Videos query state:", { 
     videos: videos?.length || 0, 
     isLoading, 
     error: error?.message,
-    data: videos 
+    rawResponse: videoResponse,
+    extractedVideos: videos
   });
 
   const createVideoMutation = useMutation({
@@ -386,27 +390,17 @@ export default function AdminDemoVideos() {
                     name="videoUrl"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Video URL</FormLabel>
-                        <div className="space-y-2">
-                          <FormControl>
-                            <Input 
-                              placeholder="https://youtube.com/watch?v=... or upload video below" 
-                              {...field} 
-                            />
-                          </FormControl>
-                          <div className="flex gap-2">
-                            <ObjectUploader
-                              maxNumberOfFiles={1}
-                              maxFileSize={104857600} // 100MB
-                              onGetUploadParameters={handleVideoUpload}
-                              onComplete={handleVideoUploadComplete}
-                              buttonClassName="w-full"
-                            >
-                              <Upload className="h-4 w-4 mr-2" />
-                              Upload Video
-                            </ObjectUploader>
-                          </div>
-                        </div>
+                        <FormLabel>Video URL *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="https://youtube.com/... or video URL (required)"
+                            {...field}
+                            value={field.value || ""}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          Enter YouTube URL, Vimeo URL, or other video URL
+                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
