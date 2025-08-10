@@ -65,8 +65,12 @@ export function ObjectUploader({
         getUploadParameters: onGetUploadParameters,
       })
       .on('complete', (result) => {
+        console.log('Upload complete:', result);
         onComplete?.(result);
         setShowModal(false);
+      })
+      .on('error', (error) => {
+        console.error('Upload error:', error);
       })
   );
 

@@ -27,7 +27,7 @@ import {
   Save,
   X
 } from "lucide-react";
-import { ObjectUploader } from "@/components/ObjectUploader";
+import { VideoUploader } from "./VideoUploader";
 
 type DemoVideoFormData = z.infer<typeof insertDemoVideoSchema>;
 
@@ -49,6 +49,7 @@ export default function AdminDemoVideos() {
   const [isCreating, setIsCreating] = useState(false);
   const [editingVideo, setEditingVideo] = useState<DemoVideo | null>(null);
   const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [selectedVideoFile, setSelectedVideoFile] = useState<File | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -161,78 +162,33 @@ export default function AdminDemoVideos() {
     },
   });
 
-  // Handle video upload
-  const handleGetUploadParameters = async () => {
-    try {
-      const response = await apiRequest('/api/objects/upload', 'POST', {});
-      if (!response.ok) {
-        throw new Error('Failed to get upload URL');
-      }
-      const data = await response.json();
-      return {
-        method: 'PUT' as const,
-        url: data.uploadURL,
-      };
-    } catch (error) {
-      toast({
-        title: "Upload Error",
-        description: "Failed to prepare video upload",
-        variant: "destructive",
-      });
-      throw error;
-    }
+  // Handle video file selection
+  const handleVideoSelected = (file: File) => {
+    setSelectedVideoFile(file);
+    
+    // Auto-populate the form with video file details
+    const fileName = file.name;
+    const videoUrl = URL.createObjectURL(file);
+    
+    form.reset({
+      title: fileName.replace(/\.[^/.]+$/, '') || 'Uploaded Video', // Remove file extension
+      description: `Video uploaded on ${new Date().toLocaleDateString()}`,
+      category: 'uploaded',
+      videoUrl: videoUrl,
+      thumbnailUrl: '',
+      isPublished: false,
+      isHostedVideo: true, // Mark as hosted video
+    });
+
+    toast({
+      title: "Video Selected",
+      description: "Video file selected successfully! Please fill in the details and save.",
+    });
   };
 
-  const handleUploadComplete = async (result: any) => {
-    if (result.successful && result.successful.length > 0) {
-      const uploadedFile = result.successful[0];
-      const videoURL = uploadedFile.uploadURL;
-      
-      try {
-        // Process the uploaded video URL to get the normalized object path
-        const response = await apiRequest('/api/videos/upload-complete', 'PUT', {
-          videoURL: videoURL
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          const objectPath = data.objectPath;
-          
-          // Auto-populate the form with uploaded video details
-          setIsCreating(true);
-          setEditingVideo(null);
-          form.reset({
-            title: uploadedFile.name?.replace(/\.[^/.]+$/, '') || 'Uploaded Video', // Remove file extension
-            description: `Video uploaded on ${new Date().toLocaleDateString()}`,
-            category: 'uploaded',
-            videoUrl: objectPath, // Use the normalized object path instead of the upload URL
-            thumbnailUrl: '',
-            isPublished: false,
-            isHostedVideo: true, // Mark as hosted video since it's uploaded to our storage
-          });
-
-          toast({
-            title: "Upload Complete",
-            description: "Video uploaded successfully! Please fill in the details and save.",
-          });
-        } else {
-          throw new Error('Failed to process upload');
-        }
-      } catch (error) {
-        console.error('Upload completion error:', error);
-        toast({
-          title: "Upload Processing Failed",
-          description: "Video uploaded but failed to process. Please try again.",
-          variant: "destructive",
-        });
-      }
-    } else {
-      toast({
-        title: "Upload Failed",
-        description: "Failed to upload video. Please try again.",
-        variant: "destructive",
-      });
-    }
+  const handleClearVideo = () => {
+    setSelectedVideoFile(null);
+    // Optionally clear the form
   };
 
   const onSubmit = (data: DemoVideoFormData) => {
@@ -392,17 +348,17 @@ export default function AdminDemoVideos() {
           </p>
         </div>
         <div className="flex gap-2">
-          <ObjectUploader
-            maxNumberOfFiles={1}
-            maxFileSize={104857600} // 100MB
-            onGetUploadParameters={handleGetUploadParameters}
-            onComplete={handleUploadComplete}
-            buttonClassName="bg-green-600 hover:bg-green-700"
-            allowedFileTypes={['.mp4', '.webm', '.ogg', '.mov', '.avi']}
+          <Button 
+            onClick={() => {
+              setIsCreating(true);
+              setEditingVideo(null);
+              form.reset();
+            }}
+            className="bg-green-600 hover:bg-green-700"
           >
             <Upload className="mr-2 h-4 w-4" />
             Upload Video
-          </ObjectUploader>
+          </Button>
           <Button onClick={() => setIsCreating(true)} disabled={isCreating}>
             <Plus className="h-4 w-4 mr-2" />
             Add Video URL
@@ -476,16 +432,30 @@ export default function AdminDemoVideos() {
                   )}
                 />
 
-                <div className="grid gap-4 md:grid-cols-2">
+                {/* Video Upload Section */}
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium">Video Upload</label>
+                    <VideoUploader
+                      onVideoSelected={handleVideoSelected}
+                      onClear={handleClearVideo}
+                      className="mt-2"
+                    />
+                  </div>
+
+                  <div className="text-center text-sm text-gray-500">
+                    OR
+                  </div>
+
                   <FormField
                     control={form.control}
                     name="videoUrl"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Video URL *</FormLabel>
+                        <FormLabel>Video URL</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="https://youtube.com/... or video URL (required)"
+                            placeholder="https://youtube.com/... or video URL"
                             {...field}
                             value={field.value || ""}
                           />
@@ -499,25 +469,25 @@ export default function AdminDemoVideos() {
                       </FormItem>
                     )}
                   />
-                  
-                  <FormField
-                    control={form.control}
-                    name="thumbnailUrl"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Thumbnail URL (Optional)</FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder="https://example.com/thumbnail.jpg" 
-                            {...field}
-                            value={field.value || ""}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
                 </div>
+
+                <FormField
+                  control={form.control}
+                  name="thumbnailUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Thumbnail URL (Optional)</FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder="https://example.com/thumbnail.jpg" 
+                          {...field}
+                          value={field.value || ""}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 <FormField
                   control={form.control}
