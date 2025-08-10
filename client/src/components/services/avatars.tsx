@@ -179,13 +179,13 @@ export default function Avatars() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                         
                         {/* Avatar Info */}
-                        <div className="absolute bottom-0 left-0 right-0 p-3 xs:p-4 text-white bg-gradient-to-t from-black/80 to-transparent">
-                          <h5 className="font-semibold text-sm xs:text-base sm:text-lg leading-tight drop-shadow-lg">{featuredAvatar.name}</h5>
+                        <div className="absolute bottom-0 left-0 right-0 p-3 text-white bg-gradient-to-t from-black/80 to-transparent">
+                          <h5 className="font-semibold text-lg leading-tight">{featuredAvatar.name}</h5>
                           {featuredAvatar.description && (
-                            <p className="text-xs xs:text-sm opacity-90 mt-1 line-clamp-2 leading-tight drop-shadow">{featuredAvatar.description}</p>
+                            <p className="text-sm opacity-90 mt-1 line-clamp-2 leading-tight">{featuredAvatar.description}</p>
                           )}
                           {featuredAvatar.videoUrl && !featuredAvatar.videoUrl.includes('youtu') && (
-                            <p className="text-xs opacity-80 mt-1 drop-shadow">🎬 Video Demo</p>
+                            <p className="text-xs opacity-75 mt-1">🎬 Video Demo</p>
                           )}
                         </div>
                       </>
@@ -196,7 +196,7 @@ export default function Avatars() {
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
                     
                     {/* Avatar Preview */}
-                    <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <div className="relative z-10 h-full flex items-center justify-center">
                       <div className="w-32 h-32 xs:w-40 xs:h-40 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-2xl floating-animation">
                         <User className="h-16 w-16 xs:h-20 xs:w-20 text-white" />
                       </div>
