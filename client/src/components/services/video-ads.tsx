@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Play, Target, Zap, Sparkles } from "lucide-react";
 import { VideoPlayer } from "@/components/ui/video-player";
+import { processVideoUrl, getPlatformName } from "@/lib/videoUtils";
 import type { DemoVideo } from "@shared/schema";
 
 export default function VideoAds() {
@@ -17,6 +18,9 @@ export default function VideoAds() {
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredVideo = publishedVideos[0];
 
+  // Process video URL for embedding
+  const processedVideo = featuredVideo?.videoUrl ? processVideoUrl(featuredVideo.videoUrl) : null;
+
   // Debug logging (remove in production)
   if (process.env.NODE_ENV === 'development') {
     console.log('Video Ads Debug:', { 
@@ -28,11 +32,11 @@ export default function VideoAds() {
       thumbnailUrl: featuredVideo?.thumbnailUrl || 'none',
       isLoading,
       error,
-      isYouTube: featuredVideo?.videoUrl?.includes('youtu') || false,
-      embedUrl: featuredVideo?.videoUrl ? featuredVideo.videoUrl
-        .replace('youtu.be/', 'youtube.com/embed/')
-        .replace('youtube.com/watch?v=', 'youtube.com/embed/')
-        .replace('https://youtube.com/embed/', 'https://www.youtube.com/embed/') : 'none'
+      processedVideo: processedVideo ? {
+        platform: processedVideo.platform,
+        canEmbed: processedVideo.canEmbed,
+        embedUrl: processedVideo.embedUrl
+      } : null
     });
   }
 
@@ -102,36 +106,37 @@ export default function VideoAds() {
 
 {featuredVideo ? (
                   <div className="relative">
-                    {/* Use custom video player for hosted videos with real URLs (but not YouTube) */}
-                    {featuredVideo.isHostedVideo && featuredVideo.videoUrl && 
-                     !featuredVideo.videoUrl.includes('example.com') && 
-                     !featuredVideo.videoUrl.includes('placeholder') &&
-                     !featuredVideo.videoUrl.includes('youtu') &&
-                     !featuredVideo.videoUrl.includes('youtube') ? (
-                      <VideoPlayer
-                        src={featuredVideo.videoUrl}
-                        poster={featuredVideo.thumbnailUrl || undefined}
-                        title={featuredVideo.title}
-                        className="rounded-xl shadow-2xl aspect-video"
-                        width="100%"
-                        height="auto"
-                        data-testid="featured-video-player"
-                      />
-                    ) : featuredVideo.videoUrl && (featuredVideo.videoUrl.includes('youtu') || featuredVideo.videoUrl.includes('youtube')) ? (
-                      // YouTube embed for backward compatibility
+                    {processedVideo && processedVideo.canEmbed ? (
                       <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
-                        <iframe
-                          src={featuredVideo.videoUrl
-                            .replace('youtu.be/', 'youtube.com/embed/')
-                            .replace('youtube.com/watch?v=', 'youtube.com/embed/')
-                            .replace('https://youtube.com/embed/', 'https://www.youtube.com/embed/')
-                          }
-                          className="w-full h-full border-0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          title={featuredVideo.title}
-                          data-testid="youtube-iframe"
-                        />
+                        {processedVideo.platform === 'direct' ? (
+                          // Direct video file (mp4, webm, etc.)
+                          <VideoPlayer
+                            src={processedVideo.embedUrl}
+                            poster={featuredVideo.thumbnailUrl || undefined}
+                            title={featuredVideo.title}
+                            className="w-full h-full rounded-xl"
+                            width="100%"
+                            height="auto"
+                            data-testid="direct-video-player"
+                          />
+                        ) : (
+                          // Embedded video (YouTube, Vimeo, Google Drive)
+                          <>
+                            <iframe
+                              src={processedVideo.embedUrl}
+                              className="w-full h-full border-0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                              title={featuredVideo.title}
+                              data-testid={`${processedVideo.platform}-iframe`}
+                            />
+                            <div className="absolute top-2 right-2 z-10">
+                              <span className="bg-black/70 text-white text-xs px-2 py-1 rounded">
+                                {getPlatformName(processedVideo.platform)}
+                              </span>
+                            </div>
+                          </>
+                        )}
                       </div>
                     ) : (
                       // Preview mode for videos without URLs or external videos
@@ -160,6 +165,11 @@ export default function VideoAds() {
                               <p className="text-xs opacity-70 mt-2 line-clamp-2 max-w-xs mx-auto">{featuredVideo.description}</p>
                             )}
                             <div className="text-xs opacity-60 mt-1">Category: {featuredVideo.category}</div>
+                            {processedVideo && !processedVideo.canEmbed && (
+                              <div className="text-xs opacity-80 mt-2 text-yellow-300">
+                                Unsupported video platform: {getPlatformName(processedVideo.platform)}
+                              </div>
+                            )}
                           </div>
                         </div>
                         

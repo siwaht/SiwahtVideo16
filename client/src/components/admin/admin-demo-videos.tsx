@@ -404,7 +404,9 @@ export default function AdminDemoVideos() {
                           />
                         </FormControl>
                         <FormDescription>
-                          Enter YouTube URL, Vimeo URL, or other video URL
+                          Supported: YouTube, Vimeo, Google Drive, direct video files (.mp4, .webm, .ogg)
+                          <br />
+                          Examples: https://youtu.be/ABC • https://vimeo.com/123 • https://drive.google.com/file/d/ID/view
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
