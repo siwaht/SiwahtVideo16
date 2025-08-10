@@ -86,13 +86,13 @@ export default function VideoEditing() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xs:gap-12 xl:gap-16 items-center">
           {/* Video Editor Preview */}
-          <aside className="relative order-1 lg:order-1">
-            <div className="bg-gradient-to-br from-orange-100 to-red-200 rounded-2xl p-4 xs:p-6 md:p-8 shadow-2xl">
-              <div className="bg-white rounded-xl p-4 xs:p-6 mb-4 xs:mb-6 shadow-lg">
-                <h4 className="font-semibold text-slate-900 mb-3 xs:mb-4 text-sm xs:text-base">AI Video Editor</h4>
+          <aside className="relative order-1 lg:order-1 w-full">
+            <div className="bg-gradient-to-br from-orange-100 to-red-200 rounded-2xl p-3 xs:p-4 sm:p-6 md:p-8 shadow-2xl">
+              <div className="bg-white rounded-xl p-3 xs:p-4 sm:p-6 mb-3 xs:mb-4 sm:mb-6 shadow-lg">
+                <h4 className="font-semibold text-slate-900 mb-2 xs:mb-3 sm:mb-4 text-base xs:text-lg sm:text-xl">AI Video Editor</h4>
 
 {featuredEditedVideo ? (
-                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden">
+                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
                     {/* Embed YouTube video if available */}
                     {featuredEditedVideo.videoUrl && featuredEditedVideo.videoUrl.includes('youtu') ? (
                       <iframe
@@ -132,41 +132,41 @@ export default function VideoEditing() {
                     {!(featuredEditedVideo.videoUrl && featuredEditedVideo.videoUrl.includes('youtu')) && (
                       <>
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        <div className="relative z-10 p-4 h-full flex flex-col justify-between">
+                        <div className="relative z-10 p-3 xs:p-4 sm:p-6 h-full flex flex-col justify-between">
                           {/* Video Info */}
                           <div className="text-white">
-                            <h5 className="font-semibold text-sm">{featuredEditedVideo.title}</h5>
+                            <h5 className="font-semibold text-sm xs:text-base sm:text-lg">{featuredEditedVideo.title}</h5>
                             {featuredEditedVideo.clientName && (
-                              <p className="text-xs opacity-80">Client: {featuredEditedVideo.clientName}</p>
+                              <p className="text-xs xs:text-sm opacity-80">Client: {featuredEditedVideo.clientName}</p>
                             )}
                             {featuredEditedVideo.videoUrl && !featuredEditedVideo.videoUrl.includes('youtu') && featuredEditedVideo.videoUrl.startsWith('http') && (
                               <a 
                                 href={featuredEditedVideo.videoUrl} 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-xs text-orange-300 hover:text-orange-200 underline"
+                                className="text-xs xs:text-sm text-orange-300 hover:text-orange-200 underline"
                               >
                                 View Video
                               </a>
                             )}
                             {featuredEditedVideo.videoUrl && !featuredEditedVideo.videoUrl.includes('youtu') && !featuredEditedVideo.videoUrl.startsWith('http') && (
-                              <p className="text-xs text-orange-300">🎬 Video Demo</p>
+                              <p className="text-xs xs:text-sm text-orange-300">🎬 Video Demo</p>
                             )}
                           </div>
                           
                           {/* Preview Screen */}
-                          <div className="bg-white/10 backdrop-blur-sm rounded p-2 text-center">
-                            <div className="w-8 h-8 xs:w-10 xs:h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1">
-                              <Scissors className="h-4 w-4 xs:h-5 xs:w-5 text-white" />
+                          <div className="bg-white/10 backdrop-blur-sm rounded p-2 xs:p-3 text-center">
+                            <div className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1">
+                              <Scissors className="h-5 w-5 xs:h-6 xs:w-6 sm:h-7 sm:w-7 text-white" />
                             </div>
-                            <p className="text-xs text-white/80">Professional Edit</p>
+                            <p className="text-xs xs:text-sm text-white/80">Professional Edit</p>
                           </div>
                         </div>
                       </>
                     )}
                   </div>
                 ) : (
-                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden">
+                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
                     <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20"></div>
                     <div className="relative z-10 p-4 h-full flex flex-col">
                       {/* Timeline */}
@@ -196,18 +196,18 @@ export default function VideoEditing() {
                 )}
               </div>
               
-              <div className="grid grid-cols-3 gap-2 xs:gap-3">
-                <div className="bg-white rounded-lg p-2 xs:p-3 shadow-md text-center">
+              <div className="grid grid-cols-3 gap-2 xs:gap-3 sm:gap-4">
+                <div className="bg-white rounded-lg p-2 xs:p-3 sm:p-4 shadow-md text-center">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Speed</div>
-                  <div className="text-sm xs:text-base font-bold text-orange-600">10x Faster</div>
+                  <div className="text-sm xs:text-base sm:text-lg font-bold text-orange-600">10x Faster</div>
                 </div>
-                <div className="bg-white rounded-lg p-2 xs:p-3 shadow-md text-center">
+                <div className="bg-white rounded-lg p-2 xs:p-3 sm:p-4 shadow-md text-center">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
-                  <div className="text-sm xs:text-base font-bold text-green-600">4K HDR</div>
+                  <div className="text-sm xs:text-base sm:text-lg font-bold text-green-600">4K HDR</div>
                 </div>
-                <div className="bg-white rounded-lg p-2 xs:p-3 shadow-md text-center">
+                <div className="bg-white rounded-lg p-2 xs:p-3 sm:p-4 shadow-md text-center">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Format</div>
-                  <div className="text-sm xs:text-base font-bold text-blue-600">Any</div>
+                  <div className="text-sm xs:text-base sm:text-lg font-bold text-blue-600">Any</div>
                 </div>
               </div>
             </div>
