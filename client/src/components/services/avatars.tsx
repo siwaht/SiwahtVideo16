@@ -126,7 +126,7 @@ export default function Avatars() {
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Avatar Studio</h4>
 
 {featuredAvatar ? (
-                  <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">
+                  <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl mx-auto max-w-md">
                     {/* Embed YouTube video if available */}
                     {featuredAvatar.videoUrl && featuredAvatar.videoUrl.includes('youtu') ? (
                       <iframe
@@ -143,11 +143,15 @@ export default function Avatars() {
                       <video 
                         src={featuredAvatar.videoUrl} 
                         poster={featuredAvatar.thumbnailUrl || undefined}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover rounded-xl"
                         autoPlay
                         muted
                         loop
                         playsInline
+                        style={{ 
+                          objectPosition: 'center center',
+                          aspectRatio: '1/1'
+                        }}
                         onError={(e) => {
                           console.log('Avatar video failed to load:', featuredAvatar.videoUrl);
                         }}
@@ -156,7 +160,11 @@ export default function Avatars() {
                       <img 
                         src={featuredAvatar.thumbnailUrl} 
                         alt={featuredAvatar.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover rounded-xl"
+                        style={{ 
+                          objectPosition: 'center center',
+                          aspectRatio: '1/1'
+                        }}
                         onError={(e) => {
                           console.log('Avatar thumbnail failed to load:', featuredAvatar.thumbnailUrl);
                         }}
@@ -171,10 +179,10 @@ export default function Avatars() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                         
                         {/* Avatar Info */}
-                        <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                          <h5 className="font-semibold text-lg">{featuredAvatar.name}</h5>
+                        <div className="absolute bottom-0 left-0 right-0 p-3 text-white bg-gradient-to-t from-black/80 to-transparent">
+                          <h5 className="font-semibold text-lg leading-tight">{featuredAvatar.name}</h5>
                           {featuredAvatar.description && (
-                            <p className="text-sm opacity-90 mt-1 line-clamp-2">{featuredAvatar.description}</p>
+                            <p className="text-sm opacity-90 mt-1 line-clamp-2 leading-tight">{featuredAvatar.description}</p>
                           )}
                           {featuredAvatar.videoUrl && !featuredAvatar.videoUrl.includes('youtu') && (
                             <p className="text-xs opacity-75 mt-1">🎬 Video Demo</p>
