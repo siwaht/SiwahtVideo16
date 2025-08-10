@@ -153,14 +153,6 @@ export default function VideoEditing() {
                               <p className="text-xs xs:text-sm text-orange-300 drop-shadow">🎬 Video Demo</p>
                             )}
                           </div>
-                          
-                          {/* Preview Screen */}
-                          <div className="bg-white/15 backdrop-blur-sm rounded-lg p-2 xs:p-3 text-center border border-white/20">
-                            <div className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1 shadow-lg">
-                              <Scissors className="h-5 w-5 xs:h-6 xs:w-6 sm:h-7 sm:w-7 text-white" />
-                            </div>
-                            <p className="text-xs xs:text-sm text-white/90 font-medium">Professional Edit</p>
-                          </div>
                         </div>
                       </>
                     )}
