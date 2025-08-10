@@ -321,16 +321,16 @@ export default function AdminDemoVideos() {
         </Button>
       </div>
 
-      {/* Create/Edit Form */}
-      {isCreating && (
-        <Card className="mb-6 border-2 border-blue-200 bg-blue-50/30">
-          <CardHeader className="bg-blue-50">
-            <CardTitle className="text-blue-900">
-              {editingVideo ? `Edit Video: ${editingVideo.title}` : "Add New Demo Video"}
+      {/* Create/Edit Form - ALWAYS VISIBLE WHEN isCreating IS TRUE */}
+      {isCreating ? (
+        <Card className="mb-6 border-4 border-blue-500 bg-blue-50 shadow-lg">
+          <CardHeader className="bg-blue-100">
+            <CardTitle className="text-blue-900 text-xl">
+              🎬 {editingVideo ? `EDITING: ${editingVideo.title}` : "ADD NEW VIDEO"}
             </CardTitle>
-            <CardDescription className="text-blue-700">
+            <CardDescription className="text-blue-700 font-medium">
               {editingVideo 
-                ? "Update the demo video details below."
+                ? `Updating video ID: ${editingVideo.id}`
                 : "Create a new demo video to showcase Siwaht capabilities."
               }
             </CardDescription>
@@ -467,14 +467,17 @@ export default function AdminDemoVideos() {
             </Form>
           </CardContent>
         </Card>
-      )}
+      ) : null}
 
       {/* Debug Info */}
       <div className="bg-blue-50 border border-blue-200 rounded-md p-3 mb-4">
         <p className="text-sm text-blue-800">
           <strong>Debug Info:</strong> Loading: {isLoading ? "Yes" : "No"} | 
           Videos found: {videos?.length || 0} | 
-          Error: {error ? (error as any).message || "Unknown error" : "None"}
+          Error: {error ? (error as any).message || "Unknown error" : "None"} |
+          <br />
+          <strong>Form State:</strong> isCreating: {isCreating ? "Yes" : "No"} | 
+          editingVideo: {editingVideo ? editingVideo.id : "None"}
         </p>
       </div>
 
