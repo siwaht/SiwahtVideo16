@@ -20,46 +20,35 @@ interface ObjectUploaderProps {
   ) => void;
   buttonClassName?: string;
   children: ReactNode;
-  accept?: string[];
+  allowedFileTypes?: string[];
 }
 
 /**
  * A file upload component that renders as a button and provides a modal interface for
- * file management.
+ * file management, specifically for video uploads.
  * 
  * Features:
  * - Renders as a customizable button that opens a file upload modal
- * - Provides a modal interface for:
- *   - File selection
- *   - File preview
- *   - Upload progress tracking
- *   - Upload status display
- * 
- * The component uses Uppy under the hood to handle all file upload functionality.
- * All file management features are automatically handled by the Uppy dashboard modal.
+ * - Provides a modal interface for file selection, preview, and upload progress
+ * - Supports video file uploads with progress tracking
  * 
  * @param props - Component props
- * @param props.maxNumberOfFiles - Maximum number of files allowed to be uploaded
- *   (default: 1)
- * @param props.maxFileSize - Maximum file size in bytes (default: 100MB for videos)
- * @param props.onGetUploadParameters - Function to get upload parameters (method and URL).
- *   Typically used to fetch a presigned URL from the backend server for direct-to-S3
- *   uploads.
- * @param props.onComplete - Callback function called when upload is complete. Typically
- *   used to make post-upload API calls to update server state and set object ACL
- *   policies.
+ * @param props.maxNumberOfFiles - Maximum number of files allowed to be uploaded (default: 1)
+ * @param props.maxFileSize - Maximum file size in bytes (default: 100MB for video)
+ * @param props.onGetUploadParameters - Function to get upload parameters (method and URL)
+ * @param props.onComplete - Callback function called when upload is complete
  * @param props.buttonClassName - Optional CSS class name for the button
  * @param props.children - Content to be rendered inside the button
- * @param props.accept - Array of accepted file types (e.g., ['video/*', '.mp4', '.mov'])
+ * @param props.allowedFileTypes - Allowed file types (default: video formats)
  */
 export function ObjectUploader({
   maxNumberOfFiles = 1,
-  maxFileSize = 104857600, // 100MB default for videos
+  maxFileSize = 104857600, // 100MB default for video files
   onGetUploadParameters,
   onComplete,
   buttonClassName,
   children,
-  accept = ['video/*'],
+  allowedFileTypes = ['.mp4', '.webm', '.ogg', '.mov', '.avi'],
 }: ObjectUploaderProps) {
   const [showModal, setShowModal] = useState(false);
   const [uppy] = useState(() =>
@@ -67,7 +56,7 @@ export function ObjectUploader({
       restrictions: {
         maxNumberOfFiles,
         maxFileSize,
-        allowedFileTypes: accept,
+        allowedFileTypes: allowedFileTypes.length > 0 ? allowedFileTypes : undefined,
       },
       autoProceed: false,
     })
@@ -75,7 +64,7 @@ export function ObjectUploader({
         shouldUseMultipart: false,
         getUploadParameters: onGetUploadParameters,
       })
-      .on("complete", (result) => {
+      .on('complete', (result) => {
         onComplete?.(result);
         setShowModal(false);
       })
@@ -83,7 +72,11 @@ export function ObjectUploader({
 
   return (
     <div>
-      <Button onClick={() => setShowModal(true)} className={buttonClassName}>
+      <Button 
+        onClick={() => setShowModal(true)} 
+        className={buttonClassName}
+        type="button"
+      >
         {children}
       </Button>
 

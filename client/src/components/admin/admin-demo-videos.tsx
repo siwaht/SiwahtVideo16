@@ -27,7 +27,7 @@ import {
   Save,
   X
 } from "lucide-react";
-// import { ObjectUploader } from "@/components/ObjectUploader"; // Disabled for now
+import { ObjectUploader } from "@/components/ObjectUploader";
 
 type DemoVideoFormData = z.infer<typeof insertDemoVideoSchema>;
 
@@ -160,6 +160,80 @@ export default function AdminDemoVideos() {
       });
     },
   });
+
+  // Handle video upload
+  const handleGetUploadParameters = async () => {
+    try {
+      const response = await apiRequest('/api/objects/upload', 'POST', {});
+      if (!response.ok) {
+        throw new Error('Failed to get upload URL');
+      }
+      const data = await response.json();
+      return {
+        method: 'PUT' as const,
+        url: data.uploadURL,
+      };
+    } catch (error) {
+      toast({
+        title: "Upload Error",
+        description: "Failed to prepare video upload",
+        variant: "destructive",
+      });
+      throw error;
+    }
+  };
+
+  const handleUploadComplete = async (result: any) => {
+    if (result.successful && result.successful.length > 0) {
+      const uploadedFile = result.successful[0];
+      const videoURL = uploadedFile.uploadURL;
+      
+      try {
+        // Process the uploaded video URL to get the normalized object path
+        const response = await apiRequest('/api/videos/upload-complete', 'PUT', {
+          videoURL: videoURL
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          const objectPath = data.objectPath;
+          
+          // Auto-populate the form with uploaded video details
+          setIsCreating(true);
+          setEditingVideo(null);
+          form.reset({
+            title: uploadedFile.name?.replace(/\.[^/.]+$/, '') || 'Uploaded Video', // Remove file extension
+            description: `Video uploaded on ${new Date().toLocaleDateString()}`,
+            category: 'uploaded',
+            videoUrl: objectPath, // Use the normalized object path instead of the upload URL
+            thumbnailUrl: '',
+            isPublished: false,
+            isHostedVideo: true, // Mark as hosted video since it's uploaded to our storage
+          });
+
+          toast({
+            title: "Upload Complete",
+            description: "Video uploaded successfully! Please fill in the details and save.",
+          });
+        } else {
+          throw new Error('Failed to process upload');
+        }
+      } catch (error) {
+        console.error('Upload completion error:', error);
+        toast({
+          title: "Upload Processing Failed",
+          description: "Video uploaded but failed to process. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } else {
+      toast({
+        title: "Upload Failed",
+        description: "Failed to upload video. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
 
   const onSubmit = (data: DemoVideoFormData) => {
     console.log("Form submitted with data:", data);
@@ -317,10 +391,23 @@ export default function AdminDemoVideos() {
             Manage showcase videos that demonstrate SiwahtAI capabilities.
           </p>
         </div>
-        <Button onClick={() => setIsCreating(true)} disabled={isCreating}>
-          <Plus className="h-4 w-4 mr-2" />
-          Add Video
-        </Button>
+        <div className="flex gap-2">
+          <ObjectUploader
+            maxNumberOfFiles={1}
+            maxFileSize={104857600} // 100MB
+            onGetUploadParameters={handleGetUploadParameters}
+            onComplete={handleUploadComplete}
+            buttonClassName="bg-green-600 hover:bg-green-700"
+            allowedFileTypes={['.mp4', '.webm', '.ogg', '.mov', '.avi']}
+          >
+            <Upload className="mr-2 h-4 w-4" />
+            Upload Video
+          </ObjectUploader>
+          <Button onClick={() => setIsCreating(true)} disabled={isCreating}>
+            <Plus className="h-4 w-4 mr-2" />
+            Add Video URL
+          </Button>
+        </div>
       </div>
 
       {/* Create/Edit Form - ALWAYS VISIBLE WHEN isCreating IS TRUE */}
