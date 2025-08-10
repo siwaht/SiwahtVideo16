@@ -64,14 +64,14 @@ export default function AdminDemoVideos() {
     },
   });
 
-  const { data: videoResponse, isLoading, error } = useQuery({
+  const { data: videoResponse, isLoading, error } = useQuery<{success: boolean, data: DemoVideo[]}>({
     queryKey: ["/api/admin/demo-videos"],
     staleTime: 0, // Always fetch fresh data
     refetchOnMount: true,
   });
 
   // Extract videos from response
-  const videos = videoResponse?.data || [];
+  const videos: DemoVideo[] = videoResponse?.data || [];
 
   // Debug logging
   console.log("Videos query state:", { 
@@ -288,13 +288,14 @@ export default function AdminDemoVideos() {
   }
 
   if (error) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
     return (
       <div className="flex items-center justify-center py-12">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle className="text-center text-destructive">Error Loading Videos</CardTitle>
             <CardDescription className="text-center">
-              Unable to load demo videos. Please try refreshing the page.
+              Unable to load demo videos. Error: {errorMessage}
             </CardDescription>
           </CardHeader>
         </Card>
@@ -471,7 +472,7 @@ export default function AdminDemoVideos() {
         <p className="text-sm text-blue-800">
           <strong>Debug Info:</strong> Loading: {isLoading ? "Yes" : "No"} | 
           Videos found: {videos?.length || 0} | 
-          Error: {error ? error.message : "None"}
+          Error: {error ? (error as any).message || "Unknown error" : "None"}
         </p>
       </div>
 
@@ -485,8 +486,8 @@ export default function AdminDemoVideos() {
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {videos
-              .sort((a, b) => a.orderIndex - b.orderIndex)
-              .map((video) => (
+              .sort((a: DemoVideo, b: DemoVideo) => a.orderIndex - b.orderIndex)
+              .map((video: DemoVideo) => (
               <Card key={video.id} className="border-2 hover:border-blue-200 transition-colors">
               <CardHeader>
                 <div className="flex justify-between items-start">
