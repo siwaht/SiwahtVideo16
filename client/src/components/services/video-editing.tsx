@@ -105,6 +105,19 @@ export default function VideoEditing() {
                         allowFullScreen
                         title={featuredEditedVideo.title}
                       />
+                    ) : featuredEditedVideo.videoUrl ? (
+                      <video 
+                        src={featuredEditedVideo.videoUrl} 
+                        poster={featuredEditedVideo.thumbnailUrl || undefined}
+                        className="w-full h-full object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        onError={(e) => {
+                          console.log('Edited video failed to load:', featuredEditedVideo.videoUrl);
+                        }}
+                      />
                     ) : featuredEditedVideo.thumbnailUrl ? (
                       <img 
                         src={featuredEditedVideo.thumbnailUrl} 
@@ -115,7 +128,7 @@ export default function VideoEditing() {
                       <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20"></div>
                     )}
                     
-                    {/* Only show overlay if no video embed */}
+                    {/* Only show overlay if not a YouTube video */}
                     {!(featuredEditedVideo.videoUrl && featuredEditedVideo.videoUrl.includes('youtu')) && (
                       <>
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -126,7 +139,7 @@ export default function VideoEditing() {
                             {featuredEditedVideo.clientName && (
                               <p className="text-xs opacity-80">Client: {featuredEditedVideo.clientName}</p>
                             )}
-                            {featuredEditedVideo.videoUrl && (
+                            {featuredEditedVideo.videoUrl && !featuredEditedVideo.videoUrl.includes('youtu') && featuredEditedVideo.videoUrl.startsWith('http') && (
                               <a 
                                 href={featuredEditedVideo.videoUrl} 
                                 target="_blank" 
@@ -135,6 +148,9 @@ export default function VideoEditing() {
                               >
                                 View Video
                               </a>
+                            )}
+                            {featuredEditedVideo.videoUrl && !featuredEditedVideo.videoUrl.includes('youtu') && !featuredEditedVideo.videoUrl.startsWith('http') && (
+                              <p className="text-xs text-orange-300">🎬 Video Demo</p>
                             )}
                           </div>
                           
