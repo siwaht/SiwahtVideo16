@@ -66,6 +66,16 @@ export default function AdminDemoVideos() {
 
   const { data: videos, isLoading, error } = useQuery<DemoVideo[]>({
     queryKey: ["/api/admin/demo-videos"],
+    staleTime: 0, // Always fetch fresh data
+    refetchOnMount: true,
+  });
+
+  // Debug logging
+  console.log("Videos query state:", { 
+    videos: videos?.length || 0, 
+    isLoading, 
+    error: error?.message,
+    data: videos 
   });
 
   const createVideoMutation = useMutation({
@@ -146,6 +156,37 @@ export default function AdminDemoVideos() {
   });
 
   const onSubmit = (data: DemoVideoFormData) => {
+    console.log("Form submitted with data:", data);
+    console.log("Form errors:", form.formState.errors);
+    
+    // Validate required fields
+    if (!data.title?.trim()) {
+      toast({
+        title: "Validation Error",
+        description: "Title is required",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (!data.category?.trim()) {
+      toast({
+        title: "Validation Error", 
+        description: "Category is required",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (!data.videoUrl?.trim()) {
+      toast({
+        title: "Validation Error",
+        description: "Video URL is required",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (editingVideo) {
       updateVideoMutation.mutate({ id: editingVideo.id, data });
     } else {
@@ -430,6 +471,15 @@ export default function AdminDemoVideos() {
           </CardContent>
         </Card>
       )}
+
+      {/* Debug Info */}
+      <div className="bg-blue-50 border border-blue-200 rounded-md p-3 mb-4">
+        <p className="text-sm text-blue-800">
+          <strong>Debug Info:</strong> Loading: {isLoading ? "Yes" : "No"} | 
+          Videos found: {videos?.length || 0} | 
+          Error: {error ? error.message : "None"}
+        </p>
+      </div>
 
       {/* Videos Grid */}
       {videos && videos.length > 0 ? (
