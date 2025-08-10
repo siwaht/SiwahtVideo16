@@ -14,10 +14,11 @@ Siwaht is a comprehensive web application for AI-powered video and audio content
 - **Content Display**: Fixed frontend service components to display newly added admin content with fresh data fetching
 - **Database Issues Fixed (August 2025)**: Resolved Neon database authentication failures by creating new PostgreSQL database and running migrations
 - **Admin Credentials Setup**: Created admin user with username "admin" and password "admin123" for system access
-- **Video Content Addition (August 2025)**: Added IKEA demo video and Artisan Baker avatar to showcase sections
+- **Video Content Addition (August 2025)**: Added showcase videos across multiple sections
   - IKEA Demo: Professional furniture showcase video in Video Ads section
   - Artisan Baker Avatar: Professional artisan baker demonstrating craftsmanship in Avatars section
-  - Both videos stored locally and accessible via /videos/ route
+  - Dairy Farmer Documentary: Cinematic documentary-style video in Video Editing section
+  - All videos stored locally and accessible via /videos/ route
 - **Admin Panel Redesign (August 2025)**: Complete redesign with minimalistic, well-organized interface
   - Clean navigation organized into "Overview" and "Content Management" sections
   - Streamlined menu with logical grouping of features
