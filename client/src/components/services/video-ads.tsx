@@ -110,7 +110,7 @@ export default function VideoAds() {
                       <div className="video-container bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl">
                         {processedVideo.platform === 'direct' ? (
                           // Direct video file (mp4, webm, etc.)
-                          <div className="video-player-wrapper">
+                          (<div className="video-player-wrapper">
                             <VideoPlayer
                               src={processedVideo.embedUrl}
                               poster={featuredVideo.thumbnailUrl || undefined}
@@ -121,10 +121,10 @@ export default function VideoAds() {
                               gifLike={true}
                               data-testid="direct-video-player"
                             />
-                          </div>
+                          </div>)
                         ) : (
                           // Embedded video (YouTube, Vimeo, Google Drive)
-                          <>
+                          (<>
                             <iframe
                               src={processedVideo.embedUrl}
                               className="w-full h-full border-0"
@@ -138,12 +138,12 @@ export default function VideoAds() {
                                 {getPlatformName(processedVideo.platform)}
                               </span>
                             </div>
-                          </>
+                          </>)
                         )}
                       </div>
                     ) : (
                       // Preview mode for videos without URLs or external videos
-                      <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
+                      (<div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
                         {featuredVideo.thumbnailUrl ? (
                           <img 
                             src={featuredVideo.thumbnailUrl} 
@@ -156,7 +156,6 @@ export default function VideoAds() {
                         ) : (
                           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
                         )}
-                        
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                         <div className="relative z-10 h-full flex items-center justify-center">
                           <div className="text-center text-white">
@@ -175,14 +174,13 @@ export default function VideoAds() {
                             )}
                           </div>
                         </div>
-                        
                         {/* Video Timeline */}
                         <div className="absolute bottom-4 left-4 right-4">
                           <div className="bg-white/20 backdrop-blur-sm rounded-full h-2 overflow-hidden">
                             <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-full w-1/3 rounded-full"></div>
                           </div>
                         </div>
-                      </div>
+                      </div>)
                     )}
                   </div>
                 ) : (
@@ -211,7 +209,7 @@ export default function VideoAds() {
               <div className="grid grid-cols-3 gap-3 sm:gap-4">
                 <div className="glass-card p-3 sm:p-4 text-center hover-lift">
                   <div className="text-xs sm:text-sm font-medium text-slate-600 mb-1">Duration</div>
-                  <div className="text-sm sm:text-base font-bold text-blue-600">30-60s</div>
+                  <div className="text-sm sm:text-base font-bold text-blue-600">08-10s</div>
                 </div>
                 <div className="glass-card p-3 sm:p-4 text-center hover-lift">
                   <div className="text-xs sm:text-sm font-medium text-slate-600 mb-1">Quality</div>
