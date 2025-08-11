@@ -137,43 +137,7 @@ export default function VideoEditing() {
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20"></div>
                     )}
-                    
-                    {/* Only show overlay if not a YouTube video */}
-                    {!(featuredEditedVideo.videoUrl && featuredEditedVideo.videoUrl.includes('youtu')) && (
-                      <>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                        <div className="relative z-10 p-3 xs:p-4 sm:p-6 h-full flex flex-col justify-between">
-                          {/* Video Info */}
-                          <div className="text-white">
-                            <h5 className="font-semibold text-sm xs:text-base sm:text-lg">{featuredEditedVideo.title}</h5>
-                            {featuredEditedVideo.clientName && (
-                              <p className="text-xs xs:text-sm opacity-80">Client: {featuredEditedVideo.clientName}</p>
-                            )}
-                            {featuredEditedVideo.videoUrl && !featuredEditedVideo.videoUrl.includes('youtu') && featuredEditedVideo.videoUrl.startsWith('http') && (
-                              <a 
-                                href={featuredEditedVideo.videoUrl} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="text-xs xs:text-sm text-orange-300 hover:text-orange-200 underline"
-                              >
-                                View Video
-                              </a>
-                            )}
-                            {featuredEditedVideo.videoUrl && !featuredEditedVideo.videoUrl.includes('youtu') && !featuredEditedVideo.videoUrl.startsWith('http') && (
-                              <p className="text-xs xs:text-sm text-orange-300">🎬 Video Demo</p>
-                            )}
-                          </div>
-                          
-                          {/* Preview Screen */}
-                          <div className="bg-white/10 backdrop-blur-sm rounded p-2 xs:p-3 text-center">
-                            <div className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1">
-                              <Scissors className="h-5 w-5 xs:h-6 xs:w-6 sm:h-7 sm:w-7 text-white" />
-                            </div>
-                            <p className="text-xs xs:text-sm text-white/80">Professional Edit</p>
-                          </div>
-                        </div>
-                      </>
-                    )}
+
                   </div>
                 ) : (
                   <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
