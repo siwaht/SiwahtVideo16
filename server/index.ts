@@ -25,6 +25,9 @@ app.use("/audio", express.static(audioPath, {
     if (filePath.endsWith('.mp3')) {
       res.setHeader('Content-Type', 'audio/mpeg');
       res.setHeader('Accept-Ranges', 'bytes');
+    } else if (filePath.endsWith('.aac')) {
+      res.setHeader('Content-Type', 'audio/aac');
+      res.setHeader('Accept-Ranges', 'bytes');
     }
   }
 }));

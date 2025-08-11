@@ -77,10 +77,10 @@ export default function VoiceSynthesis() {
             id="voice-synthesis-heading"
             className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-6 sm:mb-8 text-shadow"
           >
-            <span className="gradient-text">Voice Synthesis</span>
+            <span className="gradient-text">Your Brand's Voice, Understood Everywhere</span>
           </h2>
           <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed">
-            Transform text into lifelike speech with AI-powered voice generation. Perfect for any audio content needs.
+            Don't let language be a barrier to your growth. We craft compelling, professionally translated voice ads that resonate with customers worldwide.
           </p>
         </header>
 
@@ -89,7 +89,7 @@ export default function VoiceSynthesis() {
           <aside className="relative order-1 lg:order-1">
             <div className="service-preview from-emerald-100 via-teal-100 to-cyan-100">
               <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8">
-                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Voice Portfolio</h4>
+                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl">Professional Multilingual Voice Ads</h4>
 
 
                 {publishedVoices && publishedVoices.length > 0 ? (
@@ -129,72 +129,20 @@ export default function VoiceSynthesis() {
                         
                         {voice.audioUrl && (
                           <div className="mt-3">
-                            {voice.audioUrl.includes('soundcloud.com') ? (
-                              <iframe
-                                width="100%"
-                                height="120"
-                                scrolling="no"
-                                frameBorder="no"
-                                allow="autoplay"
-                                src={voice.audioUrl.includes('/embed/') 
-                                  ? voice.audioUrl 
-                                  : `https://w.soundcloud.com/player/?url=${encodeURIComponent(voice.audioUrl)}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`
-                                }
-                                className="rounded-lg w-full min-h-[120px]"
-                                title={voice.name}
-                              />
-                            ) : voice.audioUrl.includes('spotify.com') ? (
-                              <iframe
-                                src={voice.audioUrl.includes('/embed/') 
-                                  ? voice.audioUrl 
-                                  : voice.audioUrl.replace('spotify.com/track/', 'open.spotify.com/embed/track/')
-                                }
-                                width="100%"
-                                height="120"
-                                frameBorder="0"
-                                allowTransparency={true}
-                                allow="encrypted-media"
-                                className="rounded-lg w-full min-h-[120px]"
-                                title={voice.name}
-                              />
-                            ) : voice.audioUrl.includes('youtube.com') || voice.audioUrl.includes('youtu.be') ? (
-                              <iframe
-                                width="100%"
-                                height="120"
-                                src={voice.audioUrl
-                                  .replace('youtu.be/', 'youtube.com/embed/')
-                                  .replace('youtube.com/watch?v=', 'youtube.com/embed/')
-                                }
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                className="rounded-lg w-full min-h-[120px]"
-                                title={voice.name}
-                              />
-                            ) : voice.audioUrl.includes('.mp3') || voice.audioUrl.includes('.wav') || voice.audioUrl.includes('.m4a') || voice.audioUrl.includes('.ogg') ? (
-                              <audio controls className="w-full h-10 rounded-lg bg-slate-50 border border-slate-200">
+                            <div className="bg-slate-50 p-2 rounded-lg">
+                              <audio 
+                                controls 
+                                className="w-full"
+                                preload="metadata"
+                                style={{ height: '40px' }}
+                              >
                                 <source src={voice.audioUrl} type="audio/mpeg" />
+                                <source src={voice.audioUrl} type="audio/aac" />
                                 <source src={voice.audioUrl} type="audio/wav" />
                                 <source src={voice.audioUrl} type="audio/mp4" />
-                                <source src={voice.audioUrl} type="audio/ogg" />
                                 Your browser does not support the audio element.
                               </audio>
-                            ) : (
-                              <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 text-center">
-                                <p className="text-sm text-orange-700 mb-2">External Audio Link</p>
-                                <a 
-                                  href={voice.audioUrl} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="text-orange-600 hover:text-orange-800 underline text-sm font-medium inline-flex items-center gap-1"
-                                >
-                                  🎵 Listen on External Platform
-                                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                  </svg>
-                                </a>
-                              </div>
-                            )}
+                            </div>
                           </div>
                         )}
                       </div>
