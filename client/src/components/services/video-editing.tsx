@@ -1,9 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import { Scissors, Layers, Zap, Sparkles } from "lucide-react";
+import { Scissors, Layers, Zap, Sparkles, Volume2, VolumeX } from "lucide-react";
+import { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
 import type { EditedVideo } from "@shared/schema";
 import { VideoPlayer } from "@/components/ui/video-player";
 
 export default function VideoEditing() {
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   // Fetch edited videos from API
   const { data: editedVideos = [], isLoading, error } = useQuery<EditedVideo[]>({
     queryKey: ['/api/samples/edited-videos'],
@@ -27,6 +32,13 @@ export default function VideoEditing() {
       error 
     });
   }
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
@@ -107,13 +119,14 @@ export default function VideoEditing() {
                         title={featuredEditedVideo.title}
                       />
                     ) : featuredEditedVideo.videoUrl ? (
-                      <div className="video-player-wrapper">
+                      <div className="video-player-wrapper relative">
                         <video 
+                          ref={videoRef}
                           src={featuredEditedVideo.videoUrl} 
                           poster={featuredEditedVideo.thumbnailUrl || undefined}
                           className="w-full h-full object-cover"
                           autoPlay
-                          muted
+                          muted={isMuted}
                           loop
                           playsInline
                           controls={false}
@@ -127,6 +140,23 @@ export default function VideoEditing() {
                             console.log('Video can play:', featuredEditedVideo.videoUrl);
                           }}
                         />
+                        
+                        {/* Mute Button for Video Editing video */}
+                        <div className="absolute top-3 right-3 opacity-80 hover:opacity-100 transition-opacity z-10">
+                          <Button
+                            onClick={toggleMute}
+                            size="sm"
+                            variant="ghost"
+                            className="rounded-full w-10 h-10 bg-black/40 hover:bg-black/60 text-white border-0 p-0"
+                            data-testid="editing-mute-button"
+                          >
+                            {isMuted ? (
+                              <VolumeX className="h-4 w-4" />
+                            ) : (
+                              <Volume2 className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
                       </div>
                     ) : featuredEditedVideo.thumbnailUrl ? (
                       <img 

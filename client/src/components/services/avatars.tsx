@@ -1,8 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { User, Sparkles, Settings, Download } from "lucide-react";
+import { User, Sparkles, Settings, Download, Volume2, VolumeX } from "lucide-react";
+import { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
 import type { Avatar } from "@shared/schema";
 
 export default function Avatars() {
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   // Fetch avatars from API
   const { data: avatars = [], isLoading, error } = useQuery<Avatar[]>({
     queryKey: ['/api/samples/avatars'],
@@ -26,6 +31,13 @@ export default function Avatars() {
       error 
     });
   }
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
@@ -140,19 +152,37 @@ export default function Avatars() {
                         title={featuredAvatar.name}
                       />
                     ) : featuredAvatar.videoUrl ? (
-                      <div className="video-player-wrapper">
+                      <div className="video-player-wrapper relative">
                         <video 
+                          ref={videoRef}
                           src={featuredAvatar.videoUrl} 
                           poster={featuredAvatar.thumbnailUrl || undefined}
                           className="w-full h-full object-cover"
                           autoPlay
-                          muted
+                          muted={isMuted}
                           loop
                           playsInline
                           onError={(e) => {
                             console.log('Avatar video failed to load:', featuredAvatar.videoUrl);
                           }}
                         />
+                        
+                        {/* Mute Button for Avatar video */}
+                        <div className="absolute top-3 right-3 opacity-80 hover:opacity-100 transition-opacity z-10">
+                          <Button
+                            onClick={toggleMute}
+                            size="sm"
+                            variant="ghost"
+                            className="rounded-full w-10 h-10 bg-black/40 hover:bg-black/60 text-white border-0 p-0"
+                            data-testid="avatar-mute-button"
+                          >
+                            {isMuted ? (
+                              <VolumeX className="h-4 w-4" />
+                            ) : (
+                              <Volume2 className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
                       </div>
                     ) : featuredAvatar.thumbnailUrl ? (
                       <img 
