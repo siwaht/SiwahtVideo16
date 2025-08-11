@@ -118,6 +118,7 @@ export default function VideoAds() {
                               className="w-full h-full rounded-xl"
                               width="100%"
                               height="100%"
+                              gifLike={true}
                               data-testid="direct-video-player"
                             />
                           </div>

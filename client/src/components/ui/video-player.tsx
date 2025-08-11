@@ -14,6 +14,7 @@ interface VideoPlayerProps {
   controls?: boolean;
   width?: string | number;
   height?: string | number;
+  gifLike?: boolean; // Play like a GIF: autoplay, loop, muted, no controls
 }
 
 export function VideoPlayer({
@@ -26,15 +27,21 @@ export function VideoPlayer({
   controls = true,
   width = "100%",
   height = "auto",
+  gifLike = false,
 }: VideoPlayerProps) {
+  // Override props when in GIF-like mode
+  const isGifLike = gifLike;
+  const shouldAutoPlay = isGifLike || autoPlay;
+  const shouldMute = isGifLike || muted;
+  const shouldShowControls = !isGifLike && controls;
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(muted);
+  const [isPlaying, setIsPlaying] = useState(shouldAutoPlay);
+  const [isMuted, setIsMuted] = useState(shouldMute);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(1);
+  const [volume, setVolume] = useState(shouldMute ? 0 : 1);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showControls, setShowControls] = useState(true);
+  const [showControls, setShowControls] = useState(shouldShowControls);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
@@ -204,11 +211,13 @@ export function VideoPlayer({
         ref={videoRef}
         src={src}
         poster={poster}
-        autoPlay={autoPlay}
-        muted={muted}
+        autoPlay={shouldAutoPlay}
+        muted={shouldMute}
+        loop={isGifLike}
         className="w-full h-full object-cover"
-        onClick={togglePlay}
+        onClick={isGifLike ? undefined : togglePlay}
         data-testid="video-element"
+        playsInline
       />
 
       {/* Loading State */}
@@ -221,8 +230,8 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* Play Button Overlay */}
-      {!isPlaying && !isLoading && (
+      {/* Play Button Overlay - only show if not in GIF-like mode */}
+      {!isGifLike && !isPlaying && !isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/30">
           <Button
             onClick={togglePlay}
@@ -235,8 +244,8 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* Custom Controls */}
-      {controls && (
+      {/* Custom Controls - only show if shouldShowControls is true */}
+      {shouldShowControls && (
         <div
           className={cn(
             "absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity duration-300",
