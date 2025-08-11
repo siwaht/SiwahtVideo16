@@ -92,7 +92,7 @@ export default function VideoEditing() {
                 <h4 className="font-semibold text-slate-900 mb-2 xs:mb-3 sm:mb-4 text-base xs:text-lg sm:text-xl">AI Video Editor</h4>
 
 {featuredEditedVideo ? (
-                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px] flex items-center justify-center">
+                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
                     {/* Embed YouTube video if available */}
                     {featuredEditedVideo.videoUrl && featuredEditedVideo.videoUrl.includes('youtu') ? (
                       <iframe
@@ -100,7 +100,7 @@ export default function VideoEditing() {
                           .replace('youtu.be/', 'youtube.com/embed/')
                           .replace('youtube.com/watch?v=', 'youtube.com/embed/')
                         }
-                        className="w-full h-full border-0"
+                        className="absolute inset-0 w-full h-full border-0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         title={featuredEditedVideo.title}
@@ -109,7 +109,7 @@ export default function VideoEditing() {
                       <video 
                         src={featuredEditedVideo.videoUrl} 
                         poster={featuredEditedVideo.thumbnailUrl || undefined}
-                        className="w-full h-full object-cover rounded-lg"
+                        className="absolute inset-0 w-full h-full object-cover"
                         style={{
                           objectPosition: 'center center'
                         }}
@@ -125,7 +125,7 @@ export default function VideoEditing() {
                       <img 
                         src={featuredEditedVideo.thumbnailUrl} 
                         alt={featuredEditedVideo.title}
-                        className="w-full h-full object-cover rounded-lg"
+                        className="absolute inset-0 w-full h-full object-cover"
                         style={{
                           objectPosition: 'center center'
                         }}
@@ -172,7 +172,7 @@ export default function VideoEditing() {
                     )}
                   </div>
                 ) : (
-                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px] flex items-center justify-center">
+                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
                     <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20"></div>
                     <div className="relative z-10 p-4 h-full flex flex-col">
                       {/* Timeline */}
