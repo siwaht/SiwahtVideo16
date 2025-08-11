@@ -18,6 +18,17 @@ app.use("/videos", express.static(videosPath, {
   }
 }));
 
+// Serve static audio files
+const audioPath = path.resolve(import.meta.dirname, "..", "public", "audio");
+app.use("/audio", express.static(audioPath, {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.mp3')) {
+      res.setHeader('Content-Type', 'audio/mpeg');
+      res.setHeader('Accept-Ranges', 'bytes');
+    }
+  }
+}));
+
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;

@@ -460,6 +460,20 @@ class MemStorage implements IStorage {
           orderIndex: 1,
           createdAt: new Date("2025-01-26"),
           updatedAt: new Date("2025-01-26"),
+        },
+        {
+          id: "7f8e9d0c-1a2b-3c4d-5e6f-789012345678",
+          title: "Fasten Your Nightmares",
+          description: "Forget ghosts and ghouls; the real horror is at 30,000 feet, and it's asking for a pen.",
+          audioUrl: "/audio/fasten-your-nightmares.mp3",
+          category: "comedy",
+          duration: "Short Episode",
+          hostName: null,
+          guestName: null,
+          isPublished: true,
+          orderIndex: 2,
+          createdAt: new Date("2025-08-11"),
+          updatedAt: new Date("2025-08-11"),
         }
       ];
     }
