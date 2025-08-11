@@ -221,7 +221,7 @@ export default function Avatars() {
                 </div>
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Styles</div>
-                  <div className="text-sm xs:text-base font-bold text-emerald-600">∞</div>
+                  <div className="text-sm xs:text-base font-bold text-emerald-600">500+</div>
                 </div>
               </div>
             </div>
