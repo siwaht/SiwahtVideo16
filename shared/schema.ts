@@ -18,19 +18,7 @@ export const contactSubmissions = pgTable("contact_submissions", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-// Admin users table
-export const adminUsers = pgTable("admin_users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  username: text("username").notNull().unique(),
-  email: text("email").notNull().unique(),
-  passwordHash: text("password_hash").notNull(),
-  fullName: text("full_name").notNull(),
-  role: text("role").default("admin").notNull(), // admin, super_admin
-  isActive: boolean("is_active").default(true).notNull(),
-  lastLoginAt: timestamp("last_login_at"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+
 
 // Demo videos table
 export const demoVideos = pgTable("demo_videos", {
@@ -113,57 +101,7 @@ export const podcastSamples = pgTable("podcast_samples", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-// Session storage table for admin authentication
-export const sessions = pgTable("sessions", {
-  sid: varchar("sid").primaryKey(),
-  sess: jsonb("sess").notNull(),
-  expire: timestamp("expire").notNull(),
-});
 
-// Webhooks table
-export const webhooks = pgTable("webhooks", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull(),
-  url: text("url").notNull(),
-  method: text("method").notNull().default("POST"),
-  events: text("events").array().notNull(),
-  headers: jsonb("headers"),
-  secret: text("secret"),
-  isActive: boolean("is_active").default(true).notNull(),
-  retryCount: integer("retry_count").default(3).notNull(),
-  timeout: integer("timeout").default(5000).notNull(),
-  lastTriggered: timestamp("last_triggered"),
-  lastStatus: text("last_status"),
-  totalCalls: integer("total_calls").default(0).notNull(),
-  successRate: integer("success_rate").default(100).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
-
-// MCP Servers table
-export const mcpServers = pgTable("mcp_servers", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull(),
-  description: text("description"),
-  endpoint: text("endpoint").notNull(),
-  protocol: text("protocol").notNull().default("https"),
-  authentication: text("authentication").notNull().default("none"),
-  credentials: text("credentials"),
-  capabilities: text("capabilities").array().notNull(),
-  config: jsonb("config"),
-  isActive: boolean("is_active").default(true).notNull(),
-  timeout: integer("timeout").default(10000).notNull(),
-  maxRetries: integer("max_retries").default(3).notNull(),
-  healthCheckInterval: integer("health_check_interval").default(60000).notNull(),
-  status: text("status").default("offline").notNull(),
-  lastHealthCheck: timestamp("last_health_check"),
-  uptime: integer("uptime").default(0).notNull(),
-  requestCount: integer("request_count").default(0).notNull(),
-  errorCount: integer("error_count").default(0).notNull(),
-  avgResponseTime: integer("avg_response_time").default(0).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
 
 // Insert schemas
 export const insertContactSubmissionSchema = createInsertSchema(contactSubmissions).omit({
@@ -172,13 +110,7 @@ export const insertContactSubmissionSchema = createInsertSchema(contactSubmissio
   updatedAt: true,
 });
 
-export const insertAdminUserSchema = createInsertSchema(adminUsers).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-  lastLoginAt: true,
-});
-
+// Export type definitions only for public-facing content
 export const insertDemoVideoSchema = createInsertSchema(demoVideos).omit({
   id: true,
   createdAt: true,
@@ -214,34 +146,9 @@ export const insertPodcastSampleSchema = createInsertSchema(podcastSamples).omit
   orderIndex: true,
 });
 
-export const insertWebhookSchema = createInsertSchema(webhooks).omit({
-  id: true,
-  lastTriggered: true,
-  lastStatus: true,
-  totalCalls: true,
-  successRate: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const insertMCPServerSchema = createInsertSchema(mcpServers).omit({
-  id: true,
-  status: true,
-  lastHealthCheck: true,
-  uptime: true,
-  requestCount: true,
-  errorCount: true,
-  avgResponseTime: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
 // Type exports
 export type InsertContactSubmission = z.infer<typeof insertContactSubmissionSchema>;
 export type ContactSubmission = typeof contactSubmissions.$inferSelect;
-
-export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
-export type AdminUser = typeof adminUsers.$inferSelect;
 
 export type InsertDemoVideo = z.infer<typeof insertDemoVideoSchema>;
 export type DemoVideo = typeof demoVideos.$inferSelect;
@@ -257,9 +164,3 @@ export type EditedVideo = typeof editedVideos.$inferSelect;
 
 export type InsertPodcastSample = z.infer<typeof insertPodcastSampleSchema>;
 export type PodcastSample = typeof podcastSamples.$inferSelect;
-
-export type InsertWebhook = z.infer<typeof insertWebhookSchema>;
-export type Webhook = typeof webhooks.$inferSelect;
-
-export type InsertMCPServer = z.infer<typeof insertMCPServerSchema>;
-export type MCPServer = typeof mcpServers.$inferSelect;
