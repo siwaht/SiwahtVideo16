@@ -123,7 +123,7 @@ export default function Contact() {
             <span className="gradient-text">Get Started Today</span>
           </h2>
           <p className="text-xl xs:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed px-2">
-            Ready to transform your ideas with AI? Let's discuss your project and create something amazing together.
+            Ready to bring your vision to life? Our AI experts are here to discuss your project and deliver exceptional results tailored to your needs.
           </p>
         </header>
 

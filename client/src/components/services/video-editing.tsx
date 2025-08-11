@@ -214,7 +214,7 @@ export default function VideoEditing() {
                 data-testid="editing-cta"
                 aria-label="Start AI video editing"
               >
-                Start Editing Videos
+                Request Our Services
               </button>
             </div>
           </div>

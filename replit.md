@@ -32,11 +32,18 @@ Siwaht is a comprehensive web application for AI-powered video and audio content
   - Implemented consistent container-custom utility for responsive padding
   - Enhanced mobile touch interactions and simplified breakpoint structure
   - Improved site performance through code cleanup and reduced bundle size
+- **Agency Positioning Update (August 2025)**: Transformed messaging to reflect Siwaht as a professional service provider
+  - Updated hero section: "Your Vision, Our AI Expertise" emphasizing professional partnership
+  - Changed call-to-action buttons from self-service ("Create", "Generate") to service-oriented ("Get Quote", "Order Services", "Start Your Project")
+  - Revised feature descriptions to use agency language ("We create", "Our team designs", "We deliver")
+  - Updated navigation and contact messaging to reflect consultation and custom services
+  - Modified page metadata to position as "Professional AI Video & Audio Creation Agency"
 
 # User Preferences
 
 Preferred communication style: Simple, everyday language.
 Brand name: "Siwaht" (not "SiwahtAI")
+Business model: Professional AI agency providing custom video, avatar, and audio services (not a self-service tool)
 
 # System Architecture
 

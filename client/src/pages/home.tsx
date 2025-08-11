@@ -12,22 +12,22 @@ import Footer from "@/components/footer";
 export default function Home() {
   useEffect(() => {
     // Set page metadata for SEO
-    document.title = "Siwaht - AI-Powered Video & Audio Content Creation Services";
+    document.title = "Siwaht - Professional AI Video & Audio Creation Agency";
     
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Transform your ideas into professional videos, realistic AI avatars, and premium audio content with Siwaht\'s cutting-edge artificial intelligence technology. Get started today.');
+      metaDescription.setAttribute('content', 'Professional AI agency specializing in custom video ads, realistic avatars, and premium audio content. We transform your brand vision into compelling content using cutting-edge AI technology.');
     } else {
       const meta = document.createElement('meta');
       meta.name = 'description';
-      meta.content = 'Transform your ideas into professional videos, realistic AI avatars, and premium audio content with Siwaht\'s cutting-edge artificial intelligence technology. Get started today.';
+      meta.content = 'Professional AI agency specializing in custom video ads, realistic avatars, and premium audio content. We transform your brand vision into compelling content using cutting-edge AI technology.';
       document.head.appendChild(meta);
     }
 
     // Add Open Graph meta tags
     const ogTags = [
-      { property: 'og:title', content: 'Siwaht - AI-Powered Video & Audio Content Creation' },
-      { property: 'og:description', content: 'Professional AI video creation, realistic avatars, and voice synthesis services.' },
+      { property: 'og:title', content: 'Siwaht - Professional AI Video & Audio Creation Agency' },
+      { property: 'og:description', content: 'We specialize in creating custom AI video ads, realistic avatars, and premium audio content for businesses and brands.' },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: window.location.href }
     ];

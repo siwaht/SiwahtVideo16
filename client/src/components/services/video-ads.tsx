@@ -52,29 +52,29 @@ export default function VideoAds() {
       icon: Play,
       iconColor: "text-blue-600",
       bgColor: "bg-blue-100",
-      title: "AI-Powered Creation",
-      description: "Generate compelling video ads in minutes using advanced AI that understands your brand and audience."
+      title: "Custom AI Video Production",
+      description: "Our team creates compelling video ads tailored to your brand using advanced AI and creative expertise."
     },
     {
       icon: Target,
       iconColor: "text-green-600",
       bgColor: "bg-green-100",
       title: "Targeted Messaging",
-      description: "Create personalized ad content that resonates with specific demographics and customer segments."
+      description: "We craft personalized ad content that resonates with your specific demographics and customer segments."
     },
     {
       icon: Zap,
       iconColor: "text-yellow-600",
       bgColor: "bg-yellow-100",
-      title: "Rapid Production",
-      description: "From concept to finished ad in under 10 minutes. Perfect for fast-paced marketing campaigns."
+      title: "Fast Turnaround",
+      description: "From concept to finished ad delivered quickly. Perfect for fast-paced marketing campaigns and tight deadlines."
     },
     {
       icon: Sparkles,
       iconColor: "text-purple-600",
       bgColor: "bg-purple-100",
-      title: "Professional Quality",
-      description: "Studio-quality output with professional editing, transitions, and effects automatically applied."
+      title: "Studio-Quality Results",
+      description: "Professional editing, transitions, and effects delivered by our expert team using cutting-edge AI technology."
     }
   ];
 
@@ -93,7 +93,7 @@ export default function VideoAds() {
             <span className="gradient-text">AI Video Ads</span>
           </h2>
           <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed">
-            Create high-converting video advertisements with AI-powered automation. From script to screen in minutes.
+            Professional AI video advertisement services that convert. Our expert team transforms your vision into compelling video content.
           </p>
         </header>
 
@@ -254,7 +254,7 @@ export default function VideoAds() {
                 data-testid="video-ads-cta"
                 aria-label="Start creating AI video ads"
               >
-                Create Video Ads
+                Start Your Project
               </button>
             </div>
           </div>

@@ -283,7 +283,7 @@ export default function VoiceSynthesis() {
                 data-testid="voice-synthesis-cta"
                 aria-label="Start creating voice synthesis"
               >
-                Generate Voices
+                Order Voice Services
               </button>
             </div>
           </div>

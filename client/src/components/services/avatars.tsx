@@ -40,28 +40,28 @@ export default function Avatars() {
       iconColor: "text-blue-600",
       bgColor: "bg-blue-100",
       title: "Photorealistic Generation",
-      description: "Create incredibly lifelike avatars with advanced AI that captures human expressions and characteristics."
+      description: "We create incredibly lifelike avatars using advanced AI that captures authentic human expressions and characteristics."
     },
     {
       icon: Sparkles,
       iconColor: "text-purple-600",
       bgColor: "bg-purple-100",
       title: "Custom Personalities",
-      description: "Design unique character traits, emotions, and speaking styles that perfectly match your brand or vision."
+      description: "Our team designs unique character traits, emotions, and speaking styles that perfectly match your brand or vision."
     },
     {
       icon: Settings,
       iconColor: "text-emerald-600",
       bgColor: "bg-emerald-100",
       title: "Advanced Customization",
-      description: "Fine-tune every detail from facial features to clothing, ensuring your avatar meets exact specifications."
+      description: "We fine-tune every detail from facial features to clothing, ensuring your avatar meets your exact specifications."
     },
     {
       icon: Download,
       iconColor: "text-orange-600",
       bgColor: "bg-orange-100",
       title: "Multiple Formats",
-      description: "Export your avatars in various formats for use across different platforms and applications."
+      description: "We deliver your avatars in various formats optimized for your specific platforms and applications."
     }
   ];
 
@@ -114,7 +114,7 @@ export default function Avatars() {
                 data-testid="avatars-cta"
                 aria-label="Start creating realistic avatars"
               >
-                Create Avatars
+                Order Custom Avatars
               </button>
             </div>
           </div>

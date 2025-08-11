@@ -92,7 +92,7 @@ export default function Navigation() {
                 className="bg-gradient-to-r from-primary to-secondary text-white px-4 xl:px-6 py-2 xl:py-3 rounded-lg hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 font-medium text-sm xl:text-base shadow-md hover:shadow-xl hover:-translate-y-0.5 hover:scale-105"
                 data-testid="nav-contact"
               >
-                Get Started
+                Get Quote
               </button>
             </div>
           </div>
@@ -137,7 +137,7 @@ export default function Navigation() {
                   className="block w-full bg-gradient-to-r from-primary to-secondary text-white px-4 py-3 rounded-lg hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 font-medium text-center touch-action-optimization min-h-[44px] shadow-lg hover:shadow-xl"
                   data-testid="mobile-nav-contact"
                 >
-                  Get Started
+                  Get Quote
                 </button>
               </div>
             </div>

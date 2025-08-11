@@ -117,7 +117,7 @@ export default function PodcastProduction() {
                 data-testid="podcast-cta"
                 aria-label="Start podcast production"
               >
-                Start Your Podcast
+                Launch Your Podcast
               </button>
             </div>
           </div>

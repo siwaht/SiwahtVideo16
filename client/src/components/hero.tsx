@@ -32,13 +32,13 @@ export default function Hero() {
       <div className="container-custom relative z-10 hero-content">
         <div className="text-center animate-fade-in">
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 sm:mb-6 leading-tight">
-            Create with{" "}
+            Your Vision, Our{" "}
             <span className="gradient-text block sm:inline">
-              AI Power
+              AI Expertise
             </span>
           </h1>
           <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed">
-            Transform your ideas into stunning videos, realistic avatars, and premium audio content with our cutting-edge AI technology.
+            Professional AI agency specializing in custom video ads, realistic avatars, and premium audio content. We bring your brand to life with cutting-edge technology.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-8 sm:mb-12">
@@ -48,7 +48,7 @@ export default function Hero() {
               data-testid="hero-start-creating"
               aria-label="Start creating with Siwaht"
             >
-              Start Creating Now
+              Get Your Quote
             </button>
             <button 
               onClick={scrollToServices}
@@ -57,7 +57,7 @@ export default function Hero() {
               aria-label="Learn about our services"
             >
               <Play className="h-5 w-5" />
-              Explore Services
+              View Our Work
             </button>
           </div>
         </div>
