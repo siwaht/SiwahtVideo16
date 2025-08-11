@@ -284,6 +284,25 @@ export function VideoPlayer({
         </div>
       )}
 
+      {/* Mute Button for GIF-like videos - always visible */}
+      {isGifLike && (
+        <div className="absolute top-3 right-3 opacity-80 hover:opacity-100 transition-opacity">
+          <Button
+            onClick={toggleMute}
+            size="sm"
+            variant="ghost"
+            className="rounded-full w-10 h-10 bg-black/40 hover:bg-black/60 text-white border-0 p-0"
+            data-testid="gif-mute-button"
+          >
+            {isMuted ? (
+              <VolumeX className="h-4 w-4" />
+            ) : (
+              <Volume2 className="h-4 w-4" />
+            )}
+          </Button>
+        </div>
+      )}
+
       {/* Custom Controls - only show if shouldShowControls is true */}
       {shouldShowControls && (
         <div
