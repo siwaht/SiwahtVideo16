@@ -216,8 +216,8 @@ export default function VideoAds() {
                   <div className="text-sm sm:text-base font-bold text-green-600">4K</div>
                 </div>
                 <div className="glass-card p-3 sm:p-4 text-center hover-lift">
-                  <div className="text-xs sm:text-sm font-medium text-slate-600 mb-1">Speed</div>
-                  <div className="text-sm sm:text-base font-bold text-purple-600">10 min</div>
+                  <div className="text-xs sm:text-sm font-medium text-slate-600 mb-1">Delivery</div>
+                  <div className="text-sm sm:text-base font-bold text-purple-600">48 Hours</div>
                 </div>
               </div>
             </div>

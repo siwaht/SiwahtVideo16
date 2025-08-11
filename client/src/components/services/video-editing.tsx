@@ -172,8 +172,8 @@ export default function VideoEditing() {
               
               <div className="grid grid-cols-3 gap-2 xs:gap-3 sm:gap-4">
                 <div className="bg-white rounded-lg p-2 xs:p-3 sm:p-4 shadow-md text-center">
-                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Speed</div>
-                  <div className="text-sm xs:text-base sm:text-lg font-bold text-orange-600">10x Faster</div>
+                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Turnaround</div>
+                  <div className="text-sm xs:text-base sm:text-lg font-bold text-orange-600">72 Hours</div>
                 </div>
                 <div className="bg-white rounded-lg p-2 xs:p-3 sm:p-4 shadow-md text-center">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
