@@ -115,35 +115,30 @@ export const insertDemoVideoSchema = createInsertSchema(demoVideos).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
-  orderIndex: true,
 });
 
 export const insertAvatarSchema = createInsertSchema(avatars).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
-  orderIndex: true,
 });
 
 export const insertVoiceSampleSchema = createInsertSchema(voiceSamples).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
-  orderIndex: true,
 });
 
 export const insertEditedVideoSchema = createInsertSchema(editedVideos).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
-  orderIndex: true,
 });
 
 export const insertPodcastSampleSchema = createInsertSchema(podcastSamples).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
-  orderIndex: true,
 });
 
 // Type exports

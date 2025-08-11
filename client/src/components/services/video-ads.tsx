@@ -194,7 +194,7 @@ export default function VideoAds() {
                           <Play className="h-10 w-10 sm:h-12 sm:w-12 text-white fill-current" />
                         </div>
                         <p className="text-sm sm:text-base opacity-90 font-semibold">AI Video Preview</p>
-                        <p className="text-xs opacity-70 mt-2">Upload videos in admin panel to showcase here</p>
+                        <p className="text-xs opacity-70 mt-2">Professional video content showcases will appear here</p>
                       </div>
                     </div>
                     

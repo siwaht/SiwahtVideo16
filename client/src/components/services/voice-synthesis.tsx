@@ -209,7 +209,7 @@ export default function VoiceSynthesis() {
                           <Volume2 className="h-10 w-10 xs:h-12 xs:w-12 text-white" />
                         </div>
                         <p className="text-sm xs:text-base opacity-90 font-semibold">AI Voice Portfolio</p>
-                        <p className="text-xs opacity-70 mt-2">Upload voice samples in admin panel to showcase here</p>
+                        <p className="text-xs opacity-70 mt-2">Professional voice synthesis showcases will appear here</p>
                       </div>
                     </div>
                     

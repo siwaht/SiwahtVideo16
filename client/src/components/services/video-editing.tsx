@@ -163,7 +163,7 @@ export default function VideoEditing() {
                         <div className="w-8 h-8 xs:w-10 xs:h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1">
                           <Scissors className="h-4 w-4 xs:h-5 xs:w-5 text-white" />
                         </div>
-                        <p className="text-xs text-white/80">Upload edited videos in admin panel to showcase here</p>
+                        <p className="text-xs text-white/80">Professional edited video content showcases will appear here</p>
                       </div>
                     </div>
                   </div>

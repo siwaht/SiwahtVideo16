@@ -195,7 +195,7 @@ export default function Avatars() {
                         <User className="h-16 w-16 xs:h-20 xs:w-20 text-white" />
                       </div>
                       <div className="absolute bottom-4 left-4 right-4 text-center">
-                        <p className="text-slate-600 text-sm">Upload avatars in admin panel to showcase here</p>
+                        <p className="text-slate-600 text-sm">Professional avatar showcases will appear here</p>
                       </div>
                     </div>
                   </div>
