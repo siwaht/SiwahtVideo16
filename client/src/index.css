@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -65,55 +63,26 @@
     overflow-x: hidden;
   }
 
-  /* Touch-friendly scrolling for mobile */
-  @media (max-width: 768px) {
-    * {
-      -webkit-tap-highlight-color: transparent;
-    }
-    
-    body {
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-    }
+  /* Mobile optimization */
+  * {
+    -webkit-tap-highlight-color: transparent;
   }
   
-  /* Mobile-first responsive improvements */
-  @media (max-width: 640px) {
-    .btn-primary, .btn-secondary {
-      @apply px-6 py-3 text-base;
-    }
-    
-    .feature-card {
-      @apply p-4;
-    }
-    
-    .service-preview {
-      @apply p-4;
-    }
-    
-    /* Ensure full width on mobile forms */
-    .contact-form input, .contact-form textarea, .contact-form select {
-      width: 100% !important;
-    }
-    
-    /* Better mobile typography */
-    h1 { @apply leading-tight; }
-    h2 { @apply leading-tight; }
-    h3 { @apply leading-tight; }
-    
-    /* Optimize mobile spacing */
-    .grid-mobile-optimize {
-      grid-template-columns: 1fr !important;
-      gap: 1rem !important;
-    }
+  /* Touch targets and mobile forms */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
   }
   
-  /* Improved mobile touch targets */
-  @media (max-width: 768px) {
-    button, a, [role="button"] {
-      min-height: 44px;
-      min-width: 44px;
-    }
+  .contact-form input, 
+  .contact-form textarea, 
+  .contact-form select {
+    width: 100%;
+  }
+  
+  /* Mobile typography */
+  h1, h2, h3 { 
+    @apply leading-tight; 
   }
 }
 
@@ -288,49 +257,11 @@
   }
 
   .section-padding {
-    @apply py-16 sm:py-20 md:py-24 lg:py-28 xl:py-36;
+    @apply py-8 sm:py-16 lg:py-20;
   }
   
   .container-custom {
-    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
-  }
-  
-  /* Mobile-optimized spacing */
-  @media (max-width: 640px) {
-    .section-padding {
-      @apply py-6;
-    }
-    
-    .container-custom {
-      @apply px-2;
-    }
-  }
-  
-  /* Extra small mobile devices */
-  @media (max-width: 375px) {
-    .section-padding {
-      @apply py-4;
-    }
-    
-    .container-custom {
-      @apply px-1;
-    }
-    
-    /* Even smaller text on tiny screens */
-    .hero-section h1 {
-      font-size: 1.5rem !important;
-    }
-    
-    .hero-section p {
-      font-size: 0.875rem !important;
-    }
-    
-    /* Ultra compact buttons for tiny screens */
-    .btn-primary, .btn-secondary, .glass-card {
-      padding: 0.5rem 0.75rem !important;
-      font-size: 0.75rem !important;
-      min-width: 140px !important;
-    }
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   .feature-icon {
@@ -370,86 +301,38 @@
     background: rgb(52 211 153);
   }
   
-  /* Mobile optimization for voice portfolio */
+  /* Mobile optimizations */
   @media (max-width: 640px) {
-    .voice-portfolio-container {
-      max-height: 300px;
+    .hero-section {
+      padding-top: 4rem;
+      min-height: 100vh;
+      padding-bottom: 2rem;
     }
     
-    iframe {
-      min-height: 100px !important;
-      height: 100px !important;
+    .hero-content h1 {
+      font-size: 1.75rem;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
     }
     
-    /* Optimize mobile video players */
-    .video-player-mobile {
-      aspect-ratio: 16/9;
-      width: 100%;
-      max-width: 100%;
+    .btn-primary, .btn-secondary, .glass-card {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      min-width: 160px;
     }
     
-    /* Better mobile card spacing */
-    .mobile-card-spacing {
-      margin-bottom: 1rem !important;
-      padding: 1rem !important;
+    .hero-content button {
+      max-width: calc(100vw - 3rem);
     }
     
-    /* Mobile navigation improvements */
     .mobile-nav-item {
       padding: 0.75rem 1rem;
       font-size: 1.125rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
-    
-    /* Mobile form improvements */
-    .mobile-form-spacing {
-      margin-bottom: 1.5rem;
-    }
-    
-    /* Fix hero section content cutting off */
-    .hero-section {
-      padding-top: 4rem !important;
-      min-height: 100vh !important;
-      padding-bottom: 2rem !important;
-    }
-    
-    /* Ensure content doesn't get cut off on small screens */
-    .hero-content {
-      overflow: visible !important;
-      max-width: 100% !important;
-      padding-left: 0.75rem !important;
-      padding-right: 0.75rem !important;
-    }
-    
-    /* Reduce text sizes on very small screens */
-    h1 {
-      font-size: 1.75rem !important;
-      line-height: 1.2 !important;
-      margin-bottom: 0.75rem !important;
-    }
-    
-    /* Smaller button sizes on mobile */
-    .btn-primary, .btn-secondary, .glass-card {
-      padding: 0.5rem 1rem !important;
-      font-size: 0.875rem !important;
-      min-width: 160px !important;
-    }
-    
-    /* Fix button overflow on mobile */
-    .hero-content button {
-      max-width: calc(100vw - 3rem) !important;
-      word-wrap: break-word !important;
-      overflow: hidden !important;
-    }
-    
-    /* Mobile button container spacing */
-    .hero-content .flex {
-      gap: 0.75rem !important;
-      margin-bottom: 1rem !important;
-    }
   }
   
-  /* Additional mobile touch improvements */
+  /* Touch device optimizations */
   @media (hover: none) and (pointer: coarse) {
     .hover-lift:hover {
       transform: none;

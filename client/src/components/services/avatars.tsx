@@ -72,21 +72,21 @@ export default function Avatars() {
       aria-labelledby="avatars-heading"
     >
       <div className="container-custom">
-        <header className="text-center mb-16 xs:mb-20">
+        <header className="text-center mb-16 sm:mb-20">
           <h2 
             id="avatars-heading"
-            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 xs:mb-8 text-shadow"
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-6 sm:mb-8 text-shadow"
           >
             <span className="gradient-text">Realistic Avatars</span>
           </h2>
-          <p className="text-xl xs:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed px-2">
+          <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed">
             Create photorealistic digital humans with AI-powered avatar generation. Perfect for any virtual environment.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xs:gap-16 xl:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
           {/* Features */}
-          <div className="space-y-8 xs:space-y-10 order-2 lg:order-1">
+          <div className="space-y-8 sm:space-y-10 order-2 lg:order-1">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (

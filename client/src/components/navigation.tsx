@@ -54,8 +54,8 @@ export default function Navigation() {
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 md:h-20">
+      <div className="container-custom">
+        <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0 gap-3 cursor-pointer group transition-all duration-300 hover:scale-105"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -66,9 +66,9 @@ export default function Navigation() {
             <img 
               src={siwath_logo_withoutbackground} 
               alt="Siwaht Logo" 
-              className="w-8 h-8 md:w-10 md:h-10 transition-transform duration-300 group-hover:rotate-6"
+              className="w-8 h-8 lg:w-10 lg:h-10 transition-transform duration-300 group-hover:rotate-6"
             />
-            <h1 className="text-xl xs:text-2xl md:text-3xl font-bold gradient-text">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold gradient-text">
               Siwaht
             </h1>
           </div>
@@ -119,7 +119,7 @@ export default function Navigation() {
       {isMenuOpen && (
         <div className="lg:hidden">
           <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setIsMenuOpen(false)} />
-          <div className="fixed top-16 md:top-20 left-0 right-0 bg-white shadow-xl border-t border-slate-200 z-50 max-h-screen overflow-y-auto">
+          <div className="fixed top-16 lg:top-20 left-0 right-0 bg-white shadow-xl border-t border-slate-200 z-50 max-h-screen overflow-y-auto">
             <div className="px-4 pt-4 pb-6 space-y-2">
               {navigationItems.map((item) => (
                 <button

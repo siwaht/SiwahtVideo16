@@ -72,14 +72,14 @@ export default function VoiceSynthesis() {
       aria-labelledby="voice-synthesis-heading"
     >
       <div className="container-custom">
-        <header className="text-center mb-16 xs:mb-20">
+        <header className="text-center mb-16 sm:mb-20">
           <h2 
             id="voice-synthesis-heading"
-            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 xs:mb-8 text-shadow"
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-6 sm:mb-8 text-shadow"
           >
             <span className="gradient-text">Voice Synthesis</span>
           </h2>
-          <p className="text-xl xs:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed px-2">
+          <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed">
             Transform text into lifelike speech with AI-powered voice generation. Perfect for any audio content needs.
           </p>
         </header>

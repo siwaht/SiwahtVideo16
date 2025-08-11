@@ -68,23 +68,23 @@ export default function VideoEditing() {
   return (
     <section 
       id="editing" 
-      className="py-12 xs:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-100 to-orange-50"
+      className="section-padding bg-gradient-to-br from-slate-100 to-orange-50"
       aria-labelledby="editing-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
-        <header className="text-center mb-12 xs:mb-16">
+      <div className="container-custom">
+        <header className="text-center mb-12 sm:mb-16">
           <h2 
             id="editing-heading"
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
+            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-4 sm:mb-6"
           >
             AI Video Editing
           </h2>
-          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
+          <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
             Transform raw footage into polished videos with AI-powered editing. Cut, enhance, and produce professional content automatically.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xs:gap-12 xl:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 xl:gap-16 items-center">
           {/* Video Editor Preview */}
           <aside className="relative order-1 lg:order-1 w-full">
             <div className="bg-gradient-to-br from-orange-100 to-red-200 rounded-2xl p-3 xs:p-4 sm:p-6 md:p-8 shadow-2xl">
