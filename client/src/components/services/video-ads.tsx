@@ -107,18 +107,20 @@ export default function VideoAds() {
 {featuredVideo ? (
                   <div className="relative">
                     {processedVideo && processedVideo.canEmbed ? (
-                      <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
+                      <div className="video-container bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl">
                         {processedVideo.platform === 'direct' ? (
                           // Direct video file (mp4, webm, etc.)
-                          <VideoPlayer
-                            src={processedVideo.embedUrl}
-                            poster={featuredVideo.thumbnailUrl || undefined}
-                            title={featuredVideo.title}
-                            className="w-full h-full rounded-xl"
-                            width="100%"
-                            height="auto"
-                            data-testid="direct-video-player"
-                          />
+                          <div className="video-player-wrapper">
+                            <VideoPlayer
+                              src={processedVideo.embedUrl}
+                              poster={featuredVideo.thumbnailUrl || undefined}
+                              title={featuredVideo.title}
+                              className="w-full h-full rounded-xl"
+                              width="100%"
+                              height="100%"
+                              data-testid="direct-video-player"
+                            />
+                          </div>
                         ) : (
                           // Embedded video (YouTube, Vimeo, Google Drive)
                           <>

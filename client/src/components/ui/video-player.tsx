@@ -193,7 +193,7 @@ export function VideoPlayer({
   return (
     <div
       className={cn(
-        "relative bg-black rounded-lg overflow-hidden group",
+        "relative bg-black rounded-lg overflow-hidden group flex items-center justify-center",
         className
       )}
       style={{ width, height }}

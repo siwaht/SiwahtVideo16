@@ -92,7 +92,7 @@ export default function VideoEditing() {
                 <h4 className="font-semibold text-slate-900 mb-2 xs:mb-3 sm:mb-4 text-base xs:text-lg sm:text-xl">AI Video Editor</h4>
 
 {featuredEditedVideo ? (
-                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
+                  <div className="video-container bg-gradient-to-br from-slate-800 to-slate-900 min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
                     {/* Embed YouTube video if available */}
                     {featuredEditedVideo.videoUrl && featuredEditedVideo.videoUrl.includes('youtu') ? (
                       <iframe
@@ -100,35 +100,31 @@ export default function VideoEditing() {
                           .replace('youtu.be/', 'youtube.com/embed/')
                           .replace('youtube.com/watch?v=', 'youtube.com/embed/')
                         }
-                        className="absolute inset-0 w-full h-full border-0"
+                        className="w-full h-full border-0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         title={featuredEditedVideo.title}
                       />
                     ) : featuredEditedVideo.videoUrl ? (
-                      <video 
-                        src={featuredEditedVideo.videoUrl} 
-                        poster={featuredEditedVideo.thumbnailUrl || undefined}
-                        className="absolute inset-0 w-full h-full object-cover"
-                        style={{
-                          objectPosition: 'center center'
-                        }}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        onError={(e) => {
-                          console.log('Edited video failed to load:', featuredEditedVideo.videoUrl);
-                        }}
-                      />
+                      <div className="video-player-wrapper">
+                        <video 
+                          src={featuredEditedVideo.videoUrl} 
+                          poster={featuredEditedVideo.thumbnailUrl || undefined}
+                          className="w-full h-full object-cover"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          onError={(e) => {
+                            console.log('Edited video failed to load:', featuredEditedVideo.videoUrl);
+                          }}
+                        />
+                      </div>
                     ) : featuredEditedVideo.thumbnailUrl ? (
                       <img 
                         src={featuredEditedVideo.thumbnailUrl} 
                         alt={featuredEditedVideo.title}
-                        className="absolute inset-0 w-full h-full object-cover"
-                        style={{
-                          objectPosition: 'center center'
-                        }}
+                        className="w-full h-full object-cover"
                       />
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20"></div>

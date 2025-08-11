@@ -126,7 +126,7 @@ export default function Avatars() {
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Avatar Studio</h4>
 
 {featuredAvatar ? (
-                  <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl mx-auto max-w-md">
+                  <div className="video-container aspect-square bg-gradient-to-br from-slate-100 to-slate-200 shadow-2xl mx-auto max-w-md">
                     {/* Embed YouTube video if available */}
                     {featuredAvatar.videoUrl && featuredAvatar.videoUrl.includes('youtu') ? (
                       <iframe
@@ -140,31 +140,25 @@ export default function Avatars() {
                         title={featuredAvatar.name}
                       />
                     ) : featuredAvatar.videoUrl ? (
-                      <video 
-                        src={featuredAvatar.videoUrl} 
-                        poster={featuredAvatar.thumbnailUrl || undefined}
-                        className="w-full h-full object-cover rounded-xl"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        style={{ 
-                          objectPosition: 'center center',
-                          aspectRatio: '1/1'
-                        }}
-                        onError={(e) => {
-                          console.log('Avatar video failed to load:', featuredAvatar.videoUrl);
-                        }}
-                      />
+                      <div className="video-player-wrapper">
+                        <video 
+                          src={featuredAvatar.videoUrl} 
+                          poster={featuredAvatar.thumbnailUrl || undefined}
+                          className="w-full h-full object-cover"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          onError={(e) => {
+                            console.log('Avatar video failed to load:', featuredAvatar.videoUrl);
+                          }}
+                        />
+                      </div>
                     ) : featuredAvatar.thumbnailUrl ? (
                       <img 
                         src={featuredAvatar.thumbnailUrl} 
                         alt={featuredAvatar.name}
-                        className="w-full h-full object-cover rounded-xl"
-                        style={{ 
-                          objectPosition: 'center center',
-                          aspectRatio: '1/1'
-                        }}
+                        className="w-full h-full object-cover"
                         onError={(e) => {
                           console.log('Avatar thumbnail failed to load:', featuredAvatar.thumbnailUrl);
                         }}

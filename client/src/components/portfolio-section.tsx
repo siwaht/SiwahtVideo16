@@ -41,7 +41,7 @@ export default function PortfolioSection({ category, title, description, icon: I
       return (
         <article key={sample.id} className="group relative">
           <div className="feature-card hover-lift h-full flex flex-col">
-            <div className="relative aspect-video bg-gradient-to-br from-slate-100 via-white to-slate-200 rounded-2xl overflow-hidden mb-5 shadow-md group-hover:shadow-xl transition-all duration-500">
+            <div className="video-container bg-gradient-to-br from-slate-100 via-white to-slate-200 mb-5 shadow-md group-hover:shadow-xl transition-all duration-500">
               {video.thumbnailUrl ? (
                 <img 
                   src={video.thumbnailUrl} 
@@ -124,7 +124,7 @@ export default function PortfolioSection({ category, title, description, icon: I
       return (
         <article key={sample.id} className="group relative">
           <div className="feature-card hover-lift h-full flex flex-col">
-            <div className="relative aspect-video bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-100 rounded-2xl overflow-hidden mb-5 flex items-center justify-center shadow-md group-hover:shadow-xl transition-all duration-500">
+            <div className="video-container bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-100 mb-5 flex items-center justify-center shadow-md group-hover:shadow-xl transition-all duration-500">
               <div className="text-center relative z-10">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 mx-auto shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500">
                   <Volume2 className="h-9 w-9 text-white" />
