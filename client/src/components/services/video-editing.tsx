@@ -89,28 +89,10 @@ export default function VideoEditing() {
           <aside className="relative order-1 lg:order-1 w-full">
             <div className="bg-gradient-to-br from-orange-100 to-red-200 rounded-2xl p-3 xs:p-4 sm:p-6 md:p-8 shadow-2xl">
               <div className="bg-white rounded-xl p-3 xs:p-4 sm:p-6 mb-3 xs:mb-4 sm:mb-6 shadow-lg">
-                <h4 className="font-semibold text-slate-900 mb-2 xs:mb-3 sm:mb-4 text-base xs:text-lg sm:text-xl">AI Video Studio</h4>
-
-                {/* GIF-style Video Demo */}
-                <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
-                  <video 
-                    src="/videos/ikea-demo-gif.mp4" 
-                    className="w-full h-full object-cover rounded-xl"
-                    style={{
-                      objectPosition: 'center center'
-                    }}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    onError={(e) => {
-                      console.log('AI Video Studio demo failed to load');
-                    }}
-                  />
-                </div>
+                <h4 className="font-semibold text-slate-900 mb-2 xs:mb-3 sm:mb-4 text-base xs:text-lg sm:text-xl">AI Video Editor</h4>
 
 {featuredEditedVideo ? (
-                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px] mt-6">
+                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
                     {/* Embed YouTube video if available */}
                     {featuredEditedVideo.videoUrl && featuredEditedVideo.videoUrl.includes('youtu') ? (
                       <iframe
@@ -127,7 +109,7 @@ export default function VideoEditing() {
                       <video 
                         src={featuredEditedVideo.videoUrl} 
                         poster={featuredEditedVideo.thumbnailUrl || undefined}
-                        className="w-full h-full object-cover rounded-lg"
+                        className="absolute inset-0 w-full h-full object-cover"
                         style={{
                           objectPosition: 'center center'
                         }}
@@ -143,7 +125,7 @@ export default function VideoEditing() {
                       <img 
                         src={featuredEditedVideo.thumbnailUrl} 
                         alt={featuredEditedVideo.title}
-                        className="w-full h-full object-cover rounded-lg"
+                        className="absolute inset-0 w-full h-full object-cover"
                         style={{
                           objectPosition: 'center center'
                         }}
