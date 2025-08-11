@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Scissors, Layers, Zap, Sparkles } from "lucide-react";
 import type { EditedVideo } from "@shared/schema";
+import { VideoPlayer } from "@/components/ui/video-player";
 
 export default function VideoEditing() {
   // Fetch edited videos from API
@@ -107,17 +108,13 @@ export default function VideoEditing() {
                       />
                     ) : featuredEditedVideo.videoUrl ? (
                       <div className="video-player-wrapper">
-                        <video 
-                          src={featuredEditedVideo.videoUrl} 
+                        <VideoPlayer
+                          src={featuredEditedVideo.videoUrl}
                           poster={featuredEditedVideo.thumbnailUrl || undefined}
-                          className="w-full h-full object-cover"
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          onError={(e) => {
-                            console.log('Edited video failed to load:', featuredEditedVideo.videoUrl);
-                          }}
+                          title={featuredEditedVideo.title}
+                          className="w-full h-full"
+                          gifLike={true}
+                          data-testid="edited-video-player"
                         />
                       </div>
                     ) : featuredEditedVideo.thumbnailUrl ? (
