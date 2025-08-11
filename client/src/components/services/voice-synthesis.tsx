@@ -236,14 +236,12 @@ export default function VoiceSynthesis() {
               <div className="grid grid-cols-3 gap-3 xs:gap-4">
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Languages</div>
-                  <div className="text-sm xs:text-base font-bold text-emerald-600">
-                    {publishedVoices ? new Set(publishedVoices.map(v => v.language)).size : '50+'}
-                  </div>
+                  <div className="text-sm xs:text-base font-bold text-emerald-600">80+</div>
                 </div>
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Voices</div>
                   <div className="text-sm xs:text-base font-bold text-teal-600">
-                    {publishedVoices ? publishedVoices.length : '100+'}
+                    1000+
                   </div>
                 </div>
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
