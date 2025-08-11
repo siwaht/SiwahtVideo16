@@ -213,7 +213,7 @@ export default function Avatars() {
               <div className="grid grid-cols-3 gap-3 xs:gap-4">
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
-                  <div className="text-sm xs:text-base font-bold text-blue-600">8K</div>
+                  <div className="text-sm xs:text-base font-bold text-blue-600">4K</div>
                 </div>
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Expressions</div>
