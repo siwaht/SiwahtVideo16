@@ -54,6 +54,17 @@ export function VideoPlayer({
     const handleLoadedMetadata = () => {
       setDuration(video.duration);
       setIsLoading(false);
+      
+      // Force play for GIF-like videos after metadata is loaded
+      if (isGifLike && shouldAutoPlay) {
+        video.play().catch((error) => {
+          console.log('Autoplay failed, attempting to play muted:', error);
+          video.muted = true;
+          video.play().catch((e) => {
+            console.log('Muted autoplay also failed:', e);
+          });
+        });
+      }
     };
 
     const handleTimeUpdate = () => {
@@ -67,7 +78,8 @@ export function VideoPlayer({
       setIsMuted(video.muted);
     };
 
-    const handleError = () => {
+    const handleError = (e: Event) => {
+      console.error('Video error:', e);
       setHasError(true);
       setIsLoading(false);
     };
@@ -94,7 +106,35 @@ export function VideoPlayer({
       video.removeEventListener("error", handleError);
       video.removeEventListener("loadstart", handleLoadStart);
     };
-  }, []);
+  }, [isGifLike, shouldAutoPlay]);
+
+  // Additional effect for GIF-like videos to ensure they start playing
+  useEffect(() => {
+    if (!isGifLike) return;
+    
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Use intersection observer to start playing when video comes into view
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch((error) => {
+              console.log('Intersection autoplay failed:', error);
+            });
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isGifLike]);
 
   const togglePlay = () => {
     const video = videoRef.current;

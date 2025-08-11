@@ -108,13 +108,24 @@ export default function VideoEditing() {
                       />
                     ) : featuredEditedVideo.videoUrl ? (
                       <div className="video-player-wrapper">
-                        <VideoPlayer
-                          src={featuredEditedVideo.videoUrl}
+                        <video 
+                          src={featuredEditedVideo.videoUrl} 
                           poster={featuredEditedVideo.thumbnailUrl || undefined}
-                          title={featuredEditedVideo.title}
-                          className="w-full h-full"
-                          gifLike={true}
-                          data-testid="edited-video-player"
+                          className="w-full h-full object-cover"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          controls={false}
+                          onError={(e) => {
+                            console.error('Direct video failed to load:', featuredEditedVideo.videoUrl, e);
+                          }}
+                          onLoadStart={() => {
+                            console.log('Video loading started:', featuredEditedVideo.videoUrl);
+                          }}
+                          onCanPlay={() => {
+                            console.log('Video can play:', featuredEditedVideo.videoUrl);
+                          }}
                         />
                       </div>
                     ) : featuredEditedVideo.thumbnailUrl ? (
