@@ -77,6 +77,12 @@ Siwaht is a comprehensive web application for AI-powered video and audio content
   - Added mandatory field validation: Full Name, Email, and Message are required
   - Integrated Make.com webhook (https://hook.eu2.make.com/qqepxkbio61x8m3aw9pni6rlfj904itq) for form submissions
   - Enhanced form validation with custom error messages and minimum character requirements
+- **Production Asset Serving Fix (August 2025)**: Resolved deployment media file accessibility issue
+  - Fixed environment-aware static file serving for videos and audio files
+  - Updated server configuration to serve from correct directory paths in both development and production
+  - Development mode serves from root public/ directory, production serves from dist/public/
+  - All video files (MP4) and audio files (MP3, AAC) now properly accessible with correct MIME types
+  - Verified byte-range support for seamless video playback and audio streaming
 
 # User Preferences
 
