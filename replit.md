@@ -61,6 +61,11 @@ Siwaht is a comprehensive web application for AI-powered video and audio content
   - Added AAC audio format support to server for Arabic voice ads
   - Standardized HTML5 audio players matching podcast section design for consistency
   - All voice ads successfully tested with proper audio playback across languages
+- **ElevenLabs ConvAI Integration (August 2025)**: Added interactive voice chat widget
+  - Integrated ElevenLabs ConvAI widget with custom agent ID for visitor interactions
+  - Added widget script to HTML head for proper loading and initialization
+  - Implemented React-compatible rendering approach for TypeScript compatibility
+  - Widget positioned at page end as floating chat interface for optimal user experience
 
 # User Preferences
 
