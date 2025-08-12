@@ -71,6 +71,12 @@ Siwaht is a comprehensive web application for AI-powered video and audio content
   - Ensured proper static file serving in production by including assets in build output
   - Created copy-assets.sh script to automate asset copying for future deployments
   - All multimedia content now properly served in both development and production environments
+- **Contact Form Enhancement (August 2025)**: Streamlined contact form with webhook integration
+  - Changed from separate first name/last name fields to single full name field
+  - Removed Service Interest dropdown to simplify user experience
+  - Added mandatory field validation: Full Name, Email, and Message are required
+  - Integrated Make.com webhook (https://hook.eu2.make.com/qqepxkbio61x8m3aw9pni6rlfj904itq) for form submissions
+  - Enhanced form validation with custom error messages and minimum character requirements
 
 # User Preferences
 

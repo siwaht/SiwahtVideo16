@@ -35,7 +35,19 @@ export default function Contact() {
 
   const submitMutation = useMutation({
     mutationFn: async (data: InsertContactSubmission) => {
-      const response = await apiRequest("/api/contact", "POST", data);
+      const webhookUrl = "https://hook.eu2.make.com/qqepxkbio61x8m3aw9pni6rlfj904itq";
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       return response.json();
     },
     onSuccess: () => {
@@ -45,7 +57,8 @@ export default function Contact() {
       });
       form.reset();
     },
-    onError: () => {
+    onError: (error) => {
+      console.error("Form submission error:", error);
       toast({
         title: "Error sending message",
         description: "Please try again later or contact us directly.",
