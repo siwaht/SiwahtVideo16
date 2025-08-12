@@ -8,45 +8,67 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Serve static video and audio files from appropriate directory based on environment
-const isDevelopment = process.env.NODE_ENV === "development";
-const publicPath = isDevelopment 
-  ? path.resolve(import.meta.dirname, "..", "public")
-  : path.resolve(import.meta.dirname, "public");
+// Multiple fallback paths for serving static assets in different environments
+const possiblePublicPaths = [
+  path.resolve(import.meta.dirname, "public"),           // Production: dist/public
+  path.resolve(import.meta.dirname, "..", "public"),     // Development: workspace/public  
+  path.resolve(import.meta.dirname, "..", "client", "public"), // Fallback: client/public
+];
 
-console.log(`[ASSET SERVING] Environment: ${process.env.NODE_ENV}, isDevelopment: ${isDevelopment}, publicPath: ${publicPath}`);
+let publicPath = null;
+for (const testPath of possiblePublicPaths) {
+  if (fs.existsSync(testPath)) {
+    publicPath = testPath;
+    break;
+  }
+}
+
+if (!publicPath) {
+  console.error("[ASSET SERVING] ERROR: No valid public directory found!");
+  publicPath = possiblePublicPaths[0]; // Use first as fallback
+}
+
+console.log(`[ASSET SERVING] Environment: ${process.env.NODE_ENV}`);
+console.log(`[ASSET SERVING] Using publicPath: ${publicPath}`);
 
 const videosPath = path.join(publicPath, "videos");
 const audioPath = path.join(publicPath, "audio");
 
-// Log the paths for debugging
-console.log(`[ASSET SERVING] Videos path: ${videosPath}`);
-console.log(`[ASSET SERVING] Audio path: ${audioPath}`);
-console.log(`[ASSET SERVING] Videos directory exists: ${fs.existsSync(videosPath)}`);
-console.log(`[ASSET SERVING] Audio directory exists: ${fs.existsSync(audioPath)}`);
+console.log(`[ASSET SERVING] Videos path: ${videosPath} (exists: ${fs.existsSync(videosPath)})`);
+console.log(`[ASSET SERVING] Audio path: ${audioPath} (exists: ${fs.existsSync(audioPath)})`);
 
-app.use("/videos", express.static(videosPath, {
-  setHeaders: (res, filePath) => {
-    console.log(`[VIDEO SERVING] Serving: ${filePath}`);
-    if (filePath.endsWith('.mp4')) {
-      res.setHeader('Content-Type', 'video/mp4');
-      res.setHeader('Accept-Ranges', 'bytes');
+if (fs.existsSync(videosPath)) {
+  app.use("/videos", express.static(videosPath, {
+    setHeaders: (res, filePath) => {
+      console.log(`[VIDEO SERVING] Serving: ${filePath}`);
+      if (filePath.endsWith('.mp4')) {
+        res.setHeader('Content-Type', 'video/mp4');
+        res.setHeader('Accept-Ranges', 'bytes');
+      }
     }
-  }
-}));
+  }));
+  console.log(`[ASSET SERVING] Video serving configured for ${videosPath}`);
+} else {
+  console.error(`[ASSET SERVING] ERROR: Videos directory not found: ${videosPath}`);
+}
 
-app.use("/audio", express.static(audioPath, {
-  setHeaders: (res, filePath) => {
-    console.log(`[AUDIO SERVING] Serving: ${filePath}`);
-    if (filePath.endsWith('.mp3')) {
-      res.setHeader('Content-Type', 'audio/mpeg');
-      res.setHeader('Accept-Ranges', 'bytes');
-    } else if (filePath.endsWith('.aac')) {
-      res.setHeader('Content-Type', 'audio/aac');
-      res.setHeader('Accept-Ranges', 'bytes');
+if (fs.existsSync(audioPath)) {
+  app.use("/audio", express.static(audioPath, {
+    setHeaders: (res, filePath) => {
+      console.log(`[AUDIO SERVING] Serving: ${filePath}`);
+      if (filePath.endsWith('.mp3')) {
+        res.setHeader('Content-Type', 'audio/mpeg');
+        res.setHeader('Accept-Ranges', 'bytes');
+      } else if (filePath.endsWith('.aac')) {
+        res.setHeader('Content-Type', 'audio/aac');
+        res.setHeader('Accept-Ranges', 'bytes');
+      }
     }
-  }
-}));
+  }));
+  console.log(`[ASSET SERVING] Audio serving configured for ${audioPath}`);
+} else {
+  console.error(`[ASSET SERVING] ERROR: Audio directory not found: ${audioPath}`);
+}
 
 app.use((req, res, next) => {
   const start = Date.now();
