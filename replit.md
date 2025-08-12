@@ -83,9 +83,15 @@ Siwaht is a comprehensive web application for AI-powered video and audio content
   - **NEW: EnhancedVideoPlayer**: React component with data URL support, streaming fallback, and comprehensive error handling
   - **Dual Asset Strategy**: Assets included in both Vite build AND server directories for maximum compatibility
   - **Environment Agnostic**: Works regardless of deployment path structure or static file serving limitations
-  - **Enhanced Build Process**: `enhanced-build-final.sh` script ensures comprehensive asset inclusion and API testing
+  - **Enhanced Build Process**: `enhanced-build-final.sh` and `deploy-production-ready.sh` scripts ensure comprehensive asset inclusion
   - **Deployment Solution**: Media files embedded directly in responses, eliminating path dependency issues
   - **Performance Optimized**: Intelligent caching system reduces memory usage while maintaining fast loading
+  - **Production Deployment Fix (August 2025)**: Resolved deployment media access issues
+    - Fixed file permissions (644 for files, 755 for directories) in production builds
+    - Added multiple fallback paths in MediaHandler for various deployment environments
+    - Created deployment scripts that ensure proper asset copying and permission setting
+    - Verified production builds serve 7 videos and 5 audio files successfully via data URL API
+    - All media content now works consistently in both development and deployed environments
 
 # User Preferences
 

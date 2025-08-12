@@ -10,9 +10,11 @@ export class MediaHandler {
   constructor() {
     // Try multiple possible paths for media files
     const possiblePaths = [
-      path.resolve(import.meta.dirname, "public"),
-      path.resolve(import.meta.dirname, "..", "public"),
-      path.resolve(import.meta.dirname, "..", "client", "public"),
+      path.resolve(import.meta.dirname, "public"),                    // Production dist/public
+      path.resolve(import.meta.dirname, "..", "public"),              // Development public/
+      path.resolve(import.meta.dirname, "..", "client", "public"),    // Client public/
+      path.resolve(process.cwd(), "public"),                          // Root public/
+      path.resolve(process.cwd(), "dist", "public"),                  // Production build path
     ];
 
     let basePath = null;
@@ -34,6 +36,16 @@ export class MediaHandler {
     console.log(`[MEDIA HANDLER] Base path: ${basePath}`);
     console.log(`[MEDIA HANDLER] Videos: ${this.videosPath} (exists: ${fs.existsSync(this.videosPath)})`);
     console.log(`[MEDIA HANDLER] Audio: ${this.audioPath} (exists: ${fs.existsSync(this.audioPath)})`);
+    
+    // Debug: List actual files found
+    if (fs.existsSync(this.videosPath)) {
+      const videoFiles = fs.readdirSync(this.videosPath).filter(f => f.endsWith('.mp4'));
+      console.log(`[MEDIA HANDLER] Found ${videoFiles.length} video files:`, videoFiles.slice(0, 3));
+    }
+    if (fs.existsSync(this.audioPath)) {
+      const audioFiles = fs.readdirSync(this.audioPath).filter(f => f.endsWith('.mp3') || f.endsWith('.aac'));
+      console.log(`[MEDIA HANDLER] Found ${audioFiles.length} audio files:`, audioFiles.slice(0, 3));
+    }
   }
 
   // Get file as base64 data URL for embedding
