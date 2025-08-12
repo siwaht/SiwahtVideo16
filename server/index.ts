@@ -2,22 +2,32 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import path from "path";
+import fs from "fs";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Serve static video and audio files from appropriate directory based on environment
-const isDevelopment = app.get("env") === "development";
+const isDevelopment = process.env.NODE_ENV === "development";
 const publicPath = isDevelopment 
   ? path.resolve(import.meta.dirname, "..", "public")
   : path.resolve(import.meta.dirname, "public");
 
+console.log(`[ASSET SERVING] Environment: ${process.env.NODE_ENV}, isDevelopment: ${isDevelopment}, publicPath: ${publicPath}`);
+
 const videosPath = path.join(publicPath, "videos");
 const audioPath = path.join(publicPath, "audio");
 
+// Log the paths for debugging
+console.log(`[ASSET SERVING] Videos path: ${videosPath}`);
+console.log(`[ASSET SERVING] Audio path: ${audioPath}`);
+console.log(`[ASSET SERVING] Videos directory exists: ${fs.existsSync(videosPath)}`);
+console.log(`[ASSET SERVING] Audio directory exists: ${fs.existsSync(audioPath)}`);
+
 app.use("/videos", express.static(videosPath, {
   setHeaders: (res, filePath) => {
+    console.log(`[VIDEO SERVING] Serving: ${filePath}`);
     if (filePath.endsWith('.mp4')) {
       res.setHeader('Content-Type', 'video/mp4');
       res.setHeader('Accept-Ranges', 'bytes');
@@ -27,6 +37,7 @@ app.use("/videos", express.static(videosPath, {
 
 app.use("/audio", express.static(audioPath, {
   setHeaders: (res, filePath) => {
+    console.log(`[AUDIO SERVING] Serving: ${filePath}`);
     if (filePath.endsWith('.mp3')) {
       res.setHeader('Content-Type', 'audio/mpeg');
       res.setHeader('Accept-Ranges', 'bytes');

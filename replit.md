@@ -83,6 +83,9 @@ Siwaht is a comprehensive web application for AI-powered video and audio content
   - Development mode serves from root public/ directory, production serves from dist/public/
   - All video files (MP4) and audio files (MP3, AAC) now properly accessible with correct MIME types
   - Verified byte-range support for seamless video playback and audio streaming
+  - Added comprehensive debug logging to track asset serving in both environments
+  - Created build-with-assets.sh script to ensure proper asset inclusion in production builds
+  - Deployment requires running ./build-with-assets.sh before clicking Deploy button
 
 # User Preferences
 
