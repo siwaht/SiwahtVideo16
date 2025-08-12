@@ -28,8 +28,11 @@ export function useMediaData() {
       console.log('[MEDIA HOOK] Loaded media data:', {
         videos: Object.keys(data.media.videos).length,
         audio: Object.keys(data.media.audio).length,
-        timestamp: data.timestamp
+        timestamp: data.timestamp,
+        videoFiles: Object.keys(data.media.videos).slice(0, 3)
       });
+    } else if (data && !data.success) {
+      console.error('[MEDIA HOOK] Failed to load media data:', data);
     }
   }, [data]);
 

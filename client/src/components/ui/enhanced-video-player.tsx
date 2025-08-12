@@ -30,12 +30,13 @@ export function EnhancedVideoPlayer({
 
   // Get video source - try data URL first, then fallback to regular URL
   const videoSrc = getVideoData(filename) || fallbackUrl || getVideoUrl(filename);
-  const isDataUrl = videoSrc.startsWith('data:');
+  const isDataUrl = videoSrc?.startsWith('data:') || false;
 
   console.log(`[ENHANCED VIDEO] ${filename}:`, {
     hasVideo: hasVideo(filename),
     isDataUrl,
-    srcLength: videoSrc.length,
+    srcLength: videoSrc?.length || 0,
+    videoSrc: videoSrc?.substring(0, 50) + '...',
     isLoading,
     hasError
   });
@@ -101,14 +102,16 @@ export function EnhancedVideoPlayer({
     );
   }
 
-  if (hasError || (!hasVideo(filename) && !fallbackUrl)) {
+  // Don't show error if we have a video source (data URL or fallback)
+  if (hasError || (!videoSrc || videoSrc === '/videos/' + filename)) {
     return (
       <div className={`relative bg-gray-900 rounded-lg overflow-hidden ${className}`}>
         <div className="aspect-video flex items-center justify-center">
           <div className="text-white text-center">
             <Play className="w-12 h-12 mx-auto mb-2 opacity-50" />
             <p className="text-lg font-semibold">{title}</p>
-            <p className="text-sm opacity-75">Video temporarily unavailable</p>
+            <p className="text-sm opacity-75">Unable to load video</p>
+            <p className="text-xs opacity-50 mt-1">Error: {hasVideo(filename) ? 'Playback failed' : 'Video not found'}</p>
           </div>
         </div>
       </div>
