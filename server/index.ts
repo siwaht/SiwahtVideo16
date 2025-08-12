@@ -37,38 +37,98 @@ const audioPath = path.join(publicPath, "audio");
 console.log(`[ASSET SERVING] Videos path: ${videosPath} (exists: ${fs.existsSync(videosPath)})`);
 console.log(`[ASSET SERVING] Audio path: ${audioPath} (exists: ${fs.existsSync(audioPath)})`);
 
-if (fs.existsSync(videosPath)) {
-  app.use("/videos", express.static(videosPath, {
-    setHeaders: (res, filePath) => {
-      console.log(`[VIDEO SERVING] Serving: ${filePath}`);
-      if (filePath.endsWith('.mp4')) {
-        res.setHeader('Content-Type', 'video/mp4');
-        res.setHeader('Accept-Ranges', 'bytes');
-      }
-    }
-  }));
-  console.log(`[ASSET SERVING] Video serving configured for ${videosPath}`);
-} else {
-  console.error(`[ASSET SERVING] ERROR: Videos directory not found: ${videosPath}`);
-}
+// Direct file serving endpoints for videos
+app.get('/videos/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(videosPath, filename);
+  
+  console.log(`[VIDEO API] Request for: ${filename}, checking: ${filePath}`);
+  
+  if (!fs.existsSync(filePath)) {
+    console.log(`[VIDEO API] File not found: ${filePath}`);
+    return res.status(404).json({ error: 'Video file not found' });
+  }
+  
+  const stat = fs.statSync(filePath);
+  const fileSize = stat.size;
+  const range = req.headers.range;
+  
+  if (range) {
+    const parts = range.replace(/bytes=/, "").split("-");
+    const start = parseInt(parts[0], 10);
+    const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+    const chunksize = (end - start) + 1;
+    const file = fs.createReadStream(filePath, { start, end });
+    const head = {
+      'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+      'Accept-Ranges': 'bytes',
+      'Content-Length': chunksize,
+      'Content-Type': 'video/mp4',
+    };
+    res.writeHead(206, head);
+    file.pipe(res);
+  } else {
+    const head = {
+      'Content-Length': fileSize,
+      'Content-Type': 'video/mp4',
+      'Accept-Ranges': 'bytes',
+    };
+    res.writeHead(200, head);
+    fs.createReadStream(filePath).pipe(res);
+  }
+  
+  console.log(`[VIDEO API] Serving: ${filePath} (${fileSize} bytes)`);
+});
 
-if (fs.existsSync(audioPath)) {
-  app.use("/audio", express.static(audioPath, {
-    setHeaders: (res, filePath) => {
-      console.log(`[AUDIO SERVING] Serving: ${filePath}`);
-      if (filePath.endsWith('.mp3')) {
-        res.setHeader('Content-Type', 'audio/mpeg');
-        res.setHeader('Accept-Ranges', 'bytes');
-      } else if (filePath.endsWith('.aac')) {
-        res.setHeader('Content-Type', 'audio/aac');
-        res.setHeader('Accept-Ranges', 'bytes');
-      }
-    }
-  }));
-  console.log(`[ASSET SERVING] Audio serving configured for ${audioPath}`);
-} else {
-  console.error(`[ASSET SERVING] ERROR: Audio directory not found: ${audioPath}`);
-}
+// Direct file serving endpoints for audio
+app.get('/audio/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(audioPath, filename);
+  
+  console.log(`[AUDIO API] Request for: ${filename}, checking: ${filePath}`);
+  
+  if (!fs.existsSync(filePath)) {
+    console.log(`[AUDIO API] File not found: ${filePath}`);
+    return res.status(404).json({ error: 'Audio file not found' });
+  }
+  
+  const stat = fs.statSync(filePath);
+  const fileSize = stat.size;
+  const range = req.headers.range;
+  
+  const contentType = filename.endsWith('.mp3') ? 'audio/mpeg' : 
+                      filename.endsWith('.aac') ? 'audio/aac' : 'audio/mpeg';
+  
+  if (range) {
+    const parts = range.replace(/bytes=/, "").split("-");
+    const start = parseInt(parts[0], 10);
+    const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+    const chunksize = (end - start) + 1;
+    const file = fs.createReadStream(filePath, { start, end });
+    const head = {
+      'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+      'Accept-Ranges': 'bytes',
+      'Content-Length': chunksize,
+      'Content-Type': contentType,
+    };
+    res.writeHead(206, head);
+    file.pipe(res);
+  } else {
+    const head = {
+      'Content-Length': fileSize,
+      'Content-Type': contentType,
+      'Accept-Ranges': 'bytes',
+    };
+    res.writeHead(200, head);
+    fs.createReadStream(filePath).pipe(res);
+  }
+  
+  console.log(`[AUDIO API] Serving: ${filePath} (${fileSize} bytes)`);
+});
+
+console.log(`[ASSET SERVING] Direct API endpoints configured`);
+console.log(`[ASSET SERVING] Videos: ${fs.existsSync(videosPath) ? 'FOUND' : 'MISSING'} at ${videosPath}`);
+console.log(`[ASSET SERVING] Audio: ${fs.existsSync(audioPath) ? 'FOUND' : 'MISSING'} at ${audioPath}`);
 
 app.use((req, res, next) => {
   const start = Date.now();
