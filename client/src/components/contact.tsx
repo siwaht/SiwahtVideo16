@@ -14,13 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { useToast } from "@/hooks/use-toast";
 import { insertContactSubmissionSchema, type InsertContactSubmission } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
@@ -35,7 +29,6 @@ export default function Contact() {
       fullName: "",
       email: "",
       company: "",
-      serviceInterest: "",
       projectDetails: "",
     },
   });
@@ -92,15 +85,7 @@ export default function Contact() {
     },
   ];
 
-  const serviceOptions = [
-    "AI Video Ads",
-    "AI Avatar Creation",
-    "Voice Synthesis",
-    "Video Editing",
-    "Podcast Production",
-    "Custom AI Solution",
-    "Consultation"
-  ];
+
 
   return (
     <section 
@@ -192,30 +177,6 @@ export default function Contact() {
                     )}
                   />
 
-                  <FormField
-                    control={form.control}
-                    name="serviceInterest"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-slate-700">Service Interest</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger className="h-11 xs:h-12" data-testid="select-service">
-                              <SelectValue placeholder="Select a service" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {serviceOptions.map((service) => (
-                              <SelectItem key={service} value={service}>
-                                {service}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
 
                   <FormField
                     control={form.control}

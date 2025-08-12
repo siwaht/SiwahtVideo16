@@ -9,7 +9,6 @@ export const contactSubmissions = pgTable("contact_submissions", {
   fullName: text("full_name").notNull(),
   email: text("email").notNull(),
   company: text("company"),
-  serviceInterest: text("service_interest").notNull(),
   projectDetails: text("project_details").notNull(),
   status: text("status").default("unread").notNull(), // unread, read, responded
   adminNotes: text("admin_notes"),
