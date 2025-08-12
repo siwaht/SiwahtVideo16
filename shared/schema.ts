@@ -106,6 +106,10 @@ export const insertContactSubmissionSchema = createInsertSchema(contactSubmissio
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  fullName: z.string().min(1, "Full name is required").min(2, "Please enter your full name"),
+  email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
+  projectDetails: z.string().min(1, "Message is required").min(10, "Please provide more details about your project"),
 });
 
 // Export type definitions only for public-facing content
