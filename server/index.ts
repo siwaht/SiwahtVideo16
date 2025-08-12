@@ -7,8 +7,15 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Serve static video files before other middleware
-const videosPath = path.resolve(import.meta.dirname, "..", "public", "videos");
+// Serve static video and audio files from appropriate directory based on environment
+const isDevelopment = app.get("env") === "development";
+const publicPath = isDevelopment 
+  ? path.resolve(import.meta.dirname, "..", "public")
+  : path.resolve(import.meta.dirname, "public");
+
+const videosPath = path.join(publicPath, "videos");
+const audioPath = path.join(publicPath, "audio");
+
 app.use("/videos", express.static(videosPath, {
   setHeaders: (res, filePath) => {
     if (filePath.endsWith('.mp4')) {
@@ -18,8 +25,6 @@ app.use("/videos", express.static(videosPath, {
   }
 }));
 
-// Serve static audio files
-const audioPath = path.resolve(import.meta.dirname, "..", "public", "audio");
 app.use("/audio", express.static(audioPath, {
   setHeaders: (res, filePath) => {
     if (filePath.endsWith('.mp3')) {
