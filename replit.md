@@ -92,6 +92,12 @@ Siwaht is a comprehensive web application for AI-powered video and audio content
     - Created deployment scripts that ensure proper asset copying and permission setting
     - Verified production builds serve 7 videos and 5 audio files successfully via data URL API
     - All media content now works consistently in both development and deployed environments
+- **Deployment Configuration Fix (August 2025)**: Identified and documented critical deployment type error
+    - Root cause: Deployment configured as "Static" instead of "Node.js Server"
+    - Error: "could not create static deployment" - Replit looking for static files instead of running server
+    - Solution: Change deployment type to "Server/Node.js" with start command: node dist/index.js
+    - Production build verified working (51KB server bundle + media API + frontend serving)
+    - Ready for redeployment with correct Node.js server configuration
 
 # User Preferences
 
