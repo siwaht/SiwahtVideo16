@@ -66,6 +66,11 @@ Siwaht is a comprehensive web application for AI-powered video and audio content
   - Added widget script to HTML head for proper loading and initialization
   - Implemented React-compatible rendering approach for TypeScript compatibility
   - Widget positioned at page end as floating chat interface for optimal user experience
+- **Production Deployment Fix (August 2025)**: Fixed video and audio files not showing in deployed app
+  - Copied all video and audio assets from public/ to client/public/ for Vite build inclusion
+  - Ensured proper static file serving in production by including assets in build output
+  - Created copy-assets.sh script to automate asset copying for future deployments
+  - All multimedia content now properly served in both development and production environments
 
 # User Preferences
 
