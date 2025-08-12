@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { MediaHandler } from "./media-handler.js";
 import path from "path";
 import fs from "fs";
 
@@ -8,127 +9,41 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Multiple fallback paths for serving static assets in different environments
-const possiblePublicPaths = [
-  path.resolve(import.meta.dirname, "public"),           // Production: dist/public
-  path.resolve(import.meta.dirname, "..", "public"),     // Development: workspace/public  
-  path.resolve(import.meta.dirname, "..", "client", "public"), // Fallback: client/public
-];
+// Initialize Media Handler for robust asset serving
+const mediaHandler = new MediaHandler();
 
-let publicPath = null;
-for (const testPath of possiblePublicPaths) {
-  if (fs.existsSync(testPath)) {
-    publicPath = testPath;
-    break;
+// New approach: Serve media as data URLs via API endpoints
+app.get('/api/media/all', (req, res) => {
+  try {
+    const allMedia = mediaHandler.getAllMedia();
+    res.json({
+      success: true,
+      media: allMedia,
+      timestamp: Date.now()
+    });
+    console.log(`[MEDIA API] Served all media data (${Object.keys(allMedia.videos).length} videos, ${Object.keys(allMedia.audio).length} audio files)`);
+  } catch (error) {
+    console.error('[MEDIA API] Error serving media:', error);
+    res.status(500).json({ success: false, error: 'Failed to load media' });
   }
-}
+});
 
-if (!publicPath) {
-  console.error("[ASSET SERVING] ERROR: No valid public directory found!");
-  publicPath = possiblePublicPaths[0]; // Use first as fallback
-}
-
-console.log(`[ASSET SERVING] Environment: ${process.env.NODE_ENV}`);
-console.log(`[ASSET SERVING] Using publicPath: ${publicPath}`);
-
-const videosPath = path.join(publicPath, "videos");
-const audioPath = path.join(publicPath, "audio");
-
-console.log(`[ASSET SERVING] Videos path: ${videosPath} (exists: ${fs.existsSync(videosPath)})`);
-console.log(`[ASSET SERVING] Audio path: ${audioPath} (exists: ${fs.existsSync(audioPath)})`);
-
-// Direct file serving endpoints for videos
+// Fallback streaming endpoints for compatibility
 app.get('/videos/:filename', (req, res) => {
-  const filename = req.params.filename;
-  const filePath = path.join(videosPath, filename);
-  
-  console.log(`[VIDEO API] Request for: ${filename}, checking: ${filePath}`);
-  
-  if (!fs.existsSync(filePath)) {
-    console.log(`[VIDEO API] File not found: ${filePath}`);
-    return res.status(404).json({ error: 'Video file not found' });
+  const success = mediaHandler.streamFile('video', req.params.filename, req, res);
+  if (!success) {
+    res.status(404).json({ error: 'Video not found' });
   }
-  
-  const stat = fs.statSync(filePath);
-  const fileSize = stat.size;
-  const range = req.headers.range;
-  
-  if (range) {
-    const parts = range.replace(/bytes=/, "").split("-");
-    const start = parseInt(parts[0], 10);
-    const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
-    const chunksize = (end - start) + 1;
-    const file = fs.createReadStream(filePath, { start, end });
-    const head = {
-      'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-      'Accept-Ranges': 'bytes',
-      'Content-Length': chunksize,
-      'Content-Type': 'video/mp4',
-    };
-    res.writeHead(206, head);
-    file.pipe(res);
-  } else {
-    const head = {
-      'Content-Length': fileSize,
-      'Content-Type': 'video/mp4',
-      'Accept-Ranges': 'bytes',
-    };
-    res.writeHead(200, head);
-    fs.createReadStream(filePath).pipe(res);
-  }
-  
-  console.log(`[VIDEO API] Serving: ${filePath} (${fileSize} bytes)`);
 });
 
-// Direct file serving endpoints for audio
 app.get('/audio/:filename', (req, res) => {
-  const filename = req.params.filename;
-  const filePath = path.join(audioPath, filename);
-  
-  console.log(`[AUDIO API] Request for: ${filename}, checking: ${filePath}`);
-  
-  if (!fs.existsSync(filePath)) {
-    console.log(`[AUDIO API] File not found: ${filePath}`);
-    return res.status(404).json({ error: 'Audio file not found' });
+  const success = mediaHandler.streamFile('audio', req.params.filename, req, res);
+  if (!success) {
+    res.status(404).json({ error: 'Audio not found' });
   }
-  
-  const stat = fs.statSync(filePath);
-  const fileSize = stat.size;
-  const range = req.headers.range;
-  
-  const contentType = filename.endsWith('.mp3') ? 'audio/mpeg' : 
-                      filename.endsWith('.aac') ? 'audio/aac' : 'audio/mpeg';
-  
-  if (range) {
-    const parts = range.replace(/bytes=/, "").split("-");
-    const start = parseInt(parts[0], 10);
-    const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
-    const chunksize = (end - start) + 1;
-    const file = fs.createReadStream(filePath, { start, end });
-    const head = {
-      'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-      'Accept-Ranges': 'bytes',
-      'Content-Length': chunksize,
-      'Content-Type': contentType,
-    };
-    res.writeHead(206, head);
-    file.pipe(res);
-  } else {
-    const head = {
-      'Content-Length': fileSize,
-      'Content-Type': contentType,
-      'Accept-Ranges': 'bytes',
-    };
-    res.writeHead(200, head);
-    fs.createReadStream(filePath).pipe(res);
-  }
-  
-  console.log(`[AUDIO API] Serving: ${filePath} (${fileSize} bytes)`);
 });
 
-console.log(`[ASSET SERVING] Direct API endpoints configured`);
-console.log(`[ASSET SERVING] Videos: ${fs.existsSync(videosPath) ? 'FOUND' : 'MISSING'} at ${videosPath}`);
-console.log(`[ASSET SERVING] Audio: ${fs.existsSync(audioPath) ? 'FOUND' : 'MISSING'} at ${audioPath}`);
+console.log(`[MEDIA HANDLER] Initialized with data URL and streaming support`);
 
 app.use((req, res, next) => {
   const start = Date.now();

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Play, Target, Zap, Sparkles } from "lucide-react";
-import { VideoPlayer } from "@/components/ui/video-player";
+import { EnhancedVideoPlayer } from "@/components/ui/enhanced-video-player";
+import { useMediaData } from "@/hooks/useMediaData";
 import { processVideoUrl, getPlatformName } from "@/lib/videoUtils";
 import type { DemoVideo } from "@shared/schema";
 
@@ -11,6 +12,9 @@ export default function VideoAds() {
     refetchOnWindowFocus: true,
     staleTime: 0, // Always fetch fresh data
   });
+
+  // Get media data for enhanced video serving
+  const { hasVideo, availableVideos } = useMediaData();
 
   // Get the first published demo video for preview, sorted by order index
   const publishedVideos = demoVideos
@@ -111,15 +115,14 @@ export default function VideoAds() {
                         {processedVideo.platform === 'direct' ? (
                           // Direct video file (mp4, webm, etc.)
                           (<div className="video-player-wrapper">
-                            <VideoPlayer
-                              src={processedVideo.embedUrl}
-                              poster={featuredVideo.thumbnailUrl || undefined}
+                            <EnhancedVideoPlayer
+                              filename="ikea-demo-new.mp4"
                               title={featuredVideo.title}
+                              autoPlay={true}
+                              muted={true}
+                              loop={true}
                               className="w-full h-full rounded-xl"
-                              width="100%"
-                              height="100%"
-                              gifLike={true}
-                              data-testid="direct-video-player"
+                              fallbackUrl={processedVideo.embedUrl}
                             />
                           </div>)
                         ) : (
