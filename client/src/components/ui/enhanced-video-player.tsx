@@ -29,7 +29,8 @@ export function EnhancedVideoPlayer({
   const { getVideoData, getVideoUrl, hasVideo, isLoading } = useMediaData();
 
   // Get video source - try data URL first, then fallback to regular URL
-  const videoSrc = getVideoData(filename) || fallbackUrl || getVideoUrl(filename);
+  // In static mode, prefer direct URLs over data URLs for better performance
+  const videoSrc = (!isLoading && getVideoData(filename)) || fallbackUrl || getVideoUrl(filename);
   const isDataUrl = videoSrc?.startsWith('data:') || false;
 
   console.log(`[ENHANCED VIDEO] ${filename}:`, {
