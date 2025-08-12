@@ -3,7 +3,7 @@ import { Scissors, Layers, Zap, Sparkles, Volume2, VolumeX } from "lucide-react"
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import type { EditedVideo } from "@shared/schema";
-import { VideoPlayer } from "@/components/ui/video-player";
+import { EnhancedVideoPlayer } from "@/components/ui/enhanced-video-player";
 
 export default function VideoEditing() {
   const [isMuted, setIsMuted] = useState(true);
@@ -119,45 +119,15 @@ export default function VideoEditing() {
                         title={featuredEditedVideo.title}
                       />
                     ) : featuredEditedVideo.videoUrl ? (
-                      <div className="video-player-wrapper relative">
-                        <video 
-                          ref={videoRef}
-                          src={featuredEditedVideo.videoUrl} 
-                          poster={featuredEditedVideo.thumbnailUrl || undefined}
-                          className="w-full h-full object-cover"
-                          autoPlay
-                          muted={isMuted}
-                          loop
-                          playsInline
-                          controls={false}
-                          onError={(e) => {
-                            console.error('Direct video failed to load:', featuredEditedVideo.videoUrl, e);
-                          }}
-                          onLoadStart={() => {
-                            console.log('Video loading started:', featuredEditedVideo.videoUrl);
-                          }}
-                          onCanPlay={() => {
-                            console.log('Video can play:', featuredEditedVideo.videoUrl);
-                          }}
-                        />
-                        
-                        {/* Mute Button for Video Editing video */}
-                        <div className="absolute top-3 right-3 opacity-80 hover:opacity-100 transition-opacity z-10">
-                          <Button
-                            onClick={toggleMute}
-                            size="sm"
-                            variant="ghost"
-                            className="rounded-full w-10 h-10 bg-black/40 hover:bg-black/60 text-white border-0 p-0"
-                            data-testid="editing-mute-button"
-                          >
-                            {isMuted ? (
-                              <VolumeX className="h-4 w-4" />
-                            ) : (
-                              <Volume2 className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </div>
-                      </div>
+                      <EnhancedVideoPlayer
+                        filename="dairy-farmer-new.mp4"
+                        title={featuredEditedVideo.title}
+                        autoPlay={true}
+                        muted={true}
+                        loop={true}
+                        className="w-full h-full"
+                        fallbackUrl={featuredEditedVideo.videoUrl}
+                      />
                     ) : featuredEditedVideo.thumbnailUrl ? (
                       <img 
                         src={featuredEditedVideo.thumbnailUrl} 
