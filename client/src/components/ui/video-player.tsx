@@ -108,55 +108,35 @@ export function VideoPlayer({
     };
   }, [isGifLike, shouldAutoPlay]);
 
-  // Additional effect for GIF-like videos to ensure they start playing and stop when out of view
+  // Unified intersection observer for all videos (GIF-like and regular)
   useEffect(() => {
-    if (!isGifLike) return;
-    
     const video = videoRef.current;
     if (!video) return;
 
-    // Use intersection observer to start/stop playing based on visibility
+    console.log('Setting up intersection observer for video:', { isGifLike, src });
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Video is visible, start playing
+          const isVisible = entry.isIntersecting;
+          console.log('Video visibility changed:', { isVisible, src, isPlaying: !video.paused });
+
+          if (isVisible && isGifLike) {
+            // GIF-like video is visible, start playing
             video.play().catch((error) => {
               console.log('Intersection autoplay failed:', error);
             });
-          } else {
-            // Video is not visible, pause it
-            video.pause();
-          }
-        });
-      },
-      { threshold: 0.3 } // Trigger when 30% of the video is visible
-    );
-
-    observer.observe(video);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [isGifLike]);
-
-  // Add intersection observer for all videos to pause when scrolled out of view
-  useEffect(() => {
-    if (isGifLike) return; // Already handled above for GIF-like videos
-    
-    const video = videoRef.current;
-    if (!video) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting && isPlaying) {
+          } else if (!isVisible && !video.paused) {
             // Video is not visible and is playing, pause it
+            console.log('Pausing video due to scroll out of view:', src);
             video.pause();
           }
         });
       },
-      { threshold: 0.3 }
+      { 
+        threshold: 0.1, // Lower threshold for more responsive detection
+        rootMargin: '0px 0px -50px 0px' // Trigger earlier when scrolling out
+      }
     );
 
     observer.observe(video);
@@ -164,7 +144,7 @@ export function VideoPlayer({
     return () => {
       observer.disconnect();
     };
-  }, [isGifLike, isPlaying]);
+  }, [isGifLike, src]);
 
   const togglePlay = () => {
     const video = videoRef.current;

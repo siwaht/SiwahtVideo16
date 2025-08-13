@@ -134,21 +134,30 @@ export function AudioPlayer({
     const audioPlayerElement = audioRef.current?.parentElement;
     if (!audioPlayerElement) return;
 
+    console.log('Setting up intersection observer for audio player:', src);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const audio = audioRef.current;
           if (!audio) return;
 
-          if (!entry.isIntersecting && isPlaying) {
+          const isVisible = entry.isIntersecting;
+          console.log('Audio visibility changed:', { isVisible, src, isPlaying: !audio.paused });
+
+          if (!isVisible && !audio.paused) {
             // Audio player is not visible and is playing, pause it
+            console.log('Pausing audio due to scroll out of view:', src);
             audio.pause();
             setIsPlaying(false);
             onPause?.();
           }
         });
       },
-      { threshold: 0.3 } // Trigger when 30% of the audio player is visible
+      { 
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
     );
 
     observer.observe(audioPlayerElement);
@@ -156,7 +165,7 @@ export function AudioPlayer({
     return () => {
       observer.disconnect();
     };
-  }, [isPlaying, onPause]);
+  }, [src, onPause]);
 
   const togglePlayPause = () => {
     const audio = audioRef.current;
