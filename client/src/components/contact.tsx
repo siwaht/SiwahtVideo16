@@ -36,19 +36,35 @@ export default function Contact() {
   const submitMutation = useMutation({
     mutationFn: async (data: InsertContactSubmission) => {
       const webhookUrl = "https://hook.eu2.make.com/qqepxkbio61x8m3aw9pni6rlfj904itq";
+      
+      // Prepare clean data for webhook
+      const webhookData = {
+        fullName: data.fullName,
+        email: data.email,
+        company: data.company || "",
+        projectDetails: data.projectDetails,
+        timestamp: new Date().toISOString(),
+      };
+
       const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(webhookData),
       });
       
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        console.error("Webhook error response:", errorText);
+        throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
       }
       
-      return response.json();
+      // Handle response as text since webhook returns "Accepted"
+      const responseText = await response.text();
+      console.log("Webhook response:", responseText);
+      
+      return { status: responseText };
     },
     onSuccess: () => {
       toast({

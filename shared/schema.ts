@@ -90,7 +90,12 @@ export interface PodcastSample {
 }
 
 // Insert type definitions
-export type InsertContactSubmission = Omit<ContactSubmission, 'id' | 'createdAt' | 'updatedAt'>;
+export type InsertContactSubmission = {
+  fullName: string;
+  email: string;
+  company?: string;
+  projectDetails: string;
+};
 export type InsertDemoVideo = Omit<DemoVideo, 'id' | 'createdAt' | 'updatedAt'>;
 export type InsertAvatar = Omit<Avatar, 'id' | 'createdAt' | 'updatedAt'>;
 export type InsertVoiceSample = Omit<VoiceSample, 'id' | 'createdAt' | 'updatedAt'>;
@@ -103,6 +108,4 @@ export const insertContactSubmissionSchema = z.object({
   email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
   company: z.string().optional(),
   projectDetails: z.string().min(1, "Message is required").min(10, "Please provide more details about your project"),
-  status: z.string().optional(),
-  adminNotes: z.string().optional(),
 });
