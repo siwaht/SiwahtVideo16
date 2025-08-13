@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Scissors, Layers, Zap, Sparkles, Volume2, VolumeX } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import type { EditedVideo } from "@shared/schema";
 import { VideoPlayer } from "@/components/ui/video-player";
@@ -39,6 +39,33 @@ export default function VideoEditing() {
       setIsMuted(!isMuted);
     }
   };
+
+  // Auto-play for video editing video when it comes into view (global auto-pause handles pausing)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !featuredEditedVideo?.videoUrl) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && video.paused) {
+            // Video is visible, start playing
+            video.play().catch((error) => {
+              console.log('Video editing video autoplay failed:', error);
+            });
+          }
+          // Note: Pausing is now handled by the global auto-pause system
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [featuredEditedVideo?.videoUrl]);
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");

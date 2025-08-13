@@ -108,35 +108,26 @@ export function VideoPlayer({
     };
   }, [isGifLike, shouldAutoPlay]);
 
-  // Unified intersection observer for all videos (GIF-like and regular)
+  // Auto-play for GIF-like videos when they come into view (global auto-pause handles pausing)
   useEffect(() => {
+    if (!isGifLike) return;
+    
     const video = videoRef.current;
     if (!video) return;
-
-    console.log('Setting up intersection observer for video:', { isGifLike, src });
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const isVisible = entry.isIntersecting;
-          console.log('Video visibility changed:', { isVisible, src, isPlaying: !video.paused });
-
-          if (isVisible && isGifLike) {
+          if (entry.isIntersecting) {
             // GIF-like video is visible, start playing
             video.play().catch((error) => {
-              console.log('Intersection autoplay failed:', error);
+              console.log('GIF-like autoplay failed:', error);
             });
-          } else if (!isVisible && !video.paused) {
-            // Video is not visible and is playing, pause it
-            console.log('Pausing video due to scroll out of view:', src);
-            video.pause();
           }
+          // Note: Pausing is now handled by the global auto-pause system
         });
       },
-      { 
-        threshold: 0.1, // Lower threshold for more responsive detection
-        rootMargin: '0px 0px -50px 0px' // Trigger earlier when scrolling out
-      }
+      { threshold: 0.3 }
     );
 
     observer.observe(video);

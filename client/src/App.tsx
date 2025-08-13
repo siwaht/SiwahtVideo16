@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
+import { useEffect } from "react";
+import { initializeAutoPauseMedia, cleanupAutoPauseMedia } from "@/utils/auto-pause-media";
 
 function Router() {
   return (
@@ -16,6 +18,15 @@ function Router() {
 }
 
 function App() {
+  useEffect(() => {
+    // Initialize global auto-pause functionality for all media elements
+    initializeAutoPauseMedia();
+    
+    return () => {
+      cleanupAutoPauseMedia();
+    };
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

@@ -129,43 +129,7 @@ export function AudioPlayer({
     };
   }, [src]);
 
-  // Add intersection observer to pause audio when scrolled out of view
-  useEffect(() => {
-    const audioPlayerElement = audioRef.current?.parentElement;
-    if (!audioPlayerElement) return;
-
-    console.log('Setting up intersection observer for audio player:', src);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const audio = audioRef.current;
-          if (!audio) return;
-
-          const isVisible = entry.isIntersecting;
-          console.log('Audio visibility changed:', { isVisible, src, isPlaying: !audio.paused });
-
-          if (!isVisible && !audio.paused) {
-            // Audio player is not visible and is playing, pause it
-            console.log('Pausing audio due to scroll out of view:', src);
-            audio.pause();
-            setIsPlaying(false);
-            onPause?.();
-          }
-        });
-      },
-      { 
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      }
-    );
-
-    observer.observe(audioPlayerElement);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [src, onPause]);
+  // Note: Auto-pause functionality is now handled by the global media management system
 
   const togglePlayPause = () => {
     const audio = audioRef.current;

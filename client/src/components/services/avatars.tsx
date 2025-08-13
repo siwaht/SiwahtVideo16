@@ -39,37 +39,24 @@ export default function Avatars() {
     }
   };
 
-  // Add intersection observer to pause avatar video when scrolled out of view
+  // Auto-play for avatar video when it comes into view (global auto-pause handles pausing)
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !featuredAvatar?.videoUrl) return;
 
-    console.log('Setting up intersection observer for avatar video:', featuredAvatar.videoUrl);
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const isVisible = entry.isIntersecting;
-          console.log('Avatar video visibility changed:', { isVisible, url: featuredAvatar.videoUrl, isPlaying: !video.paused });
-
-          if (isVisible) {
-            // Video is visible, start playing if it's not already
-            if (video.paused) {
-              video.play().catch((error) => {
-                console.log('Avatar video autoplay failed:', error);
-              });
-            }
-          } else if (!video.paused) {
-            // Video is not visible and is playing, pause it
-            console.log('Pausing avatar video due to scroll out of view:', featuredAvatar.videoUrl);
-            video.pause();
+          if (entry.isIntersecting && video.paused) {
+            // Video is visible, start playing
+            video.play().catch((error) => {
+              console.log('Avatar video autoplay failed:', error);
+            });
           }
+          // Note: Pausing is now handled by the global auto-pause system
         });
       },
-      { 
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      }
+      { threshold: 0.3 }
     );
 
     observer.observe(video);
