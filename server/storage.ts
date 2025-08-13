@@ -113,19 +113,7 @@ class MemStorage implements IStorage {
           createdAt: new Date("2025-01-26"),
           updatedAt: new Date("2025-01-26"),
         },
-        {
-          id: "e55b44d7-gd07-5d7e-cedc-7g99f0g3d4b2",
-          title: "Launch Demo",
-          description: "Dynamic product launch video with animated elements",
-          videoUrl: "/videos/launch-demo-new-web.mp4",
-          thumbnailUrl: null,
-          category: "product",
-          isHostedVideo: true,
-          isPublished: true,
-          orderIndex: 2,
-          createdAt: new Date("2025-01-26"),
-          updatedAt: new Date("2025-01-26"),
-        }
+
       ];
     }
     return this.demoVideos.slice(0, limit);
