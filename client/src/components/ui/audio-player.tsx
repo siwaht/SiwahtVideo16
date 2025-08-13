@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
 
 interface AudioPlayerProps {
   src: string;
@@ -43,7 +42,6 @@ export function AudioPlayer({
           frameBorder="no"
           allow="autoplay"
           src={`${embedUrl}&color=%23ff5500&auto_play=${autoPlay}&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`}
-          className="rounded-lg"
         />
       );
     }
@@ -54,13 +52,12 @@ export function AudioPlayer({
       if (trackId) {
         return (
           <iframe
-            src={`https://open.spotify.com/embed/track/${trackId}?utm_source=generator&theme=0`}
+            src={`https://open.spotify.com/embed/track/${trackId}`}
             width="100%"
             height="152"
             frameBorder="0"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            className="rounded-lg"
+            allowTransparency={true}
+            allow="encrypted-media"
           />
         );
       }
@@ -69,10 +66,10 @@ export function AudioPlayer({
     // YouTube
     if (url.includes('youtube.com') || url.includes('youtu.be')) {
       let videoId = '';
-      if (url.includes('youtu.be/')) {
-        videoId = url.split('youtu.be/')[1].split('?')[0];
-      } else if (url.includes('watch?v=')) {
-        videoId = url.split('watch?v=')[1].split('&')[0];
+      if (url.includes('youtube.com')) {
+        videoId = url.split('v=')[1]?.split('&')[0] || '';
+      } else {
+        videoId = url.split('/').pop()?.split('?')[0] || '';
       }
       
       if (videoId) {
@@ -80,18 +77,15 @@ export function AudioPlayer({
           <iframe
             width="100%"
             height="315"
-            src={`https://www.youtube.com/embed/${videoId}`}
-            title={title || "YouTube video player"}
+            src={`https://www.youtube.com/embed/${videoId}?rel=0`}
             frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="rounded-lg"
           />
         );
       }
     }
 
-    // Default: Direct audio file or other URL
     return null;
   };
 
@@ -100,7 +94,7 @@ export function AudioPlayer({
   // If it's an embeddable URL, show the embed player
   if (embedPlayer) {
     return (
-      <div className={`w-full ${className}`}>
+      <div className={className}>
         {title && (
           <h4 className="text-sm font-medium text-slate-700 mb-2 px-1">{title}</h4>
         )}
@@ -207,14 +201,18 @@ export function AudioPlayer({
       <div className="space-y-3">
         {/* Progress bar */}
         <div className="space-y-1">
-          <Slider
-            value={[duration ? (currentTime / duration) * 100 : 0]}
-            onValueChange={handleSeek}
-            max={100}
-            step={1}
-            className="w-full"
-            disabled={isLoading}
-          />
+          <div className="w-full bg-slate-200 rounded-full h-2 relative cursor-pointer"
+               onClick={(e) => {
+                 if (isLoading || !duration) return;
+                 const rect = e.currentTarget.getBoundingClientRect();
+                 const percent = (e.clientX - rect.left) / rect.width;
+                 handleSeek([percent * 100]);
+               }}>
+            <div 
+              className="bg-blue-500 rounded-full h-2 transition-all duration-150"
+              style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
+            />
+          </div>
           <div className="flex justify-between text-xs text-slate-500">
             <span>{formatTime(currentTime)}</span>
             <span>{formatTime(duration)}</span>
@@ -244,7 +242,7 @@ export function AudioPlayer({
               onClick={toggleMute}
               variant="ghost"
               size="sm"
-              className="p-1"
+              className="p-2"
             >
               {isMuted ? (
                 <VolumeX className="h-4 w-4" />
@@ -252,13 +250,18 @@ export function AudioPlayer({
                 <Volume2 className="h-4 w-4" />
               )}
             </Button>
-            <Slider
-              value={[isMuted ? 0 : volume * 100]}
-              onValueChange={handleVolumeChange}
-              max={100}
-              step={1}
-              className="w-20"
-            />
+            <div className="w-20 bg-slate-200 rounded-full h-1 relative cursor-pointer"
+                 onClick={(e) => {
+                   if (isLoading) return;
+                   const rect = e.currentTarget.getBoundingClientRect();
+                   const percent = (e.clientX - rect.left) / rect.width;
+                   handleVolumeChange([percent * 100]);
+                 }}>
+              <div 
+                className="bg-blue-500 rounded-full h-1 transition-all duration-150"
+                style={{ width: `${isMuted ? 0 : volume * 100}%` }}
+              />
+            </div>
           </div>
         </div>
       </div>

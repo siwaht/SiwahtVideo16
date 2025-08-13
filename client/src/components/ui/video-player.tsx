@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Play, Pause, Volume2, VolumeX, Maximize, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
+// Removed slider dependency for performance optimization
 import { cn } from "@/lib/utils";
 
 interface VideoPlayerProps {
@@ -313,14 +313,17 @@ export function VideoPlayer({
         >
           {/* Progress Bar */}
           <div className="mb-3">
-            <Slider
-              value={[currentTime]}
-              max={duration || 100}
-              step={1}
-              onValueChange={handleSeek}
-              className="w-full"
-              data-testid="progress-slider"
-            />
+            <div className="w-full bg-white/20 rounded-full h-1 relative cursor-pointer"
+                 onClick={(e) => {
+                   const rect = e.currentTarget.getBoundingClientRect();
+                   const percent = (e.clientX - rect.left) / rect.width;
+                   handleSeek([percent * (duration || 100)]);
+                 }}>
+              <div 
+                className="bg-white rounded-full h-1 transition-all duration-150"
+                style={{ width: `${(currentTime / (duration || 100)) * 100}%` }}
+              />
+            </div>
           </div>
 
           {/* Controls Row */}
@@ -356,14 +359,17 @@ export function VideoPlayer({
                 </Button>
                 
                 <div className="w-20">
-                  <Slider
-                    value={[volume]}
-                    max={1}
-                    step={0.1}
-                    onValueChange={handleVolumeChange}
-                    className="w-full"
-                    data-testid="volume-slider"
-                  />
+                  <div className="w-full bg-white/20 rounded-full h-1 relative cursor-pointer"
+                       onClick={(e) => {
+                         const rect = e.currentTarget.getBoundingClientRect();
+                         const percent = (e.clientX - rect.left) / rect.width;
+                         handleVolumeChange([percent]);
+                       }}>
+                    <div 
+                      className="bg-white rounded-full h-1 transition-all duration-150"
+                      style={{ width: `${volume * 100}%` }}
+                    />
+                  </div>
                 </div>
               </div>
 

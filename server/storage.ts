@@ -11,15 +11,7 @@ import {
   type InsertEditedVideo,
   type PodcastSample,
   type InsertPodcastSample,
-  contactSubmissions,
-  demoVideos,
-  avatars,
-  voiceSamples,
-  editedVideos,
-  podcastSamples,
 } from "@shared/schema";
-import { db } from "./db";
-import { eq, desc, sql, and, or, ilike } from "drizzle-orm";
 
 export interface IStorage {
   // Contact submissions
@@ -66,19 +58,9 @@ export interface IStorage {
   updatePodcastSample(id: string, updates: Partial<PodcastSample>): Promise<PodcastSample>;
   deletePodcastSample(id: string): Promise<void>;
   searchPodcastSamples(query: string): Promise<PodcastSample[]>;
-  
-  // Dashboard stats (for public metrics)
-  getDashboardStats(): Promise<{
-    totalContacts: number;
-    totalDemoVideos: number;
-    totalAvatars: number;
-    totalVoiceSamples: number;
-    totalEditedVideos: number;
-    totalPodcastSamples: number;
-  }>;
 }
 
-// In-memory storage for development with proper sample data
+// In-memory storage implementation for development
 class MemStorage implements IStorage {
   private contacts: ContactSubmission[] = [];
   private demoVideos: DemoVideo[] = [];
@@ -87,7 +69,7 @@ class MemStorage implements IStorage {
   private editedVideos: EditedVideo[] = [];
   private podcastSamples: PodcastSample[] = [];
 
-  // Contact submissions
+  // Contact submissions - simplified for webhook integration
   async createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission> {
     const contact: ContactSubmission = {
       id: Math.random().toString(36).substr(2, 9),
@@ -510,280 +492,6 @@ class MemStorage implements IStorage {
       p.category.toLowerCase().includes(lowerQuery)
     );
   }
-
-  // Dashboard stats
-  async getDashboardStats() {
-    return {
-      totalContacts: this.contacts.length,
-      totalDemoVideos: this.demoVideos.length,
-      totalAvatars: this.avatars.length,
-      totalVoiceSamples: this.voiceSamples.length,
-      totalEditedVideos: this.editedVideos.length,
-      totalPodcastSamples: this.podcastSamples.length,
-    };
-  }
 }
 
-class DatabaseStorage implements IStorage {
-  // Contact submissions
-  async createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission> {
-    const [created] = await db.insert(contactSubmissions).values(submission).returning();
-    return created;
-  }
-
-  async getContactSubmissions(): Promise<ContactSubmission[]> {
-    return db.select().from(contactSubmissions).orderBy(desc(contactSubmissions.createdAt));
-  }
-
-  async updateContactSubmission(id: string, updates: Partial<ContactSubmission>): Promise<ContactSubmission> {
-    const [updated] = await db
-      .update(contactSubmissions)
-      .set({ ...updates, updatedAt: new Date() })
-      .where(eq(contactSubmissions.id, id))
-      .returning();
-    return updated;
-  }
-
-  // Demo videos
-  async getDemoVideos(limit = 50): Promise<DemoVideo[]> {
-    const query = db.select().from(demoVideos).orderBy(desc(demoVideos.orderIndex), desc(demoVideos.createdAt));
-    if (limit > 0) {
-      return query.limit(limit);
-    }
-    return query;
-  }
-
-  async getDemoVideo(id: string): Promise<DemoVideo | undefined> {
-    const [video] = await db.select().from(demoVideos).where(eq(demoVideos.id, id));
-    return video;
-  }
-
-  async createDemoVideo(video: InsertDemoVideo): Promise<DemoVideo> {
-    const [created] = await db.insert(demoVideos).values(video).returning();
-    return created;
-  }
-
-  async updateDemoVideo(id: string, updates: Partial<DemoVideo>): Promise<DemoVideo> {
-    const [updated] = await db
-      .update(demoVideos)
-      .set({ ...updates, updatedAt: new Date() })
-      .where(eq(demoVideos.id, id))
-      .returning();
-    return updated;
-  }
-
-  async deleteDemoVideo(id: string): Promise<void> {
-    await db.delete(demoVideos).where(eq(demoVideos.id, id));
-  }
-
-  async searchDemoVideos(query: string): Promise<DemoVideo[]> {
-    return db.select().from(demoVideos)
-      .where(
-        or(
-          ilike(demoVideos.title, `%${query}%`),
-          ilike(demoVideos.description, `%${query}%`),
-          ilike(demoVideos.category, `%${query}%`)
-        )
-      )
-      .orderBy(desc(demoVideos.createdAt));
-  }
-
-  // Avatars
-  async getAvatars(limit = 50): Promise<Avatar[]> {
-    const query = db.select().from(avatars).orderBy(desc(avatars.orderIndex), desc(avatars.createdAt));
-    if (limit > 0) {
-      return query.limit(limit);
-    }
-    return query;
-  }
-
-  async getAvatar(id: string): Promise<Avatar | undefined> {
-    const [avatar] = await db.select().from(avatars).where(eq(avatars.id, id));
-    return avatar;
-  }
-
-  async createAvatar(avatar: InsertAvatar): Promise<Avatar> {
-    const [created] = await db.insert(avatars).values(avatar).returning();
-    return created;
-  }
-
-  async updateAvatar(id: string, updates: Partial<Avatar>): Promise<Avatar> {
-    const [updated] = await db
-      .update(avatars)
-      .set({ ...updates, updatedAt: new Date() })
-      .where(eq(avatars.id, id))
-      .returning();
-    return updated;
-  }
-
-  async deleteAvatar(id: string): Promise<void> {
-    await db.delete(avatars).where(eq(avatars.id, id));
-  }
-
-  async searchAvatars(query: string): Promise<Avatar[]> {
-    return db.select().from(avatars)
-      .where(
-        or(
-          ilike(avatars.name, `%${query}%`),
-          ilike(avatars.description, `%${query}%`),
-          ilike(avatars.gender, `%${query}%`)
-        )
-      )
-      .orderBy(desc(avatars.createdAt));
-  }
-
-  // Voice samples
-  async getVoiceSamples(limit = 50): Promise<VoiceSample[]> {
-    const query = db.select().from(voiceSamples).orderBy(desc(voiceSamples.orderIndex), desc(voiceSamples.createdAt));
-    if (limit > 0) {
-      return query.limit(limit);
-    }
-    return query;
-  }
-
-  async getVoiceSample(id: string): Promise<VoiceSample | undefined> {
-    const [sample] = await db.select().from(voiceSamples).where(eq(voiceSamples.id, id));
-    return sample;
-  }
-
-  async createVoiceSample(sample: InsertVoiceSample): Promise<VoiceSample> {
-    const [created] = await db.insert(voiceSamples).values(sample).returning();
-    return created;
-  }
-
-  async updateVoiceSample(id: string, updates: Partial<VoiceSample>): Promise<VoiceSample> {
-    const [updated] = await db
-      .update(voiceSamples)
-      .set({ ...updates, updatedAt: new Date() })
-      .where(eq(voiceSamples.id, id))
-      .returning();
-    return updated;
-  }
-
-  async deleteVoiceSample(id: string): Promise<void> {
-    await db.delete(voiceSamples).where(eq(voiceSamples.id, id));
-  }
-
-  async searchVoiceSamples(query: string): Promise<VoiceSample[]> {
-    return db.select().from(voiceSamples)
-      .where(
-        or(
-          ilike(voiceSamples.name, `%${query}%`),
-          ilike(voiceSamples.description, `%${query}%`),
-          ilike(voiceSamples.language, `%${query}%`)
-        )
-      )
-      .orderBy(desc(voiceSamples.createdAt));
-  }
-
-  // Edited videos
-  async getEditedVideos(limit = 50): Promise<EditedVideo[]> {
-    const query = db.select().from(editedVideos).orderBy(desc(editedVideos.orderIndex), desc(editedVideos.createdAt));
-    if (limit > 0) {
-      return query.limit(limit);
-    }
-    return query;
-  }
-
-  async getEditedVideo(id: string): Promise<EditedVideo | undefined> {
-    const [video] = await db.select().from(editedVideos).where(eq(editedVideos.id, id));
-    return video;
-  }
-
-  async createEditedVideo(video: InsertEditedVideo): Promise<EditedVideo> {
-    const [created] = await db.insert(editedVideos).values(video).returning();
-    return created;
-  }
-
-  async updateEditedVideo(id: string, updates: Partial<EditedVideo>): Promise<EditedVideo> {
-    const [updated] = await db
-      .update(editedVideos)
-      .set({ ...updates, updatedAt: new Date() })
-      .where(eq(editedVideos.id, id))
-      .returning();
-    return updated;
-  }
-
-  async deleteEditedVideo(id: string): Promise<void> {
-    await db.delete(editedVideos).where(eq(editedVideos.id, id));
-  }
-
-  async searchEditedVideos(query: string): Promise<EditedVideo[]> {
-    return db.select().from(editedVideos)
-      .where(
-        or(
-          ilike(editedVideos.title, `%${query}%`),
-          ilike(editedVideos.description, `%${query}%`),
-          ilike(editedVideos.category, `%${query}%`)
-        )
-      )
-      .orderBy(desc(editedVideos.createdAt));
-  }
-
-  // Podcast samples
-  async getPodcastSamples(limit = 50): Promise<PodcastSample[]> {
-    const query = db.select().from(podcastSamples).orderBy(desc(podcastSamples.orderIndex), desc(podcastSamples.createdAt));
-    if (limit > 0) {
-      return query.limit(limit);
-    }
-    return query;
-  }
-
-  async getPodcastSample(id: string): Promise<PodcastSample | undefined> {
-    const [sample] = await db.select().from(podcastSamples).where(eq(podcastSamples.id, id));
-    return sample;
-  }
-
-  async createPodcastSample(sample: InsertPodcastSample): Promise<PodcastSample> {
-    const [created] = await db.insert(podcastSamples).values(sample).returning();
-    return created;
-  }
-
-  async updatePodcastSample(id: string, updates: Partial<PodcastSample>): Promise<PodcastSample> {
-    const [updated] = await db
-      .update(podcastSamples)
-      .set({ ...updates, updatedAt: new Date() })
-      .where(eq(podcastSamples.id, id))
-      .returning();
-    return updated;
-  }
-
-  async deletePodcastSample(id: string): Promise<void> {
-    await db.delete(podcastSamples).where(eq(podcastSamples.id, id));
-  }
-
-  async searchPodcastSamples(query: string): Promise<PodcastSample[]> {
-    return db.select().from(podcastSamples)
-      .where(
-        or(
-          ilike(podcastSamples.title, `%${query}%`),
-          ilike(podcastSamples.description, `%${query}%`),
-          ilike(podcastSamples.category, `%${query}%`)
-        )
-      )
-      .orderBy(desc(podcastSamples.createdAt));
-  }
-
-  // Dashboard stats
-  async getDashboardStats() {
-    const [contactCount] = await db.select({ count: sql<number>`count(*)` }).from(contactSubmissions);
-    const [videoCount] = await db.select({ count: sql<number>`count(*)` }).from(demoVideos);
-    const [avatarCount] = await db.select({ count: sql<number>`count(*)` }).from(avatars);
-    const [voiceCount] = await db.select({ count: sql<number>`count(*)` }).from(voiceSamples);
-    const [editedVideoCount] = await db.select({ count: sql<number>`count(*)` }).from(editedVideos);
-    const [podcastCount] = await db.select({ count: sql<number>`count(*)` }).from(podcastSamples);
-
-    return {
-      totalContacts: contactCount?.count || 0,
-      totalDemoVideos: videoCount?.count || 0,
-      totalAvatars: avatarCount?.count || 0,
-      totalVoiceSamples: voiceCount?.count || 0,
-      totalEditedVideos: editedVideoCount?.count || 0,
-      totalPodcastSamples: podcastCount?.count || 0,
-    };
-  }
-}
-
-export const storage: IStorage = process.env.NODE_ENV === "development" 
-  ? new MemStorage()
-  : new DatabaseStorage();
+export const storage = new MemStorage();

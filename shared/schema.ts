@@ -1,163 +1,108 @@
-import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, boolean, integer, jsonb } from "drizzle-orm/pg-core";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 
-// Contact submissions table
-export const contactSubmissions = pgTable("contact_submissions", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  fullName: text("full_name").notNull(),
-  email: text("email").notNull(),
-  company: text("company"),
-  projectDetails: text("project_details").notNull(),
-  status: text("status").default("unread").notNull(), // unread, read, responded
-  adminNotes: text("admin_notes"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+// TypeScript interfaces for type safety (no database tables needed)
+export interface ContactSubmission {
+  id: string;
+  fullName: string;
+  email: string;
+  company?: string | null;
+  projectDetails: string;
+  status: string;
+  adminNotes?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
+export interface DemoVideo {
+  id: string;
+  title: string;
+  description?: string | null;
+  category: string;
+  videoUrl: string;
+  thumbnailUrl?: string | null;
+  isHostedVideo: boolean;
+  isPublished: boolean;
+  orderIndex: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
+export interface Avatar {
+  id: string;
+  name: string;
+  description?: string | null;
+  videoUrl?: string | null;
+  thumbnailUrl?: string | null;
+  gender: string;
+  ethnicity?: string | null;
+  ageRange?: string | null;
+  voicePreview?: string | null;
+  isPublished: boolean;
+  orderIndex: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-// Demo videos table
-export const demoVideos = pgTable("demo_videos", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  title: text("title").notNull(),
-  description: text("description"),
-  category: text("category").notNull(), // product-demo, testimonial, explainer, etc.
-  videoUrl: text("video_url").notNull(),
-  thumbnailUrl: text("thumbnail_url"),
-  isHostedVideo: boolean("is_hosted_video").default(true), // true for object storage, false for YouTube/external
-  isPublished: boolean("is_published").default(false).notNull(),
-  orderIndex: integer("order_index").default(0).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+export interface VoiceSample {
+  id: string;
+  name: string;
+  description?: string | null;
+  audioUrl: string;
+  language: string;
+  gender: string;
+  accent?: string | null;
+  ageRange?: string | null;
+  isPublished: boolean;
+  orderIndex: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-// AI avatars table
-export const avatars = pgTable("avatars", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull(),
-  description: text("description"),
-  videoUrl: text("video_url"),
-  thumbnailUrl: text("thumbnail_url"),
-  gender: text("gender").notNull(), // male, female, other
-  ethnicity: text("ethnicity"),
-  ageRange: text("age_range"),
-  voicePreview: text("voice_preview"),
-  isPublished: boolean("is_published").default(false).notNull(),
-  orderIndex: integer("order_index").default(0).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+export interface EditedVideo {
+  id: string;
+  title: string;
+  description?: string | null;
+  videoUrl: string;
+  thumbnailUrl?: string | null;
+  isHostedVideo: boolean;
+  clientName?: string | null;
+  category: string;
+  tags?: string | null;
+  isPublished: boolean;
+  orderIndex: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-// Voice samples table
-export const voiceSamples = pgTable("voice_samples", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull(),
-  description: text("description"),
-  audioUrl: text("audio_url").notNull(),
-  language: text("language").notNull(),
-  gender: text("gender").notNull(), // male, female, other
-  accent: text("accent"),
-  ageRange: text("age_range"),
-  isPublished: boolean("is_published").default(false).notNull(),
-  orderIndex: integer("order_index").default(0).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+export interface PodcastSample {
+  id: string;
+  title: string;
+  description: string;
+  audioUrl: string;
+  category: string;
+  duration?: string | null;
+  hostName?: string | null;
+  guestName?: string | null;
+  isPublished: boolean;
+  orderIndex: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-// Edited videos table (portfolio showcases)
-export const editedVideos = pgTable("edited_videos", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  title: text("title").notNull(),
-  description: text("description"),
-  videoUrl: text("video_url").notNull(),
-  thumbnailUrl: text("thumbnail_url"),
-  isHostedVideo: boolean("is_hosted_video").default(true), // true for object storage, false for YouTube/external
-  clientName: text("client_name"),
-  category: text("category").notNull(), // advertisement, educational, entertainment, corporate, social, other
-  tags: text("tags"),
-  isPublished: boolean("is_published").default(false).notNull(),
-  orderIndex: integer("order_index").default(0).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+// Insert type definitions
+export type InsertContactSubmission = Omit<ContactSubmission, 'id' | 'createdAt' | 'updatedAt'>;
+export type InsertDemoVideo = Omit<DemoVideo, 'id' | 'createdAt' | 'updatedAt'>;
+export type InsertAvatar = Omit<Avatar, 'id' | 'createdAt' | 'updatedAt'>;
+export type InsertVoiceSample = Omit<VoiceSample, 'id' | 'createdAt' | 'updatedAt'>;
+export type InsertEditedVideo = Omit<EditedVideo, 'id' | 'createdAt' | 'updatedAt'>;
+export type InsertPodcastSample = Omit<PodcastSample, 'id' | 'createdAt' | 'updatedAt'>;
 
-// Podcast samples table
-export const podcastSamples = pgTable("podcast_samples", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  title: text("title").notNull(),
-  description: text("description").notNull(),
-  audioUrl: text("audio_url").notNull(),
-  category: text("category").notNull().default("interview"),
-  duration: text("duration"),
-  hostName: text("host_name"),
-  guestName: text("guest_name"),
-  isPublished: boolean("is_published").default(true),
-  orderIndex: integer("order_index").default(0),
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
-});
-
-
-
-// Insert schemas
-export const insertContactSubmissionSchema = createInsertSchema(contactSubmissions).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-}).extend({
+// Validation schemas
+export const insertContactSubmissionSchema = z.object({
   fullName: z.string().min(1, "Full name is required").min(2, "Please enter your full name"),
   email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
+  company: z.string().optional(),
   projectDetails: z.string().min(1, "Message is required").min(10, "Please provide more details about your project"),
+  status: z.string().optional(),
+  adminNotes: z.string().optional(),
 });
-
-// Export type definitions only for public-facing content
-export const insertDemoVideoSchema = createInsertSchema(demoVideos).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const insertAvatarSchema = createInsertSchema(avatars).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const insertVoiceSampleSchema = createInsertSchema(voiceSamples).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const insertEditedVideoSchema = createInsertSchema(editedVideos).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const insertPodcastSampleSchema = createInsertSchema(podcastSamples).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-// Type exports
-export type InsertContactSubmission = z.infer<typeof insertContactSubmissionSchema>;
-export type ContactSubmission = typeof contactSubmissions.$inferSelect;
-
-export type InsertDemoVideo = z.infer<typeof insertDemoVideoSchema>;
-export type DemoVideo = typeof demoVideos.$inferSelect;
-
-export type InsertAvatar = z.infer<typeof insertAvatarSchema>;
-export type Avatar = typeof avatars.$inferSelect;
-
-export type InsertVoiceSample = z.infer<typeof insertVoiceSampleSchema>;
-export type VoiceSample = typeof voiceSamples.$inferSelect;
-
-export type InsertEditedVideo = z.infer<typeof insertEditedVideoSchema>;
-export type EditedVideo = typeof editedVideos.$inferSelect;
-
-export type InsertPodcastSample = z.infer<typeof insertPodcastSampleSchema>;
-export type PodcastSample = typeof podcastSamples.$inferSelect;
