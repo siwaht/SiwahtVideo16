@@ -1,20 +1,19 @@
 #!/bin/bash
+echo "Copying web-optimized video and audio assets to client/public..."
 
-# Script to copy video and audio assets to client public directory for production build
-# This ensures static files are included in the Vite build for deployment
+# Create directories
+mkdir -p client/public/videos client/public/audio
 
-echo "Copying video and audio assets to client public directory..."
+# Copy web-optimized video files
+echo "Copying videos..."
+cp public/videos/optimized/*-web.mp4 client/public/videos/ 2>/dev/null || echo "No optimized videos found"
 
-# Create directories if they don't exist
-mkdir -p client/public/videos
-mkdir -p client/public/audio
+# Copy web-optimized audio files
+echo "Copying audio..."
+cp public/audio/optimized/*-web.mp3 client/public/audio/ 2>/dev/null || echo "No optimized audio found"
 
-# Copy video files
-cp -r public/videos/* client/public/videos/
-echo "✓ Videos copied to client/public/videos/"
+# Also copy the optimized files to replace originals in public/
+cp public/videos/optimized/*-web.mp4 public/videos/ 2>/dev/null
+cp public/audio/optimized/*-web.mp3 public/audio/ 2>/dev/null
 
-# Copy audio files  
-cp -r public/audio/* client/public/audio/
-echo "✓ Audio files copied to client/public/audio/"
-
-echo "Asset copying complete! Ready for production build."
+echo "Asset copying complete!"

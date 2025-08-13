@@ -14,6 +14,10 @@ app.use("/videos", express.static(videosPath, {
     if (filePath.endsWith('.mp4')) {
       res.setHeader('Content-Type', 'video/mp4');
       res.setHeader('Accept-Ranges', 'bytes');
+      // Add cache control for optimized web videos
+      if (filePath.includes('-web.mp4')) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+      }
     }
   }
 }));
@@ -25,6 +29,10 @@ app.use("/audio", express.static(audioPath, {
     if (filePath.endsWith('.mp3')) {
       res.setHeader('Content-Type', 'audio/mpeg');
       res.setHeader('Accept-Ranges', 'bytes');
+      // Add cache control for optimized web audio
+      if (filePath.includes('-web.mp3')) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+      }
     } else if (filePath.endsWith('.aac')) {
       res.setHeader('Content-Type', 'audio/aac');
       res.setHeader('Accept-Ranges', 'bytes');
