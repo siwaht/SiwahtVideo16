@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { User, Sparkles, Settings, Download, Volume2, VolumeX } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import type { Avatar } from "@shared/schema";
 
@@ -38,6 +38,46 @@ export default function Avatars() {
       setIsMuted(!isMuted);
     }
   };
+
+  // Add intersection observer to pause avatar video when scrolled out of view
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !featuredAvatar?.videoUrl) return;
+
+    console.log('Setting up intersection observer for avatar video:', featuredAvatar.videoUrl);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const isVisible = entry.isIntersecting;
+          console.log('Avatar video visibility changed:', { isVisible, url: featuredAvatar.videoUrl, isPlaying: !video.paused });
+
+          if (isVisible) {
+            // Video is visible, start playing if it's not already
+            if (video.paused) {
+              video.play().catch((error) => {
+                console.log('Avatar video autoplay failed:', error);
+              });
+            }
+          } else if (!video.paused) {
+            // Video is not visible and is playing, pause it
+            console.log('Pausing avatar video due to scroll out of view:', featuredAvatar.videoUrl);
+            video.pause();
+          }
+        });
+      },
+      { 
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [featuredAvatar?.videoUrl]);
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
