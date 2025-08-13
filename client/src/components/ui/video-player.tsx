@@ -108,25 +108,29 @@ export function VideoPlayer({
     };
   }, [isGifLike, shouldAutoPlay]);
 
-  // Additional effect for GIF-like videos to ensure they start playing
+  // Additional effect for GIF-like videos to ensure they start playing and stop when out of view
   useEffect(() => {
     if (!isGifLike) return;
     
     const video = videoRef.current;
     if (!video) return;
 
-    // Use intersection observer to start playing when video comes into view
+    // Use intersection observer to start/stop playing based on visibility
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            // Video is visible, start playing
             video.play().catch((error) => {
               console.log('Intersection autoplay failed:', error);
             });
+          } else {
+            // Video is not visible, pause it
+            video.pause();
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 } // Trigger when 30% of the video is visible
     );
 
     observer.observe(video);
@@ -135,6 +139,32 @@ export function VideoPlayer({
       observer.disconnect();
     };
   }, [isGifLike]);
+
+  // Add intersection observer for all videos to pause when scrolled out of view
+  useEffect(() => {
+    if (isGifLike) return; // Already handled above for GIF-like videos
+    
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting && isPlaying) {
+            // Video is not visible and is playing, pause it
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isGifLike, isPlaying]);
 
   const togglePlay = () => {
     const video = videoRef.current;

@@ -129,6 +129,35 @@ export function AudioPlayer({
     };
   }, [src]);
 
+  // Add intersection observer to pause audio when scrolled out of view
+  useEffect(() => {
+    const audioPlayerElement = audioRef.current?.parentElement;
+    if (!audioPlayerElement) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const audio = audioRef.current;
+          if (!audio) return;
+
+          if (!entry.isIntersecting && isPlaying) {
+            // Audio player is not visible and is playing, pause it
+            audio.pause();
+            setIsPlaying(false);
+            onPause?.();
+          }
+        });
+      },
+      { threshold: 0.3 } // Trigger when 30% of the audio player is visible
+    );
+
+    observer.observe(audioPlayerElement);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isPlaying, onPause]);
+
   const togglePlayPause = () => {
     const audio = audioRef.current;
     if (!audio) return;
