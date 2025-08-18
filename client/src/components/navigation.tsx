@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -61,9 +61,11 @@ export default function Navigation() {
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && window.scrollTo({ top: 0, behavior: 'smooth' })}
                 aria-label="Siwaht - Go to top">
-            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:rotate-6">
-              <Zap className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
-            </div>
+            <img 
+              src="/logo.png" 
+              alt="Siwaht Logo" 
+              className="w-10 h-10 lg:w-12 lg:h-12 transition-transform duration-300 group-hover:scale-110"
+            />
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold gradient-text">
               Siwaht
             </h1>
