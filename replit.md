@@ -1,6 +1,13 @@
 # Overview
 
-Siwaht is a comprehensive web application for AI-powered video and audio content creation. The platform offers AI video ad creation, realistic avatar generation, voice synthesis, professional video editing, and podcast production capabilities. Built as a full-stack TypeScript application with React frontend and Express backend, it provides a responsive landing page with detailed service showcases and a contact form for lead generation. The project's vision is to position Siwaht as a professional AI video and audio creation agency, emphasizing partnership and custom service delivery over self-service tools.
+Siwaht is a comprehensive web application for AI-powered video and audio content creation. The platform offers AI video ad creation, realistic avatar generation, voice ads (multilingual), professional video editing, and podcast production capabilities. Built as a full-stack TypeScript application with React frontend and Express backend, it provides a responsive landing page with detailed service showcases and a contact form for lead generation. The project's vision is to position Siwaht as a professional AI video and audio creation agency, emphasizing partnership and custom service delivery over self-service tools.
+
+## Recent Updates (January 2025)
+- Comprehensive SEO optimization: Added structured data (JSON-LD), meta tags, Open Graph tags, sitemap.xml, and robots.txt
+- LLM optimization: Enhanced semantic HTML structure, proper ARIA labels, and descriptive alt text for media
+- Mobile responsiveness: Improved touch targets (44x44px minimum), better text readability, and optimized media containers
+- Rebranded "Voice Synthesis" to "Voice Ads" throughout the site
+- Added Siwaht logo integration in navigation and footer
 
 # User Preferences
 

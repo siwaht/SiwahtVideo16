@@ -387,4 +387,93 @@
       touch-action: manipulation;
     }
   }
+  
+  /* Enhanced Mobile Responsiveness & SEO Optimization */
+  @media (max-width: 768px) {
+    /* Ensure all touch targets meet accessibility standards (44x44px) */
+    button, a, input, textarea, select, .clickable {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    /* Improve text readability on mobile */
+    body {
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+    
+    /* Prevent horizontal scroll on mobile */
+    body, html {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+    
+    /* Better spacing for mobile forms */
+    input, textarea, select {
+      font-size: 16px; /* Prevents zoom on iOS */
+      padding: 12px;
+    }
+    
+    /* Optimize media containers for mobile */
+    .video-container, .audio-container {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    /* Better touch feedback */
+    button, a, .clickable {
+      -webkit-tap-highlight-color: rgba(99, 102, 241, 0.2);
+    }
+    
+    /* Improve readability */
+    h1, h2, h3, h4, h5, h6 {
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+    
+    /* Optimize images for mobile */
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  
+  /* High contrast mode support for accessibility */
+  @media (prefers-contrast: high) {
+    .btn-primary, .btn-secondary {
+      border: 2px solid currentColor;
+    }
+  }
+  
+  /* Reduced motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Print styles for SEO and accessibility */
+  @media print {
+    .no-print, nav, footer, button, .video-container {
+      display: none !important;
+    }
+    
+    body {
+      font-size: 12pt;
+      color: black;
+      background: white;
+    }
+    
+    a {
+      text-decoration: underline;
+    }
+    
+    a[href^="http"]:after {
+      content: " (" attr(href) ")";
+    }
+  }
 }

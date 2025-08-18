@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <!-- Homepage -->
+  <url>
+    <loc>https://siwaht.com/</loc>
+    <lastmod>2025-01-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Service Pages (Anchor Links) -->
+  <url>
+    <loc>https://siwaht.com/#video-ads</loc>
+    <lastmod>2025-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://siwaht.com/#avatars</loc>
+    <lastmod>2025-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://siwaht.com/#voice-synthesis</loc>
+    <lastmod>2025-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://siwaht.com/#editing</loc>
+    <lastmod>2025-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://siwaht.com/#podcast</loc>
+    <lastmod>2025-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://siwaht.com/#contact</loc>
+    <lastmod>2025-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Video Content for Rich Results -->
+  <url>
+    <loc>https://siwaht.com/videos/ikea-demo-new-web.mp4</loc>
+    <video:video>
+      <video:thumbnail_loc>https://siwaht.com/logo.png</video:thumbnail_loc>
+      <video:title>IKEA AI Video Ad Demo</video:title>
+      <video:description>Professional AI-generated video advertisement showcasing IKEA furniture products with engaging visuals and brand messaging.</video:description>
+      <video:content_loc>https://siwaht.com/videos/ikea-demo-new-web.mp4</video:content_loc>
+      <video:duration>30</video:duration>
+      <video:publication_date>2025-01-01</video:publication_date>
+    </video:video>
+  </url>
+  
+  <url>
+    <loc>https://siwaht.com/videos/artisan-baker-avatar-web.mp4</loc>
+    <video:video>
+      <video:thumbnail_loc>https://siwaht.com/logo.png</video:thumbnail_loc>
+      <video:title>Artisan Baker AI Avatar Demo</video:title>
+      <video:description>Realistic AI avatar representing an artisan baker, perfect for brand storytelling and customer engagement.</video:description>
+      <video:content_loc>https://siwaht.com/videos/artisan-baker-avatar-web.mp4</video:content_loc>
+      <video:duration>20</video:duration>
+      <video:publication_date>2025-01-01</video:publication_date>
+    </video:video>
+  </url>
+  
+  <url>
+    <loc>https://siwaht.com/videos/dairy-farmer-new-web.mp4</loc>
+    <video:video>
+      <video:thumbnail_loc>https://siwaht.com/logo.png</video:thumbnail_loc>
+      <video:title>Dairy Farmer Documentary</video:title>
+      <video:description>Professional video editing showcase featuring a dairy farmer documentary with cinematic quality and storytelling.</video:description>
+      <video:content_loc>https://siwaht.com/videos/dairy-farmer-new-web.mp4</video:content_loc>
+      <video:duration>45</video:duration>
+      <video:publication_date>2025-01-01</video:publication_date>
+    </video:video>
+  </url>
+</urlset>

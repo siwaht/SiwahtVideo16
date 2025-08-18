@@ -147,8 +147,9 @@ export default function VideoAds() {
                         {featuredVideo.thumbnailUrl ? (
                           <img 
                             src={featuredVideo.thumbnailUrl} 
-                            alt={featuredVideo.title}
+                            alt={`Thumbnail for ${featuredVideo.title} - AI generated video advertisement`}
                             className="w-full h-full object-cover"
+                            loading="lazy"
                             onError={(e) => {
                               e.currentTarget.style.display = 'none';
                             }}

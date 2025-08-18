@@ -93,7 +93,7 @@ export default function Hero() {
               <div className="feature-icon bg-gradient-to-br from-emerald-100 to-emerald-200 icon-gradient mb-6 rounded-2xl flex items-center justify-center group-hover:rotate-6 group-hover:scale-110 transition-all duration-500 shadow-lg group-hover:shadow-xl">
                 <Mic className="text-emerald-600 h-8 w-8" aria-hidden="true" />
               </div>
-              <h3 className="text-xl lg:text-2xl font-bold text-slate-900 mb-4 text-shadow group-hover:text-emerald-600 transition-colors duration-300 leading-tight">Voice Synthesis</h3>
+              <h3 className="text-xl lg:text-2xl font-bold text-slate-900 mb-4 text-shadow group-hover:text-emerald-600 transition-colors duration-300 leading-tight">Voice Ads</h3>
               <p className="text-slate-600 text-base lg:text-lg leading-relaxed">Generate natural-sounding speech in multiple languages and accents</p>
               <div className="mt-4 h-1 w-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full opacity-0 group-hover:opacity-100 group-hover:w-20 transition-all duration-500"></div>
             </div>
