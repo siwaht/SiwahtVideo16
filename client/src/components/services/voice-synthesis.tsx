@@ -18,7 +18,7 @@ export default function VoiceSynthesis() {
 
   // Debug logging (remove in production)
   if (process.env.NODE_ENV === 'development') {
-    console.log('Voice Synthesis Debug:', { 
+    console.log('Voice Ads Debug:', { 
       voiceSamples: voiceSamples.length, 
       publishedVoices: publishedVoices.length, 
       featuredVoice: featuredVoice?.name || 'none',
@@ -227,7 +227,7 @@ export default function VoiceSynthesis() {
                 onClick={scrollToContact}
                 className="btn-secondary w-full xs:w-auto text-lg xs:text-xl px-10 py-5"
                 data-testid="voice-synthesis-cta"
-                aria-label="Start creating voice synthesis"
+                aria-label="Start creating voice ads"
               >
                 Order Voice Services
               </button>

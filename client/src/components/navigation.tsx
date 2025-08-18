@@ -39,7 +39,7 @@ export default function Navigation() {
   const navigationItems = [
     { id: "video-ads", label: "Video Ads" },
     { id: "avatars", label: "AI Avatars" },
-    { id: "voice-synthesis", label: "Voice Synthesis" },
+    { id: "voice-synthesis", label: "Voice Ads" },
     { id: "editing", label: "Video Editing" },
     { id: "podcast", label: "Podcasts" },
   ];

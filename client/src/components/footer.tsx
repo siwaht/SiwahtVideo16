@@ -16,7 +16,7 @@ export default function Footer() {
   const services = [
     { name: "AI Video Ads", id: "video-ads" },
     { name: "AI Avatars", id: "avatars" },
-    { name: "Voice Synthesis", id: "voice" },
+    { name: "Voice Ads", id: "voice" },
     { name: "Video Editing", id: "editing" },
     { name: "Podcast Production", id: "podcast" },
   ];
