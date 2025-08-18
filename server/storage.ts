@@ -74,8 +74,8 @@ class MemStorage implements IStorage {
     const contact: ContactSubmission = {
       id: Math.random().toString(36).substr(2, 9),
       ...submission,
-      status: submission.status || "unread",
-      adminNotes: submission.adminNotes || null,
+      status: "unread",
+      adminNotes: null,
       company: submission.company || null,
       createdAt: new Date(),
       updatedAt: new Date(),

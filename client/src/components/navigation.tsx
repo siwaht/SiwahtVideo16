@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
-
-import siwath_logo_withoutbackground from "@assets/siwath_logo_withoutbackground.png";
+import { Menu, X, Zap } from "lucide-react";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -63,11 +61,9 @@ export default function Navigation() {
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && window.scrollTo({ top: 0, behavior: 'smooth' })}
                 aria-label="Siwaht - Go to top">
-            <img 
-              src={siwath_logo_withoutbackground} 
-              alt="Siwaht Logo" 
-              className="w-8 h-8 lg:w-10 lg:h-10 transition-transform duration-300 group-hover:rotate-6"
-            />
+            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:rotate-6">
+              <Zap className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
+            </div>
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold gradient-text">
               Siwaht
             </h1>

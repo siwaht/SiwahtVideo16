@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Linkedin, Github, Mail, Phone, MapPin } from "lucide-react";
+import { Linkedin, Github, Mail, Phone, MapPin, Zap } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
 
-import siwath_logo_withoutbackground from "@assets/siwath_logo_withoutbackground.png";
 import PrivacyPolicy from "./privacy-policy";
 
 export default function Footer() {
@@ -56,11 +55,9 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <img 
-                src={siwath_logo_withoutbackground} 
-                alt="Siwaht Logo" 
-                className="w-10 h-10"
-              />
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                <Zap className="w-6 h-6 text-white" />
+              </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">
                   Siwaht
