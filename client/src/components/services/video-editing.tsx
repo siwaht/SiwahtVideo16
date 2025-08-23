@@ -51,7 +51,6 @@ export default function VideoEditing() {
           if (entry.isIntersecting && video.paused) {
             // Video is visible, start playing
             video.play().catch((error) => {
-              console.log('Video editing video autoplay failed:', error);
             });
           }
           // Note: Pausing is now handled by the global auto-pause system
@@ -158,13 +157,10 @@ export default function VideoEditing() {
                           playsInline
                           controls={false}
                           onError={(e) => {
-                            console.error('Direct video failed to load:', featuredEditedVideo.videoUrl, e);
                           }}
                           onLoadStart={() => {
-                            console.log('Video loading started:', featuredEditedVideo.videoUrl);
                           }}
                           onCanPlay={() => {
-                            console.log('Video can play:', featuredEditedVideo.videoUrl);
                           }}
                         />
                         

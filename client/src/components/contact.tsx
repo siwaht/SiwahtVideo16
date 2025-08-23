@@ -56,13 +56,11 @@ export default function Contact() {
       
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Webhook error response:", errorText);
         throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
       }
       
       // Handle response as text since webhook returns "Accepted"
       const responseText = await response.text();
-      console.log("Webhook response:", responseText);
       
       return { status: responseText };
     },
@@ -74,7 +72,6 @@ export default function Contact() {
       form.reset();
     },
     onError: (error) => {
-      console.error("Form submission error:", error);
       toast({
         title: "Error sending message",
         description: "Please try again later or contact us directly.",

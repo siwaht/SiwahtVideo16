@@ -78,12 +78,12 @@
   </url>
   
   <url>
-    <loc>https://siwaht.com/videos/dairy-farmer-new-web.mp4</loc>
+    <loc>https://siwaht.com/videos/japanese-market-new.mp4</loc>
     <video:video>
       <video:thumbnail_loc>https://siwaht.com/logo.png</video:thumbnail_loc>
-      <video:title>Dairy Farmer Documentary</video:title>
-      <video:description>Professional video editing showcase featuring a dairy farmer documentary with cinematic quality and storytelling.</video:description>
-      <video:content_loc>https://siwaht.com/videos/dairy-farmer-new-web.mp4</video:content_loc>
+      <video:title>Japanese Market Documentary</video:title>
+      <video:description>Professional documentary showcasing vibrant Japanese market culture and traditions with cinematic editing.</video:description>
+      <video:content_loc>https://siwaht.com/videos/japanese-market-new.mp4</video:content_loc>
       <video:duration>45</video:duration>
       <video:publication_date>2025-01-01</video:publication_date>
     </video:video>

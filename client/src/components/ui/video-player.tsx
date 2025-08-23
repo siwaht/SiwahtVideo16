@@ -58,10 +58,8 @@ export function VideoPlayer({
       // Force play for GIF-like videos after metadata is loaded
       if (isGifLike && shouldAutoPlay) {
         video.play().catch((error) => {
-          console.log('Autoplay failed, attempting to play muted:', error);
           video.muted = true;
           video.play().catch((e) => {
-            console.log('Muted autoplay also failed:', e);
           });
         });
       }
@@ -79,7 +77,6 @@ export function VideoPlayer({
     };
 
     const handleError = (e: Event) => {
-      console.error('Video error:', e);
       setHasError(true);
       setIsLoading(false);
     };
@@ -121,7 +118,6 @@ export function VideoPlayer({
           if (entry.isIntersecting) {
             // GIF-like video is visible, start playing
             video.play().catch((error) => {
-              console.log('GIF-like autoplay failed:', error);
             });
           }
           // Note: Pausing is now handled by the global auto-pause system
