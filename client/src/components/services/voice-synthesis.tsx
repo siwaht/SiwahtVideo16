@@ -16,16 +16,6 @@ export default function VoiceSynthesis() {
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredVoice = publishedVoices[0];
 
-  // Debug logging (remove in production)
-  if (process.env.NODE_ENV === 'development') {
-    console.log('Voice Ads Debug:', { 
-      voiceSamples: voiceSamples.length, 
-      publishedVoices: publishedVoices.length, 
-      featuredVoice: featuredVoice?.name || 'none',
-      isLoading,
-      error 
-    });
-  }
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");

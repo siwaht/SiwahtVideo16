@@ -21,16 +21,6 @@ export default function Avatars() {
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredAvatar = publishedAvatars[0];
 
-  // Debug logging (remove in production)
-  if (process.env.NODE_ENV === 'development') {
-    console.log('Avatars Debug:', { 
-      avatars: avatars.length, 
-      publishedAvatars: publishedAvatars.length, 
-      featuredAvatar: featuredAvatar?.name || 'none',
-      isLoading,
-      error 
-    });
-  }
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -50,7 +40,6 @@ export default function Avatars() {
           if (entry.isIntersecting && video.paused) {
             // Video is visible, start playing
             video.play().catch((error) => {
-              console.log('Avatar video autoplay failed:', error);
             });
           }
           // Note: Pausing is now handled by the global auto-pause system
@@ -190,7 +179,6 @@ export default function Avatars() {
                           loop
                           playsInline
                           onError={(e) => {
-                            console.log('Avatar video failed to load:', featuredAvatar.videoUrl);
                           }}
                         />
                         
@@ -217,7 +205,6 @@ export default function Avatars() {
                         alt={featuredAvatar.name}
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          console.log('Avatar thumbnail failed to load:', featuredAvatar.thumbnailUrl);
                         }}
                       />
                     ) : (

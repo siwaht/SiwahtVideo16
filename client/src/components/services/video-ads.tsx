@@ -21,24 +21,6 @@ export default function VideoAds() {
   // Process video URL for embedding
   const processedVideo = featuredVideo?.videoUrl ? processVideoUrl(featuredVideo.videoUrl) : null;
 
-  // Debug logging (remove in production)
-  if (process.env.NODE_ENV === 'development') {
-    console.log('Video Ads Debug:', { 
-      demoVideos: demoVideos.length, 
-      publishedVideos: publishedVideos.length, 
-      featuredVideo: featuredVideo?.title || 'none',
-      featuredVideoUrl: featuredVideo?.videoUrl || 'none',
-      isHostedVideo: featuredVideo?.isHostedVideo || false,
-      thumbnailUrl: featuredVideo?.thumbnailUrl || 'none',
-      isLoading,
-      error,
-      processedVideo: processedVideo ? {
-        platform: processedVideo.platform,
-        canEmbed: processedVideo.canEmbed,
-        embedUrl: processedVideo.embedUrl
-      } : null
-    });
-  }
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");

@@ -22,16 +22,6 @@ export default function VideoEditing() {
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredEditedVideo = publishedEditedVideos[0];
 
-  // Debug logging (remove in production)
-  if (process.env.NODE_ENV === 'development') {
-    console.log('Video Editing Debug:', { 
-      editedVideos: editedVideos.length, 
-      publishedEditedVideos: publishedEditedVideos.length, 
-      featuredEditedVideo: featuredEditedVideo?.title || 'none',
-      isLoading,
-      error 
-    });
-  }
 
   const toggleMute = () => {
     if (videoRef.current) {
