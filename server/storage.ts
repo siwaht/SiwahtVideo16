@@ -443,7 +443,7 @@ class MemStorage implements IStorage {
             id: "a37d48i2-f429-8e9j-2f20-5g89h1j2i3e6",
             title: "Japanese Market Documentary",
             description: "Professional documentary showcasing vibrant Japanese market culture and traditions",
-            videoUrl: "/videos/japanese-market.mp4",
+            videoUrl: "/videos/japanese-market-new.mp4",
             thumbnailUrl: null,
             isHostedVideo: true,
             clientName: "Cultural Productions",
