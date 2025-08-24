@@ -94,6 +94,7 @@ export interface Media {
   id: string;
   title: string;
   category: string;
+  description?: string | null;
   fileType: 'video' | 'audio';
   originalFilename: string;
   compressedFilePath: string;
@@ -105,6 +106,16 @@ export interface Media {
     height?: number;
     codec?: string;
     bitrate?: string;
+  } | null;
+  audioMetadata?: {
+    language?: string;
+    gender?: string;
+    accent?: string;
+    ageRange?: string;
+    episodeType?: string;
+    tags?: string[];
+    hostName?: string;
+    guestName?: string;
   } | null;
   createdAt: Date;
   updatedAt: Date;
@@ -123,7 +134,7 @@ export type InsertVoiceSample = Omit<VoiceSample, 'id' | 'createdAt' | 'updatedA
 export type InsertEditedVideo = Omit<EditedVideo, 'id' | 'createdAt' | 'updatedAt'>;
 export type InsertPodcastSample = Omit<PodcastSample, 'id' | 'createdAt' | 'updatedAt'>;
 export type InsertMedia = Omit<Media, 'id' | 'createdAt' | 'updatedAt'>;
-export type UpdateMedia = Pick<Media, 'title' | 'category'>;
+export type UpdateMedia = Pick<Media, 'title' | 'category' | 'description' | 'audioMetadata'>;
 
 // Media categories for dropdown
 export const mediaCategories = [
@@ -147,6 +158,7 @@ export const insertContactSubmissionSchema = z.object({
 export const insertMediaSchema = z.object({
   title: z.string().min(1, "Title is required"),
   category: z.enum(mediaCategories),
+  description: z.string().optional(),
   fileType: z.enum(['video', 'audio']),
   originalFilename: z.string(),
   compressedFilePath: z.string(),
@@ -159,9 +171,30 @@ export const insertMediaSchema = z.object({
     codec: z.string().optional(),
     bitrate: z.string().optional(),
   }).optional(),
+  audioMetadata: z.object({
+    language: z.string().optional(),
+    gender: z.string().optional(),
+    accent: z.string().optional(),
+    ageRange: z.string().optional(),
+    episodeType: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    hostName: z.string().optional(),
+    guestName: z.string().optional(),
+  }).optional(),
 });
 
 export const updateMediaSchema = z.object({
   title: z.string().min(1, "Title is required"),
   category: z.enum(mediaCategories),
+  description: z.string().optional(),
+  audioMetadata: z.object({
+    language: z.string().optional(),
+    gender: z.string().optional(),
+    accent: z.string().optional(),
+    ageRange: z.string().optional(),
+    episodeType: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    hostName: z.string().optional(),
+    guestName: z.string().optional(),
+  }).optional(),
 });

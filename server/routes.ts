@@ -109,9 +109,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .filter(media => media.fileType === "audio")
         .map((media, index) => ({
           id: media.id,
-          name: media.title, // Use 'name' field instead of 'voiceType'
-          language: "English",
-          gender: "Neutral",
+          name: media.title,
+          language: media.audioMetadata?.language || "English",
+          gender: media.audioMetadata?.gender || "Neutral",
+          accent: media.audioMetadata?.accent || undefined,
+          ageRange: media.audioMetadata?.ageRange || undefined,
           audioUrl: media.compressedFilePath.startsWith('http') 
             ? media.compressedFilePath 
             : media.compressedFilePath,
@@ -182,12 +184,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .map((media, index) => ({
           id: media.id,
           title: media.title,
-          episodeNumber: "",
+          category: media.audioMetadata?.tags?.[0] || "general",
+          episodeNumber: media.audioMetadata?.episodeType || "",
           duration: media.duration || "15m",
           audioUrl: media.compressedFilePath.startsWith('http') 
             ? media.compressedFilePath 
             : media.compressedFilePath,
           description: media.description || "Professional podcast episode",
+          hostName: media.audioMetadata?.hostName || undefined,
+          guestName: media.audioMetadata?.guestName || undefined,
           orderIndex: index, // Admin samples get priority with lower orderIndex
           isPublished: true,
           createdAt: media.createdAt,
@@ -287,12 +292,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "No file uploaded" });
       }
 
-      const { title, category } = req.body;
+      const { title, category, description, audioMetadata } = req.body;
       
       if (!title || !category) {
         // Clean up temp file
         if (tempPath) await fs.unlink(tempPath).catch(console.error);
         return res.status(400).json({ error: "Title and category are required" });
+      }
+      
+      // Parse audio metadata if provided
+      let parsedAudioMetadata = null;
+      if (audioMetadata) {
+        try {
+          parsedAudioMetadata = JSON.parse(audioMetadata);
+        } catch (e) {
+          console.error("Failed to parse audio metadata:", e);
+        }
       }
 
       // Determine file type
@@ -311,6 +326,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const media = await mediaStorage.createMedia({
         title,
         category,
+        description: description || undefined,
         fileType,
         originalFilename: req.file.originalname,
         compressedFilePath: processed.compressedPath,
@@ -318,6 +334,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         duration: processed.duration,
         fileSize: processed.fileSize,
         metadata: processed.metadata,
+        audioMetadata: parsedAudioMetadata || undefined,
       });
 
       // Clean up temp file

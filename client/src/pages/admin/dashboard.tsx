@@ -54,6 +54,8 @@ export default function AdminDashboard() {
   const [showUploadDialog, setShowUploadDialog] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedFileType, setSelectedFileType] = useState<'video' | 'audio' | null>(null);
 
   // Check authentication
   useEffect(() => {
@@ -182,6 +184,46 @@ export default function AdminDashboard() {
     }
 
     try {
+      // Prepare upload data
+      const uploadData = new FormData();
+      uploadData.append("file", file);
+      uploadData.append("title", formData.get("title") as string);
+      uploadData.append("category", formData.get("category") as string);
+      
+      const description = formData.get("description") as string;
+      if (description) uploadData.append("description", description);
+      
+      // Add audio metadata if it's an audio file
+      if (selectedFileType === 'audio') {
+        const audioMetadata: any = {};
+        
+        if (selectedCategory === "Professional Multilingual Voice Ads") {
+          const language = formData.get("language") as string;
+          const gender = formData.get("gender") as string;
+          const accent = formData.get("accent") as string;
+          const ageRange = formData.get("ageRange") as string;
+          
+          if (language) audioMetadata.language = language;
+          if (gender) audioMetadata.gender = gender;
+          if (accent) audioMetadata.accent = accent;
+          if (ageRange) audioMetadata.ageRange = ageRange;
+        } else if (selectedCategory === "AI Podcast Production") {
+          const episodeType = formData.get("episodeType") as string;
+          const tags = formData.get("tags") as string;
+          const hostName = formData.get("hostName") as string;
+          const guestName = formData.get("guestName") as string;
+          
+          if (episodeType) audioMetadata.episodeType = episodeType;
+          if (tags) audioMetadata.tags = tags.split(',').map(t => t.trim()).filter(Boolean);
+          if (hostName) audioMetadata.hostName = hostName;
+          if (guestName) audioMetadata.guestName = guestName;
+        }
+        
+        if (Object.keys(audioMetadata).length > 0) {
+          uploadData.append("audioMetadata", JSON.stringify(audioMetadata));
+        }
+      }
+      
       // Show progress updates
       const interval = setInterval(() => {
         setUploadProgress((prev) => Math.min(prev + 10, 90));
@@ -190,7 +232,7 @@ export default function AdminDashboard() {
       const response = await fetch("/api/admin/media/upload", {
         method: "POST",
         credentials: "include",
-        body: formData,
+        body: uploadData,
       });
 
       clearInterval(interval);
@@ -219,6 +261,8 @@ export default function AdminDashboard() {
     } finally {
       setIsUploading(false);
       setUploadProgress(0);
+      setSelectedCategory("");
+      setSelectedFileType(null);
     }
   };
 
@@ -368,7 +412,13 @@ export default function AdminDashboard() {
       </main>
 
       {/* Upload Dialog */}
-      <Dialog open={showUploadDialog} onOpenChange={setShowUploadDialog}>
+      <Dialog open={showUploadDialog} onOpenChange={(open) => {
+        setShowUploadDialog(open);
+        if (!open) {
+          setSelectedCategory("");
+          setSelectedFileType(null);
+        }
+      }}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Upload New Media</DialogTitle>
@@ -391,7 +441,13 @@ export default function AdminDashboard() {
               </div>
               <div>
                 <Label htmlFor="category">Category</Label>
-                <Select name="category" required disabled={isUploading}>
+                <Select 
+                  name="category" 
+                  required 
+                  disabled={isUploading}
+                  value={selectedCategory}
+                  onValueChange={setSelectedCategory}
+                >
                   <SelectTrigger data-testid="select-upload-category">
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
@@ -414,11 +470,127 @@ export default function AdminDashboard() {
                   required
                   disabled={isUploading}
                   data-testid="input-upload-file"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setSelectedFileType(file.type.startsWith('audio') ? 'audio' : 'video');
+                    }
+                  }}
                 />
                 <p className="text-sm text-slate-500 mt-1">
                   Accepted formats: MP4, MOV, WEBM, MP3, WAV
                 </p>
               </div>
+              
+              {/* Description field */}
+              <div>
+                <Label htmlFor="description">Description (Optional)</Label>
+                <Input
+                  id="description"
+                  name="description"
+                  placeholder="Enter a description"
+                  disabled={isUploading}
+                  data-testid="input-upload-description"
+                />
+              </div>
+              
+              {/* Audio-specific metadata fields */}
+              {selectedFileType === 'audio' && selectedCategory === "Professional Multilingual Voice Ads" && (
+                <>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="language">Language</Label>
+                      <Input
+                        id="language"
+                        name="language"
+                        placeholder="e.g., English, 中文, العربية"
+                        disabled={isUploading}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="gender">Gender</Label>
+                      <Select name="gender" disabled={isUploading}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select gender" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Male">Male</SelectItem>
+                          <SelectItem value="Female">Female</SelectItem>
+                          <SelectItem value="Neutral">Neutral</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="accent">Accent (Optional)</Label>
+                      <Input
+                        id="accent"
+                        name="accent"
+                        placeholder="e.g., American, British, native"
+                        disabled={isUploading}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="ageRange">Age Range (Optional)</Label>
+                      <Input
+                        id="ageRange"
+                        name="ageRange"
+                        placeholder="e.g., adult, child, senior"
+                        disabled={isUploading}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+              
+              {selectedFileType === 'audio' && selectedCategory === "AI Podcast Production" && (
+                <>
+                  <div>
+                    <Label htmlFor="episodeType">Episode Type</Label>
+                    <Select name="episodeType" disabled={isUploading}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Full Episode">Full Episode</SelectItem>
+                        <SelectItem value="Short Episode">Short Episode</SelectItem>
+                        <SelectItem value="Teaser">Teaser</SelectItem>
+                        <SelectItem value="Bonus Content">Bonus Content</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="tags">Category Tags (comma-separated)</Label>
+                    <Input
+                      id="tags"
+                      name="tags"
+                      placeholder="e.g., technology, comedy, business"
+                      disabled={isUploading}
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="hostName">Host Name (Optional)</Label>
+                      <Input
+                        id="hostName"
+                        name="hostName"
+                        placeholder="Host name"
+                        disabled={isUploading}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="guestName">Guest Name (Optional)</Label>
+                      <Input
+                        id="guestName"
+                        name="guestName"
+                        placeholder="Guest name"
+                        disabled={isUploading}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
               {isUploading && (
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
