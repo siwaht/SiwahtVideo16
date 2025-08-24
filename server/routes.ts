@@ -98,10 +98,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/samples/voice-samples", async (req, res) => {
     try {
-      const samples = await storage.getVoiceSamples(12);
-      const publishedSamples = samples.filter(sample => sample.isPublished);
-      
-      // Get admin uploaded audio for Professional Multilingual Voice Ads category
+      // Only get samples from database (manageable from admin panel)
       const adminVoiceAds = await mediaStorage.getMediaByCategory("Professional Multilingual Voice Ads");
       
       // Convert admin audio to voice sample format
@@ -119,13 +116,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
             : media.compressedFilePath,
           duration: media.duration || "30s",
           description: media.description || "Custom voice ad",
-          orderIndex: index, // Admin samples get priority with lower orderIndex
+          orderIndex: index,
           isPublished: true,
           createdAt: media.createdAt,
           updatedAt: media.updatedAt
         }));
       
-      res.json([...publishedSamples, ...adminVoiceSamples]);
+      res.json(adminVoiceSamples);
     } catch (error) {
       console.error("Error fetching voice samples:", error);
       res.status(500).json({ error: "Failed to fetch voice samples" });
@@ -172,10 +169,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/samples/podcast-samples", async (req, res) => {
     try {
-      const samples = await storage.getPodcastSamples(12);
-      const publishedSamples = samples.filter(sample => sample.isPublished);
-      
-      // Get admin uploaded audio for AI Podcast Production category
+      // Only get samples from database (manageable from admin panel)
       const adminPodcasts = await mediaStorage.getMediaByCategory("AI Podcast Production");
       
       // Convert admin audio to podcast sample format
@@ -193,13 +187,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
           description: media.description || "Professional podcast episode",
           hostName: media.audioMetadata?.hostName || undefined,
           guestName: media.audioMetadata?.guestName || undefined,
-          orderIndex: index, // Admin samples get priority with lower orderIndex
+          orderIndex: index,
           isPublished: true,
           createdAt: media.createdAt,
           updatedAt: media.updatedAt
         }));
       
-      res.json([...publishedSamples, ...adminPodcastSamples]);
+      res.json(adminPodcastSamples);
     } catch (error) {
       console.error("Error fetching podcast samples:", error);
       res.status(500).json({ error: "Failed to fetch podcast samples" });
