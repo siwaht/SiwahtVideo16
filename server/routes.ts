@@ -24,6 +24,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Get admin uploaded videos for AI Video Studio category
       const adminVideos = await mediaStorage.getMediaByCategory("AI Video Studio");
+      console.log("Admin videos for AI Video Studio:", adminVideos.length);
       
       // Convert admin videos to demo video format
       const adminDemoVideos = adminVideos
