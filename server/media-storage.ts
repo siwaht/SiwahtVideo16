@@ -49,6 +49,12 @@ export class MediaStorage {
   async deleteMedia(id: string): Promise<boolean> {
     return this.mediaItems.delete(id);
   }
+
+  // Get media items by category
+  async getMediaByCategory(category: string): Promise<Media[]> {
+    const items = Array.from(this.mediaItems.values());
+    return items.filter(item => item.category === category);
+  }
 }
 
 export const mediaStorage = new MediaStorage();

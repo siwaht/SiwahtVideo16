@@ -21,7 +21,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const videos = await storage.getDemoVideos(12);
       const publishedVideos = videos.filter(video => video.isPublished);
-      res.json(publishedVideos);
+      
+      // Get admin uploaded videos for AI Video Studio category
+      const adminVideos = await mediaStorage.getMediaByCategory("AI Video Studio");
+      
+      // Convert admin videos to demo video format
+      const adminDemoVideos = adminVideos
+        .filter(media => media.fileType === "video")
+        .map((media, index) => ({
+          id: media.id,
+          title: media.title,
+          description: media.description || "Professional AI-generated video content",
+          videoUrl: media.compressedFilePath.startsWith('http') 
+            ? media.compressedFilePath 
+            : `/uploads/compressed/${path.basename(media.compressedFilePath)}`,
+          thumbnailUrl: media.thumbnailPath ? 
+            (media.thumbnailPath.startsWith('http') 
+              ? media.thumbnailPath 
+              : `/uploads/thumbnails/${path.basename(media.thumbnailPath)}`) 
+            : null,
+          category: "demo",
+          duration: media.duration || "30s",
+          orderIndex: publishedVideos.length + index,
+          isPublished: true,
+          createdAt: media.createdAt,
+          updatedAt: media.updatedAt
+        }));
+      
+      // Combine and return all videos
+      const allVideos = [...publishedVideos, ...adminDemoVideos];
+      res.json(allVideos);
     } catch (error) {
       console.error("Error fetching demo videos:", error);
       res.status(500).json({ error: "Failed to fetch demo videos" });
@@ -32,7 +61,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const avatars = await storage.getAvatars(12);
       const publishedAvatars = avatars.filter(avatar => avatar.isPublished);
-      res.json(publishedAvatars);
+      
+      // Get admin uploaded videos for AI Avatar category
+      const adminAvatars = await mediaStorage.getMediaByCategory("AI Avatar");
+      
+      // Convert admin videos to avatar format
+      const adminAvatarVideos = adminAvatars
+        .filter(media => media.fileType === "video")
+        .map((media, index) => ({
+          id: media.id,
+          name: media.title,
+          role: "Custom Avatar",
+          videoUrl: media.compressedFilePath.startsWith('http') 
+            ? media.compressedFilePath 
+            : `/uploads/compressed/${path.basename(media.compressedFilePath)}`,
+          thumbnailUrl: media.thumbnailPath ? 
+            (media.thumbnailPath.startsWith('http') 
+              ? media.thumbnailPath 
+              : `/uploads/thumbnails/${path.basename(media.thumbnailPath)}`) 
+            : null,
+          description: media.description || "Professional AI-generated avatar",
+          orderIndex: publishedAvatars.length + index,
+          isPublished: true,
+          createdAt: media.createdAt,
+          updatedAt: media.updatedAt
+        }));
+      
+      res.json([...publishedAvatars, ...adminAvatarVideos]);
     } catch (error) {
       console.error("Error fetching avatars:", error);
       res.status(500).json({ error: "Failed to fetch avatars" });
@@ -43,7 +98,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const samples = await storage.getVoiceSamples(12);
       const publishedSamples = samples.filter(sample => sample.isPublished);
-      res.json(publishedSamples);
+      
+      // Get admin uploaded audio for Voice Ad category
+      const adminVoiceAds = await mediaStorage.getMediaByCategory("Voice Ad");
+      
+      // Convert admin audio to voice sample format
+      const adminVoiceSamples = adminVoiceAds
+        .filter(media => media.fileType === "audio")
+        .map((media, index) => ({
+          id: media.id,
+          language: "English",
+          voiceType: media.title,
+          audioUrl: media.compressedFilePath.startsWith('http') 
+            ? media.compressedFilePath 
+            : `/uploads/compressed/${path.basename(media.compressedFilePath)}`,
+          duration: media.duration || "30s",
+          description: media.description || "Custom voice ad",
+          orderIndex: publishedSamples.length + index,
+          isPublished: true,
+          createdAt: media.createdAt,
+          updatedAt: media.updatedAt
+        }));
+      
+      res.json([...publishedSamples, ...adminVoiceSamples]);
     } catch (error) {
       console.error("Error fetching voice samples:", error);
       res.status(500).json({ error: "Failed to fetch voice samples" });
@@ -54,7 +131,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const videos = await storage.getEditedVideos(12);
       const publishedVideos = videos.filter(video => video.isPublished);
-      res.json(publishedVideos);
+      
+      // Get admin uploaded videos for Video Editing category
+      const adminVideos = await mediaStorage.getMediaByCategory("Video Editing");
+      
+      // Convert admin videos to edited video format
+      const adminEditedVideos = adminVideos
+        .filter(media => media.fileType === "video")
+        .map((media, index) => ({
+          id: media.id,
+          title: media.title,
+          projectType: "Custom Edit",
+          duration: media.duration || "60s",
+          videoUrl: media.compressedFilePath.startsWith('http') 
+            ? media.compressedFilePath 
+            : `/uploads/compressed/${path.basename(media.compressedFilePath)}`,
+          thumbnailUrl: media.thumbnailPath ? 
+            (media.thumbnailPath.startsWith('http') 
+              ? media.thumbnailPath 
+              : `/uploads/thumbnails/${path.basename(media.thumbnailPath)}`) 
+            : null,
+          description: media.description || "Professionally edited video content",
+          orderIndex: publishedVideos.length + index,
+          isPublished: true,
+          createdAt: media.createdAt,
+          updatedAt: media.updatedAt
+        }));
+      
+      res.json([...publishedVideos, ...adminEditedVideos]);
     } catch (error) {
       console.error("Error fetching edited videos:", error);
       res.status(500).json({ error: "Failed to fetch edited videos" });
@@ -65,7 +169,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const samples = await storage.getPodcastSamples(12);
       const publishedSamples = samples.filter(sample => sample.isPublished);
-      res.json(publishedSamples);
+      
+      // Get admin uploaded audio for Podcast Production category
+      const adminPodcasts = await mediaStorage.getMediaByCategory("Podcast Production");
+      
+      // Convert admin audio to podcast sample format
+      const adminPodcastSamples = adminPodcasts
+        .filter(media => media.fileType === "audio")
+        .map((media, index) => ({
+          id: media.id,
+          title: media.title,
+          episodeNumber: "",
+          duration: media.duration || "15m",
+          audioUrl: media.compressedFilePath.startsWith('http') 
+            ? media.compressedFilePath 
+            : `/uploads/compressed/${path.basename(media.compressedFilePath)}`,
+          description: media.description || "Professional podcast episode",
+          orderIndex: publishedSamples.length + index,
+          isPublished: true,
+          createdAt: media.createdAt,
+          updatedAt: media.updatedAt
+        }));
+      
+      res.json([...publishedSamples, ...adminPodcastSamples]);
     } catch (error) {
       console.error("Error fetching podcast samples:", error);
       res.status(500).json({ error: "Failed to fetch podcast samples" });
