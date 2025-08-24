@@ -81,6 +81,98 @@
       },
       "createdAt": "2025-08-24T13:14:30.093Z",
       "updatedAt": "2025-08-24T13:14:30.093Z"
+    },
+    {
+      "id": "df0da771-3931-4c7b-9802-9176e730fe8c",
+      "title": "English Voice Ad",
+      "category": "Professional Multilingual Voice Ads",
+      "description": "Professional English voice ad showcasing premium brand messaging and clear articulation for global markets.",
+      "fileType": "audio",
+      "originalFilename": "dub-original-english-web.mp3",
+      "compressedFilePath": "/audio/dub-original-english-web.mp3",
+      "duration": "27",
+      "fileSize": "432000",
+      "metadata": {
+        "codec": "mp3",
+        "bitrate": "128k"
+      },
+      "audioMetadata": {
+        "language": "English",
+        "gender": "professional",
+        "accent": "native",
+        "ageRange": "adult"
+      },
+      "createdAt": "2025-08-24T13:45:09.070Z",
+      "updatedAt": "2025-08-24T13:45:09.071Z"
+    },
+    {
+      "id": "ccac16e6-8981-43bc-862a-4f174d3edb0e",
+      "title": "中文语音广告",
+      "category": "Professional Multilingual Voice Ads",
+      "description": "专业的中文语音广告，展现品牌优势和清晰表达，适合中国市场推广。",
+      "fileType": "audio",
+      "originalFilename": "dub-original-chinese-web.mp3",
+      "compressedFilePath": "/audio/dub-original-chinese-web.mp3",
+      "duration": "27",
+      "fileSize": "432000",
+      "metadata": {
+        "codec": "mp3",
+        "bitrate": "128k"
+      },
+      "audioMetadata": {
+        "language": "中文",
+        "gender": "专业",
+        "accent": "标准",
+        "ageRange": "成人"
+      },
+      "createdAt": "2025-08-24T13:45:09.071Z",
+      "updatedAt": "2025-08-24T13:45:09.071Z"
+    },
+    {
+      "id": "b80d70cc-8a4e-4fd8-bb59-f4c8510fe8c4",
+      "title": "Context is King: Engineering the Brains, and Nightmares, of AI Agents",
+      "category": "AI Podcast Production",
+      "description": "The era of simple \"prompt engineering\" is over. We explore why \"context engineering\" is the critical discipline for building powerful AI agents.",
+      "fileType": "audio",
+      "originalFilename": "context-is-king-web.mp3",
+      "compressedFilePath": "/audio/context-is-king-web.mp3",
+      "duration": "92",
+      "fileSize": "1472000",
+      "metadata": {
+        "codec": "mp3",
+        "bitrate": "128k"
+      },
+      "audioMetadata": {
+        "episodeType": "Short Episode",
+        "tags": [
+          "technology"
+        ]
+      },
+      "createdAt": "2025-08-24T13:45:09.071Z",
+      "updatedAt": "2025-08-24T13:45:09.071Z"
+    },
+    {
+      "id": "a01674e9-f967-4249-bb75-1cb723114ffa",
+      "title": "Fasten Your Nightmares",
+      "category": "AI Podcast Production",
+      "description": "Forget ghosts and ghouls; the real horror is at 30,000 feet, and it's asking for a pen.",
+      "fileType": "audio",
+      "originalFilename": "fasten-your-nightmares-web.mp3",
+      "compressedFilePath": "/audio/fasten-your-nightmares-web.mp3",
+      "duration": "51",
+      "fileSize": "816000",
+      "metadata": {
+        "codec": "mp3",
+        "bitrate": "128k"
+      },
+      "audioMetadata": {
+        "episodeType": "Short Episode",
+        "tags": [
+          "comedy"
+        ]
+      },
+      "createdAt": "2025-08-24T13:45:09.071Z",
+      "updatedAt": "2025-08-24T13:45:09.071Z"
     }
   ]
 }
