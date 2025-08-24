@@ -164,9 +164,13 @@ export function LazyVideoPlayer({
       ref={containerRef}
       className={cn(
         "relative bg-slate-900 rounded-xl overflow-hidden group",
+        height === 'auto' && "aspect-video",
         className
       )}
-      style={{ width, height: height === 'auto' ? 'aspect-video' : height }}
+      style={{ 
+        width, 
+        ...(height !== 'auto' && { height })
+      }}
       role="region"
       aria-label={title || "Video player"}
     >
@@ -243,12 +247,12 @@ export function LazyVideoPlayer({
         </>
       ) : (
         // Placeholder while not in view
-        <div className="w-full h-full flex items-center justify-center bg-slate-800">
+        <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
           {poster ? (
             <img 
               src={poster} 
               alt={alt || title || "Video thumbnail"}
-              className="w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
             />
           ) : (
