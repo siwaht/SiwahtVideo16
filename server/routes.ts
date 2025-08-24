@@ -62,8 +62,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const avatars = await storage.getAvatars(12);
       const publishedAvatars = avatars.filter(avatar => avatar.isPublished);
       
-      // Get admin uploaded videos for AI Avatar category
-      const adminAvatars = await mediaStorage.getMediaByCategory("AI Avatar");
+      // Get admin uploaded videos for Avatar Studio category
+      const adminAvatars = await mediaStorage.getMediaByCategory("Avatar Studio");
       
       // Convert admin videos to avatar format
       const adminAvatarVideos = adminAvatars
@@ -99,8 +99,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const samples = await storage.getVoiceSamples(12);
       const publishedSamples = samples.filter(sample => sample.isPublished);
       
-      // Get admin uploaded audio for Voice Ad category
-      const adminVoiceAds = await mediaStorage.getMediaByCategory("Voice Ad");
+      // Get admin uploaded audio for Professional Multilingual Voice Ads category
+      const adminVoiceAds = await mediaStorage.getMediaByCategory("Professional Multilingual Voice Ads");
       
       // Convert admin audio to voice sample format
       const adminVoiceSamples = adminVoiceAds
@@ -132,8 +132,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const videos = await storage.getEditedVideos(12);
       const publishedVideos = videos.filter(video => video.isPublished);
       
-      // Get admin uploaded videos for Video Editing category
-      const adminVideos = await mediaStorage.getMediaByCategory("Video Editing");
+      // Get admin uploaded videos for AI Video Editing category
+      const adminVideos = await mediaStorage.getMediaByCategory("AI Video Editing");
       
       // Convert admin videos to edited video format
       const adminEditedVideos = adminVideos
@@ -170,8 +170,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const samples = await storage.getPodcastSamples(12);
       const publishedSamples = samples.filter(sample => sample.isPublished);
       
-      // Get admin uploaded audio for Podcast Production category
-      const adminPodcasts = await mediaStorage.getMediaByCategory("Podcast Production");
+      // Get admin uploaded audio for AI Podcast Production category
+      const adminPodcasts = await mediaStorage.getMediaByCategory("AI Podcast Production");
       
       // Convert admin audio to podcast sample format
       const adminPodcastSamples = adminPodcasts
