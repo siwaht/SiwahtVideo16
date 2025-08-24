@@ -63,7 +63,7 @@ export default function AdminDashboard() {
           setLocation("/admin");
         }
       });
-  }, [navigate]);
+  }, [setLocation]);
 
   // Fetch media data
   const { data: mediaList, isLoading } = useQuery<Media[]>({
