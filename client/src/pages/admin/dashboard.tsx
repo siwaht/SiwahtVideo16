@@ -41,6 +41,7 @@ import {
   Calendar,
   HardDrive,
   Clock,
+  Home,
 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -246,14 +247,24 @@ export default function AdminDashboard() {
           <h1 className="text-2xl font-bold text-slate-900">
             Admin Dashboard - Media Management
           </h1>
-          <Button
-            variant="outline"
-            onClick={() => logoutMutation.mutate()}
-            data-testid="button-logout"
-          >
-            <LogOut className="h-4 w-4 mr-2" />
-            Logout
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={() => window.location.href = '/'}
+              data-testid="button-view-site"
+            >
+              <Home className="h-4 w-4 mr-2" />
+              View Site
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => logoutMutation.mutate()}
+              data-testid="button-logout"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Logout
+            </Button>
+          </div>
         </div>
       </header>
 
