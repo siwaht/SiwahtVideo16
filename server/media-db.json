@@ -1,13 +1,13 @@
 {
   "media": [
     {
-      "id": "809396f1-7b7b-4796-820e-4aeaf77cf3ad",
-      "title": "demo",
+      "id": "e293e0b8-aac8-45c4-a482-b7fe8f146cf3",
+      "title": "demo2",
       "category": "AI Video Studio",
       "fileType": "video",
       "originalFilename": "_shot__202508231727_ktyz3.mp4",
-      "compressedFilePath": "/uploads/compressed/_shot__202508231727_ktyz3-1756038999268-5672f3b7.mp4",
-      "thumbnailPath": "/uploads/thumbnails/_shot__202508231727_ktyz3-1756038999268-5672f3b7.jpg",
+      "compressedFilePath": "/uploads/compressed/_shot__202508231727_ktyz3-1756039185434-4488661f.mp4",
+      "thumbnailPath": "/uploads/thumbnails/_shot__202508231727_ktyz3-1756039185434-4488661f.jpg",
       "duration": "8",
       "fileSize": "1989696",
       "metadata": {
@@ -16,8 +16,8 @@
         "codec": "h264",
         "bitrate": "7353244"
       },
-      "createdAt": "2025-08-24T12:36:42.466Z",
-      "updatedAt": "2025-08-24T12:36:42.466Z"
+      "createdAt": "2025-08-24T12:39:48.863Z",
+      "updatedAt": "2025-08-24T12:39:48.863Z"
     }
   ]
 }

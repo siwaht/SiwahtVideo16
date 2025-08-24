@@ -43,7 +43,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             : null,
           category: "demo",
           duration: media.duration || "30s",
-          orderIndex: publishedVideos.length + index,
+          orderIndex: index, // Admin videos get priority with lower orderIndex
           isPublished: true,
           createdAt: media.createdAt,
           updatedAt: media.updatedAt
@@ -51,6 +51,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Combine and return all videos
       const allVideos = [...publishedVideos, ...adminDemoVideos];
+      console.log("Admin demo videos:", JSON.stringify(adminDemoVideos, null, 2));
+      console.log("Total videos to return:", allVideos.length);
       res.json(allVideos);
     } catch (error) {
       console.error("Error fetching demo videos:", error);
