@@ -46,9 +46,11 @@ export default function Navigation() {
 
   return (
     <nav 
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        isScrolled ? "bg-white/95 shadow-2xl shadow-slate-200/50 border-slate-200/70" : "bg-white/80 border-slate-200/30"
-      } backdrop-blur-xl border-b`}
+      className={`fixed top-0 w-full z-50 transition-all duration-700 ${
+        isScrolled 
+          ? "bg-white/98 shadow-2xl border-gray-200/80 backdrop-blur-2xl" 
+          : "bg-white/10 border-white/20 backdrop-blur-md"
+      } border-b`}
       role="navigation"
       aria-label="Main navigation"
     >
@@ -69,7 +71,9 @@ export default function Navigation() {
               width="48"
               height="48"
             />
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold gradient-text">
+            <h1 className={`text-xl sm:text-2xl lg:text-3xl font-black transition-all duration-500 ${
+              isScrolled ? "gradient-text" : "text-white drop-shadow-2xl"
+            }`}>
               Siwaht
             </h1>
           </div>
@@ -81,16 +85,18 @@ export default function Navigation() {
                 <button 
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-slate-600 hover:text-primary transition-all duration-300 font-medium text-sm xl:text-base py-2 px-3 rounded-lg hover:bg-slate-100/50 relative group"
+                  className={`${
+                    isScrolled ? "text-slate-700" : "text-white/90"
+                  } hover:text-primary transition-all duration-300 font-semibold text-sm xl:text-base py-2 px-4 rounded-xl hover:bg-white/10 relative group`}
                   data-testid={`nav-${item.id}`}
                 >
                   {item.label}
-                  <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-3/4 group-hover:-translate-x-1/2"></div>
+                  <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 group-hover:w-full group-hover:-translate-x-1/2"></div>
                 </button>
               ))}
               <button 
                 onClick={() => scrollToSection("contact")}
-                className="bg-gradient-to-r from-primary to-secondary text-white px-4 xl:px-6 py-2 xl:py-3 rounded-lg hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 font-medium text-sm xl:text-base shadow-md hover:shadow-xl hover:-translate-y-0.5 hover:scale-105"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-5 xl:px-7 py-2.5 xl:py-3.5 rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-500 font-bold text-sm xl:text-base shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:scale-105 border border-white/20"
                 data-testid="nav-contact"
               >
                 Get Quote
