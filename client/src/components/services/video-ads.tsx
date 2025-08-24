@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Play, Target, Zap, Sparkles } from "lucide-react";
 import { VideoPlayer } from "@/components/ui/video-player";
-import { LazyVideoPlayer } from "@/components/ui/lazy-video-player";
 import { processVideoUrl, getPlatformName } from "@/lib/videoUtils";
 import type { DemoVideo } from "@shared/schema";
 
@@ -94,17 +93,14 @@ export default function VideoAds() {
                         {processedVideo.platform === 'direct' ? (
                           // Direct video file (mp4, webm, etc.)
                           (<div className="video-player-wrapper">
-                            <LazyVideoPlayer
+                            <VideoPlayer
                               src={processedVideo.embedUrl}
                               poster={featuredVideo.thumbnailUrl || undefined}
                               title={featuredVideo.title}
-                              alt={`${featuredVideo.title} - AI generated video advertisement for ${featuredVideo.category}`}
                               className="w-full h-full rounded-xl"
                               width="100%"
                               height="100%"
                               gifLike={true}
-                              lazyLoad={true}
-                              preload="none"
                               data-testid="direct-video-player"
                             />
                           </div>)

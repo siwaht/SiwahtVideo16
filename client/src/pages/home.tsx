@@ -8,8 +8,6 @@ import VideoEditing from "@/components/services/video-editing";
 import PodcastProduction from "@/components/services/podcast-production";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
-import { generateHomepageStructuredData, injectStructuredData } from "@/lib/seo-structured-data";
-import Breadcrumb from "@/components/breadcrumb";
 
 export default function Home() {
   useEffect(() => {
@@ -63,16 +61,11 @@ export default function Home() {
       document.head.appendChild(canonical);
     }
     canonical.href = 'https://siwaht.com';
-
-    // Inject structured data for SEO
-    const structuredData = generateHomepageStructuredData();
-    injectStructuredData(structuredData, 'homepage-structured-data');
   }, []);
 
   return (
     <div className="min-h-screen bg-slate-50 overflow-x-hidden">
       <Navigation />
-      <Breadcrumb />
       
       <main role="main">
         <Hero />

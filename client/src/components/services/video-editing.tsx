@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { Scissors, Layers, Zap, Sparkles } from "lucide-react";
+import { Scissors, Layers, Zap, Sparkles, Volume2, VolumeX } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { LazyVideoPlayer } from "@/components/ui/lazy-video-player";
 import type { EditedVideo } from "@shared/schema";
 
 export default function VideoEditing() {
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Fetch edited videos from API
   const { data: editedVideos = [], isLoading, error } = useQuery<EditedVideo[]>({
@@ -20,7 +22,37 @@ export default function VideoEditing() {
   const featuredEditedVideo = publishedEditedVideos[0];
 
 
-  // Removed manual video controls - now handled by LazyVideoPlayer
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  // Auto-play for video editing video when it comes into view
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !featuredEditedVideo?.videoUrl) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && video.paused) {
+            video.play().catch((error) => {
+              console.log('Auto-play prevented:', error);
+            });
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [featuredEditedVideo?.videoUrl]);
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
@@ -101,19 +133,39 @@ export default function VideoEditing() {
                         title={featuredEditedVideo.title}
                       />
                     ) : featuredEditedVideo.videoUrl ? (
-                      <LazyVideoPlayer
-                        src={featuredEditedVideo.videoUrl}
-                        poster={featuredEditedVideo.thumbnailUrl || undefined}
-                        title={featuredEditedVideo.title}
-                        alt={`${featuredEditedVideo.title} - AI enhanced video editing example`}
-                        className="w-full h-full"
-                        width="100%"
-                        height="100%"
-                        gifLike={true}
-                        lazyLoad={true}
-                        preload="none"
-                        data-testid="editing-video-player"
-                      />
+                      <div className="video-player-wrapper relative">
+                        <video 
+                          ref={videoRef}
+                          src={featuredEditedVideo.videoUrl} 
+                          poster={featuredEditedVideo.thumbnailUrl || undefined}
+                          className="w-full h-full object-cover"
+                          autoPlay
+                          muted={isMuted}
+                          loop
+                          playsInline
+                          controls={false}
+                          onError={(e) => {
+                            console.log('Video error:', e);
+                          }}
+                        />
+                        
+                        {/* Mute Button for Video Editing video */}
+                        <div className="absolute top-3 right-3 opacity-80 hover:opacity-100 transition-opacity z-10">
+                          <Button
+                            onClick={toggleMute}
+                            size="sm"
+                            variant="ghost"
+                            className="rounded-full w-10 h-10 bg-black/40 hover:bg-black/60 text-white border-0 p-0"
+                            data-testid="editing-mute-button"
+                          >
+                            {isMuted ? (
+                              <VolumeX className="h-4 w-4" />
+                            ) : (
+                              <Volume2 className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
+                      </div>
                     ) : featuredEditedVideo.thumbnailUrl ? (
                       <img 
                         src={featuredEditedVideo.thumbnailUrl} 
