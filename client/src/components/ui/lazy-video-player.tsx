@@ -35,7 +35,6 @@ export function LazyVideoPlayer({
   preload = 'none',
 }: LazyVideoPlayerProps) {
   const [isInView, setIsInView] = useState(!lazyLoad);
-  const [showPlayButton, setShowPlayButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,16 +44,21 @@ export function LazyVideoPlayer({
 
   // Intersection Observer for lazy loading
   useEffect(() => {
-    if (!lazyLoad) return;
+    if (!lazyLoad) {
+      setIsInView(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !isInView) {
+          if (entry.isIntersecting) {
             setIsInView(true);
-            // Preload metadata when in view
-            if (videoRef.current && preload === 'none') {
-              videoRef.current.load();
+            // For gif-like videos, auto-start when in view
+            if (gifLike && videoRef.current && !hasStarted) {
+              setTimeout(() => {
+                handlePlayClick();
+              }, 100);
             }
           }
         });
@@ -74,21 +78,18 @@ export function LazyVideoPlayer({
         observer.unobserve(containerRef.current);
       }
     };
-  }, [lazyLoad, isInView, preload]);
+  }, [lazyLoad, gifLike, hasStarted]);
 
   const handlePlayClick = async () => {
-    if (!videoRef.current) return;
+    if (!videoRef.current || hasStarted) return;
     
     setIsLoading(true);
-    setShowPlayButton(false);
     setHasStarted(true);
     
     try {
       // Ensure video is muted for autoplay to work
-      if (!hasStarted) {
-        videoRef.current.muted = true;
-        setIsMuted(true);
-      }
+      videoRef.current.muted = true;
+      setIsMuted(true);
       
       await videoRef.current.play();
       setIsPlaying(true);
@@ -102,7 +103,8 @@ export function LazyVideoPlayer({
           await videoRef.current.play();
           setIsPlaying(true);
         } catch (retryError) {
-          setShowPlayButton(true);
+          console.error('Retry failed:', retryError);
+          setHasStarted(false);
         }
       }
     } finally {
@@ -140,7 +142,7 @@ export function LazyVideoPlayer({
         />
       )}
       <div className="absolute inset-0 bg-black/30" />
-      {showPlayButton && !isLoading && (
+      {!isLoading && (
         <button
           onClick={handlePlayClick}
           className="relative z-10 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-2xl transition-all hover:scale-110 touch-manipulation"
@@ -178,9 +180,9 @@ export function LazyVideoPlayer({
         <>
           <video
             ref={videoRef}
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover"
             poster={poster}
-            preload={hasStarted ? 'auto' : preload}
+            preload={hasStarted ? 'auto' : 'metadata'}
             muted={isMuted}
             loop={gifLike}
             playsInline
@@ -197,8 +199,8 @@ export function LazyVideoPlayer({
             Your browser does not support the video tag.
           </video>
 
-          {/* Thumbnail and play button overlay */}
-          {!hasStarted && renderThumbnail()}
+          {/* Thumbnail and play button overlay - only show before starting */}
+          {!hasStarted && !gifLike && renderThumbnail()}
 
           {/* Simple controls overlay for started videos */}
           {hasStarted && (
