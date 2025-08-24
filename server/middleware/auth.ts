@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 // Admin authentication middleware
-const ADMIN_USER = process.env.ADMIN_USER || "admin";
-const ADMIN_PASS = process.env.ADMIN_PASS || "secure_password_123";
+const ADMIN_USER = process.env.ADMIN_USER || "cc@siwaht.com";
+const ADMIN_PASS = process.env.ADMIN_PASS || "Hola173!";
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key_change_this_in_production";
 
 interface AuthRequest extends Request {
