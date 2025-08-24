@@ -228,6 +228,7 @@ export default function PodcastProduction() {
                                   ) : (
                                     <audio
                                       controls
+                                      controlsList="nodownload"
                                       className="w-full"
                                       preload="metadata"
                                     >
