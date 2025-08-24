@@ -56,6 +56,31 @@
       },
       "createdAt": "2025-08-24T12:54:05.666Z",
       "updatedAt": "2025-08-24T12:54:05.666Z"
+    },
+    {
+      "id": "2c35b0ae-0d76-4a8c-b8b3-beeaa50cbb70",
+      "title": "test4",
+      "category": "AI Podcast Production",
+      "description": "this is testing mate",
+      "fileType": "audio",
+      "originalFilename": "ElevenLabs_Airline_Chaos_From_Grounded_Fleets_to_Party_Planes.wav",
+      "compressedFilePath": "/uploads/compressed/ElevenLabs_Airline_Chaos_From_Grounded_Fleets_to_Party_Planes-1756041266672-7d66445d.mp3",
+      "duration": "358",
+      "fileSize": "5736533",
+      "metadata": {
+        "codec": "mp3",
+        "bitrate": "128k"
+      },
+      "audioMetadata": {
+        "episodeType": "Teaser",
+        "tags": [
+          "test"
+        ],
+        "hostName": "carl",
+        "guestName": "mary"
+      },
+      "createdAt": "2025-08-24T13:14:30.093Z",
+      "updatedAt": "2025-08-24T13:14:30.093Z"
     }
   ]
 }

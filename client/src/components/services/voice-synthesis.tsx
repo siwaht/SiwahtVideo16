@@ -122,6 +122,7 @@ export default function VoiceSynthesis() {
                             <div className="bg-slate-50 p-2 rounded-lg">
                               <audio 
                                 controls 
+                                controlsList="nodownload"
                                 className="w-full"
                                 preload="metadata"
                                 style={{ height: '40px' }}
