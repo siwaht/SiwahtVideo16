@@ -2,10 +2,12 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import path from "path";
+import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 // Serve static video files before other middleware
 const videosPath = path.resolve(import.meta.dirname, "..", "public", "videos");
@@ -21,6 +23,10 @@ app.use("/videos", express.static(videosPath, {
     }
   }
 }));
+
+// Serve static uploaded media files
+const uploadsPath = path.resolve(import.meta.dirname, "..", "public", "uploads");
+app.use("/uploads", express.static(uploadsPath));
 
 // Serve static audio files
 const audioPath = path.resolve(import.meta.dirname, "..", "public", "audio");

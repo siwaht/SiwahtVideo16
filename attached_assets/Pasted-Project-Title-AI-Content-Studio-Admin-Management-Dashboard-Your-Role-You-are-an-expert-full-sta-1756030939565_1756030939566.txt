@@ -1,0 +1,76 @@
+Project Title: AI Content Studio - Admin Management Dashboard
+
+Your Role: You are an expert full-stack developer. Your task is to build a complete admin dashboard from scratch using the MERN stack (MongoDB, Express, React, Node.js) on Replit.
+
+Core Objective: Create a secure, efficient admin dashboard for managing video and audio content for an AI services website. The key features are media uploading, automatic web-optimized compression, and full CRUD (Create, Read, Update, Delete) functionality.
+
+Key Features & Requirements:
+1. Secure Authentication:
+
+Create a simple, secure login page for the /admin route.
+
+For this initial version, you can use a hardcoded username and password stored in environment variables (ADMIN_USER, ADMIN_PASS).
+
+All other admin routes must be protected and accessible only after successful login.
+
+2. Dashboard User Interface (Frontend - React & Tailwind CSS):
+
+Main View: A clean, modern dashboard that displays all uploaded media in a table.
+
+Table Columns: The table should show: Title, Category, File Type (Video/Audio), Upload Date, and Actions.
+
+Actions: The "Actions" column for each item must contain an "Edit" button and a "Delete" button.
+
+Upload Button: Include a primary button labeled "Upload New Media" that opens an upload form/modal.
+
+3. Media Upload Functionality:
+
+The upload form should contain the following fields:
+
+Title: A text input for the media's name.
+
+Category: A dropdown menu with these options:
+
+AI Video Studio
+
+Avatar Studio
+
+AI Video Editing
+
+Professional Multilingual Voice Ads
+
+AI Podcast Production
+
+File Input: A file upload field that accepts common video (.mp4, .mov) and audio (.mp3, .wav) formats.
+
+4. Backend Processing (Backend - Node.js & Express):
+
+File Handling: Create an API endpoint to handle multipart/form-data for file uploads.
+
+Automatic Compression: This is a critical step. Upon successful upload:
+
+The backend must use a library like ffmpeg (via a Node.js wrapper like fluent-ffmpeg).
+
+For Videos: Compress them into a web-optimized MP4 (H.264) format. Reduce the resolution and bitrate to ensure fast loading without significant quality loss.
+
+For Audios: Convert them to MP3 format at a standard bitrate (e.g., 128kbps).
+
+The final, compressed file should be saved to a designated /uploads directory on the server.
+
+Database Management: Store metadata for each file in a MongoDB collection. The schema should include title, category, originalFilename, compressedFilePath, fileType, and createdAt.
+
+5. Full CRUD Functionality:
+
+Create: Handled by the upload form.
+
+Read: The main dashboard table fetches and displays all media from the database.
+
+Update: The "Edit" button should allow an admin to change the Title and Category of an existing media item.
+
+Delete: The "Delete" button must:
+
+Show a confirmation modal ("Are you sure you want to delete this file?") before proceeding.
+
+If confirmed, delete both the file from the /uploads directory and its corresponding entry from the database.
+
+Please structure the code logically with clear separation between frontend and backend, and include comments explaining the key parts, especially the compression logic.
