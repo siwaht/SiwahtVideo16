@@ -1,23 +1,42 @@
 {
   "media": [
     {
-      "id": "e293e0b8-aac8-45c4-a482-b7fe8f146cf3",
-      "title": "demo2",
+      "id": "2c2fa6c6-d905-4bf3-be58-e860831f4376",
+      "title": "test2",
       "category": "AI Video Studio",
       "fileType": "video",
-      "originalFilename": "_shot__202508231727_ktyz3.mp4",
-      "compressedFilePath": "/uploads/compressed/_shot__202508231727_ktyz3-1756039185434-4488661f.mp4",
-      "thumbnailPath": "/uploads/thumbnails/_shot__202508231727_ktyz3-1756039185434-4488661f.jpg",
+      "originalFilename": "An_infinite_descent_202508231722_919ly.mp4",
+      "compressedFilePath": "/uploads/compressed/An_infinite_descent_202508231722_919ly-1756039646858-fa8508f8.mp4",
+      "thumbnailPath": "/uploads/thumbnails/An_infinite_descent_202508231722_919ly-1756039646858-fa8508f8.jpg",
       "duration": "8",
-      "fileSize": "1989696",
+      "fileSize": "1690414",
       "metadata": {
         "width": 1280,
         "height": 720,
         "codec": "h264",
-        "bitrate": "7353244"
+        "bitrate": "4704901"
       },
-      "createdAt": "2025-08-24T12:39:48.863Z",
-      "updatedAt": "2025-08-24T12:39:48.863Z"
+      "createdAt": "2025-08-24T12:47:30.308Z",
+      "updatedAt": "2025-08-24T12:47:30.308Z"
+    },
+    {
+      "id": "13346406-4273-4a08-b0e0-8378a9936c00",
+      "title": "test3",
+      "category": "AI Video Editing",
+      "fileType": "video",
+      "originalFilename": "A_lone_survivor_202508231713_sv17w.mp4",
+      "compressedFilePath": "/uploads/compressed/A_lone_survivor_202508231713_sv17w-1756039666554-4ca799ad.mp4",
+      "thumbnailPath": "/uploads/thumbnails/A_lone_survivor_202508231713_sv17w-1756039666554-4ca799ad.jpg",
+      "duration": "8",
+      "fileSize": "1004011",
+      "metadata": {
+        "width": 1280,
+        "height": 720,
+        "codec": "h264",
+        "bitrate": "2967879"
+      },
+      "createdAt": "2025-08-24T12:47:49.092Z",
+      "updatedAt": "2025-08-24T12:47:49.092Z"
     }
   ]
 }

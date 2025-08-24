@@ -84,7 +84,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               : media.thumbnailPath) 
             : null,
           description: media.description || "Professional AI-generated avatar",
-          orderIndex: publishedAvatars.length + index,
+          orderIndex: index, // Admin videos get priority with lower orderIndex
           isPublished: true,
           createdAt: media.createdAt,
           updatedAt: media.updatedAt
@@ -117,7 +117,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             : media.compressedFilePath,
           duration: media.duration || "30s",
           description: media.description || "Custom voice ad",
-          orderIndex: publishedSamples.length + index,
+          orderIndex: index, // Admin samples get priority with lower orderIndex
           isPublished: true,
           createdAt: media.createdAt,
           updatedAt: media.updatedAt
@@ -155,7 +155,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               : media.thumbnailPath) 
             : null,
           description: media.description || "Professionally edited video content",
-          orderIndex: publishedVideos.length + index,
+          orderIndex: index, // Admin videos get priority with lower orderIndex
           isPublished: true,
           createdAt: media.createdAt,
           updatedAt: media.updatedAt
@@ -188,7 +188,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             ? media.compressedFilePath 
             : media.compressedFilePath,
           description: media.description || "Professional podcast episode",
-          orderIndex: publishedSamples.length + index,
+          orderIndex: index, // Admin samples get priority with lower orderIndex
           isPublished: true,
           createdAt: media.createdAt,
           updatedAt: media.updatedAt
