@@ -114,6 +114,63 @@
       },
       "createdAt": "2025-08-24T13:52:08.721Z",
       "updatedAt": "2025-08-24T13:52:08.722Z"
+    },
+    {
+      "id": "a0d56ce2-b588-4104-851a-1a07667a3454",
+      "title": "main",
+      "category": "AI Video Studio",
+      "fileType": "video",
+      "originalFilename": "japenese market.mp4",
+      "compressedFilePath": "/uploads/compressed/japenese market-1756063764778-cf09a141.mp4",
+      "thumbnailPath": "/uploads/thumbnails/japenese market-1756063764778-cf09a141.jpg",
+      "duration": "8",
+      "fileSize": "2164029",
+      "metadata": {
+        "width": 1280,
+        "height": 720,
+        "codec": "h264",
+        "bitrate": "4412771"
+      },
+      "createdAt": "2025-08-24T19:29:31.454Z",
+      "updatedAt": "2025-08-24T19:29:31.454Z"
+    },
+    {
+      "id": "aaef9a85-2d7d-4901-b6f3-1f84040d9cb1",
+      "title": "editing",
+      "category": "AI Video Editing",
+      "fileType": "video",
+      "originalFilename": "My_companys_name_siwahtcom_services_20250.mp4",
+      "compressedFilePath": "/uploads/compressed/My_companys_name_siwahtcom_services_20250-1756065675474-17c3a76e.mp4",
+      "thumbnailPath": "/uploads/thumbnails/My_companys_name_siwahtcom_services_20250-1756065675474-17c3a76e.jpg",
+      "duration": "8",
+      "fileSize": "1481980",
+      "metadata": {
+        "width": 1280,
+        "height": 720,
+        "codec": "h264",
+        "bitrate": "4580054"
+      },
+      "createdAt": "2025-08-24T20:01:19.180Z",
+      "updatedAt": "2025-08-24T20:01:19.180Z"
+    },
+    {
+      "id": "d38e3d41-9408-4a8a-ae7d-011e5f55fc15",
+      "title": "avatar",
+      "category": "Avatar Studio",
+      "fileType": "video",
+      "originalFilename": "Scene_an_art_202508221705_7rcmu.mp4",
+      "compressedFilePath": "/uploads/compressed/Scene_an_art_202508221705_7rcmu-1756065838599-10ba9804.mp4",
+      "thumbnailPath": "/uploads/thumbnails/Scene_an_art_202508221705_7rcmu-1756065838599-10ba9804.jpg",
+      "duration": "8",
+      "fileSize": "663852",
+      "metadata": {
+        "width": 1280,
+        "height": 720,
+        "codec": "h264",
+        "bitrate": "1837717"
+      },
+      "createdAt": "2025-08-24T20:04:01.180Z",
+      "updatedAt": "2025-08-24T20:04:01.180Z"
     }
   ]
 }
