@@ -32,29 +32,29 @@ export default function VideoAds() {
   const features = [
     {
       icon: Play,
-      iconColor: "text-white",
-      bgGradient: "from-blue-500 to-indigo-600",
+      iconColor: "text-blue-600",
+      bgColor: "bg-blue-100",
       title: "Custom AI Video Production",
       description: "Our team creates compelling video ads tailored to your brand using advanced AI and creative expertise."
     },
     {
       icon: Target,
-      iconColor: "text-white",
-      bgGradient: "from-emerald-500 to-teal-600",
+      iconColor: "text-green-600",
+      bgColor: "bg-green-100",
       title: "Targeted Messaging",
       description: "We craft personalized ad content that resonates with your specific demographics and customer segments."
     },
     {
       icon: Zap,
-      iconColor: "text-white",
-      bgGradient: "from-amber-500 to-orange-600",
+      iconColor: "text-yellow-600",
+      bgColor: "bg-yellow-100",
       title: "Fast Turnaround",
       description: "From concept to finished ad delivered quickly. Perfect for fast-paced marketing campaigns and tight deadlines."
     },
     {
       icon: Sparkles,
-      iconColor: "text-white",
-      bgGradient: "from-purple-500 to-pink-600",
+      iconColor: "text-purple-600",
+      bgColor: "bg-purple-100",
       title: "Studio-Quality Results",
       description: "Professional editing, transitions, and effects delivered by our expert team using cutting-edge AI technology."
     }
@@ -81,12 +81,10 @@ export default function VideoAds() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
           {/* Video Ad Preview */}
-          <aside className="relative order-1 lg:order-1">
-            <div className="backdrop-blur-xl bg-white/95 rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-700 hover:-translate-y-2 hover:scale-[1.01] border border-white/50">
-              <div className="mb-6">
-                <h4 className="font-black text-2xl mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">AI Video Studio</h4>
-                <p className="text-slate-600 text-sm">Premium video content, powered by AI</p>
-              </div>
+          <aside className="relative order-1 lg:order-1 hover-lift">
+            <div className="service-preview from-blue-100 via-indigo-100 to-purple-100 bg-gradient-to-br shadow-2xl">
+              <div className="glass-card p-6 sm:p-8 mb-6 sm:mb-8 border-2 border-white/20">
+                <h4 className="font-bold text-slate-900 mb-4 sm:mb-6 text-lg sm:text-xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">AI Video Studio</h4>
 
 {featuredVideo ? (
                   <div className="relative">
@@ -190,6 +188,7 @@ export default function VideoAds() {
                     </div>
                   </div>
                 )}
+              </div>
               
               <div className="grid grid-cols-3 gap-3 sm:gap-4">
                 <div className="glass-card p-3 sm:p-4 text-center hover-lift">
@@ -218,8 +217,8 @@ export default function VideoAds() {
                   className="feature-card hover-lift"
                 >
                   <div className="flex items-start space-x-4 sm:space-x-6">
-                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br ${feature.bgGradient} shadow-xl hover:scale-110 hover:rotate-3 transition-all duration-500`}>
-                      <Icon className={`${feature.iconColor} h-7 w-7 sm:h-8 sm:w-8`} aria-hidden="true" />
+                    <div className={`feature-icon ${feature.bgColor} icon-gradient`}>
+                      <Icon className={`${feature.iconColor} h-6 w-6 sm:h-7 sm:w-7`} aria-hidden="true" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 text-shadow">{feature.title}</h3>
