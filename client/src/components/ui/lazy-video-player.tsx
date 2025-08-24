@@ -84,27 +84,22 @@ export function LazyVideoPlayer({
     setHasStarted(true);
     
     try {
-      // Ensure video is muted for autoplay to work
-      if (!hasStarted) {
-        videoRef.current.muted = true;
-        setIsMuted(true);
+      // Load video source if needed
+      if (!videoRef.current.src) {
+        videoRef.current.src = src;
       }
+      
+      // Always start muted to ensure playback works
+      videoRef.current.muted = true;
+      setIsMuted(true);
       
       await videoRef.current.play();
       setIsPlaying(true);
     } catch (error) {
       console.error('Video play failed:', error);
-      // Retry with muted if failed
-      if (videoRef.current) {
-        videoRef.current.muted = true;
-        setIsMuted(true);
-        try {
-          await videoRef.current.play();
-          setIsPlaying(true);
-        } catch (retryError) {
-          setShowPlayButton(true);
-        }
-      }
+      // Show play button again if failed
+      setShowPlayButton(true);
+      setHasStarted(false);
     } finally {
       setIsLoading(false);
     }
@@ -139,7 +134,7 @@ export function LazyVideoPlayer({
           loading="lazy"
         />
       )}
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-black/30 pointer-events-none" />
       {showPlayButton && !isLoading && (
         <button
           onClick={handlePlayClick}
@@ -180,7 +175,7 @@ export function LazyVideoPlayer({
             muted={isMuted}
             loop={gifLike}
             playsInline
-            controls={false} // We'll use custom controls
+            controls={hasStarted && !gifLike} // Show controls for non-gif videos after start
             aria-label={alt || title || "Video content"}
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
@@ -197,9 +192,9 @@ export function LazyVideoPlayer({
           {!hasStarted && renderThumbnail()}
 
           {/* Simple controls overlay for started videos */}
-          {hasStarted && (
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-black/20">
-              <div className="flex gap-4">
+          {hasStarted && gifLike && (
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-black/20 pointer-events-none">
+              <div className="flex gap-4 pointer-events-auto">
                 <button
                   onClick={togglePlay}
                   className="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center backdrop-blur-sm transition-all touch-manipulation"

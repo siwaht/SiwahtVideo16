@@ -1,12 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { User, Sparkles, Settings, Download, Volume2, VolumeX } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { User, Sparkles, Settings, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LazyVideoPlayer } from "@/components/ui/lazy-video-player";
 import type { Avatar } from "@shared/schema";
 
 export default function Avatars() {
-  const [isMuted, setIsMuted] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Fetch avatars from API
   const { data: avatars = [], isLoading, error } = useQuery<Avatar[]>({
@@ -22,38 +20,7 @@ export default function Avatars() {
   const featuredAvatar = publishedAvatars[0];
 
 
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
-
-  // Auto-play for avatar video when it comes into view (global auto-pause handles pausing)
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !featuredAvatar?.videoUrl) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && video.paused) {
-            // Video is visible, start playing
-            video.play().catch((error) => {
-            });
-          }
-          // Note: Pausing is now handled by the global auto-pause system
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(video);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [featuredAvatar?.videoUrl]);
+  // Removed manual video controls - now handled by LazyVideoPlayer
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
@@ -168,37 +135,19 @@ export default function Avatars() {
                         title={featuredAvatar.name}
                       />
                     ) : featuredAvatar.videoUrl ? (
-                      <div className="video-player-wrapper relative">
-                        <video 
-                          ref={videoRef}
-                          src={featuredAvatar.videoUrl} 
-                          poster={featuredAvatar.thumbnailUrl || undefined}
-                          className="w-full h-full object-cover"
-                          autoPlay
-                          muted={isMuted}
-                          loop
-                          playsInline
-                          onError={(e) => {
-                          }}
-                        />
-                        
-                        {/* Mute Button for Avatar video */}
-                        <div className="absolute top-3 right-3 opacity-80 hover:opacity-100 transition-opacity z-10">
-                          <Button
-                            onClick={toggleMute}
-                            size="sm"
-                            variant="ghost"
-                            className="rounded-full w-10 h-10 bg-black/40 hover:bg-black/60 text-white border-0 p-0"
-                            data-testid="avatar-mute-button"
-                          >
-                            {isMuted ? (
-                              <VolumeX className="h-4 w-4" />
-                            ) : (
-                              <Volume2 className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </div>
-                      </div>
+                      <LazyVideoPlayer
+                        src={featuredAvatar.videoUrl}
+                        poster={featuredAvatar.thumbnailUrl || undefined}
+                        title={featuredAvatar.name}
+                        alt={`${featuredAvatar.name} - AI generated realistic avatar demonstration`}
+                        className="w-full h-full"
+                        width="100%"
+                        height="100%"
+                        gifLike={true}
+                        lazyLoad={true}
+                        preload="none"
+                        data-testid="avatar-video-player"
+                      />
                     ) : featuredAvatar.thumbnailUrl ? (
                       <img 
                         src={featuredAvatar.thumbnailUrl} 
