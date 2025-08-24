@@ -154,7 +154,9 @@ export default function Contact() {
                           <Input 
                             placeholder="John Doe" 
                             {...field} 
-                            className="h-11 xs:h-12"
+                            className="h-11 xs:h-12 text-base touch-manipulation"
+                            autoComplete="name"
+                            autoCapitalize="words"
                             data-testid="input-full-name"
                           />
                         </FormControl>
@@ -174,7 +176,9 @@ export default function Contact() {
                             placeholder="john@example.com" 
                             type="email" 
                             {...field} 
-                            className="h-11 xs:h-12"
+                            className="h-11 xs:h-12 text-base touch-manipulation"
+                            autoComplete="email"
+                            inputMode="email"
                             data-testid="input-email"
                           />
                         </FormControl>
@@ -194,7 +198,9 @@ export default function Contact() {
                             placeholder="Your Company" 
                             {...field} 
                             value={field.value || ""}
-                            className="h-11 xs:h-12"
+                            className="h-11 xs:h-12 text-base touch-manipulation"
+                            autoComplete="organization"
+                            autoCapitalize="words"
                             data-testid="input-company"
                           />
                         </FormControl>
@@ -213,8 +219,9 @@ export default function Contact() {
                         <FormControl>
                           <Textarea
                             placeholder="Tell us about your project, goals, and timeline..."
-                            className="min-h-[120px] resize-none"
+                            className="min-h-[120px] resize-none text-base touch-manipulation"
                             {...field}
+                            autoCapitalize="sentences"
                             data-testid="textarea-project-details"
                           />
                         </FormControl>

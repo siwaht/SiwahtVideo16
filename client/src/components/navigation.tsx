@@ -63,8 +63,11 @@ export default function Navigation() {
                 aria-label="Siwaht - Go to top">
             <img 
               src="/logo.png" 
-              alt="Siwaht Logo" 
+              alt="Siwaht - Professional AI Video & Audio Creation Agency Logo" 
               className="w-10 h-10 lg:w-12 lg:h-12 transition-transform duration-300 group-hover:scale-110"
+              loading="eager"
+              width="48"
+              height="48"
             />
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold gradient-text">
               Siwaht

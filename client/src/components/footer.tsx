@@ -57,8 +57,11 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <img 
                 src="/logo.png" 
-                alt="Siwaht Logo" 
+                alt="Siwaht - AI Services Company Logo" 
                 className="w-12 h-12"
+                loading="lazy"
+                width="48"
+                height="48"
               />
               <div>
                 <h2 className="text-2xl font-bold text-white">
