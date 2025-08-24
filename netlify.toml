@@ -9,17 +9,10 @@
   [build.environment]
     NODE_VERSION = "18"
 
-# SPA redirect rules (backup to _redirects file)
+# SPA redirect rules - primary method
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200
-  conditions = {Role = ["admin", "editor"], Country = ["US"]}
-
-# Handle API routes if needed
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
   status = 200
 
 # Headers for security and performance
