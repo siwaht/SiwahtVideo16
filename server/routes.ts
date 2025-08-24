@@ -35,11 +35,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           description: media.description || "Professional AI-generated video content",
           videoUrl: media.compressedFilePath.startsWith('http') 
             ? media.compressedFilePath 
-            : `/uploads/compressed/${path.basename(media.compressedFilePath)}`,
+            : media.compressedFilePath, // Use the path as-is from database
           thumbnailUrl: media.thumbnailPath ? 
             (media.thumbnailPath.startsWith('http') 
               ? media.thumbnailPath 
-              : `/uploads/thumbnails/${path.basename(media.thumbnailPath)}`) 
+              : media.thumbnailPath) // Use the path as-is from database
             : null,
           category: "demo",
           duration: media.duration || "30s",
@@ -75,11 +75,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           role: "Custom Avatar",
           videoUrl: media.compressedFilePath.startsWith('http') 
             ? media.compressedFilePath 
-            : `/uploads/compressed/${path.basename(media.compressedFilePath)}`,
+            : media.compressedFilePath,
           thumbnailUrl: media.thumbnailPath ? 
             (media.thumbnailPath.startsWith('http') 
               ? media.thumbnailPath 
-              : `/uploads/thumbnails/${path.basename(media.thumbnailPath)}`) 
+              : media.thumbnailPath) 
             : null,
           description: media.description || "Professional AI-generated avatar",
           orderIndex: publishedAvatars.length + index,
@@ -112,7 +112,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           voiceType: media.title,
           audioUrl: media.compressedFilePath.startsWith('http') 
             ? media.compressedFilePath 
-            : `/uploads/compressed/${path.basename(media.compressedFilePath)}`,
+            : media.compressedFilePath,
           duration: media.duration || "30s",
           description: media.description || "Custom voice ad",
           orderIndex: publishedSamples.length + index,
@@ -146,11 +146,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           duration: media.duration || "60s",
           videoUrl: media.compressedFilePath.startsWith('http') 
             ? media.compressedFilePath 
-            : `/uploads/compressed/${path.basename(media.compressedFilePath)}`,
+            : media.compressedFilePath,
           thumbnailUrl: media.thumbnailPath ? 
             (media.thumbnailPath.startsWith('http') 
               ? media.thumbnailPath 
-              : `/uploads/thumbnails/${path.basename(media.thumbnailPath)}`) 
+              : media.thumbnailPath) 
             : null,
           description: media.description || "Professionally edited video content",
           orderIndex: publishedVideos.length + index,
@@ -184,7 +184,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           duration: media.duration || "15m",
           audioUrl: media.compressedFilePath.startsWith('http') 
             ? media.compressedFilePath 
-            : `/uploads/compressed/${path.basename(media.compressedFilePath)}`,
+            : media.compressedFilePath,
           description: media.description || "Professional podcast episode",
           orderIndex: publishedSamples.length + index,
           isPublished: true,
