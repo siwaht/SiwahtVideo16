@@ -93,19 +93,21 @@ export default function VideoAds() {
                       <div className="video-container bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl">
                         {processedVideo.platform === 'direct' ? (
                           // Direct video file (mp4, webm, etc.)
-                          <LazyVideoPlayer
-                            src={processedVideo.embedUrl}
-                            poster={featuredVideo.thumbnailUrl || undefined}
-                            title={featuredVideo.title}
-                            alt={`${featuredVideo.title} - AI generated video advertisement for ${featuredVideo.category}`}
-                            className="w-full h-full"
-                            width="100%"
-                            height="auto"
-                            gifLike={true}
-                            lazyLoad={true}
-                            preload="none"
-                            data-testid="direct-video-player"
-                          />
+                          (<div className="video-player-wrapper">
+                            <LazyVideoPlayer
+                              src={processedVideo.embedUrl}
+                              poster={featuredVideo.thumbnailUrl || undefined}
+                              title={featuredVideo.title}
+                              alt={`${featuredVideo.title} - AI generated video advertisement for ${featuredVideo.category}`}
+                              className="w-full h-full rounded-xl"
+                              width="100%"
+                              height="100%"
+                              gifLike={true}
+                              lazyLoad={true}
+                              preload="none"
+                              data-testid="direct-video-player"
+                            />
+                          </div>)
                         ) : (
                           // Embedded video (YouTube, Vimeo, Google Drive)
                           (<>

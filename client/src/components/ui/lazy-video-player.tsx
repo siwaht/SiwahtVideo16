@@ -35,6 +35,7 @@ export function LazyVideoPlayer({
   preload = 'none',
 }: LazyVideoPlayerProps) {
   const [isInView, setIsInView] = useState(!lazyLoad);
+  const [showPlayButton, setShowPlayButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,21 +45,16 @@ export function LazyVideoPlayer({
 
   // Intersection Observer for lazy loading
   useEffect(() => {
-    if (!lazyLoad) {
-      setIsInView(true);
-      return;
-    }
+    if (!lazyLoad) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !isInView) {
             setIsInView(true);
-            // For gif-like videos, auto-start when in view
-            if (gifLike && videoRef.current && !hasStarted) {
-              setTimeout(() => {
-                handlePlayClick();
-              }, 100);
+            // Preload metadata when in view
+            if (videoRef.current && preload === 'none') {
+              videoRef.current.load();
             }
           }
         });
@@ -78,18 +74,21 @@ export function LazyVideoPlayer({
         observer.unobserve(containerRef.current);
       }
     };
-  }, [lazyLoad, gifLike, hasStarted]);
+  }, [lazyLoad, isInView, preload]);
 
   const handlePlayClick = async () => {
-    if (!videoRef.current || hasStarted) return;
+    if (!videoRef.current) return;
     
     setIsLoading(true);
+    setShowPlayButton(false);
     setHasStarted(true);
     
     try {
       // Ensure video is muted for autoplay to work
-      videoRef.current.muted = true;
-      setIsMuted(true);
+      if (!hasStarted) {
+        videoRef.current.muted = true;
+        setIsMuted(true);
+      }
       
       await videoRef.current.play();
       setIsPlaying(true);
@@ -103,8 +102,7 @@ export function LazyVideoPlayer({
           await videoRef.current.play();
           setIsPlaying(true);
         } catch (retryError) {
-          console.error('Retry failed:', retryError);
-          setHasStarted(false);
+          setShowPlayButton(true);
         }
       }
     } finally {
@@ -142,7 +140,7 @@ export function LazyVideoPlayer({
         />
       )}
       <div className="absolute inset-0 bg-black/30" />
-      {!isLoading && (
+      {showPlayButton && !isLoading && (
         <button
           onClick={handlePlayClick}
           className="relative z-10 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-2xl transition-all hover:scale-110 touch-manipulation"
@@ -166,13 +164,9 @@ export function LazyVideoPlayer({
       ref={containerRef}
       className={cn(
         "relative bg-slate-900 rounded-xl overflow-hidden group",
-        height === 'auto' && "aspect-video",
         className
       )}
-      style={{ 
-        width, 
-        ...(height !== 'auto' && { height })
-      }}
+      style={{ width, height: height === 'auto' ? 'aspect-video' : height }}
       role="region"
       aria-label={title || "Video player"}
     >
@@ -180,9 +174,9 @@ export function LazyVideoPlayer({
         <>
           <video
             ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="w-full h-full object-cover"
             poster={poster}
-            preload={hasStarted ? 'auto' : 'metadata'}
+            preload={hasStarted ? 'auto' : preload}
             muted={isMuted}
             loop={gifLike}
             playsInline
@@ -199,11 +193,11 @@ export function LazyVideoPlayer({
             Your browser does not support the video tag.
           </video>
 
-          {/* Thumbnail and play button overlay - only show before starting */}
-          {!hasStarted && !gifLike && renderThumbnail()}
+          {/* Thumbnail and play button overlay */}
+          {!hasStarted && renderThumbnail()}
 
-          {/* Simple controls overlay for started videos - only show play/pause for gif-like videos */}
-          {hasStarted && !gifLike && (
+          {/* Simple controls overlay for started videos */}
+          {hasStarted && (
             <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-black/20">
               <div className="flex gap-4">
                 <button
@@ -232,11 +226,11 @@ export function LazyVideoPlayer({
             </div>
           )}
 
-          {/* Persistent mute button for gif-like videos */}
+          {/* Mobile-friendly mute button for gif-like videos */}
           {gifLike && hasStarted && (
             <button
               onClick={toggleMute}
-              className="absolute top-3 right-3 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 flex items-center justify-center transition-all touch-manipulation z-10"
+              className="absolute top-3 right-3 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 flex items-center justify-center transition-all touch-manipulation"
               aria-label={isMuted ? "Unmute video" : "Mute video"}
             >
               {isMuted ? (
@@ -249,12 +243,12 @@ export function LazyVideoPlayer({
         </>
       ) : (
         // Placeholder while not in view
-        <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
+        <div className="w-full h-full flex items-center justify-center bg-slate-800">
           {poster ? (
             <img 
               src={poster} 
               alt={alt || title || "Video thumbnail"}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="w-full h-full object-cover"
               loading="lazy"
             />
           ) : (
