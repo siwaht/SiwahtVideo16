@@ -173,6 +173,29 @@
       },
       "createdAt": "2025-08-24T13:45:09.071Z",
       "updatedAt": "2025-08-24T13:45:09.071Z"
+    },
+    {
+      "id": "77cf35af-a700-4a02-8a8c-cec237d4ce72",
+      "title": "إعلان صوتي عربي",
+      "category": "Professional Multilingual Voice Ads",
+      "description": "إعلان صوتي عربي احترافي يعرض رسائل العلامة التجارية المتميزة والتعبير الواضح للأسواق العربية.",
+      "fileType": "audio",
+      "originalFilename": "dub-arabic-web.mp3",
+      "compressedFilePath": "/audio/dub-arabic-web.mp3",
+      "duration": "27",
+      "fileSize": "432000",
+      "metadata": {
+        "codec": "mp3",
+        "bitrate": "128k"
+      },
+      "audioMetadata": {
+        "language": "عربي",
+        "gender": "محترف",
+        "accent": "أصلي",
+        "ageRange": "بالغ"
+      },
+      "createdAt": "2025-08-24T13:52:08.721Z",
+      "updatedAt": "2025-08-24T13:52:08.722Z"
     }
   ]
 }
