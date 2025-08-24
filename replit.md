@@ -8,6 +8,8 @@ Siwaht is a comprehensive web application for AI-powered video and audio content
 - Mobile responsiveness: Improved touch targets (44x44px minimum), better text readability, and optimized media containers
 - Rebranded "Voice Synthesis" to "Voice Ads" throughout the site
 - Added Siwaht logo integration in navigation and footer
+- Reverted video optimization: Removed lazy loading functionality and restored original VideoPlayer component
+- Code cleanup: Removed unused components (LazyVideoPlayer, Breadcrumb, SEO structured data, mobile hook, SEO utils)
 
 # User Preferences
 
