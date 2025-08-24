@@ -51,8 +51,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Combine and return all videos
       const allVideos = [...publishedVideos, ...adminDemoVideos];
-      console.log("Admin demo videos:", JSON.stringify(adminDemoVideos, null, 2));
-      console.log("Total videos to return:", allVideos.length);
+      // Debug logging removed
       res.json(allVideos);
     } catch (error) {
       console.error("Error fetching demo videos:", error);
@@ -110,8 +109,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .filter(media => media.fileType === "audio")
         .map((media, index) => ({
           id: media.id,
+          name: media.title, // Use 'name' field instead of 'voiceType'
           language: "English",
-          voiceType: media.title,
+          gender: "Neutral",
           audioUrl: media.compressedFilePath.startsWith('http') 
             ? media.compressedFilePath 
             : media.compressedFilePath,
