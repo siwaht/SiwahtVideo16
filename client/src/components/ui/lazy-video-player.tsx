@@ -202,8 +202,8 @@ export function LazyVideoPlayer({
           {/* Thumbnail and play button overlay - only show before starting */}
           {!hasStarted && !gifLike && renderThumbnail()}
 
-          {/* Simple controls overlay for started videos */}
-          {hasStarted && (
+          {/* Simple controls overlay for started videos - only show play/pause for gif-like videos */}
+          {hasStarted && !gifLike && (
             <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-black/20">
               <div className="flex gap-4">
                 <button
@@ -232,11 +232,11 @@ export function LazyVideoPlayer({
             </div>
           )}
 
-          {/* Mobile-friendly mute button for gif-like videos */}
+          {/* Persistent mute button for gif-like videos */}
           {gifLike && hasStarted && (
             <button
               onClick={toggleMute}
-              className="absolute top-3 right-3 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 flex items-center justify-center transition-all touch-manipulation"
+              className="absolute top-3 right-3 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 flex items-center justify-center transition-all touch-manipulation z-10"
               aria-label={isMuted ? "Unmute video" : "Mute video"}
             >
               {isMuted ? (
