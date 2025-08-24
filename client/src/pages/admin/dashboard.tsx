@@ -494,8 +494,8 @@ export default function AdminDashboard() {
                 />
               </div>
               
-              {/* Audio-specific metadata fields */}
-              {selectedFileType === 'audio' && selectedCategory === "Professional Multilingual Voice Ads" && (
+              {/* Audio-specific metadata fields for Voice Ads */}
+              {selectedCategory === "Professional Multilingual Voice Ads" && (
                 <>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -544,7 +544,7 @@ export default function AdminDashboard() {
                 </>
               )}
               
-              {selectedFileType === 'audio' && selectedCategory === "AI Podcast Production" && (
+              {selectedCategory === "AI Podcast Production" && (
                 <>
                   <div>
                     <Label htmlFor="episodeType">Episode Type</Label>
