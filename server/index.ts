@@ -9,7 +9,42 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Static media serving removed - media now served from external URLs
+// Serve static video files before other middleware
+const videosPath = path.resolve(import.meta.dirname, "..", "public", "videos");
+app.use("/videos", express.static(videosPath, {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.mp4')) {
+      res.setHeader('Content-Type', 'video/mp4');
+      res.setHeader('Accept-Ranges', 'bytes');
+      // Add cache control for optimized web videos
+      if (filePath.includes('-web.mp4')) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+      }
+    }
+  }
+}));
+
+// Serve static uploaded media files
+const uploadsPath = path.resolve(import.meta.dirname, "..", "public", "uploads");
+app.use("/uploads", express.static(uploadsPath));
+
+// Serve static audio files
+const audioPath = path.resolve(import.meta.dirname, "..", "public", "audio");
+app.use("/audio", express.static(audioPath, {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.mp3')) {
+      res.setHeader('Content-Type', 'audio/mpeg');
+      res.setHeader('Accept-Ranges', 'bytes');
+      // Add cache control for optimized web audio
+      if (filePath.includes('-web.mp3')) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+      }
+    } else if (filePath.endsWith('.aac')) {
+      res.setHeader('Content-Type', 'audio/aac');
+      res.setHeader('Accept-Ranges', 'bytes');
+    }
+  }
+}));
 
 app.use((req, res, next) => {
   const start = Date.now();
