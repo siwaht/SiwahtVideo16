@@ -1,17 +1,13 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { 
+import {
   insertContactSubmissionSchema,
   updateMediaSchema
 } from "@shared/schema";
 import { z } from "zod";
 import { adminLogin, adminLogout, requireAuth, checkAuth } from "./middleware/auth";
 import { mediaStorage } from "./media-storage";
-import { mediaProcessor } from "./media-processor";
-import multer from "multer";
-import path from "path";
-import fs from "fs/promises";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Public endpoints
@@ -24,7 +20,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Get admin uploaded videos for AI Video Studio category
       const adminVideos = await mediaStorage.getMediaByCategory("AI Video Studio");
-      console.log("Admin videos for AI Video Studio:", adminVideos.length);
       
       // Convert admin videos to demo video format
       const adminDemoVideos = adminVideos
@@ -229,24 +224,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin Routes
-  // Configure multer for file uploads
-  const upload = multer({
-    dest: path.join(process.cwd(), "temp-uploads"),
-    limits: {
-      fileSize: 500 * 1024 * 1024, // 500MB max file size
-    },
-    fileFilter: (req, file, cb) => {
-      const allowedTypes = [
-        'video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/webm',
-        'audio/mpeg', 'audio/wav', 'audio/mp3', 'audio/x-wav'
-      ];
-      if (allowedTypes.includes(file.mimetype)) {
-        cb(null, true);
-      } else {
-        cb(new Error('Invalid file type. Only video and audio files are allowed.'));
-      }
-    }
-  });
 
   // Auth endpoints
   app.post("/api/admin/login", adminLogin);
@@ -277,69 +254,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Upload endpoint with file processing
-  app.post("/api/admin/media/upload", requireAuth, upload.single('file'), async (req, res) => {
-    const tempPath = req.file?.path;
-    
+  // Upload endpoint - simplified (accepts media URL and metadata)
+  app.post("/api/admin/media/upload", requireAuth, async (req, res) => {
     try {
-      if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
+      const { title, category, description, fileUrl, thumbnailUrl, fileType, duration, audioMetadata } = req.body;
+
+      if (!title || !category || !fileUrl || !fileType) {
+        return res.status(400).json({ error: "Title, category, fileUrl, and fileType are required" });
       }
 
-      const { title, category, description, audioMetadata } = req.body;
-      
-      if (!title || !category) {
-        // Clean up temp file
-        if (tempPath) await fs.unlink(tempPath).catch(console.error);
-        return res.status(400).json({ error: "Title and category are required" });
-      }
-      
-      // Parse audio metadata if provided
-      let parsedAudioMetadata = null;
-      if (audioMetadata) {
-        try {
-          parsedAudioMetadata = JSON.parse(audioMetadata);
-        } catch (e) {
-          console.error("Failed to parse audio metadata:", e);
-        }
-      }
-
-      // Determine file type
-      const fileType = req.file.mimetype.startsWith('video/') ? 'video' : 'audio';
-
-      console.log(`Processing ${fileType}: ${req.file.originalname}`);
-
-      // Process the media file (compress and generate thumbnail)
-      const processed = await mediaProcessor.processMedia(
-        tempPath!,
-        req.file.originalname,
-        fileType
-      );
-
-      // Save to database
       const media = await mediaStorage.createMedia({
         title,
         category,
         description: description || undefined,
         fileType,
-        originalFilename: req.file.originalname,
-        compressedFilePath: processed.compressedPath,
-        thumbnailPath: processed.thumbnailPath,
-        duration: processed.duration,
-        fileSize: processed.fileSize,
-        metadata: processed.metadata,
-        audioMetadata: parsedAudioMetadata || undefined,
+        originalFilename: fileUrl.split('/').pop() || 'media-file',
+        compressedFilePath: fileUrl,
+        thumbnailPath: thumbnailUrl,
+        duration: duration || undefined,
+        fileSize: '0',
+        metadata: undefined,
+        audioMetadata: audioMetadata || undefined,
       });
-
-      // Clean up temp file
-      await fs.unlink(tempPath!).catch(console.error);
 
       res.json(media);
     } catch (error) {
       console.error("Error uploading media:", error);
-      // Clean up temp file on error
-      if (tempPath) await fs.unlink(tempPath).catch(console.error);
-      res.status(500).json({ error: "Failed to upload and process media" });
+      res.status(500).json({ error: "Failed to upload media" });
     }
   });
 
@@ -368,17 +309,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/admin/media/:id", requireAuth, async (req, res) => {
     try {
       const media = await mediaStorage.getMediaById(req.params.id);
-      
+
       if (!media) {
         return res.status(404).json({ error: "Media not found" });
       }
 
-      // Delete files from storage
-      await mediaProcessor.deleteMediaFiles(media.compressedFilePath, media.thumbnailPath || undefined);
-
       // Delete from database
       await mediaStorage.deleteMedia(req.params.id);
-      
+
       res.json({ success: true, message: "Media deleted successfully" });
     } catch (error) {
       console.error("Error deleting media:", error);

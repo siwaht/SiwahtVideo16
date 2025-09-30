@@ -6,16 +6,21 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import AdminLogin from "@/pages/admin/login";
-import AdminDashboard from "@/pages/admin/dashboard";
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { initializeAutoPauseMedia, cleanupAutoPauseMedia } from "@/utils/auto-pause-media";
+
+const AdminDashboard = lazy(() => import("@/pages/admin/dashboard"));
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/admin" component={AdminLogin} />
-      <Route path="/admin/dashboard" component={AdminDashboard} />
+      <Route path="/admin/dashboard">
+        <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+          <AdminDashboard />
+        </Suspense>
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );
