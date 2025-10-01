@@ -12,35 +12,6 @@ export default function Footer() {
     }
   };
 
-  const services = [
-    { name: "AI Video Ads", id: "video-ads" },
-    { name: "AI Avatars", id: "avatars" },
-    { name: "Voice Ads", id: "voice" },
-    { name: "Video Editing", id: "editing" },
-    { name: "Podcast Production", id: "podcast" },
-  ];
-
-  const companyLinks = [
-    { name: "About Us", href: "#about" },
-    { name: "Admin", href: "/admin" },
-    { name: "Careers", href: "#careers" },
-    { name: "Privacy Policy", href: "#privacy" },
-    { name: "Terms of Service", href: "#terms" },
-    { name: "Contact", id: "contact" },
-  ];
-
-  const socialLinks = [
-    { icon: FaInstagram, href: "https://www.instagram.com/siwahtofficial/", label: "Follow us on Instagram" },
-    { icon: Linkedin, href: "https://www.linkedin.com/company/13273833", label: "Connect on LinkedIn" },
-    { icon: Github, href: "https://github.com/siwahtai", label: "Check our GitHub" },
-  ];
-
-  const contactInfo = [
-    { icon: Mail, text: "hello@siwahtai.com", href: "mailto:hello@siwahtai.com" },
-    { icon: Phone, text: "+1 (555) 123-4567", href: "tel:+15551234567" },
-    { icon: MapPin, text: "San Francisco, CA", href: "#" },
-  ];
-
   const currentYear = new Date().getFullYear();
 
   return (

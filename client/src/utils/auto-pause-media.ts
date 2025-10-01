@@ -31,8 +31,8 @@ export function initializeAutoPauseMedia() {
         if (isVisible) {
           // Media is visible
           if (state.shouldAutoResume && media.paused) {
-            media.play().catch((error) => {
-              console.log('Auto-resume failed:', error);
+            media.play().catch(() => {
+              // Auto-resume failed
             });
             state.shouldAutoResume = false;
           }
@@ -42,7 +42,6 @@ export function initializeAutoPauseMedia() {
             state.wasPlaying = true;
             state.shouldAutoResume = true;
             media.pause();
-            console.log('Auto-paused media:', media.src || media.currentSrc);
           }
         }
 

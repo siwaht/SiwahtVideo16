@@ -2,8 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
     <meta name="theme-color" content="#7C3AED" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f172a" />
     <title>Siwaht - Professional AI Video & Audio Creation Agency | Custom Video Ads, Avatars & Voice Services</title>
     <meta name="description" content="Siwaht is a professional AI agency creating custom video ads, realistic avatars, voice ads in 50+ languages, video editing, and podcast production. Get a quote for your multimedia project today." />
     <meta name="keywords" content="AI video ads, custom video creation, AI avatars, voice ads, multilingual voice synthesis, professional video editing, podcast production, AI multimedia agency, video marketing, brand storytelling, commercial video production" />
@@ -37,8 +39,15 @@
     <!-- Additional SEO Meta Tags -->
     <meta name="format-detection" content="telephone=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Siwaht" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Siwaht" />
+
+    <!-- Favicons and Icons -->
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
     
     <!-- Structured Data / JSON-LD for LLM & Search Engine Understanding -->
     <script type="application/ld+json">
@@ -120,14 +129,73 @@
       }
     }
     </script>
-    
+
+    <!-- FAQ Schema for SEO and LLM Understanding -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What services does Siwaht offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Siwaht offers five main services: AI Video Ads (custom video advertisements), AI Avatars (realistic digital personas), Voice Ads (multilingual voice synthesis in 50+ languages), Video Editing (professional post-production), and Podcast Production (complete audio production services)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take to create an AI video ad?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our standard turnaround time for AI video ads is 72 hours. We can accommodate rush orders for urgent projects. Contact us to discuss your specific timeline requirements."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What languages do you support for voice ads?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We support voice synthesis in over 50 languages including English, Spanish, French, German, Italian, Portuguese, Chinese, Japanese, Korean, Arabic, Hindi, Russian, and many more."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you offer revisions on your work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Standard packages include 2 rounds of revisions. Enterprise packages include unlimited revisions to ensure complete satisfaction."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What video quality do you deliver?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We deliver videos in up to 4K resolution with professional quality. All videos are optimized for your target platform and delivered in formats like MP4, MOV, and WebM."
+          }
+        }
+      ]
+    }
+    </script>
+
     <!-- Preload critical font -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
     
-    <!-- DNS Prefetch -->
+    <!-- DNS Prefetch and Preconnect for Performance -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="preconnect" href="//fonts.googleapis.com" crossorigin>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="preconnect" href="//fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="//unpkg.com">
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
   </head>
   <body>
     <div id="root"></div>

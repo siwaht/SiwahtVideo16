@@ -461,19 +461,102 @@
     .no-print, nav, footer, button, .video-container {
       display: none !important;
     }
-    
+
     body {
       font-size: 12pt;
       color: black;
       background: white;
     }
-    
+
     a {
       text-decoration: underline;
     }
-    
+
     a[href^="http"]:after {
       content: " (" attr(href) ")";
+    }
+  }
+
+  /* Extra small screens (< 375px) */
+  @media (max-width: 374px) {
+    .container-custom {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .hero-content h1 {
+      font-size: 1.5rem;
+    }
+
+    .feature-card {
+      padding: 1rem;
+    }
+
+    button, .btn-primary, .btn-secondary {
+      font-size: 0.875rem;
+      padding: 0.625rem 1.25rem;
+    }
+  }
+
+  /* iOS Safe Area Support */
+  @supports (padding: max(0px)) {
+    body {
+      padding-left: max(0px, env(safe-area-inset-left));
+      padding-right: max(0px, env(safe-area-inset-right));
+    }
+
+    .container-custom {
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+    }
+  }
+
+  /* Focus visible for better keyboard navigation */
+  :focus-visible {
+    outline: 2px solid hsl(248, 83%, 65%);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Skip to main content link for accessibility */
+  .skip-to-main {
+    position: absolute;
+    left: -9999px;
+    z-index: 999;
+    padding: 1rem;
+    background-color: hsl(248, 83%, 65%);
+    color: white;
+    text-decoration: none;
+  }
+
+  .skip-to-main:focus {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 1rem;
+  }
+
+  /* Improve link accessibility */
+  a:not([class]) {
+    color: hsl(248, 83%, 65%);
+    text-decoration-skip-ink: auto;
+  }
+
+  /* Better form error styling */
+  input:invalid:not(:focus):not(:placeholder-shown),
+  textarea:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: hsl(0, 84%, 60%);
+  }
+
+  /* Loading state for better UX */
+  .loading {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  /* Smooth scrolling with reduced motion support */
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior: smooth;
     }
   }
 }

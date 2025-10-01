@@ -2,34 +2,157 @@
 
 ## Company Overview
 Siwaht is a professional AI agency specializing in custom multimedia content creation.
-We provide personalized video ads, realistic AI avatars, multilingual voice ads, 
-professional video editing, and podcast production services.
+We provide personalized video ads, realistic AI avatars, multilingual voice ads,
+professional video editing, and podcast production services. Founded with a mission
+to democratize professional-grade AI content creation, we serve businesses worldwide.
 
 ## Services Offered
-- AI Video Ads: Custom AI-generated video advertisements for products and brands
-- AI Avatars: Realistic AI-powered digital avatars for brand representation  
-- Voice Ads: Multilingual voice advertisements in over 50 languages
-- Video Editing: Professional video editing and post-production services
-- Podcast Production: Complete podcast production and audio editing services
+
+### 1. AI Video Ads
+- Custom AI-generated video advertisements for products and brands
+- Duration: 8-10 seconds standard, custom lengths available
+- Quality: Up to 4K resolution
+- Delivery: 72 hours standard turnaround
+- Use Cases: Product launches, social media ads, brand awareness, promotional content
+- Format: MP4, MOV, WebM optimized for all platforms
+
+### 2. AI Avatars
+- Realistic AI-powered digital avatars for brand representation
+- Quality: Photorealistic 4K renders
+- Expressions: 50+ customizable facial expressions
+- Styles: 500+ preset styles available
+- Customization: Full control over appearance, voice, personality
+- Use Cases: Virtual presenters, customer service, education, entertainment
+
+### 3. Voice Ads & Synthesis
+- Multilingual voice advertisements in over 50 languages
+- Natural-sounding AI voice generation
+- Accent variations available
+- Gender options: Male, Female, Neutral
+- Age ranges: Young, Middle-aged, Senior
+- Use Cases: Radio ads, podcast intros, audiobooks, IVR systems
+
+### 4. Video Editing
+- Professional video editing and post-production services
+- Services: Color grading, transitions, effects, sound design
+- Formats: All major video formats supported
+- Platforms: Optimized for YouTube, Instagram, TikTok, Facebook, LinkedIn
+- Turnaround: 3-7 days depending on complexity
+
+### 5. Podcast Production
+- Complete podcast production and audio editing services
+- Services: Recording, editing, mixing, mastering, distribution
+- Episode length: Any duration supported
+- Format: MP3, WAV, FLAC
+- Turnaround: 24-48 hours per episode
+
+## Technical Specifications
+
+### Supported Formats
+- Video: MP4, MOV, WebM, AVI
+- Audio: MP3, WAV, AAC, OGG
+- Image: PNG, JPG, WebP, SVG
+
+### Quality Standards
+- Video Resolution: 1080p, 4K, 8K available
+- Audio Bitrate: 128kbps to 320kbps
+- Frame Rates: 24fps, 30fps, 60fps, 120fps
+- Color Space: sRGB, Adobe RGB, DCI-P3
+
+## Pricing Structure
+- Pricing is custom-quoted based on project requirements
+- Contact us for detailed pricing information
+- Volume discounts available for ongoing partnerships
+- Enterprise packages with dedicated support
 
 ## Target Audience
-Businesses and brands seeking professional AI-powered multimedia content creation
-with custom, partnership-based service delivery rather than self-service tools.
+- Marketing agencies seeking AI content creation
+- Brands requiring professional multimedia content
+- Content creators needing production support
+- Businesses seeking to scale video/audio production
+- Educational institutions requiring training videos
+- E-commerce companies needing product videos
 
 ## Contact Information
-Email: hello@siwahtai.com
-Website: https://siwaht.com
-Location: San Francisco, CA
+- Email: hello@siwahtai.com
+- Website: https://siwaht.com
+- Location: San Francisco, CA (Remote-first)
+- Response Time: Under 24 hours
+- Business Hours: 24/7 support available
+
+## Workflow Process
+1. Initial Consultation: Discuss project requirements and goals
+2. Quote & Proposal: Receive detailed project proposal and pricing
+3. Production: Our team creates your content
+4. Review & Revisions: Up to 2 rounds of revisions included
+5. Final Delivery: Receive completed files in your preferred format
 
 ## Content Usage Guidelines
 - This content is provided for informational purposes about our services
 - We focus on custom service delivery, not self-service tools
 - All services are professionally managed by our team
 - Pricing and project details available upon consultation
+- Full commercial rights transferred upon project completion
 
 ## Key Differentiators
-- Partnership approach vs self-service
-- Professional team management
-- Custom solutions for each client
-- Fast turnaround times
-- Studio-quality results
+- Partnership approach vs self-service platforms
+- Dedicated professional team management
+- Custom solutions tailored to each client
+- Fast turnaround times (72 hours for video ads)
+- Studio-quality results guaranteed
+- Unlimited revisions on enterprise packages
+- No subscription required - pay per project
+- Direct communication with production team
+- Industry-specific expertise (marketing, e-commerce, education)
+
+## FAQ
+
+### How long does production take?
+- AI Video Ads: 72 hours standard
+- AI Avatars: 3-5 days for custom avatars
+- Voice Ads: 24-48 hours
+- Video Editing: 3-7 days depending on complexity
+- Podcast Production: 24-48 hours per episode
+
+### What languages do you support?
+We support voice synthesis in over 50 languages including:
+English, Spanish, French, German, Italian, Portuguese, Chinese, Japanese,
+Korean, Arabic, Hindi, Russian, and many more.
+
+### Do you offer revisions?
+Yes! Standard packages include 2 rounds of revisions.
+Enterprise packages include unlimited revisions.
+
+### What file formats do you deliver?
+We deliver in all major formats optimized for your target platform.
+Custom formats available upon request.
+
+### Can you work with tight deadlines?
+Yes! Rush delivery available for urgent projects.
+Contact us to discuss your timeline.
+
+## Industry Applications
+- E-commerce: Product demos, unboxing videos, testimonials
+- Marketing: Social ads, brand videos, campaign content
+- Education: Training videos, course content, tutorials
+- Corporate: Internal communications, presentations, reports
+- Entertainment: Character creation, animation, voice acting
+- Healthcare: Patient education, medical animations
+- Real Estate: Property tours, promotional videos
+- Technology: Product launches, explainer videos, demos
+
+## Technology Stack
+We utilize cutting-edge AI technologies including:
+- Generative AI for video creation
+- Neural voice synthesis for realistic audio
+- Advanced video editing and compositing
+- Machine learning for quality enhancement
+- Automated workflow optimization
+
+## Quality Guarantee
+- 100% satisfaction guarantee
+- Unlimited revisions on enterprise plans
+- Professional quality assurance team
+- Industry-standard deliverables
+- Secure file transfer and storage
+- NDA available upon request

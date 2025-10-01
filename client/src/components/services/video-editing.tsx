@@ -38,8 +38,8 @@ export default function VideoEditing() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && video.paused) {
-            video.play().catch((error) => {
-              console.log('Auto-play prevented:', error);
+            video.play().catch(() => {
+              // Auto-play prevented by browser
             });
           }
         });
@@ -144,8 +144,8 @@ export default function VideoEditing() {
                           loop
                           playsInline
                           controls={false}
-                          onError={(e) => {
-                            console.log('Video error:', e);
+                          onError={() => {
+                            // Video loading failed
                           }}
                         />
                         

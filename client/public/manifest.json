@@ -1,0 +1,28 @@
+{
+  "name": "Siwaht - Professional AI Video & Audio Creation Agency",
+  "short_name": "Siwaht",
+  "description": "Professional AI agency creating custom video ads, realistic avatars, voice ads in 50+ languages, video editing, and podcast production.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7C3AED",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "multimedia", "productivity"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "scope": "/"
+}

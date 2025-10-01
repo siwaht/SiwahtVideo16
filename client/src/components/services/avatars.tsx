@@ -38,8 +38,8 @@ export default function Avatars() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && video.paused) {
-            video.play().catch((error) => {
-              console.log('Auto-play prevented:', error);
+            video.play().catch(() => {
+              // Auto-play prevented by browser
             });
           }
         });
@@ -177,8 +177,8 @@ export default function Avatars() {
                           muted={isMuted}
                           loop
                           playsInline
-                          onError={(e) => {
-                            console.log('Video error:', e);
+                          onError={() => {
+                            // Video loading failed
                           }}
                         />
                         

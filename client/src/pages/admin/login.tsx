@@ -46,7 +46,6 @@ export default function AdminLogin() {
         });
       }
     } catch (error) {
-      console.error("Login error:", error);
       toast({
         title: "Error",
         description: "An error occurred during login",
