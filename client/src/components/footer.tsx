@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Linkedin, Github, Mail, Phone, MapPin } from "lucide-react";
-import { FaInstagram } from "react-icons/fa";
+import { Linkedin, Instagram } from "lucide-react";
 
 import PrivacyPolicy from "./privacy-policy";
 
@@ -202,7 +201,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 data-testid="footer-instagram"
               >
-                <FaInstagram className="h-6 w-6" aria-hidden="true" />
+                <Instagram className="h-6 w-6" aria-hidden="true" />
               </a>
               <a 
                 href="https://www.linkedin.com/company/siwaht/"
