@@ -178,7 +178,6 @@ export default function Avatars() {
                           loop
                           playsInline
                           onError={(e) => {
-                            console.log('Video error:', e);
                           }}
                         />
                         

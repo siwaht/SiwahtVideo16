@@ -145,7 +145,6 @@ export default function VideoEditing() {
                           playsInline
                           controls={false}
                           onError={(e) => {
-                            console.log('Video error:', e);
                           }}
                         />
                         
