@@ -91,12 +91,39 @@ function startObservingAllMedia() {
   });
 }
 
+function isWidgetElement(element: HTMLElement): boolean {
+  let current: HTMLElement | null = element;
+
+  while (current) {
+    if (current.tagName?.toLowerCase() === 'elevenlabs-convai') {
+      return true;
+    }
+
+    if (current.hasAttribute('data-exclude-autopause')) {
+      return true;
+    }
+
+    if (current.classList?.contains('widget-audio-container')) {
+      return true;
+    }
+
+    current = current.parentElement;
+  }
+
+  return false;
+}
+
 function observeMediaElement(media: HTMLMediaElement) {
   if (observedElements.has(media) || !globalObserver) return;
-  
+
+  if (isWidgetElement(media)) {
+    console.log('Skipping auto-pause for widget audio element:', media);
+    return;
+  }
+
   observedElements.add(media);
   globalObserver.observe(media);
-  
+
   // Initialize state
   mediaStates.set(media, { wasPlaying: false, shouldAutoResume: false });
 }

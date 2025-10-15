@@ -85,9 +85,13 @@ export default function Home() {
       <Footer />
       
       {/* ElevenLabs ConvAI Widget */}
-      <div dangerouslySetInnerHTML={{
-        __html: '<elevenlabs-convai agent-id="agent_2701k71x5r0cfkvvfwv49zf17v85"></elevenlabs-convai>'
-      }} />
+      <div
+        data-exclude-autopause="true"
+        className="widget-audio-container"
+        dangerouslySetInnerHTML={{
+          __html: '<elevenlabs-convai agent-id="agent_2701k71x5r0cfkvvfwv49zf17v85"></elevenlabs-convai>'
+        }}
+      />
     </div>
   );
 }
