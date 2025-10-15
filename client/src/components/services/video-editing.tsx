@@ -11,8 +11,8 @@ export default function VideoEditing() {
   // Fetch edited videos from API
   const { data: editedVideos = [], isLoading, error } = useQuery<EditedVideo[]>({
     queryKey: ['/api/samples/edited-videos'],
-    refetchOnWindowFocus: true,
-    staleTime: 0, // Always fetch fresh data
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
   });
 
   // Get the first published edited video for preview, sorted by order index

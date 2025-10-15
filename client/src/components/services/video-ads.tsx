@@ -8,8 +8,8 @@ export default function VideoAds() {
   // Fetch demo videos from API
   const { data: demoVideos = [], isLoading, error } = useQuery<DemoVideo[]>({
     queryKey: ['/api/samples/demo-videos'],
-    refetchOnWindowFocus: true,
-    staleTime: 0, // Always fetch fresh data
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
   });
 
   // Get the first published demo video for preview, sorted by order index
@@ -61,9 +61,9 @@ export default function VideoAds() {
   ];
 
   return (
-    <section 
-      id="video-ads" 
-      className="section-padding bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/50"
+    <section
+      id="video-ads"
+      className="section-padding bg-gradient-to-br from-white via-blue-50/30 to-cyan-50/50"
       aria-labelledby="video-ads-heading"
     >
       <div className="container-custom">
@@ -82,9 +82,9 @@ export default function VideoAds() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
           {/* Video Ad Preview */}
           <aside className="relative order-1 lg:order-1 hover-lift">
-            <div className="service-preview from-blue-100 via-indigo-100 to-purple-100 bg-gradient-to-br shadow-2xl">
+            <div className="service-preview from-blue-100 via-cyan-100 to-sky-100 bg-gradient-to-br shadow-2xl">
               <div className="glass-card p-6 sm:p-8 mb-6 sm:mb-8 border-2 border-white/20">
-                <h4 className="font-bold text-slate-900 mb-4 sm:mb-6 text-lg sm:text-xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">AI Video Studio</h4>
+                <h4 className="font-bold text-slate-900 mb-4 sm:mb-6 text-lg sm:text-xl bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">AI Video Studio</h4>
 
 {featuredVideo ? (
                   <div className="relative">
@@ -143,7 +143,7 @@ export default function VideoAds() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                         <div className="relative z-10 h-full flex items-center justify-center">
                           <div className="text-center text-white">
-                            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
+                            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
                               <Play className="h-10 w-10 sm:h-12 sm:w-12 text-white fill-current" />
                             </div>
                             <p className="text-sm sm:text-base opacity-90 font-semibold">{featuredVideo.title}</p>
@@ -172,7 +172,7 @@ export default function VideoAds() {
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
                     <div className="relative z-10 h-full flex items-center justify-center">
                       <div className="text-center text-white">
-                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
+                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
                           <Play className="h-10 w-10 sm:h-12 sm:w-12 text-white fill-current" />
                         </div>
                         <p className="text-sm sm:text-base opacity-90 font-semibold">AI Video Preview</p>
@@ -201,7 +201,7 @@ export default function VideoAds() {
                 </div>
                 <div className="glass-card p-3 sm:p-4 text-center hover-lift">
                   <div className="text-xs sm:text-sm font-medium text-slate-600 mb-1">Delivery</div>
-                  <div className="text-sm sm:text-base font-bold text-purple-600">72 Hours</div>
+                  <div className="text-sm sm:text-base font-bold text-cyan-600">72 Hours</div>
                 </div>
               </div>
             </div>

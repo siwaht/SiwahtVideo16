@@ -11,8 +11,8 @@ export default function Avatars() {
   // Fetch avatars from API
   const { data: avatars = [], isLoading, error } = useQuery<Avatar[]>({
     queryKey: ['/api/samples/avatars'],
-    refetchOnWindowFocus: true,
-    staleTime: 0, // Always fetch fresh data
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
   });
 
   // Get the first published avatar for preview, sorted by order index
@@ -93,9 +93,9 @@ export default function Avatars() {
   ];
 
   return (
-    <section 
-      id="avatars" 
-      className="section-padding bg-gradient-to-br from-indigo-50/50 via-white to-purple-50/30"
+    <section
+      id="avatars"
+      className="section-padding bg-gradient-to-br from-sky-50/50 via-white to-blue-50/30"
       aria-labelledby="avatars-heading"
     >
       <div className="container-custom">
@@ -148,9 +148,9 @@ export default function Avatars() {
 
           {/* Avatar Preview */}
           <aside className="relative order-1 lg:order-2 hover-lift">
-            <div className="service-preview from-purple-100 via-indigo-100 to-blue-100 bg-gradient-to-br shadow-2xl">
+            <div className="service-preview from-sky-100 via-blue-100 to-cyan-100 bg-gradient-to-br shadow-2xl">
               <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8 border-2 border-white/20">
-                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Avatar Studio</h4>
+                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Avatar Studio</h4>
 
 {featuredAvatar ? (
                   <div className="video-container aspect-square bg-gradient-to-br from-slate-100 to-slate-200 shadow-2xl mx-auto max-w-md">
@@ -234,7 +234,7 @@ export default function Avatars() {
                     
                     {/* Avatar Preview */}
                     <div className="relative z-10 h-full flex items-center justify-center">
-                      <div className="w-32 h-32 xs:w-40 xs:h-40 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-2xl floating-animation">
+                      <div className="w-32 h-32 xs:w-40 xs:h-40 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-2xl floating-animation">
                         <User className="h-16 w-16 xs:h-20 xs:w-20 text-white" />
                       </div>
                       <div className="absolute bottom-4 left-4 right-4 text-center">
@@ -260,7 +260,7 @@ export default function Avatars() {
                 </div>
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Expressions</div>
-                  <div className="text-sm xs:text-base font-bold text-purple-600">50+</div>
+                  <div className="text-sm xs:text-base font-bold text-cyan-600">50+</div>
                 </div>
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Styles</div>

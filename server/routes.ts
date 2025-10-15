@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { 
+import {
   insertContactSubmissionSchema,
   updateMediaSchema
 } from "@shared/schema";
@@ -19,40 +19,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Public API endpoints for frontend samples/portfolio
   app.get("/api/samples/demo-videos", async (req, res) => {
     try {
-      const videos = await storage.getDemoVideos(12);
-      const publishedVideos = videos.filter(video => video.isPublished);
-      
-      // Get admin uploaded videos for AI Video Studio category
       const adminVideos = await mediaStorage.getMediaByCategory("AI Video Studio");
-      console.log("Admin videos for AI Video Studio:", adminVideos.length);
-      
-      // Convert admin videos to demo video format
-      const adminDemoVideos = adminVideos
+
+      const demoVideos = adminVideos
         .filter(media => media.fileType === "video")
         .map((media, index) => ({
           id: media.id,
           title: media.title,
           description: media.description || "Professional AI-generated video content",
-          videoUrl: media.compressedFilePath.startsWith('http') 
-            ? media.compressedFilePath 
-            : media.compressedFilePath, // Use the path as-is from database
-          thumbnailUrl: media.thumbnailPath ? 
-            (media.thumbnailPath.startsWith('http') 
-              ? media.thumbnailPath 
-              : media.thumbnailPath) // Use the path as-is from database
-            : null,
+          videoUrl: media.compressedFilePath,
+          thumbnailUrl: media.thumbnailPath || null,
           category: "demo",
           duration: media.duration || "30s",
-          orderIndex: index, // Admin videos get priority with lower orderIndex
+          orderIndex: index,
           isPublished: true,
           createdAt: media.createdAt,
           updatedAt: media.updatedAt
         }));
-      
-      // Combine and return all videos
-      const allVideos = [...publishedVideos, ...adminDemoVideos];
-      // Debug logging removed
-      res.json(allVideos);
+
+      res.json(demoVideos);
     } catch (error) {
       console.error("Error fetching demo videos:", error);
       res.status(500).json({ error: "Failed to fetch demo videos" });
@@ -61,35 +46,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/samples/avatars", async (req, res) => {
     try {
-      const avatars = await storage.getAvatars(12);
-      const publishedAvatars = avatars.filter(avatar => avatar.isPublished);
-      
-      // Get admin uploaded videos for Avatar Studio category
       const adminAvatars = await mediaStorage.getMediaByCategory("Avatar Studio");
-      
-      // Convert admin videos to avatar format
-      const adminAvatarVideos = adminAvatars
+
+      const avatars = adminAvatars
         .filter(media => media.fileType === "video")
         .map((media, index) => ({
           id: media.id,
           name: media.title,
           role: "Custom Avatar",
-          videoUrl: media.compressedFilePath.startsWith('http') 
-            ? media.compressedFilePath 
-            : media.compressedFilePath,
-          thumbnailUrl: media.thumbnailPath ? 
-            (media.thumbnailPath.startsWith('http') 
-              ? media.thumbnailPath 
-              : media.thumbnailPath) 
-            : null,
+          videoUrl: media.compressedFilePath,
+          thumbnailUrl: media.thumbnailPath || null,
           description: media.description || "Professional AI-generated avatar",
-          orderIndex: index, // Admin videos get priority with lower orderIndex
+          orderIndex: index,
           isPublished: true,
           createdAt: media.createdAt,
           updatedAt: media.updatedAt
         }));
-      
-      res.json([...publishedAvatars, ...adminAvatarVideos]);
+
+      res.json(avatars);
     } catch (error) {
       console.error("Error fetching avatars:", error);
       res.status(500).json({ error: "Failed to fetch avatars" });
@@ -98,11 +72,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/samples/voice-samples", async (req, res) => {
     try {
-      // Only get samples from database (manageable from admin panel)
-      const adminVoiceAds = await mediaStorage.getMediaByCategory("Professional Multilingual Voice Ads");
-      
-      // Convert admin audio to voice sample format
-      const adminVoiceSamples = adminVoiceAds
+      const voiceMedia = await mediaStorage.getMediaByCategory("Professional Multilingual Voice Ads");
+
+      const voiceSamples = voiceMedia
         .filter(media => media.fileType === "audio")
         .map((media, index) => ({
           id: media.id,
@@ -111,9 +83,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           gender: media.audioMetadata?.gender || "Neutral",
           accent: media.audioMetadata?.accent || undefined,
           ageRange: media.audioMetadata?.ageRange || undefined,
-          audioUrl: media.compressedFilePath.startsWith('http') 
-            ? media.compressedFilePath 
-            : media.compressedFilePath,
+          audioUrl: media.compressedFilePath,
           duration: media.duration || "30s",
           description: media.description || "Custom voice ad",
           orderIndex: index,
@@ -121,8 +91,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           createdAt: media.createdAt,
           updatedAt: media.updatedAt
         }));
-      
-      res.json(adminVoiceSamples);
+
+      res.json(voiceSamples);
     } catch (error) {
       console.error("Error fetching voice samples:", error);
       res.status(500).json({ error: "Failed to fetch voice samples" });
@@ -131,36 +101,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/samples/edited-videos", async (req, res) => {
     try {
-      const videos = await storage.getEditedVideos(12);
-      const publishedVideos = videos.filter(video => video.isPublished);
-      
-      // Get admin uploaded videos for AI Video Editing category
-      const adminVideos = await mediaStorage.getMediaByCategory("AI Video Editing");
-      
-      // Convert admin videos to edited video format
-      const adminEditedVideos = adminVideos
+      const editedMedia = await mediaStorage.getMediaByCategory("AI Video Editing");
+
+      const editedVideos = editedMedia
         .filter(media => media.fileType === "video")
         .map((media, index) => ({
           id: media.id,
           title: media.title,
           projectType: "Custom Edit",
           duration: media.duration || "60s",
-          videoUrl: media.compressedFilePath.startsWith('http') 
-            ? media.compressedFilePath 
-            : media.compressedFilePath,
-          thumbnailUrl: media.thumbnailPath ? 
-            (media.thumbnailPath.startsWith('http') 
-              ? media.thumbnailPath 
-              : media.thumbnailPath) 
-            : null,
+          videoUrl: media.compressedFilePath,
+          thumbnailUrl: media.thumbnailPath || null,
           description: media.description || "Professionally edited video content",
-          orderIndex: index, // Admin videos get priority with lower orderIndex
+          orderIndex: index,
           isPublished: true,
           createdAt: media.createdAt,
           updatedAt: media.updatedAt
         }));
-      
-      res.json([...publishedVideos, ...adminEditedVideos]);
+
+      res.json(editedVideos);
     } catch (error) {
       console.error("Error fetching edited videos:", error);
       res.status(500).json({ error: "Failed to fetch edited videos" });
@@ -169,11 +128,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/samples/podcast-samples", async (req, res) => {
     try {
-      // Only get samples from database (manageable from admin panel)
-      const adminPodcasts = await mediaStorage.getMediaByCategory("AI Podcast Production");
-      
-      // Convert admin audio to podcast sample format
-      const adminPodcastSamples = adminPodcasts
+      const podcastMedia = await mediaStorage.getMediaByCategory("AI Podcast Production");
+
+      const podcastSamples = podcastMedia
         .filter(media => media.fileType === "audio")
         .map((media, index) => ({
           id: media.id,
@@ -181,9 +138,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           category: media.audioMetadata?.tags?.[0] || "general",
           episodeNumber: media.audioMetadata?.episodeType || "",
           duration: media.duration || "15m",
-          audioUrl: media.compressedFilePath.startsWith('http') 
-            ? media.compressedFilePath 
-            : media.compressedFilePath,
+          audioUrl: media.compressedFilePath,
           description: media.description || "Professional podcast episode",
           hostName: media.audioMetadata?.hostName || undefined,
           guestName: media.audioMetadata?.guestName || undefined,
@@ -192,8 +147,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           createdAt: media.createdAt,
           updatedAt: media.updatedAt
         }));
-      
-      res.json(adminPodcastSamples);
+
+      res.json(podcastSamples);
     } catch (error) {
       console.error("Error fetching podcast samples:", error);
       res.status(500).json({ error: "Failed to fetch podcast samples" });

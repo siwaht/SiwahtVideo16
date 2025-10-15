@@ -26,6 +26,8 @@ export default function PodcastProduction() {
 
   const { data: podcastSamples, isLoading, error } = useQuery({
     queryKey: ["/api/samples/podcast-samples"],
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
   });
 
   const scrollToContact = () => {

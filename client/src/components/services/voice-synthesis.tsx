@@ -6,8 +6,8 @@ export default function VoiceSynthesis() {
   // Fetch voice samples from API
   const { data: voiceSamples = [], isLoading, error } = useQuery<VoiceSample[]>({
     queryKey: ['/api/samples/voice-samples'],
-    refetchOnWindowFocus: true,
-    staleTime: 0, // Always fetch fresh data
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
   });
 
   // Get the first published voice sample for preview, sorted by order index

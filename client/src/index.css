@@ -13,12 +13,12 @@
   --card-foreground: hsl(222, 84%, 4.9%);
   --border: hsl(214, 32%, 91%);
   --input: hsl(214, 32%, 91%);
-  --primary: hsl(248, 83%, 65%);
-  --primary-foreground: hsl(210, 40%, 98%);
-  --secondary: hsl(268, 77%, 69%);
-  --secondary-foreground: hsl(222, 84%, 4.9%);
-  --accent: hsl(188, 94%, 43%);
-  --accent-foreground: hsl(222, 84%, 4.9%);
+  --primary: hsl(213, 94%, 48%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(168, 76%, 42%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(199, 89%, 48%);
+  --accent-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(210, 40%, 98%);
   --ring: hsl(222, 84%, 4.9%);
@@ -115,7 +115,7 @@
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, hsl(248, 83%, 65%), hsl(268, 77%, 69%), hsl(188, 94%, 43%), hsl(220, 85%, 60%));
+    background: linear-gradient(135deg, hsl(213, 94%, 48%), hsl(199, 89%, 48%), hsl(168, 76%, 42%), hsl(195, 85%, 55%));
     background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -147,7 +147,7 @@
   }
   
   .btn-primary {
-    @apply bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-800 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-white/20 relative overflow-hidden;
+    @apply bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-white/20 relative overflow-hidden;
   }
   
   .btn-primary::before {
@@ -214,7 +214,7 @@
     left: -2px;
     right: -2px;
     bottom: -2px;
-    background: linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4, #10b981);
+    background: linear-gradient(45deg, #3b82f6, #06b6d4, #0ea5e9, #10b981);
     background-size: 400% 400%;
     z-index: -1;
     border-radius: inherit;
@@ -235,7 +235,7 @@
   }
 
   .bg-mesh-gradient {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0ea5e9 0%, #0891b2 100%);
     background-size: 400% 400%;
     animation: gradientShift 8s ease infinite;
   }
