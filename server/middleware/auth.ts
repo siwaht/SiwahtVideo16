@@ -1,5 +1,31 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { ZodError } from "zod";
+
+export class ApiError extends Error {
+  statusCode: number;
+
+  constructor(statusCode: number, message: string) {
+    super(message);
+    this.statusCode = statusCode;
+  }
+}
+
+export const handleErrors = (
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (err instanceof ApiError) {
+    return res.status(err.statusCode).json({ message: err.message });
+  }
+  if (err instanceof ZodError) {
+    return res.status(400).json({ message: "Invalid data", errors: err.errors });
+  }
+  console.error(err);
+  res.status(500).json({ message: "Internal server error" });
+};
 
 // Admin authentication middleware
 const ADMIN_USER = process.env.ADMIN_USER || "cc@siwaht.com";
@@ -10,12 +36,16 @@ interface AuthRequest extends Request {
   admin?: { username: string };
 }
 
+import bcrypt from "bcryptjs";
+
 // Login handler
 export const adminLogin = async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
+  const storedPasswordHash = await bcrypt.hash(ADMIN_PASS, 10);
+
   // Check credentials
-  if (username === ADMIN_USER && password === ADMIN_PASS) {
+  if (username === ADMIN_USER && (await bcrypt.compare(password, storedPasswordHash))) {
     // Create JWT token
     const token = jwt.sign(
       { username },
@@ -34,7 +64,7 @@ export const adminLogin = async (req: Request, res: Response) => {
     return res.json({ success: true, message: "Login successful" });
   }
 
-  return res.status(401).json({ success: false, message: "Invalid credentials" });
+  throw new ApiError(401, "Invalid credentials");
 };
 
 // Logout handler
@@ -49,32 +79,30 @@ export const requireAuth = async (
   res: Response,
   next: NextFunction
 ) => {
+  const token = req.cookies?.adminToken;
+
+  if (!token) {
+    throw new ApiError(401, "Authentication required");
+  }
+
   try {
-    const token = req.cookies?.adminToken;
-
-    if (!token) {
-      return res.status(401).json({ success: false, message: "Authentication required" });
-    }
-
-    // Verify token
     const decoded = jwt.verify(token, JWT_SECRET) as { username: string };
     req.admin = decoded;
     next();
   } catch (error) {
-    return res.status(401).json({ success: false, message: "Invalid or expired token" });
+    throw new ApiError(401, "Invalid or expired token");
   }
 };
 
 // Check auth status
 export const checkAuth = async (req: Request, res: Response) => {
-  try {
-    const token = req.cookies?.adminToken;
-    
-    if (!token) {
-      return res.json({ authenticated: false });
-    }
+  const token = req.cookies?.adminToken;
 
-    // Verify token
+  if (!token) {
+    return res.json({ authenticated: false });
+  }
+
+  try {
     jwt.verify(token, JWT_SECRET);
     return res.json({ authenticated: true });
   } catch (error) {

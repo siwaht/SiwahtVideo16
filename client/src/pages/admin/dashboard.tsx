@@ -31,6 +31,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { mediaCategories, type Media } from "@shared/schema";
+import { api } from "@/lib/axios";
 import {
   LogOut,
   Upload,
@@ -224,23 +225,20 @@ export default function AdminDashboard() {
         }
       }
       
-      // Show progress updates
-      const interval = setInterval(() => {
-        setUploadProgress((prev) => Math.min(prev + 10, 90));
-      }, 500);
+      const response = await api.post(
+        "/api/admin/media/upload",
+        uploadData,
+        {
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setUploadProgress(percentCompleted);
+          },
+        }
+      );
 
-      const response = await fetch("/api/admin/media/upload", {
-        method: "POST",
-        credentials: "include",
-        body: uploadData,
-      });
-
-      clearInterval(interval);
-      setUploadProgress(100);
-
-      const data = await response.json();
-
-      if (response.ok) {
+      if (response.status === 200) {
         queryClient.invalidateQueries({ queryKey: ["/api/admin/media"] });
         toast({
           title: "Success",
@@ -249,7 +247,7 @@ export default function AdminDashboard() {
         setShowUploadDialog(false);
         (e.target as HTMLFormElement).reset();
       } else {
-        throw new Error(data.error || "Upload failed");
+        throw new Error(response.data.error || "Upload failed");
       }
     } catch (error) {
       console.error("Upload error:", error);
