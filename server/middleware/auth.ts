@@ -1,7 +1,49 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-// Admin authentication middleware
+// Validate required environment variables
+function validateEnvVariables() {
+  const missingVars: string[] = [];
+
+  if (!process.env.ADMIN_USER) {
+    missingVars.push("ADMIN_USER");
+  }
+  if (!process.env.ADMIN_PASS) {
+    missingVars.push("ADMIN_PASS");
+  }
+  if (!process.env.JWT_SECRET) {
+    missingVars.push("JWT_SECRET");
+  }
+
+  // In development, use defaults with warning
+  if (missingVars.length > 0 && process.env.NODE_ENV === "development") {
+    console.warn(`⚠️  WARNING: Missing environment variables: ${missingVars.join(", ")}`);
+    console.warn(`⚠️  Using default values for development only. DO NOT use in production!`);
+    return true;
+  }
+
+  // In production, fail hard if variables are missing
+  if (missingVars.length > 0) {
+    throw new Error(`Missing required environment variables: ${missingVars.join(", ")}`);
+  }
+
+  // Validate JWT secret strength in production
+  if (process.env.NODE_ENV === "production" && process.env.JWT_SECRET) {
+    if (process.env.JWT_SECRET.length < 32) {
+      throw new Error("JWT_SECRET must be at least 32 characters long in production");
+    }
+    if (process.env.JWT_SECRET === "your_jwt_secret_key_change_this_in_production") {
+      throw new Error("JWT_SECRET must be changed from default value in production");
+    }
+  }
+
+  return true;
+}
+
+// Validate on module load
+validateEnvVariables();
+
+// Admin authentication configuration
 const ADMIN_USER = process.env.ADMIN_USER || "cc@siwaht.com";
 const ADMIN_PASS = process.env.ADMIN_PASS || "Hola173!";
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key_change_this_in_production";

@@ -2,6 +2,7 @@ import type { InsertMedia, UpdateMedia, Media } from "@shared/schema";
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
+import { logger } from "./utils/logger";
 
 const DB_PATH = path.join(process.cwd(), "server", "media-db.json");
 
@@ -17,21 +18,41 @@ export class MediaStorage {
     try {
       if (fs.existsSync(DB_PATH)) {
         const data = fs.readFileSync(DB_PATH, "utf-8");
-        const parsed = JSON.parse(data);
+        const parsed = JSON.parse(data) as { media?: unknown[] };
         if (parsed.media && Array.isArray(parsed.media)) {
-          parsed.media.forEach((item: any) => {
-            // Convert date strings back to Date objects
-            item.createdAt = new Date(item.createdAt);
-            item.updatedAt = new Date(item.updatedAt);
-            this.mediaItems.set(item.id, item);
+          parsed.media.forEach((item: unknown) => {
+            // Validate and convert the item to Media type
+            if (this.isValidMediaItem(item)) {
+              const mediaItem: Media = {
+                ...item,
+                createdAt: new Date(item.createdAt),
+                updatedAt: new Date(item.updatedAt),
+              };
+              this.mediaItems.set(mediaItem.id, mediaItem);
+            } else {
+              logger.warn("Skipping invalid media item during load", { item });
+            }
           });
         }
       }
     } catch (error) {
-      console.error("Error loading media database:", error);
+      logger.error("Error loading media database", error);
       // Initialize with empty data if load fails
       this.saveToFile();
     }
+  }
+
+  private isValidMediaItem(item: unknown): item is Omit<Media, 'createdAt' | 'updatedAt'> & { createdAt: string | Date; updatedAt: string | Date } {
+    if (typeof item !== "object" || item === null) return false;
+    const obj = item as Record<string, unknown>;
+    return (
+      typeof obj.id === "string" &&
+      typeof obj.title === "string" &&
+      typeof obj.filePath === "string" &&
+      typeof obj.category === "string" &&
+      (obj.createdAt instanceof Date || typeof obj.createdAt === "string") &&
+      (obj.updatedAt instanceof Date || typeof obj.updatedAt === "string")
+    );
   }
 
   private saveToFile() {
@@ -41,7 +62,7 @@ export class MediaStorage {
       };
       fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
     } catch (error) {
-      console.error("Error saving media database:", error);
+      logger.error("Error saving media database", error);
     }
   }
 

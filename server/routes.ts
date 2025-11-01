@@ -7,6 +7,12 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 import { adminLogin, adminLogout, requireAuth, checkAuth } from "./middleware/auth";
+import {
+  apiRateLimiter,
+  uploadRateLimiter,
+  contactFormRateLimiter,
+  loginRateLimiter
+} from "./middleware/rate-limit";
 import { mediaStorage } from "./media-storage";
 import { mediaProcessor } from "./media-processor";
 import multer from "multer";
@@ -39,7 +45,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json(demoVideos);
     } catch (error) {
-      console.error("Error fetching demo videos:", error);
+      logger.error("Error fetching demo videos", error);
       res.status(500).json({ error: "Failed to fetch demo videos" });
     }
   });
@@ -65,7 +71,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json(avatars);
     } catch (error) {
-      console.error("Error fetching avatars:", error);
+      logger.error("Error fetching avatars", error);
       res.status(500).json({ error: "Failed to fetch avatars" });
     }
   });
@@ -94,7 +100,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json(voiceSamples);
     } catch (error) {
-      console.error("Error fetching voice samples:", error);
+      logger.error("Error fetching voice samples", error);
       res.status(500).json({ error: "Failed to fetch voice samples" });
     }
   });
@@ -121,7 +127,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json(editedVideos);
     } catch (error) {
-      console.error("Error fetching edited videos:", error);
+      logger.error("Error fetching edited videos", error);
       res.status(500).json({ error: "Failed to fetch edited videos" });
     }
   });
@@ -150,13 +156,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json(podcastSamples);
     } catch (error) {
-      console.error("Error fetching podcast samples:", error);
+      logger.error("Error fetching podcast samples", error);
       res.status(500).json({ error: "Failed to fetch podcast samples" });
     }
   });
 
   // Contact form submission
-  app.post("/api/contact", async (req, res) => {
+  app.post("/api/contact", contactFormRateLimiter.middleware, async (req, res) => {
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
       const submission = await storage.createContactSubmission(validatedData);
@@ -174,10 +180,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           errors: error.errors 
         });
       } else {
-        console.error("Contact form error:", error);
-        res.status(500).json({ 
-          success: false, 
-          message: "Internal server error" 
+        logger.error("Contact form error", error);
+        res.status(500).json({
+          success: false,
+          message: "Internal server error"
         });
       }
     }
@@ -189,22 +195,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
     dest: path.join(process.cwd(), "temp-uploads"),
     limits: {
       fileSize: 500 * 1024 * 1024, // 500MB max file size
+      files: 1, // Only one file at a time
     },
     fileFilter: (req, file, cb) => {
-      const allowedTypes = [
+      // Validate MIME type
+      const allowedMimeTypes = [
         'video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/webm',
-        'audio/mpeg', 'audio/wav', 'audio/mp3', 'audio/x-wav'
+        'audio/mpeg', 'audio/wav', 'audio/mp3', 'audio/x-wav', 'audio/aac'
       ];
-      if (allowedTypes.includes(file.mimetype)) {
-        cb(null, true);
-      } else {
-        cb(new Error('Invalid file type. Only video and audio files are allowed.'));
+
+      // Validate file extension
+      const allowedExtensions = ['.mp4', '.mov', '.avi', '.webm', '.mp3', '.wav', '.aac'];
+      const ext = path.extname(file.originalname).toLowerCase();
+
+      // Check both MIME type and extension
+      if (!allowedMimeTypes.includes(file.mimetype)) {
+        return cb(new Error(`Invalid file type: ${file.mimetype}. Only video and audio files are allowed.`));
       }
+
+      if (!allowedExtensions.includes(ext)) {
+        return cb(new Error(`Invalid file extension: ${ext}. Allowed extensions: ${allowedExtensions.join(', ')}`));
+      }
+
+      // Validate filename (prevent path traversal)
+      if (file.originalname.includes('..') || file.originalname.includes('/') || file.originalname.includes('\\')) {
+        return cb(new Error('Invalid filename: path traversal detected'));
+      }
+
+      cb(null, true);
     }
   });
 
   // Auth endpoints
-  app.post("/api/admin/login", adminLogin);
+  app.post("/api/admin/login", loginRateLimiter.middleware, adminLogin);
   app.post("/api/admin/logout", adminLogout);
   app.get("/api/admin/check-auth", checkAuth);
 
@@ -214,7 +237,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const media = await mediaStorage.getAllMedia();
       res.json(media);
     } catch (error) {
-      console.error("Error fetching media:", error);
+      logger.error("Error fetching media list", error);
       res.status(500).json({ error: "Failed to fetch media" });
     }
   });
@@ -227,13 +250,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       res.json(media);
     } catch (error) {
-      console.error("Error fetching media:", error);
+      logger.error("Error fetching media by id", error);
       res.status(500).json({ error: "Failed to fetch media" });
     }
   });
 
   // Upload endpoint with file processing
-  app.post("/api/admin/media/upload", requireAuth, upload.single('file'), async (req, res) => {
+  app.post("/api/admin/media/upload", uploadRateLimiter.middleware, requireAuth, upload.single('file'), async (req, res) => {
     const tempPath = req.file?.path;
     
     try {
@@ -242,27 +265,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const { title, category, description, audioMetadata } = req.body;
-      
+
       if (!title || !category) {
         // Clean up temp file
-        if (tempPath) await fs.unlink(tempPath).catch(console.error);
+        if (tempPath) await fs.unlink(tempPath).catch(err => logger.warn("Failed to delete temp file", err));
         return res.status(400).json({ error: "Title and category are required" });
       }
-      
+
       // Parse audio metadata if provided
       let parsedAudioMetadata = null;
       if (audioMetadata) {
         try {
           parsedAudioMetadata = JSON.parse(audioMetadata);
         } catch (e) {
-          console.error("Failed to parse audio metadata:", e);
+          logger.warn("Failed to parse audio metadata", e);
         }
       }
 
       // Determine file type
       const fileType = req.file.mimetype.startsWith('video/') ? 'video' : 'audio';
 
-      console.log(`Processing ${fileType}: ${req.file.originalname}`);
+      logger.info(`Processing ${fileType}`, { filename: req.file.originalname });
 
       // Process the media file (compress and generate thumbnail)
       const processed = await mediaProcessor.processMedia(
@@ -287,13 +310,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       // Clean up temp file
-      await fs.unlink(tempPath!).catch(console.error);
+      await fs.unlink(tempPath!).catch(err => logger.warn("Failed to delete temp file", err));
 
       res.json(media);
     } catch (error) {
-      console.error("Error uploading media:", error);
+      logger.error("Error uploading media", error);
       // Clean up temp file on error
-      if (tempPath) await fs.unlink(tempPath).catch(console.error);
+      if (tempPath) await fs.unlink(tempPath).catch(err => logger.warn("Failed to delete temp file on error", err));
       res.status(500).json({ error: "Failed to upload and process media" });
     }
   });
@@ -313,7 +336,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (error instanceof z.ZodError) {
         res.status(400).json({ error: "Invalid data", details: error.errors });
       } else {
-        console.error("Error updating media:", error);
+        logger.error("Error updating media", error);
         res.status(500).json({ error: "Failed to update media" });
       }
     }
@@ -336,7 +359,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json({ success: true, message: "Media deleted successfully" });
     } catch (error) {
-      console.error("Error deleting media:", error);
+      logger.error("Error deleting media", error);
       res.status(500).json({ error: "Failed to delete media" });
     }
   });
