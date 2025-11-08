@@ -3,6 +3,8 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import path from "path";
 import cookieParser from "cookie-parser";
+import { connectToMongoDB } from "./mongodb";
+import { SiwahtVideoService } from "./siwahtvideo-service";
 
 const app = express();
 app.use(express.json());
@@ -77,6 +79,21 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Initialize MongoDB connection
+  const mongoUri = process.env.MONGODB_URI;
+  if (mongoUri) {
+    try {
+      await connectToMongoDB(mongoUri);
+      await SiwahtVideoService.createIndexes();
+      log('MongoDB connected and SiwahtVideo collection ready');
+    } catch (error) {
+      console.error('Failed to connect to MongoDB:', error);
+      // Continue running the app even if MongoDB fails
+    }
+  } else {
+    log('MongoDB URI not provided - MongoDB features disabled');
+  }
+
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
