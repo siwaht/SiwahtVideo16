@@ -333,12 +333,6 @@
 
   /* Mobile optimizations */
   @media (max-width: 640px) {
-    .hero-section {
-      padding-top: 4rem;
-      min-height: 100vh;
-      padding-bottom: 2rem;
-    }
-    
     .hero-content h1 {
       font-size: 1.75rem;
       line-height: 1.2;
