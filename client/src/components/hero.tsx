@@ -17,7 +17,7 @@ export default function Hero() {
 
   return (
     <section 
-      className="pt-16 md:pt-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen flex items-center relative overflow-hidden hero-section"
+      className="pt-28 md:pt-36 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen flex items-center relative overflow-hidden hero-section"
       aria-label="Hero section"
     >
       {/* Enhanced Background decoration */}
