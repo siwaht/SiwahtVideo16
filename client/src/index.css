@@ -13,11 +13,11 @@
   --card-foreground: hsl(222, 84%, 4.9%);
   --border: hsl(214, 32%, 91%);
   --input: hsl(214, 32%, 91%);
-  --primary: hsl(213, 94%, 48%);
+  --primary: hsl(248, 83%, 65%);
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(168, 76%, 42%);
+  --secondary: hsl(268, 77%, 69%);
   --secondary-foreground: hsl(0, 0%, 100%);
-  --accent: hsl(199, 89%, 48%);
+  --accent: hsl(188, 94%, 43%);
   --accent-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(210, 40%, 98%);
@@ -115,7 +115,7 @@
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, hsl(213, 94%, 48%), hsl(199, 89%, 48%), hsl(168, 76%, 42%), hsl(195, 85%, 55%));
+    background: linear-gradient(135deg, hsl(268, 77%, 69%), hsl(340, 82%, 72%), hsl(188, 94%, 43%), hsl(213, 94%, 68%));
     background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
