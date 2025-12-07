@@ -35,28 +35,28 @@ export default function VideoAds() {
       iconColor: "text-blue-600",
       bgColor: "bg-blue-100",
       title: "Custom AI Video Production",
-      description: "Our team creates compelling video ads tailored to your brand using advanced AI and creative expertise."
+      description: "Bespoke video campaigns engineered for maximum engagement using our proprietary generative video models."
     },
     {
       icon: Target,
       iconColor: "text-green-600",
       bgColor: "bg-green-100",
-      title: "Targeted Messaging",
-      description: "We craft personalized ad content that resonates with your specific demographics and customer segments."
+      title: "Precision Targeting",
+      description: "Data-driven creative variations that dynamically adapt to your audience segments for higher ROAS."
     },
     {
       icon: Zap,
       iconColor: "text-yellow-600",
       bgColor: "bg-yellow-100",
-      title: "Fast Turnaround",
-      description: "From concept to finished ad delivered quickly. Perfect for fast-paced marketing campaigns and tight deadlines."
+      title: "Lightning Execution",
+      description: "From storyboard to final render in 72 hours. Capture market trends while they are still trending."
     },
     {
       icon: Sparkles,
       iconColor: "text-purple-600",
       bgColor: "bg-purple-100",
-      title: "Studio-Quality Results",
-      description: "Professional editing, transitions, and effects delivered by our expert team using cutting-edge AI technology."
+      title: "Cinematic Excellence",
+      description: "4K resolution, professional color grading, and seamless transitions that rival traditional production houses."
     }
   ];
 
@@ -68,14 +68,14 @@ export default function VideoAds() {
     >
       <div className="container-custom">
         <header className="text-center mb-16 sm:mb-20">
-          <h2 
+          <h2
             id="video-ads-heading"
             className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-6 sm:mb-8 text-shadow"
           >
-            <span className="gradient-text">AI Video Ads</span>
+            <span className="gradient-text">Cinematic AI Video Ads</span>
           </h2>
-          <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed">
-            Professional AI video advertisement services that convert. Our expert team transforms your vision into compelling video content.
+          <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed font-light">
+            Stop the scroll with broadcast-quality video advertisements generated in minutes. High-conversion storytelling powered by next-gen neural rendering.
           </p>
         </header>
 
@@ -86,7 +86,7 @@ export default function VideoAds() {
               <div className="glass-card p-6 sm:p-8 mb-6 sm:mb-8 border-2 border-white/20">
                 <h4 className="font-bold text-slate-900 mb-4 sm:mb-6 text-lg sm:text-xl bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">AI Video Studio</h4>
 
-{featuredVideo ? (
+                {featuredVideo ? (
                   <div className="relative">
                     {processedVideo && processedVideo.canEmbed ? (
                       <div className="video-container bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl">
@@ -128,8 +128,8 @@ export default function VideoAds() {
                       // Preview mode for videos without URLs or external videos
                       (<div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
                         {featuredVideo.thumbnailUrl ? (
-                          <img 
-                            src={featuredVideo.thumbnailUrl} 
+                          <img
+                            src={featuredVideo.thumbnailUrl}
                             alt={`Thumbnail for ${featuredVideo.title} - AI generated video advertisement`}
                             className="w-full h-full object-cover"
                             loading="lazy"
@@ -179,7 +179,7 @@ export default function VideoAds() {
                         <p className="text-xs opacity-70 mt-2">Professional video content showcases will appear here</p>
                       </div>
                     </div>
-                    
+
                     {/* Video Timeline */}
                     <div className="absolute bottom-4 left-4 right-4">
                       <div className="bg-white/20 backdrop-blur-sm rounded-full h-2 overflow-hidden">
@@ -189,7 +189,7 @@ export default function VideoAds() {
                   </div>
                 )}
               </div>
-              
+
               <div className="grid grid-cols-3 gap-3 sm:gap-4">
                 <div className="glass-card p-3 sm:p-4 text-center hover-lift">
                   <div className="text-xs sm:text-sm font-medium text-slate-600 mb-1">Duration</div>
@@ -212,7 +212,7 @@ export default function VideoAds() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <article 
+                <article
                   key={index}
                   className="feature-card hover-lift"
                 >
@@ -230,7 +230,7 @@ export default function VideoAds() {
             })}
 
             <div className="pt-6 sm:pt-8">
-              <button 
+              <button
                 onClick={scrollToContact}
                 className="btn-primary w-full sm:w-auto text-lg sm:text-xl px-10 py-5"
                 data-testid="video-ads-cta"

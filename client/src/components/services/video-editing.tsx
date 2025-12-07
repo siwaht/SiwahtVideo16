@@ -66,48 +66,48 @@ export default function VideoEditing() {
       icon: Scissors,
       iconColor: "text-primary",
       bgColor: "bg-primary/10",
-      title: "Intelligent Editing",
-      description: "AI automatically cuts, trims, and arranges your footage for optimal flow and engagement."
+      title: "Intelligent Narrative Assembly",
+      description: "Our AI understands story arcs, automatically assembling footage to create compelling, coherent narratives."
     },
     {
       icon: Layers,
       iconColor: "text-secondary",
       bgColor: "bg-secondary/10",
-      title: "Advanced Effects",
-      description: "Apply professional-grade transitions, filters, and effects with AI-powered precision."
+      title: "Cinematic VFX Integration",
+      description: "Seamlessly integrate industry-standard visual effects and transitions tailored to your brand's aesthetic."
     },
     {
       icon: Zap,
       iconColor: "text-accent",
       bgColor: "bg-accent/10",
-      title: "Rapid Processing",
-      description: "Process hours of footage in minutes with our high-performance AI editing pipeline."
+      title: "Hyper-Fast Rendering",
+      description: "Experience lightning-fast turnaround times with our distributed, GPU-accelerated rendering cloud."
     },
     {
       icon: Sparkles,
       iconColor: "text-orange-600",
       bgColor: "bg-orange-100",
-      title: "Auto Enhancement",
-      description: "AI automatically enhances color, audio, and lighting for professional-quality results."
+      title: "Automated Color Grading",
+      description: "Achieve the 'film look' instantly with AI that balances color, exposure, and tone across all shots."
     }
   ];
 
   return (
-    <section 
-      id="editing" 
+    <section
+      id="editing"
       className="section-padding bg-gradient-to-br from-slate-100 to-orange-50"
       aria-labelledby="editing-heading"
     >
       <div className="container-custom">
         <header className="text-center mb-12 sm:mb-16">
-          <h2 
+          <h2
             id="editing-heading"
             className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-4 sm:mb-6"
           >
-            AI Video Editing
+            <span className="gradient-text">Algorithmic Post-Production</span>
           </h2>
           <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
-            Transform raw footage into polished videos with AI-powered editing. Cut, enhance, and produce professional content automatically.
+            From raw footage to cinematic masterpiece in record time. Our AI pipeline handles cutting, grading, and effects with surgical precision.
           </p>
         </header>
 
@@ -118,7 +118,7 @@ export default function VideoEditing() {
               <div className="bg-white rounded-xl p-3 xs:p-4 sm:p-6 mb-3 xs:mb-4 sm:mb-6 shadow-lg">
                 <h4 className="font-semibold text-slate-900 mb-2 xs:mb-3 sm:mb-4 text-base xs:text-lg sm:text-xl">AI Video Editor</h4>
 
-{featuredEditedVideo ? (
+                {featuredEditedVideo ? (
                   <div className="video-container bg-gradient-to-br from-slate-800 to-slate-900 min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
                     {/* Embed YouTube video if available */}
                     {featuredEditedVideo.videoUrl && featuredEditedVideo.videoUrl.includes('youtu') ? (
@@ -134,9 +134,9 @@ export default function VideoEditing() {
                       />
                     ) : featuredEditedVideo.videoUrl ? (
                       <div className="video-player-wrapper relative">
-                        <video 
+                        <video
                           ref={videoRef}
-                          src={featuredEditedVideo.videoUrl} 
+                          src={featuredEditedVideo.videoUrl}
                           poster={featuredEditedVideo.thumbnailUrl || undefined}
                           className="w-full h-full object-cover"
                           autoPlay
@@ -147,7 +147,7 @@ export default function VideoEditing() {
                           onError={(e) => {
                           }}
                         />
-                        
+
                         {/* Mute Button for Video Editing video */}
                         <div className="absolute top-3 right-3 opacity-80 hover:opacity-100 transition-opacity z-10">
                           <Button
@@ -166,8 +166,8 @@ export default function VideoEditing() {
                         </div>
                       </div>
                     ) : featuredEditedVideo.thumbnailUrl ? (
-                      <img 
-                        src={featuredEditedVideo.thumbnailUrl} 
+                      <img
+                        src={featuredEditedVideo.thumbnailUrl}
                         alt={featuredEditedVideo.title}
                         className="w-full h-full object-cover"
                       />
@@ -194,7 +194,7 @@ export default function VideoEditing() {
                           </div>
                         </div>
                       </div>
-                      
+
                       {/* Preview Screen */}
                       <div className="bg-white/10 rounded p-2 text-center">
                         <div className="w-8 h-8 xs:w-10 xs:h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1">
@@ -206,7 +206,7 @@ export default function VideoEditing() {
                   </div>
                 )}
               </div>
-              
+
               <div className="grid grid-cols-3 gap-2 xs:gap-3 sm:gap-4">
                 <div className="bg-white rounded-lg p-2 xs:p-3 sm:p-4 shadow-md text-center">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Turnaround</div>
@@ -229,7 +229,7 @@ export default function VideoEditing() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <article 
+                <article
                   key={index}
                   className="flex items-start space-x-3 xs:space-x-4 p-3 xs:p-4 rounded-xl hover:bg-white/50 transition-colors duration-200"
                 >
@@ -245,7 +245,7 @@ export default function VideoEditing() {
             })}
 
             <div className="pt-4 xs:pt-6">
-              <button 
+              <button
                 onClick={scrollToContact}
                 className="w-full xs:w-auto bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-6 xs:px-8 py-3 xs:py-4 rounded-xl font-semibold hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 transform hover:-translate-y-1 text-center"
                 data-testid="editing-cta"

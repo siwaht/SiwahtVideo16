@@ -29,41 +29,41 @@ export default function VoiceSynthesis() {
       icon: Mic,
       iconColor: "text-blue-600",
       bgColor: "bg-blue-100",
-      title: "Natural AI Voices",
-      description: "Generate incredibly realistic speech that's indistinguishable from human voice recordings."
+      title: "Hyper-Realistic Cloning",
+      description: "Replicate any voice with stunning accuracy, capturing subtle nuances, breath, and emotional inflection."
     },
     {
       icon: Languages,
       iconColor: "text-emerald-600",
       bgColor: "bg-emerald-100",
-      title: "Multi-Language Support",
-      description: "Create voice content in over 50 languages with native pronunciation and cultural nuances."
+      title: "Global Localization",
+      description: "Instantly translate and dub content into 50+ languages while preserving the original speaker's unique vocal identity."
     },
     {
       icon: Volume2,
       iconColor: "text-purple-600",
       bgColor: "bg-purple-100",
-      title: "Voice Customization",
-      description: "Fine-tune pitch, speed, tone, and emotion to match your exact requirements."
+      title: "Emotion Control",
+      description: "Direct the performance with granular control over pitch, pace, and emotional weight for perfect delivery."
     },
     {
       icon: Download,
       iconColor: "text-orange-600",
       bgColor: "bg-orange-100",
-      title: "Professional Output",
-      description: "Export high-quality audio files ready for podcasts, videos, and commercial use."
+      title: "Broadcast-Ready Audio",
+      description: "Receive mastered, high-fidelity audio files optimized for any platform, from immersive VR to standard podcasts."
     }
   ];
 
   return (
-    <section 
-      id="voice-synthesis" 
+    <section
+      id="voice-synthesis"
       className="section-padding bg-gradient-to-br from-emerald-50/30 via-white to-teal-50/40"
       aria-labelledby="voice-synthesis-heading"
     >
       <div className="container-custom">
         <header className="text-center mb-16 sm:mb-20">
-          <h2 
+          <h2
             id="voice-synthesis-heading"
             className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-6 sm:mb-8 text-shadow"
           >
@@ -112,16 +112,16 @@ export default function VoiceSynthesis() {
                             <Volume2 className="h-4 w-4 text-white" />
                           </div>
                         </div>
-                        
+
                         {voice.description && (
                           <p className="text-xs text-slate-600 mb-3 line-clamp-2">{voice.description}</p>
                         )}
-                        
+
                         {voice.audioUrl && (
                           <div className="mt-3">
                             <div className="bg-slate-50 p-2 rounded-lg">
-                              <audio 
-                                controls 
+                              <audio
+                                controls
                                 controlsList="nodownload"
                                 className="w-full"
                                 preload="metadata"
@@ -151,12 +151,12 @@ export default function VoiceSynthesis() {
                         <p className="text-xs opacity-70 mt-2">Professional voice synthesis showcases will appear here</p>
                       </div>
                     </div>
-                    
+
                     {/* Audio Waveform */}
                     <div className="absolute bottom-4 left-4 right-4">
                       <div className="flex items-center justify-center space-x-1">
                         {[...Array(12)].map((_, i) => (
-                          <div 
+                          <div
                             key={i}
                             className="bg-emerald-400 rounded-full animate-pulse"
                             style={{
@@ -171,7 +171,7 @@ export default function VoiceSynthesis() {
                   </div>
                 )}
               </div>
-              
+
               <div className="grid grid-cols-3 gap-3 xs:gap-4">
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Languages</div>
@@ -196,7 +196,7 @@ export default function VoiceSynthesis() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <article 
+                <article
                   key={index}
                   className="feature-card hover-lift"
                 >
@@ -214,7 +214,7 @@ export default function VoiceSynthesis() {
             })}
 
             <div className="pt-6 xs:pt-8">
-              <button 
+              <button
                 onClick={scrollToContact}
                 className="btn-secondary w-full xs:w-auto text-lg xs:text-xl px-10 py-5"
                 data-testid="voice-synthesis-cta"

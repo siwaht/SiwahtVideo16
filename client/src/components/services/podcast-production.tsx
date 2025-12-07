@@ -42,29 +42,29 @@ export default function PodcastProduction() {
       icon: Mic2,
       iconColor: "text-primary",
       bgColor: "bg-primary/10",
-      title: "AI Host Generation",
-      description: "Create engaging AI podcast hosts with unique personalities and natural conversation flow."
+      title: "Neural Host Synthesis",
+      description: "Deploy charismatic AI personalities that engage audiences with uncanny human-like cadence and emotion."
     },
     {
       icon: Volume2,
       iconColor: "text-secondary",
       bgColor: "bg-secondary/10",
-      title: "Audio Enhancement",
-      description: "Automatically remove background noise, balance levels, and optimize audio quality."
+      title: "Studio-Grade Mastering",
+      description: "Algorithmically silence noise, balance dynamics, and enhance fidelity for a pristine listening experience."
     },
     {
       icon: Headphones,
       iconColor: "text-accent",
       bgColor: "bg-accent/10",
-      title: "Content Optimization",
-      description: "AI analyzes and optimizes content structure for maximum listener engagement and retention."
+      title: "Audience Retention Optimization",
+      description: "Leverage predictive analytics to structure content flows that maximize listener engagement and minimize drop-offs."
     },
     {
       icon: Radio,
       iconColor: "text-pink-600",
       bgColor: "bg-pink-100",
-      title: "Multi-Format Export",
-      description: "Export in all podcast formats with automatic metadata, show notes, and transcript generation."
+      title: "Omnichannel Distribution",
+      description: "Seamlessly format and syndicate content across all major platforms with automated metadata and show notes."
     }
   ];
 
@@ -73,21 +73,21 @@ export default function PodcastProduction() {
   ];
 
   return (
-    <section 
-      id="podcast" 
+    <section
+      id="podcast"
       className="py-12 xs:py-16 md:py-20 lg:py-24 bg-white"
       aria-labelledby="podcast-heading"
     >
       <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8">
         <header className="text-center mb-12 xs:mb-16">
-          <h2 
+          <h2
             id="podcast-heading"
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 xs:mb-6"
+            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 xs:mb-8 text-shadow"
           >
-            AI Podcast Production
+            <span className="gradient-text">Next-Gen Audio Experiences</span>
           </h2>
-          <p className="text-lg xs:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-2">
-            Create professional podcasts with AI hosts, automated editing, and intelligent content optimization. From concept to publishing.
+          <p className="text-xl xs:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed px-2 font-light">
+            Dominate the airwaves with broadcast-grade production. We combine neural voice synthesis with human-level engineering for immersive auditory dominance.
           </p>
         </header>
 
@@ -97,7 +97,7 @@ export default function PodcastProduction() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <article 
+                <article
                   key={index}
                   className="flex items-start space-x-3 xs:space-x-4 p-3 xs:p-4 rounded-xl hover:bg-slate-50 transition-colors duration-200"
                 >
@@ -113,7 +113,7 @@ export default function PodcastProduction() {
             })}
 
             <div className="pt-4 xs:pt-6">
-              <button 
+              <button
                 onClick={scrollToContact}
                 className="w-full xs:w-auto bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white px-6 xs:px-8 py-3 xs:py-4 rounded-xl font-semibold hover:shadow-lg hover:shadow-pink-500/25 transition-all duration-300 transform hover:-translate-y-1 text-center"
                 data-testid="podcast-cta"
@@ -131,7 +131,7 @@ export default function PodcastProduction() {
                 <Radio className="h-5 w-5 text-pink-600" />
                 Our Podcast Samples
               </h4>
-              
+
               {isLoading ? (
                 <div className="space-y-4">
                   {[...Array(3)].map((_, i) => (
@@ -148,7 +148,7 @@ export default function PodcastProduction() {
                 <div className="bg-white rounded-xl p-4 xs:p-6 shadow-lg text-center">
                   <Radio className="h-12 w-12 text-slate-400 mx-auto mb-3" />
                   <p className="text-slate-600">Unable to load podcast samples</p>
-                  <Button 
+                  <Button
                     onClick={scrollToContact}
                     className="mt-3"
                     size="sm"
@@ -175,7 +175,7 @@ export default function PodcastProduction() {
                           </Badge>
                         </div>
                       </CardHeader>
-                      
+
                       <CardContent className="p-0">
                         <div className="space-y-2">
                           {(sample.hostName || sample.guestName) && (
@@ -195,14 +195,14 @@ export default function PodcastProduction() {
                               )}
                             </div>
                           )}
-                          
+
                           {sample.duration && (
                             <div className="flex items-center gap-1 text-xs text-slate-600">
                               <Calendar className="h-3 w-3" />
                               <span>{sample.duration}</span>
                             </div>
                           )}
-                          
+
                           <div className="mt-3">
                             <div className="bg-slate-50 p-2 rounded-lg">
                               {sample.audioUrl ? (
@@ -253,10 +253,10 @@ export default function PodcastProduction() {
                       </CardContent>
                     </Card>
                   ))}
-                  
+
                   {Array.isArray(podcastSamples) && podcastSamples.length > 3 && (
                     <div className="text-center pt-2">
-                      <Button 
+                      <Button
                         onClick={scrollToContact}
                         variant="outline"
                         size="sm"
@@ -271,7 +271,7 @@ export default function PodcastProduction() {
                 <div className="bg-white rounded-xl p-4 xs:p-6 shadow-lg text-center">
                   <Radio className="h-12 w-12 text-slate-400 mx-auto mb-3" />
                   <p className="text-slate-600 mb-3">No podcast samples available yet</p>
-                  <Button 
+                  <Button
                     onClick={scrollToContact}
                     size="sm"
                   >

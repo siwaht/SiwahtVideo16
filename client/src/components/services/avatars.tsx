@@ -67,28 +67,28 @@ export default function Avatars() {
       iconColor: "text-blue-600",
       bgColor: "bg-blue-100",
       title: "Photorealistic Generation",
-      description: "We create incredibly lifelike avatars using advanced AI that captures authentic human expressions and characteristics."
+      description: "Micro-gestures and subtle expressions captured with unprecedented fidelity for true human connection."
     },
     {
       icon: Sparkles,
       iconColor: "text-purple-600",
       bgColor: "bg-purple-100",
-      title: "Custom Personalities",
-      description: "Our team designs unique character traits, emotions, and speaking styles that perfectly match your brand or vision."
+      title: "Brand Personality",
+      description: "Custom-designed avatars that embody your brand's voice, tone, and values in every interaction."
     },
     {
       icon: Settings,
       iconColor: "text-emerald-600",
       bgColor: "bg-emerald-100",
-      title: "Advanced Customization",
-      description: "We fine-tune every detail from facial features to clothing, ensuring your avatar meets your exact specifications."
+      title: "Deep Customization",
+      description: "Control everything from age and ethnicity to wardrobe style and microscopic facial details."
     },
     {
       icon: Download,
       iconColor: "text-orange-600",
       bgColor: "bg-orange-100",
-      title: "Multiple Formats",
-      description: "We deliver your avatars in various formats optimized for your specific platforms and applications."
+      title: "Omnichannel Ready",
+      description: "Deploy your digital humans across web, mobile, VR, and AR platforms with optimized asset pipelines."
     }
   ];
 
@@ -100,14 +100,14 @@ export default function Avatars() {
     >
       <div className="container-custom">
         <header className="text-center mb-16 sm:mb-20">
-          <h2 
+          <h2
             id="avatars-heading"
             className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-6 sm:mb-8 text-shadow"
           >
-            <span className="gradient-text">Realistic Avatars</span>
+            <span className="gradient-text">Hyper-Realistic Avatars</span>
           </h2>
-          <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed">
-            Create photorealistic digital humans with AI-powered avatar generation. Perfect for any virtual environment.
+          <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed font-light">
+            create digital humans so lifelike they bypass the uncanny valley. Perfect for 24/7 customer support, training, and brand ambassadorship.
           </p>
         </header>
 
@@ -117,7 +117,7 @@ export default function Avatars() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <article 
+                <article
                   key={index}
                   className="feature-card hover-lift"
                 >
@@ -135,7 +135,7 @@ export default function Avatars() {
             })}
 
             <div className="pt-6 xs:pt-8">
-              <button 
+              <button
                 onClick={scrollToContact}
                 className="btn-secondary w-full xs:w-auto text-lg xs:text-xl px-10 py-5"
                 data-testid="avatars-cta"
@@ -152,7 +152,7 @@ export default function Avatars() {
               <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8 border-2 border-white/20">
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Avatar Studio</h4>
 
-{featuredAvatar ? (
+                {featuredAvatar ? (
                   <div className="video-container aspect-square bg-gradient-to-br from-slate-100 to-slate-200 shadow-2xl mx-auto max-w-md">
                     {/* Embed YouTube video if available */}
                     {featuredAvatar.videoUrl && featuredAvatar.videoUrl.includes('youtu') ? (
@@ -168,9 +168,9 @@ export default function Avatars() {
                       />
                     ) : featuredAvatar.videoUrl ? (
                       <div className="video-player-wrapper relative">
-                        <video 
+                        <video
                           ref={videoRef}
-                          src={featuredAvatar.videoUrl} 
+                          src={featuredAvatar.videoUrl}
                           poster={featuredAvatar.thumbnailUrl || undefined}
                           className="w-full h-full object-cover"
                           autoPlay
@@ -180,7 +180,7 @@ export default function Avatars() {
                           onError={(e) => {
                           }}
                         />
-                        
+
                         {/* Mute Button for Avatar video */}
                         <div className="absolute top-3 right-3 opacity-80 hover:opacity-100 transition-opacity z-10">
                           <Button
@@ -199,8 +199,8 @@ export default function Avatars() {
                         </div>
                       </div>
                     ) : featuredAvatar.thumbnailUrl ? (
-                      <img 
-                        src={featuredAvatar.thumbnailUrl} 
+                      <img
+                        src={featuredAvatar.thumbnailUrl}
                         alt={featuredAvatar.name}
                         className="w-full h-full object-cover"
                         onError={(e) => {
@@ -209,12 +209,12 @@ export default function Avatars() {
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
                     )}
-                    
+
                     {/* Only show overlay if not a YouTube video */}
                     {!(featuredAvatar.videoUrl && featuredAvatar.videoUrl.includes('youtu')) && (
                       <>
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        
+
                         {/* Avatar Info */}
                         <div className="absolute bottom-0 left-0 right-0 p-3 text-white bg-gradient-to-t from-black/80 to-transparent">
                           <h5 className="font-semibold text-lg leading-tight">{featuredAvatar.name}</h5>
@@ -231,7 +231,7 @@ export default function Avatars() {
                 ) : (
                   <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
-                    
+
                     {/* Avatar Preview */}
                     <div className="relative z-10 h-full flex items-center justify-center">
                       <div className="w-32 h-32 xs:w-40 xs:h-40 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-2xl floating-animation">
@@ -244,15 +244,15 @@ export default function Avatars() {
                   </div>
                 )}
               </div>
-              
+
               {/* Floating Elements */}
-              <div className="absolute top-4 right-4 w-12 h-12 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center floating-animation" style={{animationDelay: '1s'}}>
+              <div className="absolute top-4 right-4 w-12 h-12 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center floating-animation" style={{ animationDelay: '1s' }}>
                 <Sparkles className="h-6 w-6 text-purple-600" />
               </div>
-              <div className="absolute bottom-4 left-4 w-10 h-10 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center floating-animation" style={{animationDelay: '2s'}}>
+              <div className="absolute bottom-4 left-4 w-10 h-10 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center floating-animation" style={{ animationDelay: '2s' }}>
                 <Settings className="h-5 w-5 text-blue-600" />
               </div>
-              
+
               <div className="grid grid-cols-3 gap-3 xs:gap-4">
                 <div className="glass-card p-3 xs:p-4 text-center hover-lift">
                   <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>

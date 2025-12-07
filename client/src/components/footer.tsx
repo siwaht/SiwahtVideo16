@@ -52,13 +52,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-12 xs:py-16 relative z-10">
         {/* Main Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 items-start">
-          
+
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <img 
-                src="/logo.png" 
-                alt="Siwaht - AI Services Company Logo" 
+              <img
+                src="/logo.png"
+                alt="Siwaht - AI Services Company Logo"
                 className="w-12 h-12"
                 loading="lazy"
                 width="48"
@@ -69,12 +69,12 @@ export default function Footer() {
                   Siwaht
                 </h2>
                 <p className="text-slate-400 text-sm">
-                  Your Presence, Perfected
+                  Defining Digital Presence
                 </p>
               </div>
             </div>
 
-            
+
           </div>
 
           {/* Services Section */}
@@ -83,7 +83,7 @@ export default function Footer() {
             <nav aria-label="Services navigation">
               <ul className="space-y-3">
                 <li>
-                  <button 
+                  <button
                     onClick={() => scrollToSection('video-ads')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-video-ads"
@@ -93,7 +93,7 @@ export default function Footer() {
                   </button>
                 </li>
                 <li>
-                  <button 
+                  <button
                     onClick={() => scrollToSection('avatars')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-avatars"
@@ -103,7 +103,7 @@ export default function Footer() {
                   </button>
                 </li>
                 <li>
-                  <button 
+                  <button
                     onClick={() => scrollToSection('voice-synthesis')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-voice"
@@ -113,7 +113,7 @@ export default function Footer() {
                   </button>
                 </li>
                 <li>
-                  <button 
+                  <button
                     onClick={() => scrollToSection('editing')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-editing"
@@ -123,7 +123,7 @@ export default function Footer() {
                   </button>
                 </li>
                 <li>
-                  <button 
+                  <button
                     onClick={() => scrollToSection('podcast')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-podcasts"
@@ -142,7 +142,7 @@ export default function Footer() {
             <nav aria-label="Quick navigation links">
               <ul className="space-y-3">
                 <li>
-                  <button 
+                  <button
                     onClick={() => scrollToSection('services')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-services"
@@ -152,7 +152,7 @@ export default function Footer() {
                   </button>
                 </li>
                 <li>
-                  <a 
+                  <a
                     href="/admin"
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-admin"
@@ -162,7 +162,7 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <button 
+                  <button
                     onClick={() => scrollToSection('contact')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
                     data-testid="footer-contact"
@@ -194,7 +194,7 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-6 text-lg">Follow Us</h3>
             <div className="flex gap-4">
-              <a 
+              <a
                 href="https://www.instagram.com/siwahtofficial/"
                 className="w-12 h-12 bg-gradient-to-br from-slate-800 to-slate-700 hover:from-pink-500/20 hover:to-purple-500/20 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110 border border-slate-600/30 hover:border-pink-500/50"
                 aria-label="Follow us on Instagram"
@@ -204,7 +204,7 @@ export default function Footer() {
               >
                 <FaInstagram className="h-6 w-6" aria-hidden="true" />
               </a>
-              <a 
+              <a
                 href="https://www.linkedin.com/company/siwaht/"
                 className="w-12 h-12 bg-gradient-to-br from-slate-800 to-slate-700 hover:from-blue-500/20 hover:to-cyan-500/20 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110 border border-slate-600/30 hover:border-blue-500/50"
                 aria-label="Connect on LinkedIn"
@@ -228,9 +228,9 @@ export default function Footer() {
         </div>
       </div>
       {/* Privacy Policy Modal */}
-      <PrivacyPolicy 
-        isOpen={showPrivacyPolicy} 
-        onClose={() => setShowPrivacyPolicy(false)} 
+      <PrivacyPolicy
+        isOpen={showPrivacyPolicy}
+        onClose={() => setShowPrivacyPolicy(false)}
       />
     </footer>
   );
