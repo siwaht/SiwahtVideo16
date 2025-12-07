@@ -79,7 +79,7 @@ export default function VideoAds() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-start">
           {/* Video Ad Preview */}
           <aside className="relative order-1 lg:order-1 hover-lift">
             <div className="service-preview from-blue-100 via-cyan-100 to-sky-100 bg-gradient-to-br shadow-2xl">

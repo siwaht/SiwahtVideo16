@@ -91,7 +91,7 @@ export default function PodcastProduction() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xs:gap-12 xl:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-start">
           {/* Features */}
           <div className="space-y-6 xs:space-y-8 order-2 lg:order-1">
             {features.map((feature, index) => {

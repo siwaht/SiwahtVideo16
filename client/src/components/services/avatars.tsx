@@ -107,11 +107,11 @@ export default function Avatars() {
             <span className="gradient-text">Hyper-Realistic Avatars</span>
           </h2>
           <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed font-light">
-            create digital humans so lifelike they bypass the uncanny valley. Perfect for 24/7 customer support, training, and brand ambassadorship.
+            Create digital humans so lifelike they bypass the uncanny valley. Perfect for 24/7 customer support, training, and brand ambassadorship.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-start">
           {/* Features */}
           <div className="space-y-8 sm:space-y-10 order-2 lg:order-1">
             {features.map((feature, index) => {

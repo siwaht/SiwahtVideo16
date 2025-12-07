@@ -63,38 +63,38 @@ export default function Hero() {
         </div>
 
         <div className="mt-16 sm:mt-20 lg:mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 animate-slide-up">
-          <article className="feature-card hover-lift group relative overflow-hidden">
+          <article className="feature-card hover-lift group relative overflow-hidden h-full flex flex-col">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col h-full">
               <div className="feature-icon bg-gradient-to-br from-blue-100 to-blue-200 icon-gradient mb-6 rounded-2xl flex items-center justify-center group-hover:rotate-6 group-hover:scale-110 transition-all duration-500 shadow-lg group-hover:shadow-xl">
                 <Video className="text-blue-600 h-8 w-8" aria-hidden="true" />
               </div>
               <h3 className="text-xl lg:text-2xl font-bold text-slate-900 mb-4 text-shadow group-hover:text-blue-600 transition-colors duration-300 leading-tight">Cinematic AI Video</h3>
-              <p className="text-slate-600 text-base lg:text-lg leading-relaxed">Broadcast-quality video production generated in minutes, not months. Visual storytelling redefined.</p>
+              <p className="text-slate-600 text-base lg:text-lg leading-relaxed flex-grow">Broadcast-quality video production generated in minutes, not months. Visual storytelling redefined.</p>
               <div className="mt-4 h-1 w-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 group-hover:w-20 transition-all duration-500"></div>
             </div>
           </article>
 
-          <article className="feature-card hover-lift group relative overflow-hidden">
+          <article className="feature-card hover-lift group relative overflow-hidden h-full flex flex-col">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-pink-500/5 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col h-full">
               <div className="feature-icon bg-gradient-to-br from-purple-100 to-purple-200 icon-gradient mb-6 rounded-2xl flex items-center justify-center group-hover:rotate-6 group-hover:scale-110 transition-all duration-500 shadow-lg group-hover:shadow-xl">
                 <UserCircle className="text-purple-600 h-8 w-8" aria-hidden="true" />
               </div>
               <h3 className="text-xl lg:text-2xl font-bold text-slate-900 mb-4 text-shadow group-hover:text-purple-600 transition-colors duration-300 leading-tight">Hyper-Real Avatars</h3>
-              <p className="text-slate-600 text-base lg:text-lg leading-relaxed">Indistinguishable from reality. Create digital brand ambassadors that speak any language fluently.</p>
+              <p className="text-slate-600 text-base lg:text-lg leading-relaxed flex-grow">Indistinguishable from reality. Create digital brand ambassadors that speak any language fluently.</p>
               <div className="mt-4 h-1 w-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full opacity-0 group-hover:opacity-100 group-hover:w-20 transition-all duration-500"></div>
             </div>
           </article>
 
-          <article className="feature-card hover-lift group relative overflow-hidden">
+          <article className="feature-card hover-lift group relative overflow-hidden h-full flex flex-col">
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-teal-500/5 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col h-full">
               <div className="feature-icon bg-gradient-to-br from-emerald-100 to-emerald-200 icon-gradient mb-6 rounded-2xl flex items-center justify-center group-hover:rotate-6 group-hover:scale-110 transition-all duration-500 shadow-lg group-hover:shadow-xl">
                 <Mic className="text-emerald-600 h-8 w-8" aria-hidden="true" />
               </div>
               <h3 className="text-xl lg:text-2xl font-bold text-slate-900 mb-4 text-shadow group-hover:text-emerald-600 transition-colors duration-300 leading-tight">AI Audio Editing</h3>
-              <p className="text-slate-600 text-base lg:text-lg leading-relaxed">Complete audio post-production. Dubbing, voice isolation, and Generative SFX for cinematic soundscapes.</p>
+              <p className="text-slate-600 text-base lg:text-lg leading-relaxed flex-grow">Complete audio post-production. Dubbing, voice isolation, and Generative SFX for cinematic soundscapes.</p>
               <div className="mt-4 h-1 w-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full opacity-0 group-hover:opacity-100 group-hover:w-20 transition-all duration-500"></div>
             </div>
           </article>
