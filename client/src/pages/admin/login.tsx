@@ -67,10 +67,10 @@ export default function AdminLogin() {
             </div>
           </div>
           <CardTitle className="text-2xl font-bold text-center">
-            Admin Login
+            Siwaht Mission Control
           </CardTitle>
           <p className="text-center text-slate-600 text-sm">
-            Enter your credentials to access the admin dashboard
+            Authenticate to access the command center
           </p>
         </CardHeader>
         <CardContent>

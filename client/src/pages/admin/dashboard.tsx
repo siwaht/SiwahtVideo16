@@ -189,20 +189,20 @@ export default function AdminDashboard() {
       uploadData.append("file", file);
       uploadData.append("title", formData.get("title") as string);
       uploadData.append("category", formData.get("category") as string);
-      
+
       const description = formData.get("description") as string;
       if (description) uploadData.append("description", description);
-      
+
       // Add audio metadata if it's an audio file
       if (selectedFileType === 'audio') {
         const audioMetadata: any = {};
-        
+
         if (selectedCategory === "Professional Multilingual Voice Ads") {
           const language = formData.get("language") as string;
           const gender = formData.get("gender") as string;
           const accent = formData.get("accent") as string;
           const ageRange = formData.get("ageRange") as string;
-          
+
           if (language) audioMetadata.language = language;
           if (gender) audioMetadata.gender = gender;
           if (accent) audioMetadata.accent = accent;
@@ -212,18 +212,18 @@ export default function AdminDashboard() {
           const tags = formData.get("tags") as string;
           const hostName = formData.get("hostName") as string;
           const guestName = formData.get("guestName") as string;
-          
+
           if (episodeType) audioMetadata.episodeType = episodeType;
           if (tags) audioMetadata.tags = tags.split(',').map(t => t.trim()).filter(Boolean);
           if (hostName) audioMetadata.hostName = hostName;
           if (guestName) audioMetadata.guestName = guestName;
         }
-        
+
         if (Object.keys(audioMetadata).length > 0) {
           uploadData.append("audioMetadata", JSON.stringify(audioMetadata));
         }
       }
-      
+
       // Show progress updates
       const interval = setInterval(() => {
         setUploadProgress((prev) => Math.min(prev + 10, 90));
@@ -289,7 +289,7 @@ export default function AdminDashboard() {
       <header className="bg-white border-b border-slate-200">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-slate-900">
-            Admin Dashboard - Media Management
+            Siwaht Media Command
           </h1>
           <div className="flex gap-2">
             <Button
@@ -441,9 +441,9 @@ export default function AdminDashboard() {
               </div>
               <div>
                 <Label htmlFor="category">Category</Label>
-                <Select 
-                  name="category" 
-                  required 
+                <Select
+                  name="category"
+                  required
                   disabled={isUploading}
                   value={selectedCategory}
                   onValueChange={setSelectedCategory}
@@ -481,7 +481,7 @@ export default function AdminDashboard() {
                   Accepted formats: MP4, MOV, WEBM, MP3, WAV
                 </p>
               </div>
-              
+
               {/* Description field */}
               <div>
                 <Label htmlFor="description">Description (Optional)</Label>
@@ -493,7 +493,7 @@ export default function AdminDashboard() {
                   data-testid="input-upload-description"
                 />
               </div>
-              
+
               {/* Audio-specific metadata fields for Voice Ads */}
               {selectedCategory === "Professional Multilingual Voice Ads" && (
                 <>
@@ -543,7 +543,7 @@ export default function AdminDashboard() {
                   </div>
                 </>
               )}
-              
+
               {selectedCategory === "AI Podcast Production" && (
                 <>
                   <div>

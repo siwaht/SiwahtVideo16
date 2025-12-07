@@ -26,32 +26,32 @@ export default function VoiceSynthesis() {
 
   const features = [
     {
-      icon: Mic,
+      icon: Languages,
       iconColor: "text-blue-600",
       bgColor: "bg-blue-100",
-      title: "Hyper-Realistic Cloning",
-      description: "Replicate any voice with stunning accuracy, capturing subtle nuances, breath, and emotional inflection."
+      title: "AI Dubbing & Translation",
+      description: "Seamlessly dub content into 29+ languages while preserving the original speaker's voice and emotional performance."
     },
     {
-      icon: Languages,
+      icon: Mic, // Using Mic as proxy for Isolation/Speech-to-Speech
       iconColor: "text-emerald-600",
       bgColor: "bg-emerald-100",
-      title: "Global Localization",
-      description: "Instantly translate and dub content into 50+ languages while preserving the original speaker's unique vocal identity."
+      title: "Precision Voice Isolation",
+      description: "Crystal clear audio extraction. Instantly isolate voices from noisy backgrounds for professional-grade clarity."
     },
     {
       icon: Volume2,
       iconColor: "text-purple-600",
       bgColor: "bg-purple-100",
-      title: "Emotion Control",
-      description: "Direct the performance with granular control over pitch, pace, and emotional weight for perfect delivery."
+      title: "Generative Sound Effects",
+      description: "Create custom sound effects (SFX) from simple text prompts to enrich your video's immersive soundscape."
     },
     {
       icon: Download,
       iconColor: "text-orange-600",
       bgColor: "bg-orange-100",
-      title: "Broadcast-Ready Audio",
-      description: "Receive mastered, high-fidelity audio files optimized for any platform, from immersive VR to standard podcasts."
+      title: "Speech-to-Speech",
+      description: "Transform raw vocals into any character or style while maintaining your unique intonation and pacing."
     }
   ];
 
@@ -67,10 +67,10 @@ export default function VoiceSynthesis() {
             id="voice-synthesis-heading"
             className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-6 sm:mb-8 text-shadow"
           >
-            <span className="gradient-text">Your Brand's Voice, Understood Everywhere</span>
+            <span className="gradient-text">Complete AI Voice Editing Suite</span>
           </h2>
           <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed">
-            Don't let language be a barrier to your growth. We craft compelling, professionally translated voice ads that resonate with customers worldwide.
+            Beyond just voiceovers. Experience studio-grade post-production tools: Dubbing, Voice Isolation, and Generative SFX.
           </p>
         </header>
 
