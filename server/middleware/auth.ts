@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 // Admin authentication middleware
 const ADMIN_USER = "cc@siwaht.com";
 const ADMIN_PASS = "Hola173!";
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key_change_this_in_production";
+const JWT_SECRET = "siwaht_secure_admin_session_key_2024";
 
 interface AuthRequest extends Request {
   admin?: { username: string };
