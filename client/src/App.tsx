@@ -16,7 +16,7 @@ function Router() {
     <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
       <Switch>
         <Route path="/" component={Home} />
-        <Route path="/admin" component={AdminLogin} />
+        <Route path="/admin" component={AdminDashboard} />
         <Route path="/admin/dashboard" component={AdminDashboard} />
         <Route component={NotFound} />
       </Switch>

@@ -49,35 +49,12 @@ export const requireAuth = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    const token = req.cookies?.adminToken;
-
-    if (!token) {
-      return res.status(401).json({ success: false, message: "Authentication required" });
-    }
-
-    // Verify token
-    const decoded = jwt.verify(token, JWT_SECRET) as { username: string };
-    req.admin = decoded;
-    next();
-  } catch (error) {
-    return res.status(401).json({ success: false, message: "Invalid or expired token" });
-  }
+  // Direct access enabled
+  next();
 };
 
 // Check auth status
 export const checkAuth = async (req: Request, res: Response) => {
-  try {
-    const token = req.cookies?.adminToken;
-
-    if (!token) {
-      return res.json({ authenticated: false });
-    }
-
-    // Verify token
-    jwt.verify(token, JWT_SECRET);
-    return res.json({ authenticated: true });
-  } catch (error) {
-    return res.json({ authenticated: false });
-  }
+  // Always authenticated for direct access
+  return res.json({ authenticated: true });
 };
