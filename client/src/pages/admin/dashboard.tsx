@@ -42,6 +42,7 @@ import {
   HardDrive,
   Clock,
   Home,
+  Link as LinkIcon,
 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -56,6 +57,7 @@ export default function AdminDashboard() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedFileType, setSelectedFileType] = useState<'video' | 'audio' | null>(null);
+  const [uploadMethod, setUploadMethod] = useState<'file' | 'link'>('file');
 
   // Check authentication
   useEffect(() => {
@@ -157,38 +159,72 @@ export default function AdminDashboard() {
     setUploadProgress(0);
 
     const formData = new FormData(e.currentTarget);
-    const file = formData.get("file") as File;
 
-    if (!file) {
-      toast({
-        title: "Error",
-        description: "Please select a file",
-        variant: "destructive",
-      });
-      setIsUploading(false);
-      return;
-    }
+    // Validation based on upload method
+    if (uploadMethod === 'file') {
+      const file = formData.get("file") as File;
+      if (!file || file.size === 0) {
+        toast({
+          title: "Error",
+          description: "Please select a file",
+          variant: "destructive",
+        });
+        setIsUploading(false);
+        return;
+      }
 
-    // Check file type
-    const isVideo = file.type.startsWith("video/");
-    const isAudio = file.type.startsWith("audio/");
+      // Check file type
+      const isVideo = file.type.startsWith("video/");
+      const isAudio = file.type.startsWith("audio/");
 
-    if (!isVideo && !isAudio) {
-      toast({
-        title: "Error",
-        description: "Please select a valid video or audio file",
-        variant: "destructive",
-      });
-      setIsUploading(false);
-      return;
+      if (!isVideo && !isAudio) {
+        toast({
+          title: "Error",
+          description: "Please select a valid video or audio file",
+          variant: "destructive",
+        });
+        setIsUploading(false);
+        return;
+      }
+    } else {
+      // Link method validation
+      const url = formData.get("url") as string;
+      const type = formData.get("fileType") as string;
+
+      if (!url) {
+        toast({
+          title: "Error",
+          description: "Please enter a URL",
+          variant: "destructive",
+        });
+        setIsUploading(false);
+        return;
+      }
+
+      if (!type) {
+        toast({
+          title: "Error",
+          description: "Please select a file type (Video or Audio)",
+          variant: "destructive",
+        });
+        setIsUploading(false);
+        return;
+      }
     }
 
     try {
       // Prepare upload data
       const uploadData = new FormData();
-      uploadData.append("file", file);
       uploadData.append("title", formData.get("title") as string);
       uploadData.append("category", formData.get("category") as string);
+
+      if (uploadMethod === 'file') {
+        const file = formData.get("file") as File;
+        uploadData.append("file", file);
+      } else {
+        uploadData.append("url", formData.get("url") as string);
+        uploadData.append("fileType", formData.get("fileType") as string);
+      }
 
       const description = formData.get("description") as string;
       if (description) uploadData.append("description", description);
@@ -461,26 +497,82 @@ export default function AdminDashboard() {
                 </Select>
               </div>
               <div>
-                <Label htmlFor="file">File</Label>
-                <Input
-                  id="file"
-                  name="file"
-                  type="file"
-                  accept="video/*,audio/*"
-                  required
-                  disabled={isUploading}
-                  data-testid="input-upload-file"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      setSelectedFileType(file.type.startsWith('audio') ? 'audio' : 'video');
-                    }
-                  }}
-                />
-                <p className="text-sm text-slate-500 mt-1">
-                  Accepted formats: MP4, MOV, WEBM, MP3, WAV
-                </p>
+                <Label>Upload Method</Label>
+                <div className="flex gap-4 mt-2 mb-4">
+                  <Button
+                    type="button"
+                    variant={uploadMethod === 'file' ? 'default' : 'outline'}
+                    onClick={() => setUploadMethod('file')}
+                    className="flex-1"
+                  >
+                    <Upload className="h-4 w-4 mr-2" />
+                    File Upload
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={uploadMethod === 'link' ? 'default' : 'outline'}
+                    onClick={() => setUploadMethod('link')}
+                    className="flex-1"
+                  >
+                    <LinkIcon className="h-4 w-4 mr-2" />
+                    External Link
+                  </Button>
+                </div>
               </div>
+
+              {uploadMethod === 'file' ? (
+                <div>
+                  <Label htmlFor="file">File</Label>
+                  <Input
+                    id="file"
+                    name="file"
+                    type="file"
+                    accept="video/*,audio/*"
+                    disabled={isUploading}
+                    data-testid="input-upload-file"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setSelectedFileType(file.type.startsWith('audio') ? 'audio' : 'video');
+                      }
+                    }}
+                  />
+                  <p className="text-sm text-slate-500 mt-1">
+                    Accepted formats: MP4, MOV, WEBM, MP3, WAV
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div>
+                    <Label htmlFor="url">Media URL</Label>
+                    <Input
+                      id="url"
+                      name="url"
+                      placeholder="https://gumlet.com/..."
+                      disabled={isUploading}
+                      data-testid="input-upload-url"
+                    />
+                    <p className="text-sm text-slate-500 mt-1">
+                      Paste a link from your media host (e.g. Gumlet)
+                    </p>
+                  </div>
+                  <div>
+                    <Label htmlFor="fileType">File Type</Label>
+                    <Select
+                      name="fileType"
+                      onValueChange={(val) => setSelectedFileType(val as 'video' | 'audio')}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="video">Video</SelectItem>
+                        <SelectItem value="audio">Audio</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </>
+              )}
 
               {/* Description field */}
               <div>
