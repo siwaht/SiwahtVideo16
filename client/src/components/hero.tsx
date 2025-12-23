@@ -32,13 +32,13 @@ export default function Hero() {
       <div className="container-custom relative z-10 hero-content">
         <div className="text-center animate-fade-in">
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 sm:mb-8 leading-tight tracking-tight">
-            The Future of{" "}
+            Your Vision, Our{" "}
             <span className="gradient-text block sm:inline">
-              Content Creation
+              AI Expertise
             </span>
           </h1>
           <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 mb-8 sm:mb-10 max-w-4xl mx-auto leading-relaxed font-light">
-            Siwaht is a premium AI agency defining the next generation of digital presence. We engineer hyper-realistic avatars, cinematic video ads, and studio-grade audio that captivates and converts.
+            Professional AI agency specializing in custom video ads, realistic avatars, and premium audio content. We bring your brand to life with cutting-edge technology.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-8 sm:mb-12">

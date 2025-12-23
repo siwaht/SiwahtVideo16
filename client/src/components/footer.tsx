@@ -23,7 +23,6 @@ export default function Footer() {
 
   const companyLinks = [
     { name: "About Us", href: "#about" },
-    { name: "Admin", href: "/admin" },
     { name: "Careers", href: "#careers" },
     { name: "Privacy Policy", href: "#privacy" },
     { name: "Terms of Service", href: "#terms" },
@@ -151,16 +150,7 @@ export default function Footer() {
                     Our Work
                   </button>
                 </li>
-                <li>
-                  <a
-                    href="/admin"
-                    className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
-                    data-testid="footer-admin"
-                  >
-                    <span className="w-1 h-1 bg-accent rounded-full group-hover:bg-white transition-colors"></span>
-                    Admin Portal
-                  </a>
-                </li>
+
                 <li>
                   <button
                     onClick={() => scrollToSection('contact')}
