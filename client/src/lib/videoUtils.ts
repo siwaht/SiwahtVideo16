@@ -2,7 +2,7 @@
 
 export interface ProcessedVideoUrl {
   embedUrl: string;
-  platform: 'youtube' | 'vimeo' | 'googledrive' | 'direct' | 'unknown';
+  platform: 'youtube' | 'vimeo' | 'googledrive' | 'gumlet' | 'direct' | 'unknown';
   canEmbed: boolean;
   originalUrl: string;
 }
@@ -25,7 +25,7 @@ export function processVideoUrl(url: string): ProcessedVideoUrl {
   // YouTube processing
   if (normalizedUrl.includes('youtu.be/') || normalizedUrl.includes('youtube.com')) {
     let videoId = '';
-    
+
     if (normalizedUrl.includes('youtu.be/')) {
       videoId = normalizedUrl.split('youtu.be/')[1]?.split('?')[0];
     } else if (normalizedUrl.includes('youtube.com/watch?v=')) {
@@ -47,7 +47,7 @@ export function processVideoUrl(url: string): ProcessedVideoUrl {
   // Vimeo processing
   if (normalizedUrl.includes('vimeo.com')) {
     let videoId = '';
-    
+
     if (normalizedUrl.includes('vimeo.com/')) {
       videoId = normalizedUrl.split('vimeo.com/')[1]?.split('?')[0];
     }
@@ -65,7 +65,7 @@ export function processVideoUrl(url: string): ProcessedVideoUrl {
   // Google Drive processing
   if (normalizedUrl.includes('drive.google.com')) {
     let fileId = '';
-    
+
     // Extract file ID from various Google Drive URL formats
     if (normalizedUrl.includes('/file/d/')) {
       fileId = normalizedUrl.split('/file/d/')[1]?.split('/')[0];
@@ -77,6 +77,26 @@ export function processVideoUrl(url: string): ProcessedVideoUrl {
       return {
         embedUrl: `https://drive.google.com/file/d/${fileId}/preview`,
         platform: 'googledrive',
+        canEmbed: true,
+        originalUrl: normalizedUrl
+      };
+    }
+  }
+
+  // Gumlet processing
+  if (normalizedUrl.includes('gumlet.tv')) {
+    let videoId = '';
+
+    if (normalizedUrl.includes('/watch/')) {
+      videoId = normalizedUrl.split('/watch/')[1]?.split('/')[0];
+    } else if (normalizedUrl.includes('/embed/')) {
+      videoId = normalizedUrl.split('/embed/')[1]?.split('/')[0];
+    }
+
+    if (videoId) {
+      return {
+        embedUrl: `https://gumlet.tv/embed/${videoId}`,
+        platform: 'gumlet',
         canEmbed: true,
         originalUrl: normalizedUrl
       };
@@ -113,6 +133,8 @@ export function getPlatformName(platform: ProcessedVideoUrl['platform']): string
       return 'Vimeo';
     case 'googledrive':
       return 'Google Drive';
+    case 'gumlet':
+      return 'Gumlet';
     case 'direct':
       return 'Direct Video';
     default:

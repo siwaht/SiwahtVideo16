@@ -1,6 +1,19 @@
 export async function onRequestGet() {
     const mediaData = [
         {
+            "id": "gumlet-video-1",
+            "title": "Custom AI Video Ad",
+            "category": "AI Video Studio",
+            "description": "High-quality AI generated video advertisement with cinematic visuals and professional dubbing.",
+            "fileType": "video",
+            "originalFilename": "gumlet-video",
+            "compressedFilePath": "https://gumlet.tv/watch/694a95d0f1ad267a062e8b2d/",
+            "duration": "15",
+            "fileSize": "External",
+            "createdAt": "2024-05-24T13:45:09.070Z",
+            "updatedAt": "2024-05-24T13:45:09.070Z"
+        },
+        {
             "id": "df0da771-3931-4c7b-9802-9176e730fe8c",
             "title": "English Voice Ad",
             "category": "Professional Multilingual Voice Ads",
@@ -28,7 +41,7 @@ export async function onRequestGet() {
         },
         {
             "id": "a0d56ce2-b588-4104-851a-1a07667a3454",
-            "title": "main",
+            "title": "Japanese Market Vision",
             "category": "AI Video Studio",
             "fileType": "video",
             "originalFilename": "japenese market.mp4",
