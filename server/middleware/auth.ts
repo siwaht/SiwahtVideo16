@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 // Admin authentication middleware
-const ADMIN_USER = process.env.ADMIN_USER || "cc@siwaht.com";
-const ADMIN_PASS = process.env.ADMIN_PASS || "Hola173!";
+const ADMIN_USER = "cc@siwaht.com";
+const ADMIN_PASS = "Hola173!";
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key_change_this_in_production";
 
 interface AuthRequest extends Request {
@@ -69,7 +69,7 @@ export const requireAuth = async (
 export const checkAuth = async (req: Request, res: Response) => {
   try {
     const token = req.cookies?.adminToken;
-    
+
     if (!token) {
       return res.json({ authenticated: false });
     }
