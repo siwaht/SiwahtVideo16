@@ -17,6 +17,10 @@ export default function VideoAds() {
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredVideo = publishedVideos[0];
 
+  // Fallback Gumlet video URL if no videos from API
+  const fallbackVideoUrl = "https://gumlet.tv/watch/694d0e18f1ad267a06552696";
+  const videoUrl = featuredVideo?.videoUrl || fallbackVideoUrl;
+
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
@@ -90,25 +94,11 @@ export default function VideoAds() {
                     gifLike={true}
                   />
                 ) : (
-                  <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
-                    <div className="relative z-10 h-full flex items-center justify-center">
-                      <div className="text-center text-white">
-                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
-                          <Play className="h-10 w-10 sm:h-12 sm:w-12 text-white fill-current" />
-                        </div>
-                        <p className="text-sm sm:text-base opacity-90 font-semibold">AI Video Preview</p>
-                        <p className="text-xs opacity-70 mt-2">Professional video content showcases will appear here</p>
-                      </div>
-                    </div>
-
-                    {/* Video Timeline */}
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <div className="bg-white/20 backdrop-blur-sm rounded-full h-2 overflow-hidden">
-                        <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-full w-1/3 rounded-full"></div>
-                      </div>
-                    </div>
-                  </div>
+                  <MediaPlayer
+                    src={videoUrl}
+                    title="AI Video Demo"
+                    gifLike={false}
+                  />
                 )}
               </div>
 
