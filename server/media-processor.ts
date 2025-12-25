@@ -4,7 +4,7 @@ import fs from "fs/promises";
 import crypto from "crypto";
 
 // Ensure uploads directory exists
-const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
+const UPLOAD_DIR = path.join(process.cwd(), "client", "public", "uploads");
 const COMPRESSED_DIR = path.join(UPLOAD_DIR, "compressed");
 const THUMBNAILS_DIR = path.join(UPLOAD_DIR, "thumbnails");
 
@@ -184,19 +184,28 @@ export class MediaProcessor {
   // Delete media files
   async deleteMediaFiles(compressedPath: string, thumbnailPath?: string): Promise<void> {
     try {
+      // Skip deletion for external links or static assets (not in /uploads/)
+      if (!compressedPath.startsWith("/uploads/")) {
+        console.log("Skipping file deletion for external/static asset:", compressedPath);
+        return;
+      }
+
       // Remove leading slash and construct full path
-      const compressedFullPath = path.join(process.cwd(), "public", compressedPath);
-      await fs.unlink(compressedFullPath);
+      const compressedFullPath = path.join(process.cwd(), "client", "public", compressedPath);
+      await fs.unlink(compressedFullPath).catch((err) => {
+        console.error("Error deleting compressed file:", err);
+        // Don't throw - allow deletion to continue even if file doesn't exist
+      });
       
       if (thumbnailPath) {
-        const thumbnailFullPath = path.join(process.cwd(), "public", thumbnailPath);
+        const thumbnailFullPath = path.join(process.cwd(), "client", "public", thumbnailPath);
         await fs.unlink(thumbnailFullPath).catch(() => {
           // Ignore error if thumbnail doesn't exist
         });
       }
     } catch (error) {
       console.error("Error deleting media files:", error);
-      throw error;
+      // Don't throw - allow database deletion to proceed
     }
   }
 }
