@@ -1,13 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { User, Sparkles, Settings, Download, Volume2, VolumeX } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { User, Sparkles, Settings, Download } from "lucide-react";
+import { MediaPlayer } from "@/components/ui/media-player";
 import type { Avatar } from "@shared/schema";
 
 export default function Avatars() {
-  const [isMuted, setIsMuted] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
   // Fetch avatars from API
   const { data: avatars = [], isLoading, error } = useQuery<Avatar[]>({
     queryKey: ['/api/samples/avatars'],
@@ -20,39 +16,6 @@ export default function Avatars() {
     .filter(avatar => avatar.isPublished)
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredAvatar = publishedAvatars[0];
-
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
-
-  // Auto-play for avatar video when it comes into view
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !featuredAvatar?.videoUrl) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && video.paused) {
-            video.play().catch((error) => {
-              console.log('Auto-play prevented:', error);
-            });
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(video);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [featuredAvatar?.videoUrl]);
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
@@ -153,79 +116,31 @@ export default function Avatars() {
                 <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Avatar Studio</h4>
 
                 {featuredAvatar ? (
-                  <div className="video-container aspect-square bg-gradient-to-br from-slate-100 to-slate-200 shadow-2xl mx-auto max-w-md">
-                    {/* Embed YouTube video if available */}
-                    {featuredAvatar.videoUrl && featuredAvatar.videoUrl.includes('youtu') ? (
-                      <iframe
-                        src={featuredAvatar.videoUrl
-                          .replace('youtu.be/', 'youtube.com/embed/')
-                          .replace('youtube.com/watch?v=', 'youtube.com/embed/')
-                        }
-                        className="w-full h-full border-0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
+                  <div className="aspect-square max-w-md mx-auto">
+                    {featuredAvatar.videoUrl ? (
+                      <MediaPlayer
+                        src={featuredAvatar.videoUrl}
+                        poster={featuredAvatar.thumbnailUrl || undefined}
                         title={featuredAvatar.name}
+                        gifLike={true}
                       />
-                    ) : featuredAvatar.videoUrl ? (
-                      <div className="video-player-wrapper relative">
-                        <video
-                          ref={videoRef}
-                          src={featuredAvatar.videoUrl}
-                          poster={featuredAvatar.thumbnailUrl || undefined}
-                          className="w-full h-full object-cover"
-                          autoPlay
-                          muted={isMuted}
-                          loop
-                          playsInline
-                          onError={(e) => {
-                          }}
+                    ) : featuredAvatar.thumbnailUrl ? (
+                      <div className="video-container aspect-square bg-gradient-to-br from-slate-100 to-slate-200 shadow-2xl">
+                        <img
+                          src={featuredAvatar.thumbnailUrl}
+                          alt={featuredAvatar.name}
+                          className="w-full h-full object-cover rounded-xl"
                         />
-
-                        {/* Mute Button for Avatar video */}
-                        <div className="absolute top-3 right-3 opacity-80 hover:opacity-100 transition-opacity z-10">
-                          <Button
-                            onClick={toggleMute}
-                            size="sm"
-                            variant="ghost"
-                            className="rounded-full w-10 h-10 bg-black/40 hover:bg-black/60 text-white border-0 p-0"
-                            data-testid="avatar-mute-button"
-                          >
-                            {isMuted ? (
-                              <VolumeX className="h-4 w-4" />
-                            ) : (
-                              <Volume2 className="h-4 w-4" />
-                            )}
-                          </Button>
+                      </div>
+                    ) : (
+                      <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
+                        <div className="relative z-10 h-full flex items-center justify-center">
+                          <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-2xl">
+                            <User className="h-16 w-16 text-white" />
+                          </div>
                         </div>
                       </div>
-                    ) : featuredAvatar.thumbnailUrl ? (
-                      <img
-                        src={featuredAvatar.thumbnailUrl}
-                        alt={featuredAvatar.name}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                        }}
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
-                    )}
-
-                    {/* Only show overlay if not a YouTube video */}
-                    {!(featuredAvatar.videoUrl && featuredAvatar.videoUrl.includes('youtu')) && (
-                      <>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-
-                        {/* Avatar Info */}
-                        <div className="absolute bottom-0 left-0 right-0 p-3 text-white bg-gradient-to-t from-black/80 to-transparent">
-                          <h5 className="font-semibold text-lg leading-tight">{featuredAvatar.name}</h5>
-                          {featuredAvatar.description && (
-                            <p className="text-sm opacity-90 mt-1 line-clamp-2 leading-tight">{featuredAvatar.description}</p>
-                          )}
-                          {featuredAvatar.videoUrl && !featuredAvatar.videoUrl.includes('youtu') && (
-                            <p className="text-xs opacity-75 mt-1">🎬 Video Demo</p>
-                          )}
-                        </div>
-                      </>
                     )}
                   </div>
                 ) : (

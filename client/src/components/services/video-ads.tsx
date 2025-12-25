@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Play, Target, Zap, Sparkles } from "lucide-react";
-import { VideoPlayer } from "@/components/ui/video-player";
-import { processVideoUrl, getPlatformName } from "@/lib/videoUtils";
+import { MediaPlayer } from "@/components/ui/media-player";
 import type { DemoVideo } from "@shared/schema";
 
 export default function VideoAds() {
@@ -17,9 +16,6 @@ export default function VideoAds() {
     .filter(video => video.isPublished)
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredVideo = publishedVideos[0];
-
-  // Process video URL for embedding
-  const processedVideo = featuredVideo?.videoUrl ? processVideoUrl(featuredVideo.videoUrl) : null;
 
 
   const scrollToContact = () => {
@@ -87,86 +83,12 @@ export default function VideoAds() {
                 <h4 className="font-bold text-slate-900 mb-4 sm:mb-6 text-lg sm:text-xl bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">AI Video Studio</h4>
 
                 {featuredVideo ? (
-                  <div className="relative">
-                    {processedVideo && processedVideo.canEmbed ? (
-                      <div className="video-container bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl">
-                        {processedVideo.platform === 'direct' ? (
-                          // Direct video file (mp4, webm, etc.)
-                          (<div className="video-player-wrapper">
-                            <VideoPlayer
-                              src={processedVideo.embedUrl}
-                              poster={featuredVideo.thumbnailUrl || undefined}
-                              title={featuredVideo.title}
-                              className="w-full h-full rounded-xl"
-                              width="100%"
-                              height="100%"
-                              gifLike={true}
-                              data-testid="direct-video-player"
-                            />
-                          </div>)
-                        ) : (
-                          // Embedded video (YouTube, Vimeo, Google Drive)
-                          (<>
-                            <iframe
-                              src={processedVideo.embedUrl}
-                              className="w-full h-full border-0"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                              allowFullScreen
-                              title={`${featuredVideo.title} - AI Video Ad Demo`}
-                              loading="lazy"
-                              data-testid={`${processedVideo.platform}-iframe`}
-                            />
-                            <div className="absolute top-2 right-2 z-10">
-                              <span className="bg-black/70 text-white text-xs px-2 py-1 rounded">
-                                {getPlatformName(processedVideo.platform)}
-                              </span>
-                            </div>
-                          </>)
-                        )}
-                      </div>
-                    ) : (
-                      // Preview mode for videos without URLs or external videos
-                      (<div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
-                        {featuredVideo.thumbnailUrl ? (
-                          <img
-                            src={featuredVideo.thumbnailUrl}
-                            alt={`Thumbnail for ${featuredVideo.title} - AI generated video advertisement`}
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                            onError={(e) => {
-                              e.currentTarget.style.display = 'none';
-                            }}
-                          />
-                        ) : (
-                          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        <div className="relative z-10 h-full flex items-center justify-center">
-                          <div className="text-center text-white">
-                            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center mb-4 mx-auto shadow-2xl floating-animation">
-                              <Play className="h-10 w-10 sm:h-12 sm:w-12 text-white fill-current" />
-                            </div>
-                            <p className="text-sm sm:text-base opacity-90 font-semibold">{featuredVideo.title}</p>
-                            {featuredVideo.description && (
-                              <p className="text-xs opacity-70 mt-2 line-clamp-2 max-w-xs mx-auto">{featuredVideo.description}</p>
-                            )}
-                            <div className="text-xs opacity-60 mt-1">Category: {featuredVideo.category}</div>
-                            {processedVideo && !processedVideo.canEmbed && (
-                              <div className="text-xs opacity-80 mt-2 text-yellow-300">
-                                Unsupported video platform: {getPlatformName(processedVideo.platform)}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        {/* Video Timeline */}
-                        <div className="absolute bottom-4 left-4 right-4">
-                          <div className="bg-white/20 backdrop-blur-sm rounded-full h-2 overflow-hidden">
-                            <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-full w-1/3 rounded-full"></div>
-                          </div>
-                        </div>
-                      </div>)
-                    )}
-                  </div>
+                  <MediaPlayer
+                    src={featuredVideo.videoUrl}
+                    poster={featuredVideo.thumbnailUrl || undefined}
+                    title={featuredVideo.title}
+                    gifLike={true}
+                  />
                 ) : (
                   <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl aspect-video relative overflow-hidden shadow-2xl">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30"></div>

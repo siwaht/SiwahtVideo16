@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Mic, Languages, Volume2, Download } from "lucide-react";
+import { MediaPlayer } from "@/components/ui/media-player";
 import type { VoiceSample } from "@shared/schema";
 
 export default function VoiceSynthesis() {
@@ -119,21 +120,11 @@ export default function VoiceSynthesis() {
 
                         {voice.audioUrl && (
                           <div className="mt-3">
-                            <div className="bg-slate-50 p-2 rounded-lg">
-                              <audio
-                                controls
-                                controlsList="nodownload"
-                                className="w-full"
-                                preload="metadata"
-                                style={{ height: '40px' }}
-                              >
-                                <source src={voice.audioUrl} type="audio/mpeg" />
-                                <source src={voice.audioUrl} type="audio/aac" />
-                                <source src={voice.audioUrl} type="audio/wav" />
-                                <source src={voice.audioUrl} type="audio/mp4" />
-                                Your browser does not support the audio element.
-                              </audio>
-                            </div>
+                            <MediaPlayer
+                              src={voice.audioUrl}
+                              type="audio"
+                              title={voice.name}
+                            />
                           </div>
                         )}
                       </div>

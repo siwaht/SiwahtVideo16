@@ -83,14 +83,24 @@ export function processVideoUrl(url: string): ProcessedVideoUrl {
     }
   }
 
-  // Gumlet processing
-  if (normalizedUrl.includes('gumlet.tv')) {
+  // Gumlet processing - supports multiple URL formats
+  if (normalizedUrl.includes('gumlet.tv') || normalizedUrl.includes('gumlet.io') || normalizedUrl.includes('video.gumlet.io')) {
     let videoId = '';
 
+    // Handle gumlet.tv URLs
     if (normalizedUrl.includes('/watch/')) {
-      videoId = normalizedUrl.split('/watch/')[1]?.split('/')[0];
+      videoId = normalizedUrl.split('/watch/')[1]?.split('/')[0]?.split('?')[0];
     } else if (normalizedUrl.includes('/embed/')) {
-      videoId = normalizedUrl.split('/embed/')[1]?.split('/')[0];
+      videoId = normalizedUrl.split('/embed/')[1]?.split('/')[0]?.split('?')[0];
+    }
+    // Handle video.gumlet.io direct URLs (these are direct video files)
+    else if (normalizedUrl.includes('video.gumlet.io')) {
+      return {
+        embedUrl: normalizedUrl,
+        platform: 'gumlet',
+        canEmbed: true,
+        originalUrl: normalizedUrl
+      };
     }
 
     if (videoId) {
@@ -101,6 +111,14 @@ export function processVideoUrl(url: string): ProcessedVideoUrl {
         originalUrl: normalizedUrl
       };
     }
+
+    // If it's a gumlet URL but we couldn't parse it, try using it directly
+    return {
+      embedUrl: normalizedUrl,
+      platform: 'gumlet',
+      canEmbed: true,
+      originalUrl: normalizedUrl
+    };
   }
 
   // Direct video file URLs (mp4, webm, ogg)

@@ -1,13 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { Scissors, Layers, Zap, Sparkles, Volume2, VolumeX } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { Scissors, Layers, Zap, Sparkles } from "lucide-react";
+import { MediaPlayer } from "@/components/ui/media-player";
 import type { EditedVideo } from "@shared/schema";
 
 export default function VideoEditing() {
-  const [isMuted, setIsMuted] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
   // Fetch edited videos from API
   const { data: editedVideos = [], isLoading, error } = useQuery<EditedVideo[]>({
     queryKey: ['/api/samples/edited-videos'],
@@ -20,39 +16,6 @@ export default function VideoEditing() {
     .filter(video => video.isPublished)
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredEditedVideo = publishedEditedVideos[0];
-
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
-
-  // Auto-play for video editing video when it comes into view
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !featuredEditedVideo?.videoUrl) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && video.paused) {
-            video.play().catch((error) => {
-              console.log('Auto-play prevented:', error);
-            });
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(video);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [featuredEditedVideo?.videoUrl]);
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
@@ -120,61 +83,22 @@ export default function VideoEditing() {
 
                 {featuredEditedVideo ? (
                   <div className="video-container bg-gradient-to-br from-slate-800 to-slate-900 min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
-                    {/* Embed YouTube video if available */}
-                    {featuredEditedVideo.videoUrl && featuredEditedVideo.videoUrl.includes('youtu') ? (
-                      <iframe
-                        src={featuredEditedVideo.videoUrl
-                          .replace('youtu.be/', 'youtube.com/embed/')
-                          .replace('youtube.com/watch?v=', 'youtube.com/embed/')
-                        }
-                        className="w-full h-full border-0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
+                    {featuredEditedVideo.videoUrl ? (
+                      <MediaPlayer
+                        src={featuredEditedVideo.videoUrl}
+                        poster={featuredEditedVideo.thumbnailUrl || undefined}
                         title={featuredEditedVideo.title}
+                        gifLike={true}
                       />
-                    ) : featuredEditedVideo.videoUrl ? (
-                      <div className="video-player-wrapper relative">
-                        <video
-                          ref={videoRef}
-                          src={featuredEditedVideo.videoUrl}
-                          poster={featuredEditedVideo.thumbnailUrl || undefined}
-                          className="w-full h-full object-cover"
-                          autoPlay
-                          muted={isMuted}
-                          loop
-                          playsInline
-                          controls={false}
-                          onError={(e) => {
-                          }}
-                        />
-
-                        {/* Mute Button for Video Editing video */}
-                        <div className="absolute top-3 right-3 opacity-80 hover:opacity-100 transition-opacity z-10">
-                          <Button
-                            onClick={toggleMute}
-                            size="sm"
-                            variant="ghost"
-                            className="rounded-full w-10 h-10 bg-black/40 hover:bg-black/60 text-white border-0 p-0"
-                            data-testid="editing-mute-button"
-                          >
-                            {isMuted ? (
-                              <VolumeX className="h-4 w-4" />
-                            ) : (
-                              <Volume2 className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </div>
-                      </div>
                     ) : featuredEditedVideo.thumbnailUrl ? (
                       <img
                         src={featuredEditedVideo.thumbnailUrl}
                         alt={featuredEditedVideo.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover rounded-xl"
                       />
                     ) : (
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-xl"></div>
                     )}
-
                   </div>
                 ) : (
                   <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
