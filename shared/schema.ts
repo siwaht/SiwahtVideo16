@@ -101,6 +101,7 @@ export interface Media {
   thumbnailPath?: string | null;
   duration?: string | null;
   fileSize: string;
+  isExternalLink?: boolean;
   metadata?: {
     width?: number;
     height?: number;
@@ -165,6 +166,7 @@ export const insertMediaSchema = z.object({
   thumbnailPath: z.string().optional(),
   duration: z.string().optional(),
   fileSize: z.string(),
+  isExternalLink: z.boolean().optional(),
   metadata: z.object({
     width: z.number().optional(),
     height: z.number().optional(),

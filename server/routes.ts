@@ -278,7 +278,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           thumbnailPath: null,
           duration: "0",
           fileSize: "External",
-          metadata: null
+          metadata: null,
+          isExternalLink: true
         };
       } else {
         // Handle physical file upload
@@ -305,6 +306,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         thumbnailPath: processed.thumbnailPath,
         duration: processed.duration,
         fileSize: processed.fileSize,
+        isExternalLink: isExternalLink,
         metadata: processed.metadata,
         audioMetadata: parsedAudioMetadata || undefined,
       });
@@ -351,8 +353,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ error: "Media not found" });
       }
 
-      // Delete files from storage
-      await mediaProcessor.deleteMediaFiles(media.compressedFilePath, media.thumbnailPath || undefined);
+      // Only delete files from storage if it's not an external link
+      if (!media.isExternalLink) {
+        await mediaProcessor.deleteMediaFiles(media.compressedFilePath, media.thumbnailPath || undefined);
+      }
 
       // Delete from database
       await mediaStorage.deleteMedia(req.params.id);
