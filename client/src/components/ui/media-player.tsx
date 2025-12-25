@@ -137,22 +137,19 @@ export function MediaPlayer({
     );
   }
 
-  // Direct video file (mp4, webm, etc.) or Gumlet direct URL - use VideoPlayer
-  if (processedVideo.platform === 'direct' || 
-      (processedVideo.platform === 'gumlet' && processedVideo.embedUrl.includes('video.gumlet.io'))) {
+  // Direct video file (mp4, webm, etc.) - use VideoPlayer
+  if (processedVideo.platform === 'direct') {
     return (
-      <div className={cn("video-container bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl", className)}>
-        <div className="video-player-wrapper">
-          <VideoPlayer
-            src={processedVideo.embedUrl}
-            poster={poster}
-            title={title}
-            className="w-full h-full rounded-xl"
-            width="100%"
-            height="100%"
-            gifLike={gifLike}
-          />
-        </div>
+      <div className={cn("relative aspect-video bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl rounded-xl overflow-hidden", className)}>
+        <VideoPlayer
+          src={processedVideo.embedUrl}
+          poster={poster}
+          title={title}
+          className="absolute inset-0 w-full h-full"
+          width="100%"
+          height="100%"
+          gifLike={gifLike}
+        />
       </div>
     );
   }
@@ -160,11 +157,11 @@ export function MediaPlayer({
   // Embedded video (YouTube, Vimeo, Gumlet, Google Drive)
   if (processedVideo.canEmbed) {
     return (
-      <div className={cn("video-container bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl relative", className)}>
+      <div className={cn("relative aspect-video bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl rounded-xl overflow-hidden", className)}>
         <iframe
           src={processedVideo.embedUrl}
-          className="w-full h-full border-0 rounded-xl"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          className="absolute inset-0 w-full h-full border-0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
           allowFullScreen
           title={title || 'Video'}
           loading="lazy"

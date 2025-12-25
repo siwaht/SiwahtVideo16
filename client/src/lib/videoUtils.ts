@@ -97,15 +97,16 @@ export function processVideoUrl(url: string): ProcessedVideoUrl {
     else if (normalizedUrl.includes('video.gumlet.io')) {
       return {
         embedUrl: normalizedUrl,
-        platform: 'gumlet',
+        platform: 'direct',
         canEmbed: true,
         originalUrl: normalizedUrl
       };
     }
 
     if (videoId) {
+      // Gumlet embed with autoplay and controls
       return {
-        embedUrl: `https://gumlet.tv/embed/${videoId}`,
+        embedUrl: `https://play.gumlet.io/embed/${videoId}?autoplay=true&preload=true&loop=true`,
         platform: 'gumlet',
         canEmbed: true,
         originalUrl: normalizedUrl
