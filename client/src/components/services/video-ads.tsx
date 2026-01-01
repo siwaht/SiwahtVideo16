@@ -67,24 +67,24 @@ export default function VideoAds() {
       aria-labelledby="video-ads-heading"
     >
       <div className="container-custom">
-        <header className="text-center mb-16 sm:mb-20">
+        <header className="text-center mb-8 sm:mb-12 lg:mb-16">
           <h2
             id="video-ads-heading"
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-6 sm:mb-8 text-shadow"
+            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-4 sm:mb-6"
           >
             <span className="gradient-text">Cinematic AI Video Ads</span>
           </h2>
-          <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed font-light">
-            Stop the scroll with broadcast-quality video advertisements generated in minutes. High-conversion storytelling powered by next-gen neural rendering.
+          <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Stop the scroll with broadcast-quality video advertisements generated in minutes.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Video Ad Preview */}
-          <aside className="relative order-1 lg:order-1 hover-lift">
-            <div className="service-preview from-blue-100 via-cyan-100 to-sky-100 bg-gradient-to-br shadow-2xl">
-              <div className="glass-card p-6 sm:p-8 mb-6 sm:mb-8 border-2 border-white/20">
-                <h4 className="font-bold text-slate-900 mb-4 sm:mb-6 text-lg sm:text-xl bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">AI Video Studio</h4>
+          <aside className="order-1">
+            <div className="service-preview from-blue-100 via-cyan-100 to-sky-100 bg-gradient-to-br">
+              <div className="glass-card p-4 sm:p-6 mb-4 sm:mb-6">
+                <h4 className="font-bold text-slate-900 mb-3 sm:mb-4 text-base sm:text-lg bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">AI Video Studio</h4>
 
                 {featuredVideo ? (
                   <MediaPlayer
@@ -102,49 +102,46 @@ export default function VideoAds() {
                 )}
               </div>
 
-              <div className="grid grid-cols-3 gap-3 sm:gap-4">
-                <div className="glass-card p-3 sm:p-4 text-center hover-lift">
-                  <div className="text-xs sm:text-sm font-medium text-slate-600 mb-1">Duration</div>
-                  <div className="text-sm sm:text-base font-bold text-blue-600">08-10s</div>
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                <div className="glass-card p-2 sm:p-3 text-center">
+                  <div className="text-xs font-medium text-slate-600 mb-1">Duration</div>
+                  <div className="text-sm font-bold text-blue-600">08-10s</div>
                 </div>
-                <div className="glass-card p-3 sm:p-4 text-center hover-lift">
-                  <div className="text-xs sm:text-sm font-medium text-slate-600 mb-1">Quality</div>
-                  <div className="text-sm sm:text-base font-bold text-green-600">4K</div>
+                <div className="glass-card p-2 sm:p-3 text-center">
+                  <div className="text-xs font-medium text-slate-600 mb-1">Quality</div>
+                  <div className="text-sm font-bold text-green-600">4K</div>
                 </div>
-                <div className="glass-card p-3 sm:p-4 text-center hover-lift">
-                  <div className="text-xs sm:text-sm font-medium text-slate-600 mb-1">Delivery</div>
-                  <div className="text-sm sm:text-base font-bold text-cyan-600">72 Hours</div>
+                <div className="glass-card p-2 sm:p-3 text-center">
+                  <div className="text-xs font-medium text-slate-600 mb-1">Delivery</div>
+                  <div className="text-sm font-bold text-cyan-600">72 Hours</div>
                 </div>
               </div>
             </div>
           </aside>
 
           {/* Features */}
-          <div className="space-y-8 sm:space-y-10 order-2 lg:order-2">
+          <div className="space-y-4 sm:space-y-6 order-2">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <article
-                  key={index}
-                  className="feature-card hover-lift"
-                >
-                  <div className="flex items-start space-x-4 sm:space-x-6">
-                    <div className={`feature-icon ${feature.bgColor} icon-gradient`}>
-                      <Icon className={`${feature.iconColor} h-6 w-6 sm:h-7 sm:w-7`} aria-hidden="true" />
+                <article key={index} className="feature-card">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className={`feature-icon ${feature.bgColor} icon-gradient flex-shrink-0`}>
+                      <Icon className={`${feature.iconColor} h-5 w-5 sm:h-6 sm:w-6`} aria-hidden="true" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 text-shadow">{feature.title}</h3>
-                      <p className="text-slate-600 text-base sm:text-lg leading-relaxed">{feature.description}</p>
+                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">{feature.title}</h3>
+                      <p className="text-slate-600 text-sm sm:text-base leading-relaxed">{feature.description}</p>
                     </div>
                   </div>
                 </article>
               );
             })}
 
-            <div className="pt-6 sm:pt-8">
+            <div className="pt-4 sm:pt-6">
               <button
                 onClick={scrollToContact}
-                className="btn-primary w-full sm:w-auto text-lg sm:text-xl px-10 py-5"
+                className="btn-primary w-full sm:w-auto"
                 data-testid="video-ads-cta"
                 aria-label="Start creating AI video ads"
               >

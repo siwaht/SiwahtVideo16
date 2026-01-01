@@ -62,45 +62,42 @@ export default function Avatars() {
       aria-labelledby="avatars-heading"
     >
       <div className="container-custom">
-        <header className="text-center mb-16 sm:mb-20">
+        <header className="text-center mb-8 sm:mb-12 lg:mb-16">
           <h2
             id="avatars-heading"
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-6 sm:mb-8 text-shadow"
+            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-4 sm:mb-6"
           >
             <span className="gradient-text">Hyper-Realistic Avatars</span>
           </h2>
-          <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed font-light">
-            create digital humans so lifelike they bypass the uncanny valley. Perfect for 24/7 customer support, training, and brand ambassadorship.
+          <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Digital humans so lifelike they bypass the uncanny valley. Perfect for 24/7 customer support and brand ambassadorship.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Features */}
-          <div className="space-y-8 sm:space-y-10 order-2 lg:order-1">
+          <div className="space-y-4 sm:space-y-6 order-2 lg:order-1">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <article
-                  key={index}
-                  className="feature-card hover-lift"
-                >
-                  <div className="flex items-start space-x-4 xs:space-x-6">
-                    <div className={`feature-icon ${feature.bgColor} icon-gradient`}>
-                      <Icon className={`${feature.iconColor} h-6 w-6 xs:h-7 xs:w-7`} aria-hidden="true" />
+                <article key={index} className="feature-card">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className={`feature-icon ${feature.bgColor} icon-gradient flex-shrink-0`}>
+                      <Icon className={`${feature.iconColor} h-5 w-5 sm:h-6 sm:w-6`} aria-hidden="true" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-xl xs:text-2xl font-bold text-slate-900 mb-3 text-shadow">{feature.title}</h3>
-                      <p className="text-slate-600 text-base xs:text-lg leading-relaxed">{feature.description}</p>
+                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">{feature.title}</h3>
+                      <p className="text-slate-600 text-sm sm:text-base leading-relaxed">{feature.description}</p>
                     </div>
                   </div>
                 </article>
               );
             })}
 
-            <div className="pt-6 xs:pt-8">
+            <div className="pt-4 sm:pt-6">
               <button
                 onClick={scrollToContact}
-                className="btn-secondary w-full xs:w-auto text-lg xs:text-xl px-10 py-5"
+                className="btn-secondary w-full sm:w-auto"
                 data-testid="avatars-cta"
                 aria-label="Start creating realistic avatars"
               >
@@ -110,13 +107,13 @@ export default function Avatars() {
           </div>
 
           {/* Avatar Preview */}
-          <aside className="relative order-1 lg:order-2 hover-lift">
-            <div className="service-preview from-sky-100 via-blue-100 to-cyan-100 bg-gradient-to-br shadow-2xl">
-              <div className="glass-card p-6 xs:p-8 mb-6 xs:mb-8 border-2 border-white/20">
-                <h4 className="font-bold text-slate-900 mb-4 xs:mb-6 text-lg xs:text-xl bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Avatar Studio</h4>
+          <aside className="order-1 lg:order-2">
+            <div className="service-preview from-sky-100 via-blue-100 to-cyan-100 bg-gradient-to-br">
+              <div className="glass-card p-4 sm:p-6 mb-4 sm:mb-6">
+                <h4 className="font-bold text-slate-900 mb-3 sm:mb-4 text-base sm:text-lg bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Avatar Studio</h4>
 
                 {featuredAvatar ? (
-                  <div className="aspect-square max-w-md mx-auto">
+                  <div className="aspect-square max-w-sm mx-auto">
                     {featuredAvatar.videoUrl ? (
                       <MediaPlayer
                         src={featuredAvatar.videoUrl}
@@ -124,62 +121,36 @@ export default function Avatars() {
                         title={featuredAvatar.name}
                         gifLike={true}
                       />
-                    ) : featuredAvatar.thumbnailUrl ? (
-                      <div className="video-container aspect-square bg-gradient-to-br from-slate-100 to-slate-200 shadow-2xl">
-                        <img
-                          src={featuredAvatar.thumbnailUrl}
-                          alt={featuredAvatar.name}
-                          className="w-full h-full object-cover rounded-xl"
-                        />
-                      </div>
                     ) : (
-                      <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
-                        <div className="relative z-10 h-full flex items-center justify-center">
-                          <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-2xl">
-                            <User className="h-16 w-16 text-white" />
-                          </div>
-                        </div>
+                      <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square flex items-center justify-center">
+                        <User className="h-16 w-16 text-slate-400" />
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square relative overflow-hidden shadow-2xl">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
-
-                    {/* Avatar Preview */}
-                    <div className="relative z-10 h-full flex items-center justify-center">
-                      <div className="w-32 h-32 xs:w-40 xs:h-40 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-2xl floating-animation">
-                        <User className="h-16 w-16 xs:h-20 xs:w-20 text-white" />
+                  <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center mx-auto mb-3">
+                        <User className="h-10 w-10 text-white" />
                       </div>
-                      <div className="absolute bottom-4 left-4 right-4 text-center">
-                        <p className="text-slate-600 text-sm">Professional avatar showcases will appear here</p>
-                      </div>
+                      <p className="text-slate-500 text-sm">Avatar preview</p>
                     </div>
                   </div>
                 )}
               </div>
 
-              {/* Floating Elements */}
-              <div className="absolute top-4 right-4 w-12 h-12 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center floating-animation" style={{ animationDelay: '1s' }}>
-                <Sparkles className="h-6 w-6 text-purple-600" />
-              </div>
-              <div className="absolute bottom-4 left-4 w-10 h-10 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center floating-animation" style={{ animationDelay: '2s' }}>
-                <Settings className="h-5 w-5 text-blue-600" />
-              </div>
-
-              <div className="grid grid-cols-3 gap-3 xs:gap-4">
-                <div className="glass-card p-3 xs:p-4 text-center hover-lift">
-                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
-                  <div className="text-sm xs:text-base font-bold text-blue-600">4K</div>
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                <div className="glass-card p-2 sm:p-3 text-center">
+                  <div className="text-xs font-medium text-slate-600 mb-1">Quality</div>
+                  <div className="text-sm font-bold text-blue-600">4K</div>
                 </div>
-                <div className="glass-card p-3 xs:p-4 text-center hover-lift">
-                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Expressions</div>
-                  <div className="text-sm xs:text-base font-bold text-cyan-600">50+</div>
+                <div className="glass-card p-2 sm:p-3 text-center">
+                  <div className="text-xs font-medium text-slate-600 mb-1">Expressions</div>
+                  <div className="text-sm font-bold text-cyan-600">50+</div>
                 </div>
-                <div className="glass-card p-3 xs:p-4 text-center hover-lift">
-                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Styles</div>
-                  <div className="text-sm xs:text-base font-bold text-emerald-600">500+</div>
+                <div className="glass-card p-2 sm:p-3 text-center">
+                  <div className="text-xs font-medium text-slate-600 mb-1">Styles</div>
+                  <div className="text-sm font-bold text-emerald-600">500+</div>
                 </div>
               </div>
             </div>

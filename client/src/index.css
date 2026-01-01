@@ -63,21 +63,26 @@
     overflow-x: hidden;
   }
 
+  /* Performance optimizations */
+  img, video, iframe {
+    content-visibility: auto;
+  }
+  
+  /* GPU acceleration for animations */
+  .hover-lift, .btn-primary, .btn-secondary, .feature-card, .service-preview {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
   /* Mobile optimization */
   * {
     -webkit-tap-highlight-color: transparent;
   }
   
-  /* Touch targets and mobile forms */
+  /* Touch targets */
   button, a, [role="button"] {
     min-height: 44px;
-    min-width: 44px;
-  }
-  
-  .contact-form input, 
-  .contact-form textarea, 
-  .contact-form select {
-    width: 100%;
   }
   
   /* Mobile typography */
@@ -143,91 +148,27 @@
   }
   
   .hover-lift {
-    @apply transition-all duration-700 ease-out hover:-translate-y-4 hover:shadow-2xl hover:scale-[1.02];
+    @apply transition-transform duration-300 ease-out hover:-translate-y-2 hover:shadow-xl;
   }
   
   .btn-primary {
-    @apply bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-white/20 relative overflow-hidden;
-  }
-  
-  .btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-  }
-  
-  .btn-primary:hover::before {
-    left: 100%;
+    @apply bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1;
   }
   
   .btn-secondary {
-    @apply bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-white/20 relative overflow-hidden;
-  }
-  
-  .btn-secondary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-  }
-  
-  .btn-secondary:hover::before {
-    left: 100%;
+    @apply bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1;
   }
   
   .feature-card {
-    @apply bg-gradient-to-br from-white via-white to-gray-50/50 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-200/50 hover:border-white/60 relative overflow-hidden;
-  }
-  
-  .feature-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.05), transparent);
-    transition: left 0.6s;
-  }
-  
-  .feature-card:hover::before {
-    left: 100%;
+    @apply bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100;
   }
   
   .service-preview {
-    @apply bg-gradient-to-br rounded-2xl p-6 shadow-2xl hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-white/30 relative overflow-hidden;
-  }
-  
-  .service-preview::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, #3b82f6, #06b6d4, #0ea5e9, #10b981);
-    background-size: 400% 400%;
-    z-index: -1;
-    border-radius: inherit;
-    animation: borderGlow 3s ease-in-out infinite;
-  }
-  
-  @keyframes borderGlow {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    @apply bg-gradient-to-br rounded-2xl p-6 shadow-xl border-2 border-cyan-400/50;
   }
   
   .icon-gradient {
-    @apply bg-gradient-to-br shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-110 hover:rotate-3;
+    @apply shadow-md transition-transform duration-200 hover:scale-105;
   }
 
   .text-shadow {
@@ -265,7 +206,7 @@
   }
 
   .feature-icon {
-    @apply w-16 h-16 rounded-2xl flex items-center justify-center;
+    @apply w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center;
   }
 
   /* Enhanced button animations */
@@ -303,7 +244,8 @@
   
   /* Video alignment and aspect ratio fixes */
   .video-container {
-    @apply relative w-full aspect-video overflow-hidden rounded-xl bg-black flex items-center justify-center;
+    @apply relative w-full overflow-hidden rounded-xl bg-black;
+    aspect-ratio: 16 / 9;
   }
   
   .video-container.aspect-square {
@@ -312,58 +254,66 @@
   
   .video-container video,
   .video-container iframe {
-    @apply w-full h-full object-cover;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    @apply absolute inset-0 w-full h-full;
+    object-fit: cover;
   }
   
   .video-player-wrapper {
-    @apply relative w-full h-full flex items-center justify-center;
+    @apply relative w-full h-full;
   }
   
   .video-player-wrapper video {
-    @apply w-full h-full object-cover;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    @apply absolute inset-0 w-full h-full;
+    object-fit: cover;
   }
 
   /* Mobile optimizations */
   @media (max-width: 640px) {
-    .hero-content h1 {
-      font-size: 1.75rem;
-      line-height: 1.2;
-      margin-bottom: 0.75rem;
+    .section-padding {
+      @apply py-6;
     }
     
-    .btn-primary, .btn-secondary, .glass-card {
-      padding: 0.5rem 1rem;
-      font-size: 0.875rem;
-      min-width: 160px;
+    .container-custom {
+      @apply px-4;
     }
     
-    .hero-content button {
-      max-width: calc(100vw - 3rem);
+    .btn-primary, .btn-secondary {
+      @apply px-6 py-3 text-base;
     }
     
-    .mobile-nav-item {
-      padding: 0.75rem 1rem;
-      font-size: 1.125rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    .feature-card {
+      @apply p-4;
+    }
+    
+    .service-preview {
+      @apply p-4;
+    }
+    
+    .glass-card {
+      @apply p-4;
+    }
+    
+    .feature-icon {
+      @apply w-12 h-12;
+    }
+    
+    /* Disable heavy animations on mobile */
+    .hover-lift {
+      @apply hover:transform-none hover:scale-100;
+    }
+    
+    .service-preview::before {
+      animation: none;
+    }
+    
+    .gradient-text {
+      animation: none;
+      background-position: 0% 50%;
     }
     
     /* Mobile video fixes */
     .video-container {
-      @apply aspect-video;
-      min-height: 200px;
-    }
-    
-    .video-container video,
-    .video-container iframe {
-      object-position: center;
+      min-height: 180px;
     }
   }
   

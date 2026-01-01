@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Play, Volume2, RotateCcw } from "lucide-react";
+import { Play, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { VideoPlayer } from "@/components/ui/video-player";
 import { processVideoUrl, getPlatformName } from "@/lib/videoUtils";
-import { processAudioUrl, getAudioPlatformName } from "@/lib/audioUtils";
+import { processAudioUrl } from "@/lib/audioUtils";
 import { cn } from "@/lib/utils";
 
 interface MediaPlayerProps {
