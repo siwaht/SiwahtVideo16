@@ -112,31 +112,13 @@ export default function Avatars() {
               <div className="glass-card p-4 sm:p-6 mb-4 sm:mb-6">
                 <h4 className="font-bold text-slate-900 mb-3 sm:mb-4 text-base sm:text-lg bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Avatar Studio</h4>
 
-                {featuredAvatar ? (
-                  <div className="aspect-square max-w-sm mx-auto">
-                    {featuredAvatar.videoUrl ? (
-                      <MediaPlayer
-                        src={featuredAvatar.videoUrl}
-                        poster={featuredAvatar.thumbnailUrl || undefined}
-                        title={featuredAvatar.name}
-                        gifLike={true}
-                      />
-                    ) : (
-                      <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square flex items-center justify-center">
-                        <User className="h-16 w-16 text-slate-400" />
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-square flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center mx-auto mb-3">
-                        <User className="h-10 w-10 text-white" />
-                      </div>
-                      <p className="text-slate-500 text-sm">Avatar preview</p>
-                    </div>
-                  </div>
-                )}
+                <div className="aspect-square max-w-sm mx-auto">
+                  <MediaPlayer
+                    src="https://gumlet.tv/watch/694d0f7eb122cbf1764a148c"
+                    title="AI Avatar Demo"
+                    gifLike={true}
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-3 gap-2 sm:gap-3">
