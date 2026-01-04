@@ -52,6 +52,7 @@ export default function AdminDashboard() {
   const [selectedMedia, setSelectedMedia] = useState<Media | null>(null);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showDeleteAllDialog, setShowDeleteAllDialog] = useState(false);
   const [showUploadDialog, setShowUploadDialog] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -135,7 +136,10 @@ export default function AdminDashboard() {
         method: "DELETE",
         credentials: "include",
       });
-      if (!response.ok) throw new Error("Failed to delete");
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to delete");
+      }
       return response.json();
     },
     onSuccess: () => {
@@ -143,10 +147,37 @@ export default function AdminDashboard() {
       toast({ title: "Success", description: "Media deleted successfully" });
       setShowDeleteDialog(false);
     },
-    onError: () => {
+    onError: (error: Error) => {
       toast({
         title: "Error",
-        description: "Failed to delete media",
+        description: error.message || "Failed to delete media",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Delete all media mutation
+  const deleteAllMutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch("/api/admin/media/all", {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to delete all media");
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/media"] });
+      toast({ title: "Success", description: "All media deleted successfully" });
+      setShowDeleteAllDialog(false);
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to delete all media",
         variant: "destructive",
       });
     },
@@ -355,14 +386,27 @@ export default function AdminDashboard() {
           <h2 className="text-lg font-semibold text-slate-900">
             Media Library ({mediaList?.length || 0} items)
           </h2>
-          <Button
-            className="bg-purple-600 hover:bg-purple-700"
-            onClick={() => setShowUploadDialog(true)}
-            data-testid="button-upload"
-          >
-            <Upload className="h-4 w-4 mr-2" />
-            Upload New Media
-          </Button>
+          <div className="flex gap-2">
+            {mediaList && mediaList.length > 0 && (
+              <Button
+                variant="outline"
+                className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700 hover:border-red-300 transition-colors"
+                onClick={() => setShowDeleteAllDialog(true)}
+                data-testid="button-delete-all"
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                Delete All Media
+              </Button>
+            )}
+            <Button
+              className="bg-purple-600 hover:bg-purple-700"
+              onClick={() => setShowUploadDialog(true)}
+              data-testid="button-upload"
+            >
+              <Upload className="h-4 w-4 mr-2" />
+              Upload New Media
+            </Button>
+          </div>
         </div>
 
         {/* Media Table */}
@@ -825,6 +869,35 @@ export default function AdminDashboard() {
               data-testid="button-delete-confirm"
             >
               Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      {/* Delete All Confirmation Dialog */}
+      <Dialog open={showDeleteAllDialog} onOpenChange={setShowDeleteAllDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="text-red-600">Delete All Media</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete <span className="font-bold underline text-red-600">ALL</span> media items? This action will permanently remove all videos and audios from the library and cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowDeleteAllDialog(false)}
+              disabled={deleteAllMutation.isPending}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              className="bg-red-600 hover:bg-red-700"
+              onClick={() => deleteAllMutation.mutate()}
+              disabled={deleteAllMutation.isPending}
+              data-testid="button-delete-all-confirm"
+            >
+              {deleteAllMutation.isPending ? "Deleting..." : "Delete All Media"}
             </Button>
           </DialogFooter>
         </DialogContent>

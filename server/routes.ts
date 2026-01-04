@@ -347,24 +347,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Delete media
   app.delete("/api/admin/media/:id", requireAuth, async (req, res) => {
     try {
+      console.log(`Attempting to delete media with ID: ${req.params.id}`);
       const media = await mediaStorage.getMediaById(req.params.id);
 
       if (!media) {
+        console.warn(`Media not found for deletion: ${req.params.id}`);
         return res.status(404).json({ error: "Media not found" });
       }
 
       // Only delete files from storage if it's not an external link
       if (!media.isExternalLink) {
+        console.log(`Deleting physical files for media: ${media.title}`);
         await mediaProcessor.deleteMediaFiles(media.compressedFilePath, media.thumbnailPath || undefined);
+      } else {
+        console.log(`Skipping physical file deletion for external link: ${media.title}`);
       }
 
       // Delete from database
       await mediaStorage.deleteMedia(req.params.id);
+      console.log(`Media deleted successfully from DB: ${req.params.id}`);
 
       res.json({ success: true, message: "Media deleted successfully" });
     } catch (error) {
       console.error("Error deleting media:", error);
-      res.status(500).json({ error: "Failed to delete media" });
+      res.status(500).json({ error: "Failed to delete media", details: error instanceof Error ? error.message : String(error) });
+    }
+  });
+
+  // Delete all media
+  app.delete("/api/admin/media/all", requireAuth, async (req, res) => {
+    try {
+      console.log("Attempting to delete all media");
+      const allMedia = await mediaStorage.getAllMedia();
+
+      console.log(`Found ${allMedia.length} media items to delete`);
+
+      // Delete files for all non-external media
+      for (const media of allMedia) {
+        if (!media.isExternalLink) {
+          await mediaProcessor.deleteMediaFiles(media.compressedFilePath, media.thumbnailPath || undefined);
+        }
+      }
+
+      // Clear the database
+      await mediaStorage.deleteAllMedia();
+      console.log("All media deleted successfully");
+
+      res.json({ success: true, message: "All media deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting all media:", error);
+      res.status(500).json({ error: "Failed to delete all media", details: error instanceof Error ? error.message : String(error) });
     }
   });
 

@@ -76,7 +76,7 @@ export class MediaStorage {
   async updateMedia(id: string, data: UpdateMedia): Promise<Media | undefined> {
     const existing = this.mediaItems.get(id);
     if (!existing) return undefined;
-    
+
     const updated: Media = {
       ...existing,
       ...data,
@@ -94,6 +94,12 @@ export class MediaStorage {
       this.saveToFile();
     }
     return result;
+  }
+
+  // Delete all media items
+  async deleteAllMedia(): Promise<void> {
+    this.mediaItems.clear();
+    this.saveToFile();
   }
 
   // Get media items by category
