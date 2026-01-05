@@ -114,7 +114,7 @@ export default function Avatars() {
 
                 <div className="aspect-square max-w-sm mx-auto">
                   <MediaPlayer
-                    src="https://gumlet.tv/watch/695b67d6b8291f84b73fab34"
+                    src="https://gumlet.tv/watch/695b78acb8291f84b740c85d"
                     title="AI Avatar Demo"
                     gifLike={true}
                   />

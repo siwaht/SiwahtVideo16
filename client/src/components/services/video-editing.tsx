@@ -83,22 +83,11 @@ export default function VideoEditing() {
 
                 {featuredEditedVideo ? (
                   <div className="video-container bg-gradient-to-br from-slate-800 to-slate-900 min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
-                    {featuredEditedVideo.videoUrl ? (
-                      <MediaPlayer
-                        src={featuredEditedVideo.videoUrl}
-                        poster={featuredEditedVideo.thumbnailUrl || undefined}
-                        title={featuredEditedVideo.title}
-                        gifLike={true}
-                      />
-                    ) : featuredEditedVideo.thumbnailUrl ? (
-                      <img
-                        src={featuredEditedVideo.thumbnailUrl}
-                        alt={featuredEditedVideo.title}
-                        className="w-full h-full object-cover rounded-xl"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-xl"></div>
-                    )}
+                    <MediaPlayer
+                      src="https://gumlet.tv/watch/695b78ac143ef68b1070a48e"
+                      title="AI Video Editor Demo"
+                      gifLike={true}
+                    />
                   </div>
                 ) : (
                   <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
