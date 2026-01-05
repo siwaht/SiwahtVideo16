@@ -112,7 +112,7 @@ export default function Avatars() {
               <div className="glass-card p-4 sm:p-6 mb-4 sm:mb-6">
                 <h4 className="font-bold text-slate-900 mb-3 sm:mb-4 text-base sm:text-lg bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Avatar Studio</h4>
 
-                <div className="aspect-square max-w-sm mx-auto">
+                <div className="w-full">
                   <MediaPlayer
                     src="https://gumlet.tv/watch/695b78acb8291f84b740c85d"
                     title="AI Avatar Demo"
