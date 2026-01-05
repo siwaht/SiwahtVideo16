@@ -81,43 +81,13 @@ export default function VideoEditing() {
               <div className="bg-white rounded-xl p-3 xs:p-4 sm:p-6 mb-3 xs:mb-4 sm:mb-6 shadow-lg">
                 <h4 className="font-semibold text-slate-900 mb-2 xs:mb-3 sm:mb-4 text-base xs:text-lg sm:text-xl">AI Video Editor</h4>
 
-                {featuredEditedVideo ? (
-                  <div className="video-container bg-gradient-to-br from-slate-800 to-slate-900 min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
-                    <MediaPlayer
-                      src="https://gumlet.tv/watch/695b78ac143ef68b1070a48e"
-                      title="AI Video Editor Demo"
-                      gifLike={true}
-                    />
-                  </div>
-                ) : (
-                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg aspect-video relative overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
-                    <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20"></div>
-                    <div className="relative z-10 p-4 h-full flex flex-col">
-                      {/* Timeline */}
-                      <div className="flex-1 flex items-end mb-4">
-                        <div className="w-full space-y-2">
-                          <div className="flex space-x-1">
-                            <div className="h-6 bg-blue-500 rounded-sm flex-1"></div>
-                            <div className="h-6 bg-green-500 rounded-sm flex-1"></div>
-                            <div className="h-6 bg-purple-500 rounded-sm flex-1"></div>
-                          </div>
-                          <div className="flex space-x-1">
-                            <div className="h-4 bg-orange-400 rounded-sm w-2/3"></div>
-                            <div className="h-4 bg-teal-400 rounded-sm flex-1"></div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Preview Screen */}
-                      <div className="bg-white/10 rounded p-2 text-center">
-                        <div className="w-8 h-8 xs:w-10 xs:h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto mb-1">
-                          <Scissors className="h-4 w-4 xs:h-5 xs:w-5 text-white" />
-                        </div>
-                        <p className="text-xs text-white/80">Professional edited video content showcases will appear here</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                <div className="video-container bg-gradient-to-br from-slate-800 to-slate-900 min-h-[200px] xs:min-h-[250px] sm:min-h-[300px]">
+                  <MediaPlayer
+                    src="https://gumlet.tv/watch/695b78ac143ef68b1070a48e"
+                    title="AI Video Editor Demo"
+                    gifLike={true}
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-3 gap-2 xs:gap-3 sm:gap-4">
