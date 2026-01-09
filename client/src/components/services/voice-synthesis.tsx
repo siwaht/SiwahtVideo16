@@ -19,7 +19,7 @@ const stats = [
   { label: "Quality", value: "Studio", color: "text-blue-600" }
 ];
 
-// Fallback audio samples - Gumlet video embeds for voice content
+// Audio samples hosted on Cloudflare R2
 const fallbackAudioSamples = [
   { 
     id: 1, 
@@ -27,15 +27,15 @@ const fallbackAudioSamples = [
     language: "English",
     tags: ["professional", "native", "adult"],
     description: "Professional English voice ad showcasing premium brand messaging and clear articulation for global markets.",
-    embedUrl: "https://play.gumlet.io/embed/6960a746195f98d9e15cadba?autoplay=false&preload=true"
+    audioUrl: "https://pub-d3419d11c45d499a9ce43bb169f92f3c.r2.dev/siwaht_english.mp4"
   },
   { 
     id: 2, 
-    name: "中文语音广告", 
-    language: "中文",
-    tags: ["专业", "标准", "成人"],
-    description: "专业的中文语音广告，展现品牌优势和清晰表达，适合中国市场推广。",
-    embedUrl: "https://play.gumlet.io/embed/6960a746195f98d9e15cadb7?autoplay=false&preload=true"
+    name: "العربية إعلان صوتي", 
+    language: "العربية",
+    tags: ["احترافي", "أصلي", "بالغ"],
+    description: "إعلان صوتي عربي احترافي يعرض رسائل العلامة التجارية المتميزة والنطق الواضح للأسواق العالمية.",
+    audioUrl: "https://pub-d3419d11c45d499a9ce43bb169f92f3c.r2.dev/siwaht%20arabic.mp4"
   }
 ];
 
@@ -99,15 +99,15 @@ export default function VoiceSynthesis() {
                           </div>
                         </div>
                         <p className="text-slate-600 text-sm mb-3">{sample.description}</p>
-                        <div className="rounded-lg overflow-hidden bg-slate-900" style={{ height: '60px' }}>
-                          <iframe
-                            src={sample.embedUrl}
-                            className="w-full h-full border-0"
-                            allow="autoplay"
-                            title={sample.name}
-                            style={{ marginTop: '-10px' }}
-                          />
-                        </div>
+                        {/* Audio Player using video element (audio-only MP4) */}
+                        <audio 
+                          controls 
+                          className="w-full h-12"
+                          preload="metadata"
+                        >
+                          <source src={sample.audioUrl} type="video/mp4" />
+                          Your browser does not support the audio element.
+                        </audio>
                       </div>
                     ))}
                   </div>
