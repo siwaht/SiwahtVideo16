@@ -19,6 +19,12 @@ const stats = [
   { label: "Quality", value: "Studio", color: "text-blue-600" }
 ];
 
+// Fallback audio samples
+const fallbackAudioSamples = [
+  { id: 1, name: "AI Voice Sample 1", url: "https://play.gumlet.io/embed/6960a746195f98d9e15cadba?autoplay=false&preload=true" },
+  { id: 2, name: "AI Voice Sample 2", url: "https://play.gumlet.io/embed/6960a746195f98d9e15cadb7?autoplay=false&preload=true" }
+];
+
 
 export default function VoiceSynthesis() {
   const { data: voiceSamples = [] } = useQuery<VoiceSample[]>({
@@ -61,8 +67,21 @@ export default function VoiceSynthesis() {
                     ))}
                   </div>
                 ) : (
-                  <div className="bg-slate-100 rounded-xl aspect-video flex items-center justify-center">
-                    <p className="text-slate-500 text-sm">Voice samples coming soon</p>
+                  <div className="space-y-3">
+                    {fallbackAudioSamples.map(sample => (
+                      <div key={sample.id} className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-3 border border-emerald-200">
+                        <h5 className="font-semibold text-slate-900 text-sm mb-2">{sample.name}</h5>
+                        <div className="aspect-video rounded-lg overflow-hidden">
+                          <iframe
+                            src={sample.url}
+                            className="w-full h-full border-0"
+                            allow="autoplay; fullscreen"
+                            allowFullScreen
+                            title={sample.name}
+                          />
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
