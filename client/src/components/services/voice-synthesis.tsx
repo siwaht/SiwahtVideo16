@@ -27,7 +27,7 @@ const fallbackAudioSamples = [
     language: "English",
     tags: ["professional", "native", "adult"],
     description: "Professional English voice ad showcasing premium brand messaging and clear articulation for global markets.",
-    audioUrl: "https://pub-d3419d11c45d499a9ce43bb169f92f3c.r2.dev/siwaht_english.mp4"
+    audioUrl: "https://pub-d3419d11c45d499a9ce43bb169f92f3c.r2.dev/siwaht_english.mp3"
   },
   { 
     id: 2, 
@@ -35,7 +35,7 @@ const fallbackAudioSamples = [
     language: "العربية",
     tags: ["احترافي", "أصلي", "بالغ"],
     description: "إعلان صوتي عربي احترافي يعرض رسائل العلامة التجارية المتميزة والنطق الواضح للأسواق العالمية.",
-    audioUrl: "https://pub-d3419d11c45d499a9ce43bb169f92f3c.r2.dev/siwaht%20arabic.mp4"
+    audioUrl: "https://pub-d3419d11c45d499a9ce43bb169f92f3c.r2.dev/siwaht%20arabic.mp3"
   }
 ];
 
@@ -99,13 +99,13 @@ export default function VoiceSynthesis() {
                           </div>
                         </div>
                         <p className="text-slate-600 text-sm mb-3">{sample.description}</p>
-                        {/* Audio Player using video element (audio-only MP4) */}
+                        {/* Native Audio Player */}
                         <audio 
                           controls 
                           className="w-full h-12"
                           preload="metadata"
                         >
-                          <source src={sample.audioUrl} type="video/mp4" />
+                          <source src={sample.audioUrl} type="audio/mpeg" />
                           Your browser does not support the audio element.
                         </audio>
                       </div>
