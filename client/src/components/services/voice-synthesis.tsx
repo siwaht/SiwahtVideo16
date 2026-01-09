@@ -19,22 +19,24 @@ const stats = [
   { label: "Quality", value: "Studio", color: "text-blue-600" }
 ];
 
-// Fallback audio samples - using placeholder since Gumlet is video-only
-// Replace these URLs with actual audio file URLs (mp3, wav, etc.) when available
+// Fallback audio samples with placeholder audio
 const fallbackAudioSamples = [
   { 
     id: 1, 
     name: "English Voice Ad", 
     language: "English",
     tags: ["professional", "native", "adult"],
-    description: "Professional English voice ad showcasing premium brand messaging and clear articulation for global markets."
+    description: "Professional English voice ad showcasing premium brand messaging and clear articulation for global markets.",
+    // Using a silent placeholder - replace with actual audio URL
+    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
   },
   { 
     id: 2, 
     name: "中文语音广告", 
     language: "中文",
     tags: ["专业", "标准", "成人"],
-    description: "专业的中文语音广告，展现品牌优势和清晰表达，适合中国市场推广。"
+    description: "专业的中文语音广告，展现品牌优势和清晰表达，适合中国市场推广。",
+    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
   }
 ];
 
@@ -98,27 +100,16 @@ export default function VoiceSynthesis() {
                           </div>
                         </div>
                         <p className="text-slate-600 text-sm mb-3">{sample.description}</p>
-                        <div className="bg-slate-100 rounded-lg p-3">
-                          <div className="flex items-center gap-3">
-                            <button className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center hover:bg-slate-800 transition-colors">
-                              <svg className="w-3 h-3 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                              </svg>
-                            </button>
-                            <div className="flex-1">
-                              <div className="text-xs text-slate-500 mb-1">0:00 / 0:27</div>
-                              <div className="h-1.5 bg-slate-300 rounded-full">
-                                <div className="h-full w-0 bg-slate-600 rounded-full"></div>
-                              </div>
-                            </div>
-                            <button className="p-1.5 text-slate-500 hover:text-slate-700">
-                              <Volume2 className="h-4 w-4" />
-                            </button>
-                          </div>
-                        </div>
+                        <audio 
+                          controls 
+                          className="w-full h-10"
+                          preload="metadata"
+                        >
+                          <source src={sample.audioUrl} type="audio/mpeg" />
+                          Your browser does not support the audio element.
+                        </audio>
                       </div>
                     ))}
-                    <p className="text-xs text-slate-500 text-center mt-2">Upload audio samples via admin panel to enable playback</p>
                   </div>
                 )}
               </div>
