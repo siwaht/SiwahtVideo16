@@ -19,7 +19,7 @@ const stats = [
   { label: "Quality", value: "Studio", color: "text-blue-600" }
 ];
 
-// Audio samples hosted on Cloudflare R2
+// Audio samples hosted on Gumlet
 const fallbackAudioSamples = [
   { 
     id: 1, 
@@ -27,7 +27,7 @@ const fallbackAudioSamples = [
     language: "English",
     tags: ["professional", "native", "adult"],
     description: "Professional English voice ad showcasing premium brand messaging and clear articulation for global markets.",
-    audioUrl: "https://pub-d3419d11c45d499a9ce43bb169f92f3c.r2.dev/siwaht_english.mp3"
+    embedUrl: "https://play.gumlet.io/embed/6960bbeeac93fe08565d3c65?autoplay=false&preload=true"
   },
   { 
     id: 2, 
@@ -35,7 +35,7 @@ const fallbackAudioSamples = [
     language: "العربية",
     tags: ["احترافي", "أصلي", "بالغ"],
     description: "إعلان صوتي عربي احترافي يعرض رسائل العلامة التجارية المتميزة والنطق الواضح للأسواق العالمية.",
-    audioUrl: "https://pub-d3419d11c45d499a9ce43bb169f92f3c.r2.dev/siwaht%20arabic.mp3"
+    embedUrl: "https://play.gumlet.io/embed/6960bbee195f98d9e15ec9d2?autoplay=false&preload=true"
   }
 ];
 
@@ -99,15 +99,16 @@ export default function VoiceSynthesis() {
                           </div>
                         </div>
                         <p className="text-slate-600 text-sm mb-3">{sample.description}</p>
-                        {/* Native Audio Player */}
-                        <audio 
-                          controls 
-                          className="w-full h-12"
-                          preload="metadata"
-                        >
-                          <source src={sample.audioUrl} type="audio/mpeg" />
-                          Your browser does not support the audio element.
-                        </audio>
+                        {/* Gumlet Audio Embed */}
+                        <div className="rounded-lg overflow-hidden bg-slate-900 aspect-video">
+                          <iframe
+                            src={sample.embedUrl}
+                            className="w-full h-full border-0"
+                            allow="autoplay; fullscreen"
+                            allowFullScreen
+                            title={sample.name}
+                          />
+                        </div>
                       </div>
                     ))}
                   </div>
