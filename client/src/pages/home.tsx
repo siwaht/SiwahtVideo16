@@ -29,7 +29,7 @@ export default function Home() {
     if (!metaKeywords) {
       const keywordsMeta = document.createElement('meta');
       keywordsMeta.name = 'keywords';
-      keywordsMeta.content = 'AI video ads, AI avatars, AI voice synthesis, AI podcast production, video editing AI, multilingual voice ads, custom video creation, professional AI services, Siwaht';
+      keywordsMeta.content = 'AI video ads, AI avatars, AI voice synthesis, interactive AI avatars, video editing AI, multilingual voice ads, custom video creation, professional AI services, Siwaht';
       document.head.appendChild(keywordsMeta);
     }
 

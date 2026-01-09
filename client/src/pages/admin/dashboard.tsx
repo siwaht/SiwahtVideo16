@@ -246,7 +246,7 @@ export default function AdminDashboard() {
           if (gender) audioMetadata.gender = gender;
           if (accent) audioMetadata.accent = accent;
           if (ageRange) audioMetadata.ageRange = ageRange;
-        } else if (selectedCategory === "AI Podcast Production") {
+        } else if (selectedCategory === "Interactive AI Avatars") {
           const episodeType = formData.get("episodeType") as string;
           const tags = formData.get("tags") as string;
           const hostName = formData.get("hostName") as string;
@@ -639,7 +639,7 @@ export default function AdminDashboard() {
                 </>
               )}
 
-              {selectedCategory === "AI Podcast Production" && (
+              {selectedCategory === "Interactive AI Avatars" && (
                 <>
                   <div>
                     <Label htmlFor="episodeType">Episode Type</Label>

@@ -143,7 +143,7 @@ export const mediaCategories = [
   "Avatar Studio", 
   "AI Video Editing",
   "Professional Multilingual Voice Ads",
-  "AI Podcast Production"
+  "Interactive AI Avatars"
 ] as const;
 
 export type MediaCategory = typeof mediaCategories[number];

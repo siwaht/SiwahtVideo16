@@ -128,7 +128,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/samples/podcast-samples", async (req, res) => {
     try {
-      const podcastMedia = await mediaStorage.getMediaByCategory("AI Podcast Production");
+      const podcastMedia = await mediaStorage.getMediaByCategory("Interactive AI Avatars");
 
       const podcastSamples = podcastMedia
         .filter(media => media.fileType === "audio")

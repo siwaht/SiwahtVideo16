@@ -19,7 +19,7 @@ const stats = [
   { label: "Quality", value: "Studio", color: "text-blue-600" }
 ];
 
-// Fallback audio samples with placeholder audio
+// Fallback audio samples - Gumlet video embeds for voice content
 const fallbackAudioSamples = [
   { 
     id: 1, 
@@ -27,8 +27,7 @@ const fallbackAudioSamples = [
     language: "English",
     tags: ["professional", "native", "adult"],
     description: "Professional English voice ad showcasing premium brand messaging and clear articulation for global markets.",
-    // Using a silent placeholder - replace with actual audio URL
-    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+    embedUrl: "https://play.gumlet.io/embed/6960a746195f98d9e15cadba?autoplay=false&preload=true"
   },
   { 
     id: 2, 
@@ -36,7 +35,7 @@ const fallbackAudioSamples = [
     language: "中文",
     tags: ["专业", "标准", "成人"],
     description: "专业的中文语音广告，展现品牌优势和清晰表达，适合中国市场推广。",
-    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+    embedUrl: "https://play.gumlet.io/embed/6960a746195f98d9e15cadb7?autoplay=false&preload=true"
   }
 ];
 
@@ -100,14 +99,15 @@ export default function VoiceSynthesis() {
                           </div>
                         </div>
                         <p className="text-slate-600 text-sm mb-3">{sample.description}</p>
-                        <audio 
-                          controls 
-                          className="w-full h-10"
-                          preload="metadata"
-                        >
-                          <source src={sample.audioUrl} type="audio/mpeg" />
-                          Your browser does not support the audio element.
-                        </audio>
+                        <div className="rounded-lg overflow-hidden bg-slate-900" style={{ height: '60px' }}>
+                          <iframe
+                            src={sample.embedUrl}
+                            className="w-full h-full border-0"
+                            allow="autoplay"
+                            title={sample.name}
+                            style={{ marginTop: '-10px' }}
+                          />
+                        </div>
                       </div>
                     ))}
                   </div>
