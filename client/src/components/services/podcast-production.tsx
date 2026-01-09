@@ -11,28 +11,28 @@ export default function InteractiveAIAvatars() {
       iconColor: "text-primary",
       bgColor: "bg-primary/10",
       title: "Real-Time Conversation",
-      description: "Natural, fluid conversations with AI avatars that understand context and respond intelligently in real-time."
+      description: "We build AI avatars that hold natural, fluid conversations, understanding context and responding intelligently."
     },
     {
       icon: Globe,
       iconColor: "text-secondary",
       bgColor: "bg-secondary/10",
-      title: "Multi-Language Intelligence",
-      description: "Communicate seamlessly in 50+ languages with native-level fluency and cultural awareness."
+      title: "Multi-Language Support",
+      description: "Our avatars communicate seamlessly in 50+ languages with native-level fluency and cultural awareness."
     },
     {
       icon: Brain,
       iconColor: "text-accent",
       bgColor: "bg-accent/10",
       title: "Emotion Recognition",
-      description: "Advanced AI that detects and responds to emotional cues, creating more empathetic interactions."
+      description: "We integrate advanced AI that detects and responds to emotional cues for more empathetic interactions."
     },
     {
       icon: Clock,
       iconColor: "text-purple-600",
       bgColor: "bg-purple-100",
       title: "24/7 Availability",
-      description: "Always-on AI avatars ready to engage customers, answer questions, and provide support around the clock."
+      description: "Our avatars are always-on, ready to engage customers, answer questions, and provide support around the clock."
     }
   ];
 
@@ -61,7 +61,7 @@ export default function InteractiveAIAvatars() {
             <span className="gradient-text">Interactive AI Avatars</span>
           </h2>
           <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
-            Engage your audience with lifelike AI avatars that converse naturally, understand emotions, and deliver personalized experiences 24/7.
+            We create lifelike AI avatars that converse naturally, understand emotions, and deliver personalized experiences 24/7 for your business.
           </p>
         </header>
 
@@ -69,12 +69,12 @@ export default function InteractiveAIAvatars() {
           <aside className="relative order-1 lg:order-2 w-full">
             <div className="bg-gradient-to-br from-purple-100 to-indigo-200 rounded-2xl p-3 xs:p-4 sm:p-6 md:p-8 shadow-2xl">
               <div className="bg-white rounded-xl p-3 xs:p-4 sm:p-6 mb-3 xs:mb-4 sm:mb-6 shadow-lg">
-                <h4 className="font-semibold text-slate-900 mb-2 xs:mb-3 sm:mb-4 text-base xs:text-lg sm:text-xl">Interactive Demo</h4>
+                <h4 className="font-semibold text-slate-900 mb-2 xs:mb-3 sm:mb-4 text-base xs:text-lg sm:text-xl">Sample Work</h4>
                 <MediaPlayer type="video" src={demoVideoUrl} title="AI Avatar Demo" />
               </div>
 
               <div className="bg-white rounded-xl p-3 xs:p-4 sm:p-6 mb-3 xs:mb-4 sm:mb-6 shadow-lg">
-                <h4 className="font-semibold text-slate-900 mb-3 text-base sm:text-lg">Perfect For</h4>
+                <h4 className="font-semibold text-slate-900 mb-3 text-base sm:text-lg">Ideal For</h4>
                 <div className="flex flex-wrap gap-2">
                   {useCases.map((useCase, index) => (
                     <span 

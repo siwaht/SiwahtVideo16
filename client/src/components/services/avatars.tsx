@@ -5,10 +5,10 @@ import { StatGrid } from "@/components/ui/stat-card";
 import { scrollToContact } from "@/utils/scroll";
 
 const features = [
-  { icon: User, iconColor: "text-blue-600", bgColor: "bg-blue-100", title: "Photorealistic Generation", description: "Micro-gestures and subtle expressions captured with unprecedented fidelity." },
-  { icon: Sparkles, iconColor: "text-purple-600", bgColor: "bg-purple-100", title: "Brand Personality", description: "Custom avatars that embody your brand's voice, tone, and values." },
-  { icon: Settings, iconColor: "text-emerald-600", bgColor: "bg-emerald-100", title: "Deep Customization", description: "Control age, ethnicity, wardrobe style, and facial details." },
-  { icon: Download, iconColor: "text-orange-600", bgColor: "bg-orange-100", title: "Omnichannel Ready", description: "Deploy across web, mobile, VR, and AR platforms." }
+  { icon: User, iconColor: "text-blue-600", bgColor: "bg-blue-100", title: "Photorealistic Quality", description: "We create avatars with micro-gestures and subtle expressions captured with unprecedented fidelity." },
+  { icon: Sparkles, iconColor: "text-purple-600", bgColor: "bg-purple-100", title: "Brand Alignment", description: "Our team designs custom avatars that embody your brand's voice, tone, and values." },
+  { icon: Settings, iconColor: "text-emerald-600", bgColor: "bg-emerald-100", title: "Full Customization", description: "We offer complete control over age, ethnicity, wardrobe style, and facial details." },
+  { icon: Download, iconColor: "text-orange-600", bgColor: "bg-orange-100", title: "Multi-Platform Delivery", description: "We deliver assets ready for web, mobile, VR, and AR platforms." }
 ];
 
 const stats = [
@@ -26,7 +26,7 @@ export default function Avatars() {
             <span className="gradient-text">Hyper-Realistic Avatars</span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto">
-            Digital humans so lifelike they bypass the uncanny valley.
+            We craft digital humans so lifelike they bypass the uncanny valley.
           </p>
         </header>
 
@@ -43,7 +43,7 @@ export default function Avatars() {
           <aside className="order-1 lg:order-2">
             <div className="service-preview from-sky-100 via-blue-100 to-cyan-100 bg-gradient-to-br">
               <div className="glass-card p-4 sm:p-6 mb-4 sm:mb-6">
-                <h4 className="font-bold text-slate-900 mb-3 text-base sm:text-lg">Avatar Studio</h4>
+                <h4 className="font-bold text-slate-900 mb-3 text-base sm:text-lg">Sample Work</h4>
                 <MediaPlayer src="https://gumlet.tv/watch/695b78acb8291f84b740c85d" title="AI Avatar Demo" />
               </div>
               <StatGrid stats={stats} />

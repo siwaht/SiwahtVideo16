@@ -7,10 +7,10 @@ import { scrollToContact } from "@/utils/scroll";
 import type { VoiceSample } from "@shared/schema";
 
 const features = [
-  { icon: Languages, iconColor: "text-blue-600", bgColor: "bg-blue-100", title: "AI Dubbing & Translation", description: "Dub content into 29+ languages preserving voice and emotion." },
-  { icon: Mic, iconColor: "text-emerald-600", bgColor: "bg-emerald-100", title: "Precision Voice Isolation", description: "Crystal clear audio extraction from noisy backgrounds." },
-  { icon: Volume2, iconColor: "text-purple-600", bgColor: "bg-purple-100", title: "Generative Sound Effects", description: "Create custom SFX from simple text prompts." },
-  { icon: Download, iconColor: "text-orange-600", bgColor: "bg-orange-100", title: "Speech-to-Speech", description: "Transform vocals into any character or style." }
+  { icon: Languages, iconColor: "text-blue-600", bgColor: "bg-blue-100", title: "Dubbing & Translation", description: "We dub your content into 29+ languages while preserving voice and emotion." },
+  { icon: Mic, iconColor: "text-emerald-600", bgColor: "bg-emerald-100", title: "Voice Isolation", description: "Our team delivers crystal clear audio extraction from noisy backgrounds." },
+  { icon: Volume2, iconColor: "text-purple-600", bgColor: "bg-purple-100", title: "Custom Sound Effects", description: "We create custom SFX tailored to your project's needs." },
+  { icon: Download, iconColor: "text-orange-600", bgColor: "bg-orange-100", title: "Voice Transformation", description: "We transform vocals into any character or style you need." }
 ];
 
 const stats = [
@@ -40,10 +40,10 @@ export default function VoiceSynthesis() {
       <div className="container-custom">
         <header className="text-center mb-8 sm:mb-12 lg:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 sm:mb-6">
-            <span className="gradient-text">AI Voice Editing Suite</span>
+            <span className="gradient-text">Professional Voice Services</span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto">
-            Studio-grade post-production: Dubbing, Voice Isolation, and Generative SFX.
+            We deliver studio-grade audio post-production: Dubbing, Voice Isolation, and Custom SFX.
           </p>
         </header>
 
@@ -51,7 +51,7 @@ export default function VoiceSynthesis() {
           <aside className="order-1">
             <div className="service-preview from-emerald-100 via-teal-100 to-cyan-100 bg-gradient-to-br">
               <div className="glass-card p-4 sm:p-6 mb-4 sm:mb-6">
-                <h4 className="font-bold text-slate-900 mb-3 text-base sm:text-lg">Voice Samples</h4>
+                <h4 className="font-bold text-slate-900 mb-3 text-base sm:text-lg">Sample Work</h4>
                 {publishedVoices.length > 0 ? (
                   <div className="space-y-3 max-h-80 overflow-y-auto scrollbar-thin">
                     {publishedVoices.slice(0, 4).map(voice => (

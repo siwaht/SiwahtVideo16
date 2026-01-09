@@ -9,10 +9,10 @@ import type { DemoVideo } from "@shared/schema";
 const FALLBACK_VIDEO = "https://gumlet.tv/watch/694d0e18f1ad267a06552696";
 
 const features = [
-  { icon: Play, iconColor: "text-blue-600", bgColor: "bg-blue-100", title: "Custom AI Video Production", description: "Bespoke video campaigns engineered for maximum engagement using our proprietary generative video models." },
-  { icon: Target, iconColor: "text-green-600", bgColor: "bg-green-100", title: "Precision Targeting", description: "Data-driven creative variations that dynamically adapt to your audience segments for higher ROAS." },
-  { icon: Zap, iconColor: "text-yellow-600", bgColor: "bg-yellow-100", title: "Lightning Execution", description: "From storyboard to final render in 72 hours. Capture market trends while they are still trending." },
-  { icon: Sparkles, iconColor: "text-purple-600", bgColor: "bg-purple-100", title: "Cinematic Excellence", description: "4K resolution, professional color grading, and seamless transitions that rival traditional production houses." }
+  { icon: Play, iconColor: "text-blue-600", bgColor: "bg-blue-100", title: "Custom Video Production", description: "We craft bespoke video campaigns engineered for maximum engagement using cutting-edge AI technology." },
+  { icon: Target, iconColor: "text-green-600", bgColor: "bg-green-100", title: "Audience-Focused Strategy", description: "Our team creates data-driven creative variations tailored to your audience segments for higher ROAS." },
+  { icon: Zap, iconColor: "text-yellow-600", bgColor: "bg-yellow-100", title: "Rapid Turnaround", description: "We deliver from storyboard to final render in 72 hours. Capture market trends while they're still trending." },
+  { icon: Sparkles, iconColor: "text-purple-600", bgColor: "bg-purple-100", title: "Cinematic Excellence", description: "Our productions feature 4K resolution, professional color grading, and seamless transitions." }
 ];
 
 const stats = [
@@ -39,7 +39,7 @@ export default function VideoAds() {
             <span className="gradient-text">Cinematic AI Video Ads</span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto">
-            Stop the scroll with broadcast-quality video advertisements generated in minutes.
+            We create scroll-stopping, broadcast-quality video advertisements that drive results.
           </p>
         </header>
 
@@ -47,7 +47,7 @@ export default function VideoAds() {
           <aside className="order-1">
             <div className="service-preview from-blue-100 via-cyan-100 to-sky-100 bg-gradient-to-br">
               <div className="glass-card p-4 sm:p-6 mb-4 sm:mb-6">
-                <h4 className="font-bold text-slate-900 mb-3 sm:mb-4 text-base sm:text-lg bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">AI Video Studio</h4>
+                <h4 className="font-bold text-slate-900 mb-3 sm:mb-4 text-base sm:text-lg bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Sample Work</h4>
                 <MediaPlayer src={videoUrl} poster={featuredVideo?.thumbnailUrl || undefined} title={featuredVideo?.title || "AI Video Demo"} />
               </div>
               <StatGrid stats={stats} />
