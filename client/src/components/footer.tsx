@@ -18,7 +18,7 @@ export default function Footer() {
     { name: "AI Avatars", id: "avatars" },
     { name: "Voice Ads", id: "voice" },
     { name: "Video Editing", id: "editing" },
-    { name: "Interactive AI Avatars", id: "interactive-avatars" },
+    { name: "AI Agents", id: "interactive-avatars" },
   ];
 
   const companyLinks = [
@@ -128,7 +128,7 @@ export default function Footer() {
                     data-testid="footer-interactive-avatars"
                   >
                     <span className="w-1 h-1 bg-primary rounded-full group-hover:bg-white transition-colors"></span>
-                    Interactive AI Avatars
+                    AI Agents
                   </button>
                 </li>
               </ul>
