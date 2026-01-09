@@ -3,14 +3,14 @@
 ## Company Overview
 Siwaht is a professional AI agency specializing in custom multimedia content creation.
 We provide personalized video ads, realistic AI avatars, multilingual voice ads, 
-professional video editing, and podcast production services.
+professional video editing, and interactive AI avatar services.
 
 ## Services Offered
 - AI Video Ads: Custom AI-generated video advertisements for products and brands
 - AI Avatars: Realistic AI-powered digital avatars for brand representation  
 - Voice Ads: Multilingual voice advertisements in over 50 languages
 - Video Editing: Professional video editing and post-production services
-- Podcast Production: Complete podcast production and audio editing services
+- Interactive AI Avatars: AI-powered avatars for customer support, sales, and engagement
 
 ## Target Audience
 Businesses and brands seeking professional AI-powered multimedia content creation

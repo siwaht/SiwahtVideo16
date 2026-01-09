@@ -18,7 +18,7 @@ export default function Footer() {
     { name: "AI Avatars", id: "avatars" },
     { name: "Voice Ads", id: "voice" },
     { name: "Video Editing", id: "editing" },
-    { name: "Podcast Production", id: "podcast" },
+    { name: "Interactive AI Avatars", id: "interactive-avatars" },
   ];
 
   const companyLinks = [
@@ -123,12 +123,12 @@ export default function Footer() {
                 </li>
                 <li>
                   <button
-                    onClick={() => scrollToSection('podcast')}
+                    onClick={() => scrollToSection('interactive-avatars')}
                     className="text-slate-400 hover:text-white transition-colors duration-200 text-sm flex items-center gap-2 group"
-                    data-testid="footer-podcasts"
+                    data-testid="footer-interactive-avatars"
                   >
                     <span className="w-1 h-1 bg-primary rounded-full group-hover:bg-white transition-colors"></span>
-                    Podcast Production
+                    Interactive AI Avatars
                   </button>
                 </li>
               </ul>

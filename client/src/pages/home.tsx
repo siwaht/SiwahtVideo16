@@ -5,22 +5,22 @@ import VideoAds from "@/components/services/video-ads";
 import Avatars from "@/components/services/avatars";
 import VoiceSynthesis from "@/components/services/voice-synthesis";
 import VideoEditing from "@/components/services/video-editing";
-import PodcastProduction from "@/components/services/podcast-production";
+import InteractiveAIAvatars from "@/components/services/podcast-production";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 
 export default function Home() {
   useEffect(() => {
     // Set page metadata for SEO
-    document.title = "Siwaht - AI Video Ads, Avatars, Voice & Podcast Production | Professional AI Agency";
+    document.title = "Siwaht - AI Video Ads, Avatars, Voice & Interactive AI Avatars | Professional AI Agency";
     
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Professional AI agency creating custom video ads, realistic avatars, voice ads in 80+ languages, video editing & podcast production. Fast turnaround, 4K quality. Transform your content with AI.');
+      metaDescription.setAttribute('content', 'Professional AI agency creating custom video ads, realistic avatars, voice ads in 80+ languages, video editing & interactive AI avatars. Fast turnaround, 4K quality. Transform your content with AI.');
     } else {
       const meta = document.createElement('meta');
       meta.name = 'description';
-      meta.content = 'Professional AI agency creating custom video ads, realistic avatars, voice ads in 80+ languages, video editing & podcast production. Fast turnaround, 4K quality. Transform your content with AI.';
+      meta.content = 'Professional AI agency creating custom video ads, realistic avatars, voice ads in 80+ languages, video editing & interactive AI avatars. Fast turnaround, 4K quality. Transform your content with AI.';
       document.head.appendChild(meta);
     }
 
@@ -75,7 +75,7 @@ export default function Home() {
           <Avatars />
           <VoiceSynthesis />
           <VideoEditing />
-          <PodcastProduction />
+          <InteractiveAIAvatars />
         </section>
 
         

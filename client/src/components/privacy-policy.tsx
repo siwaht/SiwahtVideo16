@@ -59,7 +59,7 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
             <p className="text-blue-800 font-medium">Last Updated: January 2025</p>
             <p className="text-blue-700 text-sm mt-1">
               This policy applies to all Siwaht services including AI video creation, avatar generation, voice synthesis, 
-              video editing, and podcast production.
+              video editing, and interactive AI avatars.
             </p>
           </div>
         </div>
@@ -85,7 +85,7 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
               <li>• Text prompts and scripts for AI video generation</li>
               <li>• Voice recordings for synthesis and avatar creation</li>
               <li>• Images and videos uploaded for editing or avatar training</li>
-              <li>• Audio files for podcast production and voice cloning</li>
+              <li>• Audio files for voice ads and interactive avatar creation</li>
               <li>• Project settings, preferences, and custom configurations</li>
             </ul>
           </div>
@@ -151,7 +151,7 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
               <li>• Videos generated from your prompts and inputs</li>
               <li>• AI avatars created from your images or specifications</li>
               <li>• Voice synthesis and audio content based on your recordings</li>
-              <li>• Edited videos and podcast productions</li>
+              <li>• Edited videos and interactive AI avatar content</li>
             </ul>
           </div>
           
