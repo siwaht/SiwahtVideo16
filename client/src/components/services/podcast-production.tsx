@@ -44,7 +44,7 @@ export default function InteractiveAIAvatars() {
   ];
 
   // Fallback demo video URL
-  const demoVideoUrl = "https://play.gumlet.io/embed/694d0e18f1ad267a06552696?autoplay=true&preload=true&loop=true";
+  const demoVideoUrl = "https://play.gumlet.io/embed/69609dc7525cbb35561fd5a8?autoplay=true&preload=true&loop=true";
 
   return (
     <section
