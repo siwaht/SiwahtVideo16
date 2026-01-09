@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { Mic, Headphones, Radio, Music } from "lucide-react";
-import { MediaPlayer } from "@/components/ui/media-player";
+import { FeatureList } from "@/components/ui/feature-card";
+import { StatGrid } from "@/components/ui/stat-card";
+import { scrollToContact } from "@/utils/scroll";
 import type { PodcastSample } from "@shared/schema";
 
 export default function PodcastProduction() {
-  const { data: podcasts = [], isLoading, error } = useQuery<PodcastSample[]>({
+  const { data: podcasts = [] } = useQuery<PodcastSample[]>({
     queryKey: ['/api/samples/podcasts'],
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
@@ -14,13 +16,6 @@ export default function PodcastProduction() {
     .filter(podcast => podcast.isPublished)
     .sort((a, b) => a.orderIndex - b.orderIndex);
   const featuredPodcast = publishedPodcasts[0];
-
-  const scrollToContact = () => {
-    const element = document.getElementById("contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   const features = [
     {
@@ -118,41 +113,16 @@ export default function PodcastProduction() {
                 )}
               </div>
 
-              <div className="grid grid-cols-3 gap-2 xs:gap-3 sm:gap-4">
-                <div className="bg-white rounded-lg p-2 xs:p-3 sm:p-4 shadow-md text-center">
-                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Turnaround</div>
-                  <div className="text-sm xs:text-base sm:text-lg font-bold text-purple-600">48 Hours</div>
-                </div>
-                <div className="bg-white rounded-lg p-2 xs:p-3 sm:p-4 shadow-md text-center">
-                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Quality</div>
-                  <div className="text-sm xs:text-base sm:text-lg font-bold text-green-600">Studio</div>
-                </div>
-                <div className="bg-white rounded-lg p-2 xs:p-3 sm:p-4 shadow-md text-center">
-                  <div className="text-xs xs:text-sm font-medium text-slate-600 mb-1">Episodes</div>
-                  <div className="text-sm xs:text-base sm:text-lg font-bold text-blue-600">Any</div>
-                </div>
-              </div>
+              <StatGrid stats={[
+                { label: "Turnaround", value: "48 Hours", color: "text-purple-600" },
+                { label: "Quality", value: "Studio", color: "text-green-600" },
+                { label: "Episodes", value: "Any", color: "text-blue-600" }
+              ]} />
             </div>
           </aside>
 
           <div className="space-y-6 xs:space-y-8 order-2 lg:order-1">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <article
-                  key={index}
-                  className="flex items-start space-x-3 xs:space-x-4 p-3 xs:p-4 rounded-xl hover:bg-white/50 transition-colors duration-200"
-                >
-                  <div className={`w-10 h-10 xs:w-12 xs:h-12 ${feature.bgColor} rounded-lg flex items-center justify-center flex-shrink-0 mt-1`}>
-                    <Icon className={`${feature.iconColor} h-5 w-5 xs:h-6 xs:w-6`} aria-hidden="true" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg xs:text-xl font-semibold text-slate-900 mb-2">{feature.title}</h3>
-                    <p className="text-slate-600 text-sm xs:text-base leading-relaxed">{feature.description}</p>
-                  </div>
-                </article>
-              );
-            })}
+            <FeatureList features={features} />
 
             <div className="pt-4 xs:pt-6">
               <button
