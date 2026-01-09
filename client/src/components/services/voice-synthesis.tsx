@@ -19,10 +19,24 @@ const stats = [
   { label: "Quality", value: "Studio", color: "text-blue-600" }
 ];
 
-// Fallback audio samples
+// Fallback audio samples with proper audio-only display
 const fallbackAudioSamples = [
-  { id: 1, name: "AI Voice Sample 1", url: "https://play.gumlet.io/embed/6960a746195f98d9e15cadba?autoplay=false&preload=true" },
-  { id: 2, name: "AI Voice Sample 2", url: "https://play.gumlet.io/embed/6960a746195f98d9e15cadb7?autoplay=false&preload=true" }
+  { 
+    id: 1, 
+    name: "English Voice Ad", 
+    language: "English",
+    tags: ["professional", "native", "adult"],
+    description: "Professional English voice ad showcasing premium brand messaging and clear articulation for global markets.",
+    url: "https://play.gumlet.io/embed/6960a746195f98d9e15cadba?autoplay=false&preload=true" 
+  },
+  { 
+    id: 2, 
+    name: "中文语音广告", 
+    language: "中文",
+    tags: ["专业", "标准", "成人"],
+    description: "专业的中文语音广告，展现品牌优势和清晰表达，适合中国市场推广。",
+    url: "https://play.gumlet.io/embed/6960a746195f98d9e15cadb7?autoplay=false&preload=true" 
+  }
 ];
 
 
@@ -51,7 +65,7 @@ export default function VoiceSynthesis() {
           <aside className="order-1">
             <div className="service-preview from-emerald-100 via-teal-100 to-cyan-100 bg-gradient-to-br">
               <div className="glass-card p-4 sm:p-6 mb-4 sm:mb-6">
-                <h4 className="font-bold text-slate-900 mb-3 text-base sm:text-lg">Sample Work</h4>
+                <h4 className="font-bold text-slate-900 mb-3 text-base sm:text-lg">Professional Multilingual Voice Ads</h4>
                 {publishedVoices.length > 0 ? (
                   <div className="space-y-3 max-h-80 overflow-y-auto scrollbar-thin">
                     {publishedVoices.slice(0, 4).map(voice => (
@@ -67,16 +81,29 @@ export default function VoiceSynthesis() {
                     ))}
                   </div>
                 ) : (
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     {fallbackAudioSamples.map(sample => (
-                      <div key={sample.id} className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-3 border border-emerald-200">
-                        <h5 className="font-semibold text-slate-900 text-sm mb-2">{sample.name}</h5>
-                        <div className="aspect-video rounded-lg overflow-hidden">
+                      <div key={sample.id} className="bg-white rounded-xl p-4 border border-emerald-100 shadow-sm">
+                        <div className="flex items-start justify-between mb-2">
+                          <div>
+                            <h5 className="font-semibold text-slate-900 text-base">{sample.name}</h5>
+                            <div className="flex flex-wrap gap-1.5 mt-2">
+                              <span className="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-200">{sample.language}</span>
+                              {sample.tags.map((tag, idx) => (
+                                <span key={idx} className="text-xs bg-slate-50 text-slate-600 px-2 py-0.5 rounded-full border border-slate-200">{tag}</span>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
+                            <Volume2 className="h-5 w-5 text-white" />
+                          </div>
+                        </div>
+                        <p className="text-slate-600 text-sm mb-3">{sample.description}</p>
+                        <div className="rounded-lg overflow-hidden bg-slate-50 p-2">
                           <iframe
                             src={sample.url}
-                            className="w-full h-full border-0"
-                            allow="autoplay; fullscreen"
-                            allowFullScreen
+                            className="w-full h-12 border-0"
+                            allow="autoplay"
                             title={sample.name}
                           />
                         </div>
