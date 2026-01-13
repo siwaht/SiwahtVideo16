@@ -116,13 +116,13 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="section-padding bg-gradient-to-br from-slate-50/80 via-blue-50/60 to-indigo-100/70 relative overflow-hidden"
+      className="section-padding bg-[linear-gradient(to_bottom_left,_var(--tw-gradient-stops))] from-slate-50 via-slate-50 to-indigo-50/40 relative overflow-hidden"
       aria-labelledby="contact-heading"
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5"></div>
-      <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-2xl floating-animation"></div>
-      <div className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-emerald-400/10 to-teal-400/10 rounded-full blur-2xl floating-animation" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-transparent to-teal-500/5"></div>
+      <div className="absolute top-20 right-20 w-80 h-80 bg-gradient-to-br from-indigo-400/10 to-blue-400/10 rounded-full blur-3xl floating-animation"></div>
+      <div className="absolute bottom-20 left-20 w-72 h-72 bg-gradient-to-br from-teal-400/10 to-emerald-400/10 rounded-full blur-3xl floating-animation" style={{ animationDelay: '2s' }}></div>
       <div className="container-custom relative z-10">
         <header className="text-center mb-12 xs:mb-16">
           <h2

@@ -17,17 +17,17 @@ export default function Hero() {
 
   return (
     <section
-      className="pt-28 md:pt-36 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen flex items-center relative overflow-hidden hero-section"
+      className="pt-28 md:pt-36 bg-[linear-gradient(to_bottom_right,_var(--tw-gradient-stops))] from-slate-50 via-slate-50 to-indigo-50/40 min-h-screen flex items-center relative overflow-hidden hero-section"
       aria-label="Hero section"
     >
       {/* Enhanced Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-transparent to-teal-500/5" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-500/10 via-transparent to-transparent opacity-70" />
 
       {/* Floating background elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-float" />
-      <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }} />
-      <div className="absolute bottom-40 left-20 w-20 h-20 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }} />
+      <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-indigo-400/10 to-blue-400/10 rounded-full blur-3xl animate-float" />
+      <div className="absolute top-40 right-20 w-80 h-80 bg-gradient-to-br from-blue-400/10 to-teal-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+      <div className="absolute bottom-40 left-20 w-72 h-72 bg-gradient-to-br from-teal-400/10 to-emerald-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
 
       <div className="container-custom relative z-10 hero-content">
         <div className="text-center animate-fade-in">
