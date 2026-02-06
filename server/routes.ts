@@ -106,28 +106,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     orderIndex: i,
   }));
 
-  // Contact form submission — validates, stores, and forwards to webhook
+  // Contact form submission
   app.post("/api/contact", async (req, res) => {
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
       const submission = await storage.createContactSubmission(validatedData);
-
-      // Forward to webhook in the background (don't block the response)
-      const webhookUrl = process.env.CONTACT_WEBHOOK_URL;
-      if (webhookUrl) {
-        const webhookData = {
-          fullName: validatedData.fullName,
-          email: validatedData.email,
-          company: validatedData.company || "",
-          projectDetails: validatedData.projectDetails,
-          timestamp: new Date().toISOString(),
-        };
-        fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(webhookData),
-        }).catch((err) => console.error("Webhook delivery failed:", err));
-      }
 
       res.json({
         success: true,
