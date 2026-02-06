@@ -7,106 +7,84 @@ import { scrollToContact } from "@/utils/scroll";
 import type { VoiceSample } from "@shared/schema";
 
 const features = [
-  { icon: Languages, iconColor: "text-blue-600", bgColor: "bg-blue-100", title: "Dubbing & Translation", description: "We dub your content into 29+ languages while preserving voice and emotion." },
-  { icon: Mic, iconColor: "text-emerald-600", bgColor: "bg-emerald-100", title: "Voice Isolation", description: "Our team delivers crystal clear audio extraction from noisy backgrounds." },
-  { icon: Volume2, iconColor: "text-purple-600", bgColor: "bg-purple-100", title: "Custom Sound Effects", description: "We create custom SFX tailored to your project's needs." },
-  { icon: Download, iconColor: "text-orange-600", bgColor: "bg-orange-100", title: "Voice Transformation", description: "We transform vocals into any character or style you need." }
+  { icon: Languages, iconColor: "text-indigo-600", bgColor: "bg-indigo-50", title: "Dubbing & Translation", description: "Dub your content into 29+ languages while preserving voice and emotion." },
+  { icon: Mic, iconColor: "text-teal-600", bgColor: "bg-teal-50", title: "Voice Isolation", description: "Crystal clear audio extraction from noisy backgrounds." },
+  { icon: Volume2, iconColor: "text-violet-600", bgColor: "bg-violet-50", title: "Custom Sound Effects", description: "Custom SFX tailored to your project's needs." },
+  { icon: Download, iconColor: "text-amber-600", bgColor: "bg-amber-50", title: "Voice Transformation", description: "Transform vocals into any character or style you need." },
 ];
 
 const stats = [
-  { label: "Languages", value: "80+", color: "text-emerald-600" },
-  { label: "Voices", value: "1000+", color: "text-teal-600" },
-  { label: "Quality", value: "Studio", color: "text-blue-600" }
+  { label: "Languages", value: "80+", color: "text-teal-600" },
+  { label: "Voices", value: "1000+", color: "text-indigo-600" },
+  { label: "Quality", value: "Studio", color: "text-violet-600" },
 ];
 
-// Audio samples hosted on Catbox
 const fallbackAudioSamples = [
-  { 
-    id: 1, 
-    name: "English Voice Ad", 
+  {
+    id: 1,
+    name: "English Voice Ad",
     language: "English",
-    tags: ["professional", "native", "adult"],
-    description: "Professional English voice ad showcasing premium brand messaging and clear articulation for global markets.",
-    audioUrl: "https://files.catbox.moe/pm2f2x.mp3"
+    description: "Professional English voice ad showcasing premium brand messaging.",
+    audioUrl: "https://files.catbox.moe/pm2f2x.mp3",
   },
-  { 
-    id: 2, 
-    name: "العربية إعلان صوتي", 
-    language: "العربية",
-    tags: ["احترافي", "أصلي", "بالغ"],
-    description: "إعلان صوتي عربي احترافي يعرض رسائل العلامة التجارية المتميزة والنطق الواضح للأسواق العالمية.",
-    audioUrl: "https://files.catbox.moe/qn19pu.mp3"
-  }
+  {
+    id: 2,
+    name: "\u0627\u0644\u0639\u0631\u0628\u064A\u0629 \u0625\u0639\u0644\u0627\u0646 \u0635\u0648\u062A\u064A",
+    language: "\u0627\u0644\u0639\u0631\u0628\u064A\u0629",
+    description: "\u0625\u0639\u0644\u0627\u0646 \u0635\u0648\u062A\u064A \u0639\u0631\u0628\u064A \u0627\u062D\u062A\u0631\u0627\u0641\u064A \u064A\u0639\u0631\u0636 \u0631\u0633\u0627\u0626\u0644 \u0627\u0644\u0639\u0644\u0627\u0645\u0629 \u0627\u0644\u062A\u062C\u0627\u0631\u064A\u0629 \u0627\u0644\u0645\u062A\u0645\u064A\u0632\u0629.",
+    audioUrl: "https://files.catbox.moe/qn19pu.mp3",
+  },
 ];
-
 
 export default function VoiceSynthesis() {
   const { data: voiceSamples = [] } = useQuery<VoiceSample[]>({
-    queryKey: ['/api/samples/voice-samples'],
+    queryKey: ["/api/samples/voice-samples"],
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
   });
 
-  const publishedVoices = voiceSamples.filter(v => v.isPublished).sort((a, b) => a.orderIndex - b.orderIndex);
+  const publishedVoices = voiceSamples.filter((v) => v.isPublished).sort((a, b) => a.orderIndex - b.orderIndex);
 
   return (
-    <section id="voice-synthesis" className="section-padding bg-gradient-to-br from-emerald-50/30 via-white to-teal-50/40">
+    <section id="voice-synthesis" className="section-padding">
       <div className="container-custom">
-        <header className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 sm:mb-6">
+        <header className="text-center mb-12 lg:mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 tracking-tight">
             <span className="gradient-text">Professional Voice Services</span>
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto">
-            We deliver studio-grade audio post-production: Dubbing, Voice Isolation, and Custom SFX.
+          <p className="text-base sm:text-lg text-slate-500 max-w-2xl mx-auto">
+            Studio-grade audio post-production: Dubbing, Voice Isolation, and Custom SFX.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           <aside className="order-1">
-            <div className="service-preview from-emerald-100 via-teal-100 to-cyan-100 bg-gradient-to-br">
-              <div className="glass-card p-4 sm:p-6 mb-4 sm:mb-6">
-                <h4 className="font-bold text-slate-900 mb-3 text-base sm:text-lg">Professional Multilingual Voice Ads</h4>
+            <div className="bg-gradient-to-br from-teal-50/80 to-slate-50/80 rounded-3xl p-5 sm:p-6 border border-teal-100/50">
+              <div className="bg-white rounded-2xl p-4 sm:p-5 mb-4 border border-slate-100" style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
+                <h4 className="font-semibold text-sm uppercase tracking-wider text-teal-600 mb-3">Voice Samples</h4>
                 {publishedVoices.length > 0 ? (
                   <div className="space-y-3 max-h-80 overflow-y-auto scrollbar-thin">
-                    {publishedVoices.slice(0, 4).map(voice => (
-                      <div key={voice.id} className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-3 border border-emerald-200">
+                    {publishedVoices.slice(0, 4).map((voice) => (
+                      <div key={voice.id} className="bg-slate-50 rounded-xl p-3 border border-slate-100">
                         <div className="flex items-center justify-between mb-2">
-                          <h5 className="font-semibold text-slate-900 text-sm">{voice.name}</h5>
-                          <div className="flex gap-1">
-                            <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">{voice.language}</span>
-                          </div>
+                          <h5 className="font-medium text-slate-900 text-sm">{voice.name}</h5>
+                          <span className="text-xs bg-teal-50 text-teal-700 px-2 py-0.5 rounded-full border border-teal-200">{voice.language}</span>
                         </div>
                         {voice.audioUrl && <MediaPlayer src={voice.audioUrl} type="audio" title={voice.name} />}
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <div className="space-y-4">
-                    {fallbackAudioSamples.map(sample => (
-                      <div key={sample.id} className="bg-white rounded-xl p-4 border border-emerald-100 shadow-sm">
-                        <div className="flex items-start justify-between mb-2">
-                          <div>
-                            <h5 className="font-semibold text-slate-900 text-base">{sample.name}</h5>
-                            <div className="flex flex-wrap gap-1.5 mt-2">
-                              <span className="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-200">{sample.language}</span>
-                              {sample.tags.map((tag, idx) => (
-                                <span key={idx} className="text-xs bg-slate-50 text-slate-600 px-2 py-0.5 rounded-full border border-slate-200">{tag}</span>
-                              ))}
-                            </div>
-                          </div>
-                          <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
-                            <Volume2 className="h-5 w-5 text-white" />
-                          </div>
+                  <div className="space-y-3">
+                    {fallbackAudioSamples.map((sample) => (
+                      <div key={sample.id} className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                        <div className="flex items-center justify-between mb-2">
+                          <h5 className="font-medium text-slate-900 text-sm">{sample.name}</h5>
+                          <span className="text-xs bg-teal-50 text-teal-700 px-2 py-0.5 rounded-full border border-teal-200">{sample.language}</span>
                         </div>
-                        <p className="text-slate-600 text-sm mb-3">{sample.description}</p>
-                        {/* Native Audio Player */}
-                        <audio 
-                          controls 
-                          className="w-full h-12"
-                          preload="metadata"
-                        >
+                        <p className="text-slate-500 text-xs mb-3">{sample.description}</p>
+                        <audio controls className="w-full h-10" preload="metadata">
                           <source src={sample.audioUrl} type="audio/mpeg" />
-                          Your browser does not support the audio element.
                         </audio>
                       </div>
                     ))}
@@ -119,8 +97,8 @@ export default function VoiceSynthesis() {
 
           <div className="order-2">
             <FeatureList features={features} />
-            <div className="pt-4 sm:pt-6">
-              <button onClick={scrollToContact} className="btn-secondary w-full sm:w-auto">Order Voice Services</button>
+            <div className="pt-6 pl-5">
+              <button onClick={scrollToContact} className="btn-secondary">Order Voice Services</button>
             </div>
           </div>
         </div>

@@ -64,7 +64,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <Navigation />
       
       <main role="main">
@@ -78,7 +78,6 @@ export default function Home() {
           <InteractiveAIAvatars />
         </section>
 
-        
         <Contact />
       </main>
       

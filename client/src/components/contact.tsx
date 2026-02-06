@@ -1,8 +1,7 @@
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,7 +13,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
 import { useToast } from "@/hooks/use-toast";
 import { insertContactSubmissionSchema, type InsertContactSubmission } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
@@ -79,170 +77,136 @@ export default function Contact() {
     submitMutation.mutate(data);
   };
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: "Email Us",
-      value: "hello@siwahtai.com",
-      description: "Send us an email anytime",
-    },
-    {
-      icon: Phone,
-      title: "Call Us",
-      value: "+1 (555) 123-4567",
-      description: "Mon-Fri from 8am to 6pm",
-    },
-    {
-      icon: MapPin,
-      title: "Visit Us",
-      value: "San Francisco, CA",
-      description: "Remote-first with SF hub",
-    },
-    {
-      icon: Clock,
-      title: "Response Time",
-      value: "< 24 hours",
-      description: "We respond quickly",
-    },
-  ];
-
-
-
   return (
     <section
       id="contact"
-      className="section-padding bg-[linear-gradient(to_bottom_left,_var(--tw-gradient-stops))] from-slate-50 via-slate-50 to-indigo-50/40 relative overflow-hidden"
+      className="section-padding relative overflow-hidden"
       aria-labelledby="contact-heading"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-transparent to-teal-500/5"></div>
-      <div className="absolute top-20 right-20 w-80 h-80 bg-gradient-to-br from-indigo-400/10 to-blue-400/10 rounded-full blur-3xl floating-animation"></div>
-      <div className="absolute bottom-20 left-20 w-72 h-72 bg-gradient-to-br from-teal-400/10 to-emerald-400/10 rounded-full blur-3xl floating-animation" style={{ animationDelay: '2s' }}></div>
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,_hsla(234,62%,56%,0.05),_transparent)]" />
+
       <div className="container-custom relative z-10">
-        <header className="text-center mb-12 xs:mb-16">
+        <header className="text-center mb-16">
           <h2
             id="contact-heading"
-            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 xs:mb-8 text-shadow"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight"
           >
             <span className="gradient-text">Start Your Transformation</span>
           </h2>
-          <p className="text-xl xs:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed px-2 font-light">
-            Ready to deploy the next generation of AI content? Discussion your vision with our solution architects today.
+          <p className="text-lg sm:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-light">
+            Ready to deploy the next generation of AI content? Discuss your vision with our team today.
           </p>
         </header>
 
-        <div className="max-w-2xl mx-auto">
-          {/* Contact Form */}
-          <div>
-            <div className="bg-white rounded-2xl shadow-xl p-6 xs:p-8">
-              <h3 className="text-xl xs:text-2xl font-semibold text-slate-900 mb-6">Start Your Project</h3>
+        <div className="max-w-xl mx-auto">
+          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-100" style={{ boxShadow: '0 4px 24px -4px rgba(0,0,0,0.06)' }}>
+            <h3 className="text-xl font-semibold text-slate-900 mb-8">Start Your Project</h3>
 
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 xs:space-y-6 contact-form">
-                  <FormField
-                    control={form.control}
-                    name="fullName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-slate-700">Full Name *</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="John Doe"
-                            {...field}
-                            className="h-11 xs:h-12 text-base touch-manipulation"
-                            autoComplete="name"
-                            autoCapitalize="words"
-                            data-testid="input-full-name"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 contact-form">
+                <FormField
+                  control={form.control}
+                  name="fullName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-slate-600 text-sm font-medium">Full Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="John Doe"
+                          {...field}
+                          className="h-12 text-base rounded-xl border-slate-200 focus:border-indigo-400 focus:ring-indigo-400/20 transition-colors"
+                          autoComplete="name"
+                          autoCapitalize="words"
+                          data-testid="input-full-name"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-slate-700">Email Address *</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="john@example.com"
-                            type="email"
-                            {...field}
-                            className="h-11 xs:h-12 text-base touch-manipulation"
-                            autoComplete="email"
-                            inputMode="email"
-                            data-testid="input-email"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-slate-600 text-sm font-medium">Email Address</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="john@example.com"
+                          type="email"
+                          {...field}
+                          className="h-12 text-base rounded-xl border-slate-200 focus:border-indigo-400 focus:ring-indigo-400/20 transition-colors"
+                          autoComplete="email"
+                          inputMode="email"
+                          data-testid="input-email"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                  <FormField
-                    control={form.control}
-                    name="company"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-slate-700">Company (Optional)</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Your Company"
-                            {...field}
-                            value={field.value || ""}
-                            className="h-11 xs:h-12 text-base touch-manipulation"
-                            autoComplete="organization"
-                            autoCapitalize="words"
-                            data-testid="input-company"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                <FormField
+                  control={form.control}
+                  name="company"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-slate-600 text-sm font-medium">Company <span className="text-slate-400">(optional)</span></FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Your Company"
+                          {...field}
+                          value={field.value || ""}
+                          className="h-12 text-base rounded-xl border-slate-200 focus:border-indigo-400 focus:ring-indigo-400/20 transition-colors"
+                          autoComplete="organization"
+                          autoCapitalize="words"
+                          data-testid="input-company"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
+                <FormField
+                  control={form.control}
+                  name="projectDetails"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-slate-600 text-sm font-medium">Message</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Tell us about your project, goals, and timeline..."
+                          className="min-h-[130px] resize-none text-base rounded-xl border-slate-200 focus:border-indigo-400 focus:ring-indigo-400/20 transition-colors"
+                          {...field}
+                          autoCapitalize="sentences"
+                          data-testid="textarea-project-details"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                  <FormField
-                    control={form.control}
-                    name="projectDetails"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-slate-700">Message *</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            placeholder="Tell us about your project, goals, and timeline..."
-                            className="min-h-[120px] resize-none text-base touch-manipulation"
-                            {...field}
-                            autoCapitalize="sentences"
-                            data-testid="textarea-project-details"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <Button
-                    type="submit"
-                    disabled={submitMutation.isPending}
-                    className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 h-11 xs:h-12 text-base font-semibold"
-                    data-testid="button-submit-contact"
-                  >
-                    {submitMutation.isPending ? (
-                      "Sending..."
-                    ) : (
-                      <>
-                        <Send className="mr-2 h-4 w-4" />
-                        Send Message
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </Form>
-            </div>
+                <Button
+                  type="submit"
+                  disabled={submitMutation.isPending}
+                  className="w-full h-12 text-base font-semibold rounded-xl bg-slate-900 hover:bg-slate-800 transition-colors"
+                  data-testid="button-submit-contact"
+                >
+                  {submitMutation.isPending ? (
+                    "Sending..."
+                  ) : (
+                    <>
+                      <Send className="mr-2 h-4 w-4" />
+                      Send Message
+                    </>
+                  )}
+                </Button>
+              </form>
+            </Form>
           </div>
         </div>
       </div>
