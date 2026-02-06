@@ -1,6 +1,7 @@
 import type { InsertMedia, UpdateMedia, Media } from "@shared/schema";
 import crypto from "crypto";
-import fs from "fs";
+import fs from "fs/promises";
+import { existsSync } from "fs";
 import path from "path";
 
 const DB_PATH = path.join(process.cwd(), "server", "media-db.json");
@@ -8,56 +9,66 @@ const DB_PATH = path.join(process.cwd(), "server", "media-db.json");
 // File-based storage for media items that persists across restarts
 export class MediaStorage {
   private mediaItems: Map<string, Media> = new Map();
+  private loaded = false;
+  private saving = false;
 
   constructor() {
-    this.loadFromFile();
+    // Load synchronously on startup only — after that, all ops are async
+    this.loadFromFileSync();
   }
 
-  private loadFromFile() {
+  private loadFromFileSync() {
     try {
-      if (fs.existsSync(DB_PATH)) {
-        const data = fs.readFileSync(DB_PATH, "utf-8");
-        const parsed = JSON.parse(data);
-        if (parsed.media && Array.isArray(parsed.media)) {
-          parsed.media.forEach((item: any) => {
-            // Convert date strings back to Date objects
-            item.createdAt = new Date(item.createdAt);
-            item.updatedAt = new Date(item.updatedAt);
-            this.mediaItems.set(item.id, item);
-          });
-        }
+      if (existsSync(DB_PATH)) {
+        const { readFileSync } = require("fs");
+        const data = readFileSync(DB_PATH, "utf-8");
+        this.parseAndLoad(data);
       }
     } catch (error) {
       console.error("Error loading media database:", error);
-      // Initialize with empty data if load fails
-      this.saveToFile();
+    }
+    this.loaded = true;
+  }
+
+  private parseAndLoad(raw: string) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed.media && Array.isArray(parsed.media)) {
+        for (const item of parsed.media) {
+          item.createdAt = new Date(item.createdAt);
+          item.updatedAt = new Date(item.updatedAt);
+          this.mediaItems.set(item.id, item);
+        }
+      }
+    } catch (error) {
+      console.error("Error parsing media database:", error);
     }
   }
 
-  private saveToFile() {
+  private async saveToFile(): Promise<void> {
+    if (this.saving) return; // Prevent concurrent writes
+    this.saving = true;
     try {
       const data = {
-        media: Array.from(this.mediaItems.values())
+        media: Array.from(this.mediaItems.values()),
       };
-      fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+      await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2));
     } catch (error) {
       console.error("Error saving media database:", error);
+    } finally {
+      this.saving = false;
     }
   }
 
-  // Get all media items
   async getAllMedia(): Promise<Media[]> {
     const items = Array.from(this.mediaItems.values());
-    // Sort by createdAt descending
     return items.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
 
-  // Get single media item
   async getMediaById(id: string): Promise<Media | undefined> {
     return this.mediaItems.get(id);
   }
 
-  // Create new media item
   async createMedia(data: InsertMedia): Promise<Media> {
     const id = crypto.randomUUID();
     const now = new Date();
@@ -68,11 +79,10 @@ export class MediaStorage {
       updatedAt: now,
     };
     this.mediaItems.set(id, newMedia);
-    this.saveToFile();
+    await this.saveToFile();
     return newMedia;
   }
 
-  // Update media item
   async updateMedia(id: string, data: UpdateMedia): Promise<Media | undefined> {
     const existing = this.mediaItems.get(id);
     if (!existing) return undefined;
@@ -83,29 +93,26 @@ export class MediaStorage {
       updatedAt: new Date(),
     };
     this.mediaItems.set(id, updated);
-    this.saveToFile();
+    await this.saveToFile();
     return updated;
   }
 
-  // Delete media item
   async deleteMedia(id: string): Promise<boolean> {
     const result = this.mediaItems.delete(id);
     if (result) {
-      this.saveToFile();
+      await this.saveToFile();
     }
     return result;
   }
 
-  // Delete all media items
   async deleteAllMedia(): Promise<void> {
     this.mediaItems.clear();
-    this.saveToFile();
+    await this.saveToFile();
   }
 
-  // Get media items by category
   async getMediaByCategory(category: string): Promise<Media[]> {
     const items = Array.from(this.mediaItems.values());
-    return items.filter(item => item.category === category);
+    return items.filter((item) => item.category === category);
   }
 }
 

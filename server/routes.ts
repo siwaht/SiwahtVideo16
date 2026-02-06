@@ -3,7 +3,8 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import {
   insertContactSubmissionSchema,
-  updateMediaSchema
+  updateMediaSchema,
+  type Media,
 } from "@shared/schema";
 import { z } from "zod";
 import { adminLogin, adminLogout, requireAuth, checkAuth } from "./middleware/auth";
@@ -13,171 +14,138 @@ import multer from "multer";
 import path from "path";
 import fs from "fs/promises";
 
+// Helper to transform media items for public sample endpoints
+function mapMediaToSample(
+  media: Media,
+  index: number,
+  transform: (m: Media, i: number) => Record<string, unknown>,
+) {
+  return {
+    id: media.id,
+    ...transform(media, index),
+    isPublished: true,
+    createdAt: media.createdAt,
+    updatedAt: media.updatedAt,
+  };
+}
+
+// Creates a public sample endpoint that fetches media by category and transforms it
+function registerSampleRoute(
+  app: Express,
+  path: string,
+  category: string,
+  fileType: "video" | "audio",
+  transform: (m: Media, i: number) => Record<string, unknown>,
+) {
+  app.get(path, async (_req, res) => {
+    try {
+      const items = await mediaStorage.getMediaByCategory(category);
+      const filtered = items
+        .filter((m) => m.fileType === fileType)
+        .map((m, i) => mapMediaToSample(m, i, transform));
+      res.json(filtered);
+    } catch (error) {
+      console.error(`Error fetching ${path}:`, error);
+      res.status(500).json({ error: `Failed to fetch data` });
+    }
+  });
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Public endpoints
+  // Public sample endpoints
+  registerSampleRoute(app, "/api/samples/demo-videos", "AI Video Studio", "video", (m, i) => ({
+    title: m.title,
+    description: m.description || "Professional AI-generated video content",
+    videoUrl: m.compressedFilePath,
+    thumbnailUrl: m.thumbnailPath || null,
+    category: "demo",
+    duration: m.duration || "30s",
+    orderIndex: i,
+  }));
 
-  // Public API endpoints for frontend samples/portfolio
-  app.get("/api/samples/demo-videos", async (req, res) => {
-    try {
-      const adminVideos = await mediaStorage.getMediaByCategory("AI Video Studio");
+  registerSampleRoute(app, "/api/samples/avatars", "Avatar Studio", "video", (m, i) => ({
+    name: m.title,
+    role: "Custom Avatar",
+    videoUrl: m.compressedFilePath,
+    thumbnailUrl: m.thumbnailPath || null,
+    description: m.description || "Professional AI-generated avatar",
+    orderIndex: i,
+  }));
 
-      const demoVideos = adminVideos
-        .filter(media => media.fileType === "video")
-        .map((media, index) => ({
-          id: media.id,
-          title: media.title,
-          description: media.description || "Professional AI-generated video content",
-          videoUrl: media.compressedFilePath,
-          thumbnailUrl: media.thumbnailPath || null,
-          category: "demo",
-          duration: media.duration || "30s",
-          orderIndex: index,
-          isPublished: true,
-          createdAt: media.createdAt,
-          updatedAt: media.updatedAt
-        }));
+  registerSampleRoute(app, "/api/samples/voice-samples", "Professional Multilingual Voice Ads", "audio", (m, i) => ({
+    name: m.title,
+    language: m.audioMetadata?.language || "English",
+    gender: m.audioMetadata?.gender || "Neutral",
+    accent: m.audioMetadata?.accent || undefined,
+    ageRange: m.audioMetadata?.ageRange || undefined,
+    audioUrl: m.compressedFilePath,
+    duration: m.duration || "30s",
+    description: m.description || "Custom voice ad",
+    orderIndex: i,
+  }));
 
-      res.json(demoVideos);
-    } catch (error) {
-      console.error("Error fetching demo videos:", error);
-      res.status(500).json({ error: "Failed to fetch demo videos" });
-    }
-  });
+  registerSampleRoute(app, "/api/samples/edited-videos", "AI Video Editing", "video", (m, i) => ({
+    title: m.title,
+    projectType: "Custom Edit",
+    duration: m.duration || "60s",
+    videoUrl: m.compressedFilePath,
+    thumbnailUrl: m.thumbnailPath || null,
+    description: m.description || "Professionally edited video content",
+    orderIndex: i,
+  }));
 
-  app.get("/api/samples/avatars", async (req, res) => {
-    try {
-      const adminAvatars = await mediaStorage.getMediaByCategory("Avatar Studio");
+  registerSampleRoute(app, "/api/samples/podcast-samples", "Interactive AI Avatars", "audio", (m, i) => ({
+    title: m.title,
+    category: m.audioMetadata?.tags?.[0] || "general",
+    episodeNumber: m.audioMetadata?.episodeType || "",
+    duration: m.duration || "15m",
+    audioUrl: m.compressedFilePath,
+    description: m.description || "Professional podcast episode",
+    hostName: m.audioMetadata?.hostName || undefined,
+    guestName: m.audioMetadata?.guestName || undefined,
+    orderIndex: i,
+  }));
 
-      const avatars = adminAvatars
-        .filter(media => media.fileType === "video")
-        .map((media, index) => ({
-          id: media.id,
-          name: media.title,
-          role: "Custom Avatar",
-          videoUrl: media.compressedFilePath,
-          thumbnailUrl: media.thumbnailPath || null,
-          description: media.description || "Professional AI-generated avatar",
-          orderIndex: index,
-          isPublished: true,
-          createdAt: media.createdAt,
-          updatedAt: media.updatedAt
-        }));
-
-      res.json(avatars);
-    } catch (error) {
-      console.error("Error fetching avatars:", error);
-      res.status(500).json({ error: "Failed to fetch avatars" });
-    }
-  });
-
-  app.get("/api/samples/voice-samples", async (req, res) => {
-    try {
-      const voiceMedia = await mediaStorage.getMediaByCategory("Professional Multilingual Voice Ads");
-
-      const voiceSamples = voiceMedia
-        .filter(media => media.fileType === "audio")
-        .map((media, index) => ({
-          id: media.id,
-          name: media.title,
-          language: media.audioMetadata?.language || "English",
-          gender: media.audioMetadata?.gender || "Neutral",
-          accent: media.audioMetadata?.accent || undefined,
-          ageRange: media.audioMetadata?.ageRange || undefined,
-          audioUrl: media.compressedFilePath,
-          duration: media.duration || "30s",
-          description: media.description || "Custom voice ad",
-          orderIndex: index,
-          isPublished: true,
-          createdAt: media.createdAt,
-          updatedAt: media.updatedAt
-        }));
-
-      res.json(voiceSamples);
-    } catch (error) {
-      console.error("Error fetching voice samples:", error);
-      res.status(500).json({ error: "Failed to fetch voice samples" });
-    }
-  });
-
-  app.get("/api/samples/edited-videos", async (req, res) => {
-    try {
-      const editedMedia = await mediaStorage.getMediaByCategory("AI Video Editing");
-
-      const editedVideos = editedMedia
-        .filter(media => media.fileType === "video")
-        .map((media, index) => ({
-          id: media.id,
-          title: media.title,
-          projectType: "Custom Edit",
-          duration: media.duration || "60s",
-          videoUrl: media.compressedFilePath,
-          thumbnailUrl: media.thumbnailPath || null,
-          description: media.description || "Professionally edited video content",
-          orderIndex: index,
-          isPublished: true,
-          createdAt: media.createdAt,
-          updatedAt: media.updatedAt
-        }));
-
-      res.json(editedVideos);
-    } catch (error) {
-      console.error("Error fetching edited videos:", error);
-      res.status(500).json({ error: "Failed to fetch edited videos" });
-    }
-  });
-
-  app.get("/api/samples/podcast-samples", async (req, res) => {
-    try {
-      const podcastMedia = await mediaStorage.getMediaByCategory("Interactive AI Avatars");
-
-      const podcastSamples = podcastMedia
-        .filter(media => media.fileType === "audio")
-        .map((media, index) => ({
-          id: media.id,
-          title: media.title,
-          category: media.audioMetadata?.tags?.[0] || "general",
-          episodeNumber: media.audioMetadata?.episodeType || "",
-          duration: media.duration || "15m",
-          audioUrl: media.compressedFilePath,
-          description: media.description || "Professional podcast episode",
-          hostName: media.audioMetadata?.hostName || undefined,
-          guestName: media.audioMetadata?.guestName || undefined,
-          orderIndex: index,
-          isPublished: true,
-          createdAt: media.createdAt,
-          updatedAt: media.updatedAt
-        }));
-
-      res.json(podcastSamples);
-    } catch (error) {
-      console.error("Error fetching podcast samples:", error);
-      res.status(500).json({ error: "Failed to fetch podcast samples" });
-    }
-  });
-
-  // Contact form submission
+  // Contact form submission — validates, stores, and forwards to webhook
   app.post("/api/contact", async (req, res) => {
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
       const submission = await storage.createContactSubmission(validatedData);
 
+      // Forward to webhook in the background (don't block the response)
+      const webhookUrl = process.env.CONTACT_WEBHOOK_URL;
+      if (webhookUrl) {
+        const webhookData = {
+          fullName: validatedData.fullName,
+          email: validatedData.email,
+          company: validatedData.company || "",
+          projectDetails: validatedData.projectDetails,
+          timestamp: new Date().toISOString(),
+        };
+        fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(webhookData),
+        }).catch((err) => console.error("Webhook delivery failed:", err));
+      }
+
       res.json({
         success: true,
         message: "Thank you for your message! We'll get back to you soon.",
-        id: submission.id
+        id: submission.id,
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
         res.status(400).json({
           success: false,
           message: "Invalid form data",
-          errors: error.errors
+          errors: error.errors,
         });
       } else {
         console.error("Contact form error:", error);
         res.status(500).json({
           success: false,
-          message: "Internal server error"
+          message: "Internal server error",
         });
       }
     }

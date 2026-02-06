@@ -42,7 +42,7 @@ export const queryClient = new QueryClient({
       queryFn: defaultQueryFn,
       refetchInterval: false,
       refetchOnWindowFocus: false,
-      staleTime: Infinity,
+      staleTime: 5 * 60 * 1000, // 5 minutes — data refreshes on next fetch after this
       retry: false,
     },
     mutations: {
