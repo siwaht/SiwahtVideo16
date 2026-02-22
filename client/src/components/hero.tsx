@@ -14,27 +14,24 @@ export default function Hero() {
       className="pt-32 md:pt-40 pb-20 md:pb-28 min-h-screen flex items-center relative overflow-hidden"
       aria-label="Hero section"
     >
-      {/* Dark elegant background gradients */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,_hsla(185,100%,50%,0.15),_transparent)]" />
-      <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-[hsla(260,60%,75%,0.08)] rounded-full blur-[100px] animate-float" />
-      <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-[hsla(185,100%,50%,0.08)] rounded-full blur-[100px] animate-float" style={{ animationDelay: '3s' }} />
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,_hsla(234,62%,56%,0.08),_transparent)]" />
+      <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-[hsla(234,62%,56%,0.04)] rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-[hsla(262,52%,58%,0.04)] rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
 
       <div className="container-custom relative z-10">
         <div className="text-center max-w-5xl mx-auto animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-white/80 text-sm font-medium mb-8 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
-            <div className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[hsl(185,100%,50%)] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[hsl(185,100%,50%)]"></span>
-            </div>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium mb-8 border border-slate-200/60">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             Professional AI Content Agency
           </div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold mb-8 leading-[1.05] tracking-tight text-white drop-shadow-2xl">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-slate-900 mb-8 leading-[1.05] tracking-tight">
             Your Vision, Our{" "}
             <span className="gradient-text">AI Expertise</span>
           </h1>
 
-          <p className="text-lg sm:text-xl lg:text-2xl text-white/70 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+          <p className="text-lg sm:text-xl lg:text-2xl text-slate-500 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
             We create custom video ads, realistic avatars, and premium audio content that brings your brand to life.
           </p>
 
@@ -50,7 +47,7 @@ export default function Hero() {
             </button>
             <button
               onClick={scrollToServices}
-              className="btn-secondary w-full sm:w-auto text-base sm:text-lg px-10 py-4"
+              className="w-full sm:w-auto bg-white text-slate-700 px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-slate-50 transition-all duration-300 border border-slate-200 hover:border-slate-300"
               data-testid="hero-watch-demo"
               aria-label="Explore our AI services"
             >
@@ -64,35 +61,36 @@ export default function Hero() {
           {[
             {
               icon: Video,
-              color: "text-[hsl(185,100%,50%)]",
-              bg: "bg-[hsl(185,100%,50%)]/10",
+              color: "text-indigo-600",
+              bg: "bg-indigo-50",
               title: "Cinematic AI Video",
               desc: "Broadcast-quality video production generated in minutes, not months.",
             },
             {
               icon: UserCircle,
-              color: "text-[hsl(260,60%,75%)]",
-              bg: "bg-[hsl(260,60%,75%)]/10",
+              color: "text-violet-600",
+              bg: "bg-violet-50",
               title: "Hyper-Real Avatars",
               desc: "Digital brand ambassadors that speak any language fluently.",
             },
             {
               icon: Mic,
-              color: "text-[hsl(280,60%,60%)]",
-              bg: "bg-[hsl(280,60%,60%)]/10",
+              color: "text-teal-600",
+              bg: "bg-teal-50",
               title: "AI Audio Editing",
               desc: "Dubbing, voice isolation, and generative SFX for cinematic soundscapes.",
             },
           ].map((item) => (
             <article
               key={item.title}
-              className="feature-card group"
+              className="group bg-white rounded-2xl p-8 border border-slate-100 hover:border-slate-200 transition-all duration-500"
+              style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}
             >
-              <div className={`w-14 h-14 ${item.bg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-white/5`}>
-                <item.icon className={`${item.color} h-7 w-7`} aria-hidden="true" />
+              <div className={`w-12 h-12 ${item.bg} rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500`}>
+                <item.icon className={`${item.color} h-6 w-6`} aria-hidden="true" />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
-              <p className="text-white/60 text-[15px] leading-relaxed">{item.desc}</p>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">{item.title}</h3>
+              <p className="text-slate-500 text-[15px] leading-relaxed">{item.desc}</p>
             </article>
           ))}
         </div>

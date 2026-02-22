@@ -31,10 +31,11 @@ export default function Navigation() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled
-          ? "bg-black/40 backdrop-blur-2xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/90 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
           : "bg-transparent"
-        }`}
+      }`}
       role="navigation"
       aria-label="Main navigation"
     >
@@ -56,7 +57,7 @@ export default function Navigation() {
               width="40"
               height="40"
             />
-            <span className="text-xl lg:text-2xl font-bold tracking-tight text-white drop-shadow-md">
+            <span className="text-xl lg:text-2xl font-bold text-slate-900">
               Siwaht
             </span>
           </div>
@@ -67,7 +68,7 @@ export default function Navigation() {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-white/70 hover:text-white transition-colors duration-200 font-medium text-[15px] py-2 px-4 rounded-lg hover:bg-white/10"
+                className="text-slate-500 hover:text-slate-900 transition-colors duration-200 font-medium text-[15px] py-2 px-4 rounded-lg hover:bg-slate-50"
                 data-testid={`nav-${item.id}`}
               >
                 {item.label}
@@ -75,7 +76,7 @@ export default function Navigation() {
             ))}
             <button
               onClick={() => scrollToSection("contact")}
-              className="ml-4 bg-white/10 text-white border border-white/20 px-6 py-2.5 rounded-full text-[15px] font-medium hover:bg-white/20 hover:border-white/40 transition-all duration-300"
+              className="ml-4 bg-slate-900 text-white px-6 py-2.5 rounded-xl text-[15px] font-medium hover:bg-slate-800 transition-colors duration-200"
               data-testid="nav-contact"
             >
               Get Quote
@@ -85,7 +86,7 @@ export default function Navigation() {
           {/* Mobile toggle */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 rounded-lg text-white/80 hover:bg-white/10 transition-colors"
+            className="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
             aria-expanded={isMenuOpen}
             aria-label="Toggle main menu"
             data-testid="mobile-menu-button"
@@ -98,14 +99,14 @@ export default function Navigation() {
       {/* Mobile menu */}
       {isMenuOpen && (
         <div className="lg:hidden">
-          <div className="fixed inset-0 z-40 bg-black/60 backdrop-blur-md" onClick={() => setIsMenuOpen(false)} />
-          <div className="fixed top-16 left-0 right-0 bg-[#0A0A0A] border-t border-white/10 z-50 shadow-2xl">
+          <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm" onClick={() => setIsMenuOpen(false)} />
+          <div className="fixed top-16 left-0 right-0 bg-white border-t border-slate-100 z-50 shadow-xl">
             <div className="px-5 py-4 space-y-1">
               {navigationItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="block w-full text-left px-4 py-3 text-[15px] font-medium text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                  className="block w-full text-left px-4 py-3 text-[15px] font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
                   data-testid={`mobile-nav-${item.id}`}
                 >
                   {item.label}
@@ -114,7 +115,7 @@ export default function Navigation() {
               <div className="pt-3">
                 <button
                   onClick={() => scrollToSection("contact")}
-                  className="block w-full bg-[hsl(185,100%,50%)] text-black px-4 py-3 rounded-full text-center font-semibold hover:bg-[hsl(185,100%,45%)] transition-colors shadow-[0_4px_20px_0_hsla(185,100%,50%,0.4)]"
+                  className="block w-full bg-slate-900 text-white px-4 py-3 rounded-xl text-center font-medium hover:bg-slate-800 transition-colors"
                   data-testid="mobile-nav-contact"
                 >
                   Get Quote
