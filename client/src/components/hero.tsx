@@ -14,16 +14,19 @@ export default function Hero() {
       className="pt-32 md:pt-40 pb-20 md:pb-28 min-h-screen flex items-center relative overflow-hidden"
       aria-label="Hero section"
     >
-      {/* Subtle background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,_hsla(234,62%,56%,0.08),_transparent)]" />
-      <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-[hsla(234,62%,56%,0.04)] rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-[hsla(262,52%,58%,0.04)] rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+      {/* Richer Light Theme Background */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,_hsla(234,70%,60%,0.12),_transparent)]" />
+      <div className="absolute top-1/4 -left-32 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] animate-float" />
+      <div className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[100px] animate-float" style={{ animationDelay: '3s' }} />
 
       <div className="container-custom relative z-10">
         <div className="text-center max-w-5xl mx-auto animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium mb-8 border border-slate-200/60">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            Professional AI Content Agency
+          <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/70 text-slate-700 text-sm font-semibold mb-8 border border-white/60 shadow-lg shadow-primary/5 backdrop-blur-xl hover:scale-105 transition-transform duration-300">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+            </span>
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Premium AI Content Agency</span>
           </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-slate-900 mb-8 leading-[1.05] tracking-tight">
@@ -47,7 +50,7 @@ export default function Hero() {
             </button>
             <button
               onClick={scrollToServices}
-              className="w-full sm:w-auto bg-white text-slate-700 px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-slate-50 transition-all duration-300 border border-slate-200 hover:border-slate-300"
+              className="btn-secondary w-full sm:w-auto text-base sm:text-lg px-10 py-4"
               data-testid="hero-watch-demo"
               aria-label="Explore our AI services"
             >
@@ -83,13 +86,12 @@ export default function Hero() {
           ].map((item) => (
             <article
               key={item.title}
-              className="group bg-white rounded-2xl p-8 border border-slate-100 hover:border-slate-200 transition-all duration-500"
-              style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}
+              className="feature-card group"
             >
-              <div className={`w-12 h-12 ${item.bg} rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500`}>
-                <item.icon className={`${item.color} h-6 w-6`} aria-hidden="true" />
+              <div className={`w-14 h-14 ${item.bg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
+                <item.icon className={`${item.color} h-7 w-7`} aria-hidden="true" />
               </div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">{item.title}</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-tight">{item.title}</h3>
               <p className="text-slate-500 text-[15px] leading-relaxed">{item.desc}</p>
             </article>
           ))}

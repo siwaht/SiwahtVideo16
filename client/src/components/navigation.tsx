@@ -31,11 +31,10 @@ export default function Navigation() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/90 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
-          : "bg-transparent"
-      }`}
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled
+        ? "bg-white/70 backdrop-blur-xl border-b border-white/50 shadow-sm py-0"
+        : "bg-transparent py-2"
+        }`}
       role="navigation"
       aria-label="Main navigation"
     >
@@ -63,23 +62,25 @@ export default function Navigation() {
           </div>
 
           {/* Desktop */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-2">
             {navigationItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-slate-500 hover:text-slate-900 transition-colors duration-200 font-medium text-[15px] py-2 px-4 rounded-lg hover:bg-slate-50"
+                className="relative text-slate-600 hover:text-primary transition-colors duration-300 font-medium text-[15px] py-2 px-4 group overflow-hidden"
                 data-testid={`nav-${item.id}`}
               >
-                {item.label}
+                <span className="relative z-10">{item.label}</span>
+                <span className="absolute bottom-1 left-4 right-4 h-0.5 bg-primary transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 rounded-full" />
               </button>
             ))}
             <button
               onClick={() => scrollToSection("contact")}
-              className="ml-4 bg-slate-900 text-white px-6 py-2.5 rounded-xl text-[15px] font-medium hover:bg-slate-800 transition-colors duration-200"
+              className="ml-4 bg-gradient-to-r from-primary to-secondary text-white px-7 py-2.5 rounded-full text-[15px] font-semibold hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 relative overflow-hidden group"
               data-testid="nav-contact"
             >
-              Get Quote
+              <span className="relative z-10">Get Quote</span>
+              <div className="absolute inset-0 h-full w-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
             </button>
           </div>
 
