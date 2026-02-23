@@ -1,4 +1,4 @@
-import { Video, UserCircle, Mic, ArrowRight } from "lucide-react";
+import { Video, UserCircle, Mic, Play } from "lucide-react";
 
 export default function Hero() {
   const scrollToContact = () => {
@@ -11,87 +11,75 @@ export default function Hero() {
 
   return (
     <section
-      className="pt-32 md:pt-40 pb-20 md:pb-28 min-h-screen flex items-center relative overflow-hidden"
+      className="pt-32 md:pt-44 pb-20 md:pb-28 min-h-screen flex items-center relative overflow-hidden bg-[#f8fafe]"
       aria-label="Hero section"
     >
-      {/* Richer Light Theme Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,_hsla(234,70%,60%,0.12),_transparent)]" />
-      <div className="absolute top-1/4 -left-32 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] animate-float" />
-      <div className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[100px] animate-float" style={{ animationDelay: '3s' }} />
+      {/* Soft Background Orbs as in the image */}
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-indigo-200/40 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-purple-200/30 rounded-full blur-[120px] translate-x-1/3" />
 
-      <div className="container-custom relative z-10">
-        <div className="text-center max-w-5xl mx-auto animate-fade-in">
-          <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/70 text-slate-700 text-sm font-semibold mb-8 border border-white/60 shadow-lg shadow-primary/5 backdrop-blur-xl hover:scale-105 transition-transform duration-300">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
-            </span>
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Premium AI Content Agency</span>
-          </div>
-
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-slate-900 mb-8 leading-[1.05] tracking-tight">
-            Your Vision, Our{" "}
-            <span className="gradient-text">AI Expertise</span>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full">
+        <div className="text-center max-w-4xl mx-auto">
+          <h1 className="text-5xl md:text-6xl lg:text-[72px] font-bold text-[#1e293b] mb-6 leading-[1.1] tracking-tight">
+            Your Vision, Our <span className="text-[#2ca5f5]">AI Expertise</span>
           </h1>
 
-          <p className="text-lg sm:text-xl lg:text-2xl text-slate-500 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-            We create custom video ads, realistic avatars, and premium audio content that brings your brand to life.
+          <p className="text-lg md:text-xl text-slate-500 mb-10 max-w-3xl mx-auto leading-relaxed">
+            Professional AI agency specializing in custom video ads, realistic avatars, and
+            premium audio content. We bring your brand to life with cutting-edge
+            technology.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <button
               onClick={scrollToContact}
-              className="btn-primary w-full sm:w-auto text-base sm:text-lg px-10 py-4 flex items-center justify-center gap-2 group"
-              data-testid="hero-start-creating"
-              aria-label="Start your project with Siwaht"
+              className="bg-[#2a68eb] hover:bg-blue-700 text-white text-[15px] font-semibold px-8 py-3.5 rounded-md transition-colors w-full sm:w-auto"
             >
               Start Project
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </button>
             <button
               onClick={scrollToServices}
-              className="btn-secondary w-full sm:w-auto text-base sm:text-lg px-10 py-4"
-              data-testid="hero-watch-demo"
-              aria-label="Explore our AI services"
+              className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-[15px] font-semibold px-8 py-3.5 rounded-md transition-colors flex items-center justify-center gap-2 w-full sm:w-auto shadow-sm"
             >
+              <Play className="w-4 h-4 text-slate-600" strokeWidth={2} />
               Explore Services
             </button>
           </div>
         </div>
 
         {/* Feature cards */}
-        <div className="mt-20 sm:mt-28 grid grid-cols-1 md:grid-cols-3 gap-6 animate-slide-up">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             {
               icon: Video,
-              color: "text-indigo-600",
-              bg: "bg-indigo-50",
+              color: "text-[#3b82f6]",
+              bg: "bg-[#e0f2fe]",
               title: "Cinematic AI Video",
-              desc: "Broadcast-quality video production generated in minutes, not months.",
+              desc: "Broadcast-quality video production generated in minutes, not months. Visual storytelling redefined.",
             },
             {
               icon: UserCircle,
-              color: "text-violet-600",
-              bg: "bg-violet-50",
+              color: "text-[#a855f7]",
+              bg: "bg-[#f3e8ff]",
               title: "Hyper-Real Avatars",
-              desc: "Digital brand ambassadors that speak any language fluently.",
+              desc: "Indistinguishable from reality. Create digital brand ambassadors that speak any language fluently.",
             },
             {
               icon: Mic,
-              color: "text-teal-600",
-              bg: "bg-teal-50",
+              color: "text-[#10b981]",
+              bg: "bg-[#dcfce7]",
               title: "AI Audio Editing",
-              desc: "Dubbing, voice isolation, and generative SFX for cinematic soundscapes.",
+              desc: "Complete audio post-production. Dubbing, voice isolation, and Generative SFX for cinematic soundscapes.",
             },
           ].map((item) => (
             <article
               key={item.title}
-              className="feature-card group"
+              className="bg-white rounded-[16px] p-8 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] border border-slate-100"
             >
-              <div className={`w-14 h-14 ${item.bg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
-                <item.icon className={`${item.color} h-7 w-7`} aria-hidden="true" />
+              <div className={`w-12 h-12 ${item.bg} rounded-xl flex items-center justify-center mb-5`}>
+                <item.icon className={`${item.color} h-6 w-6`} strokeWidth={2} aria-hidden="true" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-tight">{item.title}</h3>
+              <h3 className="text-xl font-bold text-slate-800 mb-3 tracking-snug">{item.title}</h3>
               <p className="text-slate-500 text-[15px] leading-relaxed">{item.desc}</p>
             </article>
           ))}
