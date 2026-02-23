@@ -20,8 +20,8 @@ export default function Hero() {
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full">
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl lg:text-[72px] font-bold text-[#1e293b] mb-6 leading-[1.1] tracking-tight">
-            Your Vision, Our <span className="bg-gradient-to-r from-[#217bfe] to-[#04befe] text-transparent bg-clip-text">AI Expertise</span>
+          <h1 className="text-5xl md:text-6xl lg:text-[72px] font-bold text-[#1e293b] mb-6 leading-[1.1] tracking-tight bg-gradient-to-r from-[#1e293b] via-[#334155] to-[#1e293b] text-transparent bg-clip-text animate-[gradientFlow_8s_ease-in-out_infinite] bg-[length:200%_200%]">
+            Your Vision, <span className="bg-gradient-to-r from-[#217bfe] via-[#04befe] to-[#9f1239] text-transparent bg-clip-text animate-[gradientFlow_6s_ease-in-out_infinite] bg-[length:200%_200%]">Our AI Expertise</span>
           </h1>
 
           <p className="text-lg md:text-xl text-slate-500 mb-10 max-w-3xl mx-auto leading-relaxed">
@@ -33,7 +33,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <button
               onClick={scrollToContact}
-              className="bg-gradient-to-r from-[#217bfe] to-[#04befe] hover:opacity-90 text-white text-[15px] font-semibold px-8 py-3.5 rounded-md transition-opacity w-full sm:w-auto shadow-[0_8px_20px_-6px_rgba(33,123,254,0.4)]"
+              className="bg-gradient-to-r from-[#217bfe] via-[#04befe] to-[#9f1239] hover:opacity-90 text-white text-[15px] font-semibold px-8 py-3.5 rounded-md transition-opacity w-full sm:w-auto shadow-[0_8px_20px_-6px_rgba(33,123,254,0.4)] animate-[gradientFlow_6s_ease-in-out_infinite] bg-[length:200%_200%]"
             >
               Start Project
             </button>

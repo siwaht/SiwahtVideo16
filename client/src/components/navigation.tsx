@@ -49,7 +49,7 @@ export default function Navigation() {
               className="w-9 h-9"
               loading="eager"
             />
-            <span className="text-[24px] font-[800] bg-gradient-to-r from-[#217bfe] to-[#04befe] text-transparent bg-clip-text tracking-tight">
+            <span className="text-[24px] font-[800] bg-gradient-to-r from-[#217bfe] via-[#04befe] to-[#9f1239] text-transparent bg-clip-text tracking-tight animate-[gradientFlow_6s_ease-in-out_infinite] bg-[length:200%_200%]">
               Siwaht
             </span>
           </div>
