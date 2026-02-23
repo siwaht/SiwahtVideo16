@@ -11,7 +11,7 @@ export default function Hero() {
 
   return (
     <section
-      className="pt-32 md:pt-44 pb-20 md:pb-28 min-h-screen flex items-center relative overflow-hidden bg-[#f8fafe]"
+      className="pt-32 md:pt-44 pb-20 md:pb-28 min-h-screen flex items-center relative overflow-hidden bg-gradient-to-b from-[#f4f7ff] via-[#f8fafe] to-white"
       aria-label="Hero section"
     >
       {/* Soft Background Orbs as in the image */}
@@ -21,7 +21,7 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl lg:text-[72px] font-bold text-[#1e293b] mb-6 leading-[1.1] tracking-tight">
-            Your Vision, Our <span className="text-[#2ca5f5]">AI Expertise</span>
+            Your Vision, Our <span className="bg-gradient-to-r from-[#217bfe] to-[#04befe] text-transparent bg-clip-text">AI Expertise</span>
           </h1>
 
           <p className="text-lg md:text-xl text-slate-500 mb-10 max-w-3xl mx-auto leading-relaxed">
@@ -33,7 +33,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <button
               onClick={scrollToContact}
-              className="bg-[#2a68eb] hover:bg-blue-700 text-white text-[15px] font-semibold px-8 py-3.5 rounded-md transition-colors w-full sm:w-auto"
+              className="bg-gradient-to-r from-[#217bfe] to-[#04befe] hover:opacity-90 text-white text-[15px] font-semibold px-8 py-3.5 rounded-md transition-opacity w-full sm:w-auto shadow-[0_8px_20px_-6px_rgba(33,123,254,0.4)]"
             >
               Start Project
             </button>

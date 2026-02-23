@@ -49,7 +49,7 @@ export default function Navigation() {
               className="w-9 h-9"
               loading="eager"
             />
-            <span className="text-[24px] font-[800] text-[#34a4f8] tracking-tight">
+            <span className="text-[24px] font-[800] bg-gradient-to-r from-[#217bfe] to-[#04befe] text-transparent bg-clip-text tracking-tight">
               Siwaht
             </span>
           </div>
@@ -69,7 +69,7 @@ export default function Navigation() {
             </div>
             <button
               onClick={() => scrollToSection("contact")}
-              className="ml-4 bg-[#8b5cf6] hover:bg-[#7e53de] text-white px-6 py-2.5 rounded-md text-[14px] font-semibold transition-colors shadow-sm"
+              className="ml-4 bg-gradient-to-r from-[#8b5cf6] to-[#a855f7] hover:opacity-90 text-white px-6 py-2.5 rounded-md text-[14px] font-semibold transition-opacity shadow-[0_4px_14px_-4px_rgba(139,92,246,0.5)]"
             >
               Get Quote
             </button>
@@ -101,7 +101,7 @@ export default function Navigation() {
             <div className="pt-2 pb-2">
               <button
                 onClick={() => scrollToSection("contact")}
-                className="block w-full bg-[#8b5cf6] hover:bg-[#7e53de] text-white py-3 rounded-md text-center font-semibold transition-colors"
+                className="block w-full bg-gradient-to-r from-[#8b5cf6] to-[#a855f7] hover:opacity-90 text-white py-3 rounded-md text-center font-semibold transition-opacity shadow-[0_4px_14px_-4px_rgba(139,92,246,0.5)]"
               >
                 Get Quote
               </button>
