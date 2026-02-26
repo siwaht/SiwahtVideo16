@@ -19,7 +19,7 @@ const stats = [
 
 export default function VideoEditing() {
   return (
-    <section id="editing" className="section-padding bg-slate-50/50">
+    <section id="editing" className="section-padding bg-gradient-to-b from-slate-50/40 to-slate-50/20">
       <div className="container-custom">
         <header className="text-center mb-12 lg:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 tracking-tight">

@@ -11,12 +11,13 @@ export default function Hero() {
 
   return (
     <section
-      className="pt-32 md:pt-44 pb-20 md:pb-28 min-h-screen flex items-center relative overflow-hidden bg-gradient-to-b from-[#f4f7ff] via-[#f8fafe] to-white"
+      className="pt-32 md:pt-44 pb-20 md:pb-28 min-h-screen flex items-center relative overflow-hidden bg-gradient-to-b from-[#f0f3ff] via-[#f6f8fe] to-[#fafbff]"
       aria-label="Hero section"
     >
-      {/* Soft Background Orbs as in the image */}
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-indigo-200/40 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-purple-200/30 rounded-full blur-[120px] translate-x-1/3" />
+      {/* Soft Background Orbs */}
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-indigo-200/35 rounded-full blur-[140px] -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-purple-200/25 rounded-full blur-[140px] translate-x-1/3" />
+      <div className="absolute bottom-0 left-1/3 w-[400px] h-[400px] bg-sky-100/20 rounded-full blur-[120px]" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full">
         <div className="text-center max-w-4xl mx-auto">
@@ -74,7 +75,7 @@ export default function Hero() {
           ].map((item) => (
             <article
               key={item.title}
-              className="bg-white rounded-[16px] p-8 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] border border-slate-100"
+              className="bg-white/90 backdrop-blur-sm rounded-[16px] p-8 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.06),_0_1px_3px_rgba(0,0,0,0.03)] border border-slate-100/80 hover:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-500"
             >
               <div className={`w-12 h-12 ${item.bg} rounded-xl flex items-center justify-center mb-5`}>
                 <item.icon className={`${item.color} h-6 w-6`} strokeWidth={2} aria-hidden="true" />

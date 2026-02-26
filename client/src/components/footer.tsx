@@ -13,7 +13,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-50/50 backdrop-blur-xl border-t border-slate-200/50 text-slate-600 relative overflow-hidden mt-20" role="contentinfo">
+    <footer className="bg-gradient-to-b from-slate-50/60 to-slate-50/30 backdrop-blur-xl border-t border-slate-200/40 text-slate-600 relative overflow-hidden mt-20" role="contentinfo">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-20">

@@ -84,7 +84,8 @@ export default function Contact() {
       aria-labelledby="contact-heading"
     >
       {/* Subtle background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,_hsla(234,62%,56%,0.05),_transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,_hsla(237,65%,55%,0.04),_transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_20%_30%,_hsla(265,55%,56%,0.03),_transparent)]" />
 
       <div className="container-custom relative z-10">
         <header className="text-center mb-16">
@@ -100,7 +101,7 @@ export default function Contact() {
         </header>
 
         <div className="max-w-xl mx-auto">
-          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-100" style={{ boxShadow: '0 4px 24px -4px rgba(0,0,0,0.06)' }}>
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 sm:p-10 border border-slate-100/80" style={{ boxShadow: '0 4px 32px -6px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.03)' }}>
             <h3 className="text-xl font-semibold text-slate-900 mb-8">Start Your Project</h3>
 
             <Form {...form}>

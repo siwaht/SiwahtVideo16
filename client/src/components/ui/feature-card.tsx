@@ -11,7 +11,7 @@ interface Feature {
 export function FeatureCard({ feature }: { feature: Feature }) {
   const Icon = feature.icon;
   return (
-    <article className="group flex items-start gap-4 p-5 rounded-2xl transition-all duration-300 hover:bg-slate-50/80">
+    <article className="group flex items-start gap-4 p-5 rounded-2xl transition-all duration-300 hover:bg-slate-50/60 hover:shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)]">
       <div className={`w-11 h-11 ${feature.bgColor} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300`}>
         <Icon className={`${feature.iconColor} h-5 w-5`} aria-hidden="true" />
       </div>

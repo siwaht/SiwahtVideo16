@@ -32,7 +32,7 @@ export default function Navigation() {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled
-        ? "bg-white/90 backdrop-blur-md shadow-[0_2px_15px_-3px_rgba(0,0,0,0.05)] py-2"
+        ? "bg-white/85 backdrop-blur-xl shadow-[0_2px_20px_-4px_rgba(0,0,0,0.06)] py-2 border-b border-slate-100/50"
         : "bg-transparent py-5"
         }`}
       role="navigation"
