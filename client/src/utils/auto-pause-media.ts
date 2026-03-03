@@ -42,7 +42,6 @@ export function initializeAutoPauseMedia() {
             state.wasPlaying = true;
             state.shouldAutoResume = true;
             media.pause();
-            console.log('Auto-paused media:', media.src || media.currentSrc);
           }
         }
 

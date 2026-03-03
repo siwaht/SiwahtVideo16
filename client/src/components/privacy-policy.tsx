@@ -290,16 +290,16 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
         aria-label="Close privacy policy"
       />
       {/* Modal */}
-      <div className="absolute inset-4 md:inset-8 lg:inset-16 bg-white rounded-2xl shadow-2xl flex flex-col max-h-full">
+      <div className="absolute inset-2 sm:inset-4 md:inset-8 lg:inset-16 bg-white rounded-2xl shadow-2xl flex flex-col max-h-full">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-slate-200">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-slate-200">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
               <Shield className="h-5 w-5 text-blue-600" />
             </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">Privacy Policy</h2>
-              <p className="text-slate-600 text-sm">Siwaht AI Content Creation Services</p>
+            <div className="min-w-0">
+              <h2 className="text-lg sm:text-2xl font-bold text-slate-900 truncate">Privacy Policy</h2>
+              <p className="text-slate-600 text-xs sm:text-sm hidden xs:block">Siwaht AI Content Creation Services</p>
             </div>
           </div>
           <button
@@ -307,7 +307,7 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
               e.preventDefault();
               onClose();
             }}
-            className="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center transition-colors duration-200"
+            className="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center transition-colors duration-200 flex-shrink-0"
             aria-label="Close privacy policy"
             data-testid="privacy-close"
             type="button"
@@ -316,10 +316,10 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
           </button>
         </div>
 
-        <div className="flex flex-1 overflow-hidden">
-          {/* Sidebar Navigation */}
-          <div className="w-64 border-r border-slate-200 p-4 overflow-y-auto">
-            <nav className="space-y-2">
+        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
+          {/* Sidebar Navigation - horizontal scroll on mobile, vertical on desktop */}
+          <div className="md:w-64 border-b md:border-b-0 md:border-r border-slate-200 p-2 sm:p-4 overflow-x-auto md:overflow-x-visible md:overflow-y-auto flex-shrink-0">
+            <nav className="flex md:flex-col gap-1 sm:gap-2 min-w-max md:min-w-0">
               {sections.map((section) => {
                 const Icon = section.icon;
                 return (
@@ -329,7 +329,7 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
                       e.preventDefault();
                       setActiveSection(section.id);
                     }}
-                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors duration-200 ${
+                    className={`flex items-center gap-2 sm:gap-3 px-3 py-2 rounded-lg text-left transition-colors duration-200 whitespace-nowrap md:whitespace-normal ${
                       activeSection === section.id
                         ? "bg-blue-50 text-blue-700 border border-blue-200"
                         : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
@@ -338,7 +338,7 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
                     type="button"
                   >
                     <Icon className="h-4 w-4 flex-shrink-0" />
-                    <span className="text-sm font-medium">{section.title}</span>
+                    <span className="text-xs sm:text-sm font-medium">{section.title}</span>
                   </button>
                 );
               })}
@@ -347,12 +347,12 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
 
           {/* Content */}
           <div className="flex-1 overflow-y-auto">
-            <div className="p-6 lg:p-8">
+            <div className="p-4 sm:p-6 lg:p-8">
               <div className="max-w-4xl">
-                <h3 className="text-xl font-bold text-slate-900 mb-6">
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-4 sm:mb-6">
                   {sectionContent[activeSection as keyof typeof sectionContent]?.title}
                 </h3>
-                <div className="prose prose-slate max-w-none">
+                <div className="prose prose-slate prose-sm sm:prose-base max-w-none">
                   {sectionContent[activeSection as keyof typeof sectionContent]?.content}
                 </div>
               </div>
@@ -361,11 +361,11 @@ export default function PrivacyPolicy({ isOpen, onClose }: PrivacyPolicyProps) {
         </div>
 
         {/* Footer */}
-        <div className="border-t border-slate-200 p-6">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-slate-600 text-sm">
-              Questions about our privacy practices? Contact us at{" "}
-              <a href="mailto:privacy@siwahtai.com" className="text-blue-600 hover:text-blue-700 font-medium">cc@siwaht.com</a>
+        <div className="border-t border-slate-200 p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
+            <p className="text-slate-600 text-xs sm:text-sm text-center sm:text-left">
+              Questions? Contact us at{" "}
+              <a href="mailto:cc@siwaht.com" className="text-blue-600 hover:text-blue-700 font-medium">cc@siwaht.com</a>
             </p>
             <button
               onClick={(e) => {

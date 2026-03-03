@@ -45,7 +45,7 @@ export default function VideoEditing() {
           <div className="order-2">
             <FeatureList features={features} />
             <div className="pt-4 sm:pt-6">
-              <button onClick={scrollToContact} className="w-full sm:w-auto bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+              <button onClick={scrollToContact} className="w-full sm:w-auto bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
                 Request Our Services
               </button>
             </div>

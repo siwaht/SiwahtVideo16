@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Linkedin, Github, Mail, Phone, MapPin } from "lucide-react";
+import { Linkedin } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
 
 import PrivacyPolicy from "./privacy-policy";
@@ -13,34 +13,6 @@ export default function Footer() {
     }
   };
 
-  const services = [
-    { name: "AI Video Ads", id: "video-ads" },
-    { name: "AI Avatars", id: "avatars" },
-    { name: "Voice Ads", id: "voice" },
-    { name: "Video Editing", id: "editing" },
-    { name: "Podcast Production", id: "podcast" },
-  ];
-
-  const companyLinks = [
-    { name: "About Us", href: "#about" },
-    { name: "Careers", href: "#careers" },
-    { name: "Privacy Policy", href: "#privacy" },
-    { name: "Terms of Service", href: "#terms" },
-    { name: "Contact", id: "contact" },
-  ];
-
-  const socialLinks = [
-    { icon: FaInstagram, href: "https://www.instagram.com/siwahtofficial/", label: "Follow us on Instagram" },
-    { icon: Linkedin, href: "https://www.linkedin.com/company/13273833", label: "Connect on LinkedIn" },
-    { icon: Github, href: "https://github.com/siwahtai", label: "Check our GitHub" },
-  ];
-
-  const contactInfo = [
-    { icon: Mail, text: "hello@siwahtai.com", href: "mailto:hello@siwahtai.com" },
-    { icon: Phone, text: "+1 (555) 123-4567", href: "tel:+15551234567" },
-    { icon: MapPin, text: "San Francisco, CA", href: "#" },
-  ];
-
   const currentYear = new Date().getFullYear();
 
   return (
@@ -50,10 +22,10 @@ export default function Footer() {
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500" />
       <div className="max-w-7xl mx-auto px-4 xs:px-6 lg:px-8 py-12 xs:py-16 relative z-10">
         {/* Main Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 items-start">
 
           {/* Brand Section */}
-          <div className="lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <img
                 src="/logo.png"

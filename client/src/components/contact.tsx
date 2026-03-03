@@ -1,8 +1,8 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,11 +17,9 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { useToast } from "@/hooks/use-toast";
 import { insertContactSubmissionSchema, type InsertContactSubmission } from "@shared/schema";
-import { apiRequest } from "@/lib/queryClient";
 
 export default function Contact() {
   const { toast } = useToast();
-  const queryClient = useQueryClient();
 
   const form = useForm<InsertContactSubmission>({
     resolver: zodResolver(insertContactSubmissionSchema),
@@ -84,33 +82,6 @@ export default function Contact() {
     submitMutation.mutate(data);
   };
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: "Email Us",
-      value: "hello@siwahtai.com",
-      description: "Send us an email anytime",
-    },
-    {
-      icon: Phone,
-      title: "Call Us",
-      value: "+1 (555) 123-4567",
-      description: "Mon-Fri from 8am to 6pm",
-    },
-    {
-      icon: MapPin,
-      title: "Visit Us",
-      value: "San Francisco, CA",
-      description: "Remote-first with SF hub",
-    },
-    {
-      icon: Clock,
-      title: "Response Time",
-      value: "< 24 hours",
-      description: "We respond quickly",
-    },
-  ];
-
 
 
   return (
@@ -132,7 +103,7 @@ export default function Contact() {
             <span className="gradient-text">Start Your Transformation</span>
           </h2>
           <p className="text-xl xs:text-2xl lg:text-3xl text-slate-600 max-w-5xl mx-auto leading-relaxed px-2 font-light">
-            Ready to deploy the next generation of AI content? Discussion your vision with our solution architects today.
+            Ready to deploy the next generation of AI content? Discuss your vision with our solution architects today.
           </p>
         </header>
 

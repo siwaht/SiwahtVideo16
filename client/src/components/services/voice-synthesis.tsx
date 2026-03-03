@@ -100,13 +100,14 @@ export default function VoiceSynthesis() {
                         </div>
                         <p className="text-slate-600 text-sm mb-3">{sample.description}</p>
                         {/* Gumlet Audio Embed */}
-                        <div className="rounded-lg overflow-hidden bg-slate-900 aspect-video">
+                        <div className="rounded-lg overflow-hidden bg-slate-900" style={{ aspectRatio: '16/7' }}>
                           <iframe
                             src={sample.embedUrl}
                             className="w-full h-full border-0"
                             allow="autoplay; fullscreen"
                             allowFullScreen
                             title={sample.name}
+                            loading="lazy"
                           />
                         </div>
                       </div>

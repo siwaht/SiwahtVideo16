@@ -119,8 +119,8 @@ export default function Navigation() {
       {/* Mobile Navigation Menu */}
       {isMenuOpen && (
         <div className="lg:hidden">
-          <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setIsMenuOpen(false)} />
-          <div className="fixed top-16 lg:top-20 left-0 right-0 bg-white shadow-xl border-t border-slate-200 z-50 max-h-screen overflow-y-auto">
+          <div className="fixed inset-0 z-40 bg-black/50" onClick={() => setIsMenuOpen(false)} aria-hidden="true" />
+          <div className="fixed top-16 left-0 right-0 bg-white shadow-xl border-t border-slate-200 z-50 max-h-[calc(100vh-4rem)] overflow-y-auto">
             <div className="px-4 pt-4 pb-6 space-y-2">
               {navigationItems.map((item) => (
                 <button

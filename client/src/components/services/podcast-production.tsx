@@ -48,7 +48,7 @@ export default function InteractiveAIAvatars() {
 
   return (
     <section
-      id="interactive-avatars"
+      id="podcast"
       className="section-padding bg-gradient-to-br from-purple-50 to-indigo-50"
       aria-labelledby="interactive-avatars-heading"
     >
@@ -65,7 +65,7 @@ export default function InteractiveAIAvatars() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 xl:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 xl:gap-16 items-start">
           <aside className="relative order-1 lg:order-2 w-full">
             <div className="bg-gradient-to-br from-purple-100 to-indigo-200 rounded-2xl p-3 xs:p-4 sm:p-6 md:p-8 shadow-2xl">
               <div className="bg-white rounded-xl p-3 xs:p-4 sm:p-6 mb-3 xs:mb-4 sm:mb-6 shadow-lg">

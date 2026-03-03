@@ -17,7 +17,7 @@ export default function Hero() {
 
   return (
     <section
-      className="pt-28 md:pt-36 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen flex items-center relative overflow-hidden hero-section"
+      className="pt-24 sm:pt-28 md:pt-36 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-[100dvh] flex items-center relative overflow-hidden hero-section"
       aria-label="Hero section"
     >
       {/* Enhanced Background decoration */}
@@ -62,7 +62,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="mt-16 sm:mt-20 lg:mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 animate-slide-up">
+        <div className="mt-12 sm:mt-20 lg:mt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-12 animate-slide-up">
           <article className="feature-card hover-lift group relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
             <div className="relative z-10">
@@ -87,7 +87,7 @@ export default function Hero() {
             </div>
           </article>
 
-          <article className="feature-card hover-lift group relative overflow-hidden">
+          <article className="feature-card hover-lift group relative overflow-hidden sm:col-span-2 md:col-span-1">
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-teal-500/5 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
             <div className="relative z-10">
               <div className="feature-icon bg-gradient-to-br from-emerald-100 to-emerald-200 icon-gradient mb-6 rounded-2xl flex items-center justify-center group-hover:rotate-6 group-hover:scale-110 transition-all duration-500 shadow-lg group-hover:shadow-xl">

@@ -37,10 +37,10 @@ export function MediaPlayer({
             width="100%"
             height="166"
             scrolling="no"
-            frameBorder="no"
             allow="autoplay"
             src={processedAudio.embedUrl}
-            className="rounded-lg"
+            className="rounded-lg border-0"
+            title={title || 'SoundCloud audio'}
           />
           {title && <p className="text-xs text-slate-600 mt-2 truncate">{title}</p>}
         </div>
@@ -55,10 +55,10 @@ export function MediaPlayer({
             src={processedAudio.embedUrl}
             width="100%"
             height="152"
-            frameBorder="0"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
-            className="rounded-lg"
+            className="rounded-lg border-0"
+            title={title || 'Spotify audio'}
           />
           {title && <p className="text-xs text-slate-600 mt-2 truncate">{title}</p>}
         </div>
@@ -73,11 +73,11 @@ export function MediaPlayer({
             src={processedAudio.embedUrl}
             width="100%"
             height="175"
-            frameBorder="0"
             allow="autoplay *; encrypted-media *; fullscreen *"
             sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
             loading="lazy"
-            className="rounded-lg"
+            className="rounded-lg border-0"
+            title={title || 'Apple audio'}
           />
           {title && <p className="text-xs text-slate-600 mt-2 truncate">{title}</p>}
         </div>

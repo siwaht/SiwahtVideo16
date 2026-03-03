@@ -326,15 +326,16 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
       <header className="bg-white border-b border-slate-200">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-slate-900">
+        <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900">
             Siwaht Media Command
           </h1>
-          <div className="flex gap-2">
+          <div className="flex gap-2 w-full sm:w-auto">
             <Button
               variant="outline"
               onClick={() => window.location.href = '/'}
               data-testid="button-view-site"
+              className="flex-1 sm:flex-initial"
             >
               <Home className="h-4 w-4 mr-2" />
               View Site
@@ -343,6 +344,7 @@ export default function AdminDashboard() {
               variant="outline"
               onClick={() => logoutMutation.mutate()}
               data-testid="button-logout"
+              className="flex-1 sm:flex-initial"
             >
               <LogOut className="h-4 w-4 mr-2" />
               Logout
@@ -354,12 +356,12 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         {/* Actions Bar */}
-        <div className="mb-6 flex justify-between items-center">
+        <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
           <h2 className="text-lg font-semibold text-slate-900">
             Media Library ({mediaList?.length || 0} items)
           </h2>
           <Button
-            className="bg-purple-600 hover:bg-purple-700"
+            className="bg-purple-600 hover:bg-purple-700 w-full sm:w-auto"
             onClick={() => setShowUploadDialog(true)}
             data-testid="button-upload"
           >
@@ -369,16 +371,16 @@ export default function AdminDashboard() {
         </div>
 
         {/* Media Table */}
-        <Card>
+        <Card className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Title</TableHead>
-                <TableHead>Category</TableHead>
+                <TableHead className="hidden sm:table-cell">Category</TableHead>
                 <TableHead>Type</TableHead>
-                <TableHead>Size</TableHead>
-                <TableHead>Duration</TableHead>
-                <TableHead>Upload Date</TableHead>
+                <TableHead className="hidden md:table-cell">Size</TableHead>
+                <TableHead className="hidden md:table-cell">Duration</TableHead>
+                <TableHead className="hidden lg:table-cell">Upload Date</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -398,8 +400,8 @@ export default function AdminDashboard() {
               ) : (
                 mediaList?.map((media) => (
                   <TableRow key={media.id}>
-                    <TableCell className="font-medium">{media.title}</TableCell>
-                    <TableCell>{media.category}</TableCell>
+                    <TableCell className="font-medium max-w-[150px] truncate">{media.title}</TableCell>
+                    <TableCell className="hidden sm:table-cell">{media.category}</TableCell>
                     <TableCell>
                       <div className="flex items-center">
                         {media.fileType === "video" ? (
@@ -407,12 +409,12 @@ export default function AdminDashboard() {
                         ) : (
                           <Music className="h-4 w-4 mr-2 text-green-600" />
                         )}
-                        {media.fileType}
+                        <span className="hidden xs:inline">{media.fileType}</span>
                       </div>
                     </TableCell>
-                    <TableCell>{formatFileSize(media.fileSize)}</TableCell>
-                    <TableCell>{formatDuration(media.duration)}</TableCell>
-                    <TableCell>
+                    <TableCell className="hidden md:table-cell">{formatFileSize(media.fileSize)}</TableCell>
+                    <TableCell className="hidden md:table-cell">{formatDuration(media.duration)}</TableCell>
+                    <TableCell className="hidden lg:table-cell">
                       {format(new Date(media.createdAt), "MMM d, yyyy")}
                     </TableCell>
                     <TableCell className="text-right">
