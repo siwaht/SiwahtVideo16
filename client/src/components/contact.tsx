@@ -1,8 +1,9 @@
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { Send } from "lucide-react";
+import { Send, CheckCircle2, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,11 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-import { useToast } from "@/hooks/use-toast";
 import { insertContactSubmissionSchema, type InsertContactSubmission } from "@shared/schema";
 
 export default function Contact() {
-  const { toast } = useToast();
+  const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle");
 
   const form = useForm<InsertContactSubmission>({
     resolver: zodResolver(insertContactSubmissionSchema),
@@ -35,7 +35,6 @@ export default function Contact() {
     mutationFn: async (data: InsertContactSubmission) => {
       const webhookUrl = "https://hook.eu2.make.com/qqepxkbio61x8m3aw9pni6rlfj904itq";
 
-      // Prepare clean data for webhook
       const webhookData = {
         fullName: data.fullName,
         email: data.email,
@@ -57,28 +56,20 @@ export default function Contact() {
         throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
       }
 
-      // Handle response as text since webhook returns "Accepted"
       const responseText = await response.text();
-
       return { status: responseText };
     },
     onSuccess: () => {
-      toast({
-        title: "Message sent successfully!",
-        description: "We'll get back to you within 24 hours.",
-      });
+      setFormStatus("success");
       form.reset();
     },
-    onError: (error) => {
-      toast({
-        title: "Error sending message",
-        description: "Please try again later or contact us directly.",
-        variant: "destructive",
-      });
+    onError: () => {
+      setFormStatus("error");
     },
   });
 
   const onSubmit = (data: InsertContactSubmission) => {
+    setFormStatus("idle");
     submitMutation.mutate(data);
   };
 
@@ -113,6 +104,43 @@ export default function Contact() {
             <div className="bg-white rounded-2xl shadow-xl p-6 xs:p-8">
               <h3 className="text-xl xs:text-2xl font-semibold text-slate-900 mb-6">Start Your Project</h3>
 
+              {/* Inline success banner */}
+              {formStatus === "success" && (
+                <div className="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 p-5 flex items-start gap-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <CheckCircle2 className="h-6 w-6 text-emerald-600 mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-semibold text-emerald-900 text-lg">Message sent successfully!</p>
+                    <p className="text-emerald-700 mt-1">We'll get back to you within 24 hours. Thank you for reaching out.</p>
+                    <button
+                      type="button"
+                      onClick={() => setFormStatus("idle")}
+                      className="mt-3 text-sm font-medium text-emerald-700 underline underline-offset-2 hover:text-emerald-900 transition-colors"
+                    >
+                      Send another message
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Inline error banner */}
+              {formStatus === "error" && (
+                <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-5 flex items-start gap-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <XCircle className="h-6 w-6 text-red-600 mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-semibold text-red-900 text-lg">Something went wrong</p>
+                    <p className="text-red-700 mt-1">We couldn't send your message. Please try again or contact us directly.</p>
+                    <button
+                      type="button"
+                      onClick={() => setFormStatus("idle")}
+                      className="mt-3 text-sm font-medium text-red-700 underline underline-offset-2 hover:text-red-900 transition-colors"
+                    >
+                      Dismiss
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {formStatus !== "success" && (
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 xs:space-y-6 contact-form">
                   <FormField
@@ -218,6 +246,7 @@ export default function Contact() {
                   </Button>
                 </form>
               </Form>
+              )}
             </div>
           </div>
         </div>
