@@ -112,6 +112,12 @@ export class MediaProcessor {
                       bitrate: metadata?.format?.bit_rate?.toString()
                     }
                   });
+                }).catch((statErr) => {
+                  // If we can't even stat the compressed output, fail the
+                  // promise instead of leaving it unsettled (which would hang
+                  // the upload request indefinitely).
+                  console.error("Error reading compressed video after thumbnail failure:", statErr);
+                  reject(statErr);
                 });
               });
           })

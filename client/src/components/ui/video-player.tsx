@@ -133,6 +133,23 @@ export function VideoPlayer({
     };
   }, [isGifLike, src]);
 
+  // Keep fullscreen state in sync with the actual fullscreen status
+  // and clean up the controls auto-hide timeout on unmount.
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const togglePlay = () => {
     const video = videoRef.current;
     if (!video) return;
@@ -171,10 +188,8 @@ export function VideoPlayer({
 
     if (!document.fullscreenElement) {
       video.requestFullscreen();
-      setIsFullscreen(true);
     } else {
       document.exitFullscreen();
-      setIsFullscreen(false);
     }
   };
 

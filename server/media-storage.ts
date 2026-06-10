@@ -29,8 +29,10 @@ export class MediaStorage {
       }
     } catch (error) {
       console.error("Error loading media database:", error);
-      // Initialize with empty data if load fails
-      this.saveToFile();
+      // Do NOT overwrite the existing file here. A transient read error or a
+      // momentarily malformed file would otherwise be persisted as empty data,
+      // causing permanent data loss. Start with an empty in-memory map and
+      // leave the file on disk untouched so it can be inspected/recovered.
     }
   }
 

@@ -344,6 +344,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Delete all media
+  // NOTE: This must be registered BEFORE the "/:id" route, otherwise Express
+  // matches "/all" against the ":id" param and this handler becomes unreachable.
+  app.delete("/api/admin/media/all", requireAuth, async (req, res) => {
+    try {
+      console.log("Attempting to delete all media");
+      const allMedia = await mediaStorage.getAllMedia();
+
+      console.log(`Found ${allMedia.length} media items to delete`);
+
+      // Delete files for all non-external media
+      for (const media of allMedia) {
+        if (!media.isExternalLink) {
+          await mediaProcessor.deleteMediaFiles(media.compressedFilePath, media.thumbnailPath || undefined);
+        }
+      }
+
+      // Clear the database
+      await mediaStorage.deleteAllMedia();
+      console.log("All media deleted successfully");
+
+      res.json({ success: true, message: "All media deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting all media:", error);
+      res.status(500).json({ error: "Failed to delete all media", details: error instanceof Error ? error.message : String(error) });
+    }
+  });
+
   // Delete media
   app.delete("/api/admin/media/:id", requireAuth, async (req, res) => {
     try {
@@ -371,32 +399,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error deleting media:", error);
       res.status(500).json({ error: "Failed to delete media", details: error instanceof Error ? error.message : String(error) });
-    }
-  });
-
-  // Delete all media
-  app.delete("/api/admin/media/all", requireAuth, async (req, res) => {
-    try {
-      console.log("Attempting to delete all media");
-      const allMedia = await mediaStorage.getAllMedia();
-
-      console.log(`Found ${allMedia.length} media items to delete`);
-
-      // Delete files for all non-external media
-      for (const media of allMedia) {
-        if (!media.isExternalLink) {
-          await mediaProcessor.deleteMediaFiles(media.compressedFilePath, media.thumbnailPath || undefined);
-        }
-      }
-
-      // Clear the database
-      await mediaStorage.deleteAllMedia();
-      console.log("All media deleted successfully");
-
-      res.json({ success: true, message: "All media deleted successfully" });
-    } catch (error) {
-      console.error("Error deleting all media:", error);
-      res.status(500).json({ error: "Failed to delete all media", details: error instanceof Error ? error.message : String(error) });
     }
   });
 

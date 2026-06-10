@@ -67,6 +67,10 @@ export default function AdminDashboard() {
         if (!data.authenticated) {
           setLocation("/admin");
         }
+      })
+      .catch((error) => {
+        console.error("Auth check failed:", error);
+        setLocation("/admin");
       });
   }, [setLocation]);
 
@@ -160,6 +164,8 @@ export default function AdminDashboard() {
     e.preventDefault();
     setIsUploading(true);
     setUploadProgress(0);
+
+    let interval: ReturnType<typeof setInterval> | undefined;
 
     const formData = new FormData(e.currentTarget);
 
@@ -264,7 +270,7 @@ export default function AdminDashboard() {
       }
 
       // Show progress updates
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         setUploadProgress((prev) => Math.min(prev + 10, 90));
       }, 500);
 
@@ -275,6 +281,7 @@ export default function AdminDashboard() {
       });
 
       clearInterval(interval);
+      interval = undefined;
       setUploadProgress(100);
 
       const data = await response.json();
@@ -298,6 +305,7 @@ export default function AdminDashboard() {
         variant: "destructive",
       });
     } finally {
+      if (interval) clearInterval(interval);
       setIsUploading(false);
       setUploadProgress(0);
       setSelectedCategory("");
@@ -308,6 +316,7 @@ export default function AdminDashboard() {
   // Format file size
   const formatFileSize = (bytes: string) => {
     const size = parseInt(bytes);
+    if (isNaN(size)) return bytes || "-";
     if (size < 1024) return `${size} B`;
     if (size < 1024 * 1024) return `${(size / 1024).toFixed(1)} KB`;
     return `${(size / (1024 * 1024)).toFixed(1)} MB`;

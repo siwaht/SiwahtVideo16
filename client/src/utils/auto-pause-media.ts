@@ -4,6 +4,7 @@
  */
 
 let globalObserver: IntersectionObserver | null = null;
+let mutationObserver: MutationObserver | null = null;
 const observedElements = new Set<HTMLMediaElement>();
 
 interface MediaState {
@@ -57,8 +58,9 @@ export function initializeAutoPauseMedia() {
   // Observe all existing media elements
   startObservingAllMedia();
 
-  // Set up mutation observer to catch dynamically added media
-  const mutationObserver = new MutationObserver((mutations) => {
+  // Set up mutation observer to catch dynamically added media and
+  // stop observing media that is removed from the DOM.
+  mutationObserver = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
         if (node.nodeType === Node.ELEMENT_NODE) {
@@ -71,6 +73,19 @@ export function initializeAutoPauseMedia() {
           const mediaElements = element.querySelectorAll('video, audio');
           mediaElements.forEach((media) => {
             observeMediaElement(media as HTMLMediaElement);
+          });
+        }
+      });
+
+      mutation.removedNodes.forEach((node) => {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          const element = node as Element;
+          if (element.tagName === 'VIDEO' || element.tagName === 'AUDIO') {
+            unobserveMediaElement(element as HTMLMediaElement);
+          }
+          const mediaElements = element.querySelectorAll('video, audio');
+          mediaElements.forEach((media) => {
+            unobserveMediaElement(media as HTMLMediaElement);
           });
         }
       });
@@ -100,10 +115,22 @@ function observeMediaElement(media: HTMLMediaElement) {
   mediaStates.set(media, { wasPlaying: false, shouldAutoResume: false });
 }
 
+function unobserveMediaElement(media: HTMLMediaElement) {
+  if (!observedElements.has(media)) return;
+
+  globalObserver?.unobserve(media);
+  observedElements.delete(media);
+  mediaStates.delete(media);
+}
+
 export function cleanupAutoPauseMedia() {
   if (globalObserver) {
     globalObserver.disconnect();
     globalObserver = null;
+  }
+  if (mutationObserver) {
+    mutationObserver.disconnect();
+    mutationObserver = null;
   }
   observedElements.clear();
 }
